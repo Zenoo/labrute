@@ -43,6 +43,7 @@ import { generateFight } from './utils/fight/generateFight.js';
 import { logMemory } from './utils/memory.js';
 import { shuffle } from './utils/shuffle.js';
 import { cleanupAccountObservations, reportMultipleAccountObservations } from './utils/accountObservations.js';
+import { enforceMultipleAccountCases } from './utils/automaticCaseActions.js';
 import { traced } from './utils/trace.js';
 import { ilike } from './utils/ilike.js';
 import { computeDailyStats } from './utils/stats/computeDailyStats.js';
@@ -2523,8 +2524,9 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     await calculateAchievementRankings(prisma);
     logMemory('After calculating achievement rankings');
 
-    // Calibrate new observations without issuing automatic sanctions.
+    // Capture evidence, then process the user's automatic threshold policy in bounded batches.
     await reportMultipleAccountObservations(prisma, LOGGER);
+    await enforceMultipleAccountCases(prisma, LOGGER);
     logMemory('After reporting multiple-account observations');
 
     // Generate bots

@@ -42,6 +42,7 @@ model User {
   createdAt               DateTime                 @default(now()) @db.Timestamp()
   bannedAt                DateTime?                @db.Timestamp()
   banReason               String?
+  banAppealCode           String?                  @db.Uuid
   displayVersusPage       Boolean                  @default(true)
   alwaysDisplayScrubber   Boolean                  @default(false)
   displayOpponentDetails  Boolean                  @default(false)
@@ -836,6 +837,7 @@ model BannedBrowser {
 // Immutable evidence snapshots from daily detection; IDs survive account deletion.
 model MultipleAccountCase {
   id            String                      @id @db.Char(64)
+  appealCode    String                      @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   ruleVersion   Int
   signal        String                      @db.VarChar(32)
   browserId     String?                     @db.Uuid
@@ -855,8 +857,30 @@ model MultipleAccountCase {
   status        String                      @default("open") @db.VarChar(16)
   revision      Int                         @default(1)
   reviews       MultipleAccountCaseReview[]
+  automaticAt   DateTime?                   @db.Timestamptz(3)
+  automaticNote String?                     @db.VarChar(500)
+  actions       MultipleAccountCaseAction[]
 
   @@index([status, detectedAt, id])
+  @@index([status, revision, id])
+  @@index([userIds], type: Gin)
+}
+
+// Durable per-account automatic jobs and outcomes; no account-deletion cascade.
+model MultipleAccountCaseAction {
+  caseId        String              @db.Char(64)
+  case          MultipleAccountCase @relation(fields: [caseId], references: [id], onDelete: Restrict)
+  userId        String              @db.Uuid
+  policyVersion Int
+  status        String              @default("pending") @db.VarChar(16)
+  reason        String              @db.VarChar(500)
+  attempts      Int                 @default(0)
+  createdAt     DateTime            @default(now()) @db.Timestamptz(3)
+  updatedAt     DateTime            @default(now()) @db.Timestamptz(3)
+
+  @@id([caseId, userId])
+  @@index([caseId, status, userId])
+  @@index([userId, updatedAt])
 }
 
 model MultipleAccountCaseReview {

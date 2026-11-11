@@ -12,7 +12,7 @@ import {
   TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useMemo, useState
+  useCallback, useEffect, useRef, useState
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../../components/FantasyButton';
@@ -27,7 +27,7 @@ import dayjs from 'dayjs';
 import { useConfirm } from '../../hooks/useConfirm';
 import { useParams } from 'react-router';
 import { Link } from '../../components/Link';
-import { IdentifierList } from '../../components/IdentifierList';
+import { UserCasePanel } from '../../components/admin/UserCasePanel';
 
 export const UserAdminView = () => {
   const { t } = useTranslation('admin');
@@ -43,54 +43,38 @@ export const UserAdminView = () => {
   const [achievements, setAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
   const [initialAchievements, setInitialAchievements] = useState<UserGetAdminResponse['user']['achievements']>([]);
   const [banReason, setBanReason] = useState('');
+  const requestId = useRef(0);
+  const [securityHistory, setSecurityHistory] = useState<UserGetAdminResponse['securityHistory']>([]);
   const [brutesOpen, setBrutesOpen] = useState(false);
-  const [fingerprintsOpen, setFingerprintsOpen] = useState(false);
-  const [browserIdsOpen, setBrowserIdsOpen] = useState(false);
   const [item, setItem] = useState<InventoryItemType | ''>('');
-  const highlightedFingerprints = useMemo(() => new Set(user?.fingerprints), [user?.fingerprints]);
-  const highlightedBrowsers = useMemo(() => new Set(user?.browserIds), [user?.browserIds]);
+
+  const invalidateRequests = useCallback(() => {
+    requestId.current++;
+  }, []);
 
   // Change user id or name
   const changeUserIdOrName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    invalidateRequests();
+    setUser(null);
+    setSecurityHistory([]);
+    setDuplicates([]);
     setUserIdOrName(e.target.value.trim());
-  }, []);
+  }, [invalidateRequests]);
 
   // Fetch user
   const updateUser = useCallback(() => {
-    Server.User.getForAdmin({ identifier: userIdOrName }).then(({ user: u, duplicates: d }) => {
-      setDuplicates(d);
-      setUser({
-        id: u.id,
-        lang: u.lang,
-        name: u.name,
-        admin: u.admin,
-        moderator: u.moderator,
-        connexionToken: u.connexionToken,
-        bruteLimit: u.bruteLimit,
-        gold: u.gold,
-        fightSpeed: u.fightSpeed,
-        backgroundMusic: u.backgroundMusic,
-        dinorpgDone: u.dinorpgDone,
-        createdAt: u.createdAt,
-        bannedAt: u.bannedAt,
-        banReason: u.banReason,
-        ips: u.ips,
-        fingerprints: u.fingerprints,
-        browserIds: u.browserIds,
-        displayVersusPage: u.displayVersusPage,
-        alwaysDisplayScrubber: u.alwaysDisplayScrubber,
-        displayOpponentDetails: u.displayOpponentDetails,
-        lastSeen: u.lastSeen,
-        transferedBrutesCount: u.transferedBrutesCount,
-        brutes: u.brutes,
-        otherUsersSharingFingerprints: u.otherUsersSharingFingerprints,
-        otherUsersSharingBrowserIds: u.otherUsersSharingBrowserIds,
-        sharedBrowserId: u.sharedBrowserId,
-        termsAccepted: u.termsAccepted,
-      });
-      setAchievements(u.achievements);
-      // Map to new array to avoid reference
-      setInitialAchievements(u.achievements.map((a) => ({ ...a })));
+    const request = ++requestId.current;
+
+    Server.User.getForAdmin({ identifier: userIdOrName }).then((result) => {
+      if (request !== requestId.current) return;
+
+      const { achievements: currentAchievements, ...profile } = result.user;
+
+      setDuplicates(result.duplicates);
+      setUser(profile);
+      setSecurityHistory(result.securityHistory);
+      setAchievements(currentAchievements);
+      setInitialAchievements(currentAchievements.map((entry) => ({ ...entry })));
     }).catch(catchError(Alert));
   }, [Alert, Server.User, userIdOrName]);
 
@@ -102,15 +86,22 @@ export const UserAdminView = () => {
       updateUser();
     }, 1000);
 
-    return () => clearTimeout(timeout);
-  }, [userIdOrName, updateUser]);
+    return () => {
+      clearTimeout(timeout);
+      invalidateRequests();
+    };
+  }, [userIdOrName, updateUser, invalidateRequests]);
 
   // Trigger user fetch when urlUserId changes
   useEffect(() => {
     if (urlUserId) {
+      invalidateRequests();
+      setUser(null);
+      setSecurityHistory([]);
+      setDuplicates([]);
       setUserIdOrName(urlUserId);
     }
-  }, [urlUserId]);
+  }, [urlUserId, invalidateRequests]);
 
   // Save user
   const saveUser = useCallback(() => {
@@ -297,94 +288,17 @@ export const UserAdminView = () => {
                     </Table>
                   </Collapse>
                 </TableContainer>
-                <TableContainer component={Paper}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing fingerprints ({user.otherUsersSharingFingerprints.length + 1})</Text>
-                    {renderExpandButton(fingerprintsOpen, setFingerprintsOpen)}
-                  </Box>
-                  <Collapse in={fingerprintsOpen} mountOnEnter unmountOnExit>
-                    <Table sx={{ minWidth: 650 }} size="small">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Name</TableCell>
-                          <TableCell align="right">ID</TableCell>
-                          <TableCell align="right">Fingerprints</TableCell>
-                          <TableCell align="right">Created At</TableCell>
-                          <TableCell align="right">Last seen</TableCell>
-                          <TableCell align="right">Banned At</TableCell>
-                          <TableCell align="right">Ban Reason</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {[user, ...user.otherUsersSharingFingerprints].map((otherUser) => (
-                          <TableRow
-                            key={otherUser.id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {otherUser.name}
-                            </TableCell>
-                            <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
-                            <TableCell align="right">
-                              <IdentifierList
-                                values={otherUser.fingerprints}
-                                highlightedValues={highlightedFingerprints}
-                              />
-                            </TableCell>
-                            <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
-                            <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
-                            <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
-                            <TableCell align="right">{otherUser.banReason ? t(`user:banReason.${otherUser.banReason}`) : ''}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </Collapse>
-                </TableContainer>
-                <TableContainer component={Paper} sx={{ mb: 2 }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Users sharing browser IDs ({user.otherUsersSharingBrowserIds.length + 1})</Text>
-                    {renderExpandButton(browserIdsOpen, setBrowserIdsOpen)}
-                  </Box>
-                  <Collapse in={browserIdsOpen} mountOnEnter unmountOnExit>
-                    <Table sx={{ minWidth: 650 }} size="small">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Name</TableCell>
-                          <TableCell align="right">ID</TableCell>
-                          <TableCell align="right">Browser IDs</TableCell>
-                          <TableCell align="right">Created At</TableCell>
-                          <TableCell align="right">Last seen</TableCell>
-                          <TableCell align="right">Banned At</TableCell>
-                          <TableCell align="right">Ban Reason</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {[user, ...user.otherUsersSharingBrowserIds].map((otherUser) => (
-                          <TableRow
-                            key={otherUser.id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {otherUser.name}
-                            </TableCell>
-                            <TableCell align="right"><Link to={`/admin-panel/user/${otherUser.id}`}>{otherUser.id}</Link></TableCell>
-                            <TableCell align="right">
-                              <IdentifierList
-                                values={otherUser.browserIds}
-                                highlightedValues={highlightedBrowsers}
-                              />
-                            </TableCell>
-                            <TableCell align="right">{dayjs(otherUser.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
-                            <TableCell align="right">{dayjs(otherUser.lastSeen).utc().format('YYYY-MM-DD HH:mm:ss')}</TableCell>
-                            <TableCell align="right">{otherUser.bannedAt ? dayjs(otherUser.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
-                            <TableCell align="right">{otherUser.banReason ? t(`user:banReason.${otherUser.banReason}`) : ''}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </Collapse>
-                </TableContainer>
+                <UserCasePanel key={user.id} userId={user.id} />
+                <Paper sx={{ p: 2 }}>
+                  <Text h3>Latest 25 account sanction decisions</Text>
+                  {securityHistory.length === 0 && <Text>No recorded account decisions.</Text>}
+                  {securityHistory.map((entry) => (
+                    <Text key={entry.id} sx={{ overflowWrap: 'anywhere' }}>
+                      {dayjs(entry.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}: {entry.action}
+                      {' '}by {entry.actorId ?? 'automatic policy'}. {entry.reason}
+                    </Text>
+                  ))}
+                </Paper>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <FormControl fullWidth>

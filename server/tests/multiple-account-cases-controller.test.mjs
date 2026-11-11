@@ -37,7 +37,7 @@ test('review uses the authenticated reviewer ID and delegates bounded filters an
   const req = { admin: true, query: { status: 'open', cursor: 'b'.repeat(64), offset: '25' },
     params: { id }, body: { revision: 1, decision: 'dismissed', reason: 'Reviewed', reviewerId: 'forged' } };
   await MultipleAccountCases.list(db)(req, response());
-  assert.deepEqual(calls.at(-1), ['list', db, 'open', 'b'.repeat(64)]);
+  assert.deepEqual(calls.at(-1), ['list', db, 'open', 'b'.repeat(64), undefined]);
   await MultipleAccountCases.get(db)(req, response());
   assert.deepEqual(calls.at(-1), ['get', db, id, '25']);
   await MultipleAccountCases.review(db)(req, response());

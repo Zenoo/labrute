@@ -33,7 +33,10 @@ mock.module('../lib/utils/ServerState.js', {
   } },
 });
 mock.module('../lib/utils/user/banUser.js', {
-  namedExports: { banUser: async (...args) => { bans.push(args); } },
+  namedExports: {
+    banUser: async (...args) => { bans.push(args); },
+    banUserInTransaction: async () => { throw new Error('Unexpected automatic ban in request tests'); },
+  },
 });
 
 const { getBrowserId } = await import('../lib/utils/browserId.js');

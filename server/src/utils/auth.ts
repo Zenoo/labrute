@@ -13,6 +13,7 @@ import { increaseStats } from './stats/updateStats.js';
 import { recordAccountObservation } from './accountObservations.js';
 import { logSecurityRejection } from './securityRejectionLog.js';
 import { getClientIp } from './clientIp.js';
+import { bannedAccountMessage } from './user/bannedAccountMessage.js';
 
 export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
@@ -53,7 +54,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   }
 
   if (user.bannedAt) {
-    throw new ForbiddenError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
+    throw new ForbiddenError(bannedAccountMessage(user));
   }
 
   // Update user's IP

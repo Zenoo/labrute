@@ -1,12 +1,12 @@
 import { BruteDeletionReason } from '@labrute/core';
 import {
-  Brute, Clan, Prisma, PrismaClient
+  Brute, Clan, Prisma
 } from '@labrute/prisma';
 import { updateClanPoints } from '../clan/updateClanPoints.js';
 import { traced } from '../trace.js';
 
 export const deleteBrutes = async (
-  prisma: PrismaClient,
+  prisma: Prisma.TransactionClient,
   brutes: (Pick<Brute, 'id' | 'clanId' | 'level' | 'ranking' | 'ascensions'> & { masterOfClan: Pick<Clan, 'id'> | null })[],
   /** If not set to null, will default to BANNED_USER */
   _reason?: BruteDeletionReason | null,

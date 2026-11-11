@@ -139,6 +139,7 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   bannedAt: 'bannedAt',
   banReason: 'banReason',
+  banAppealCode: 'banAppealCode',
   displayVersusPage: 'displayVersusPage',
   alwaysDisplayScrubber: 'alwaysDisplayScrubber',
   displayOpponentDetails: 'displayOpponentDetails',
@@ -419,6 +420,7 @@ exports.Prisma.BannedBrowserScalarFieldEnum = {
 
 exports.Prisma.MultipleAccountCaseScalarFieldEnum = {
   id: 'id',
+  appealCode: 'appealCode',
   ruleVersion: 'ruleVersion',
   signal: 'signal',
   browserId: 'browserId',
@@ -436,7 +438,20 @@ exports.Prisma.MultipleAccountCaseScalarFieldEnum = {
   exemptions: 'exemptions',
   excludedCount: 'excludedCount',
   status: 'status',
-  revision: 'revision'
+  revision: 'revision',
+  automaticAt: 'automaticAt',
+  automaticNote: 'automaticNote'
+};
+
+exports.Prisma.MultipleAccountCaseActionScalarFieldEnum = {
+  caseId: 'caseId',
+  userId: 'userId',
+  policyVersion: 'policyVersion',
+  status: 'status',
+  reason: 'reason',
+  attempts: 'attempts',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.MultipleAccountCaseReviewScalarFieldEnum = {
@@ -1045,6 +1060,7 @@ exports.Prisma.ModelName = {
   SecurityAction: 'SecurityAction',
   BannedBrowser: 'BannedBrowser',
   MultipleAccountCase: 'MultipleAccountCase',
+  MultipleAccountCaseAction: 'MultipleAccountCaseAction',
   MultipleAccountCaseReview: 'MultipleAccountCaseReview',
   Clan: 'Clan',
   ClanThread: 'ClanThread',

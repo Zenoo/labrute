@@ -8,18 +8,30 @@ const data = `
 const time = '2026-11-11T12:00:00Z';
 const makeCase = (id, signal, count) => ({id: id.repeat(64), signal, accountCount: count,
   threshold: signal === 'browser' ? 3 : 30, status: 'open', revision: 1, ruleVersion: 1,
+  appealCode: id.repeat(8)+'-'+id.repeat(4)+'-4'+id.repeat(3)+'-8'+id.repeat(3)+'-'+id.repeat(12),
   confidence: 'uncalibrated', detectedAt: time, firstSeen: time, lastSeen: time,
   windowStart: time, windowEnd: time, browserId: id + '-browser', excludedCount: 0});
 const cases = [makeCase('a', 'fingerprint-ip', 31), makeCase('b', 'browser', 4), makeCase('c', 'browser', 5)];
 const fixture = window.__fixture = { requests: [], errors: [], reviews: [], User: {
-  async multipleAccounts(status, cursor) {
+  async getForAdmin({identifier}) {
+    fixture.requests.push(['profile',identifier]);
+    return {duplicates:[],securityHistory:[{id:'audit',action:'ban',actorId:null,createdAt:time,
+      reason:'Case-linked automatic ban'}],user:{id:identifier,name:'Profile case account',lang:'en',
+      admin:false,moderator:false,connexionToken:'test',bruteLimit:3,gold:0,fightSpeed:1,
+      backgroundMusic:true,dinorpgDone:null,createdAt:time,lastSeen:time,bannedAt:time,
+      banReason:'multipleAccounts',brutes:[],achievements:[],displayVersusPage:false,
+      alwaysDisplayScrubber:false,displayOpponentDetails:false,transferedBrutesCount:0,termsAccepted:true}};
+  },
+  async multipleAccounts(status, cursor, userId) {
     fixture.requests.push(['list', status, cursor]);
-    const rows = cases.filter(c => c.status === status);
+    if(userId) return {cases:[{...cases[0], accountAction:{caseId:cases[0].id, userId,
+      policyVersion:1,status:'banned',reason:'Case-linked automatic ban',attempts:1,updatedAt:time}}],nextCursor:null};
+    const rows = cases.filter(c => status === 'all' || c.status === status);
     return {cases: cursor ? rows.slice(2) : rows.slice(0, 2), nextCursor: !cursor && rows.length > 2 ? 'page2' : null};
   },
   async multipleAccountCase(id, offset = 0) {
     fixture.requests.push(['detail', id, offset]);
-    const row = cases.find(c => c.id === id);
+    const row = cases.find(c => c.id === id || ('MC-'+c.appealCode).toLowerCase() === id.trim().toLowerCase());
     if (id[0] === 'a') await new Promise(resolve => setTimeout(resolve, 180));
     return {case: {...row}, users: Array.from({length: Math.min(25, row.accountCount - offset)}, (_, i) =>
       ({id: id[0] + '-user-' + (offset+i), name: 'Account' + (offset+i), bannedAt: null})),
@@ -40,10 +52,12 @@ export default fixture;
 const entry = `
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {MemoryRouter} from 'react-router';
+import {MemoryRouter, Routes, Route} from 'react-router';
 import {MultipleAccountsView} from '/src/views/admin/MultipleAccountsView.tsx';
+import {UserAdminView} from '/src/views/admin/UserAdminView.tsx';
 import fixture from 'virtual:case-data';
-createRoot(document.getElementById('root')).render(React.createElement(MemoryRouter, {}, React.createElement(MultipleAccountsView)));
+const root = createRoot(document.getElementById('root'));
+root.render(React.createElement(MemoryRouter, {}, React.createElement(MultipleAccountsView)));
 const wait = async (fn) => { for(let i=0;i<300;i++){if(fn()) return; await new Promise(r=>setTimeout(r,20));} throw new Error('Timed out: '+fn); };
 const button = (label) => [...document.querySelectorAll('button')].find(b => b.textContent.includes(label));
 const assert = (condition, message) => {if(!condition) throw new Error(message);};
@@ -79,10 +93,26 @@ const assert = (condition, message) => {if(!condition) throw new Error(message);
   assert(!document.querySelector('b'), 'review text was interpreted as HTML');
   assert(fixture.requests.filter(r => r[0] === 'review').length === 1, 'duplicate review');
   assert(fixture.reviews[0].caseId[0] === 'a', 'review saved for wrong selection');
+  const appealInput = document.querySelector('input');
+  const appealCode = 'MC-bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
+  Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(appealInput, appealCode);
+  appealInput.dispatchEvent(new Event('input', {bubbles:true}));
+  await wait(() => !button('Find appeal').disabled);
+  button('Find appeal').click();
+  await wait(() => document.body.textContent.includes('b-browser'));
+  assert(document.body.textContent.includes(appealCode), 'appeal did not resolve the requested case');
   assert(fixture.errors.length === 0, JSON.stringify(fixture.errors));
+  root.render(React.createElement(MemoryRouter, {key:'profile', initialEntries:['/admin-panel/user/11111111-1111-4111-8111-111111111111']},
+    React.createElement(Routes,{},React.createElement(Route,{path:'/admin-panel/user/:id', element:React.createElement(UserAdminView)}))));
+  await wait(() => document.body.textContent.includes('Case-linked automatic ban'));
+  assert(document.body.textContent.includes('Multiple-account cases and automatic actions'), 'profile missing cases');
+  assert(!document.body.textContent.includes('Users sharing fingerprints'), 'legacy fingerprint table still mounted');
+  assert(!document.body.textContent.includes('Users sharing browser IDs'), 'legacy browser table still mounted');
+  assert([...document.querySelectorAll('a')].some(a => a.getAttribute('href')?.includes('/admin-panel/multiple-accounts?case=')), 'profile missing case deep link');
+  assert(document.body.textContent.includes('Latest 25 account sanction decisions'), 'profile missing audit trail');
   document.body.dataset.caseResult = 'passed';
   document.getElementById('result').textContent = JSON.stringify({result:'passed', requests:fixture.requests.length,
-    checks:['case pagination','account pagination','stale response discarded','reason escaped','review saved once']});
+    checks:['case pagination','account pagination','stale response discarded','reason escaped','review saved once','appeal code lookup','user profile uses cases and action audit']});
 })().catch(error => {document.body.dataset.caseResult='failed';document.getElementById('result').textContent=error.stack;});
 `;
 
@@ -92,7 +122,7 @@ const server = await createServer({ root: process.cwd(), configFile: false, appT
   plugins: [{ name: 'case-fixture', enforce: 'pre',
     resolveId(source, importer) {
       if (source === 'virtual:case-data' || source === '/case-entry.jsx') return '\0' + source;
-      if (importer?.replaceAll('\\', '/').endsWith('/views/admin/MultipleAccountsView.tsx')) {
+      if (importer && /\/(?:views\/admin\/(?:MultipleAccountsView|UserAdminView)|components\/admin\/UserCasePanel)\.tsx$/.test(importer.replaceAll('\\', '/'))) {
         if (source.endsWith('/hooks/useAuth')) return '\0case-auth';
         if (source.endsWith('/hooks/useServer')) return '\0case-server';
         if (source.endsWith('/hooks/useAlert')) return '\0case-alert';

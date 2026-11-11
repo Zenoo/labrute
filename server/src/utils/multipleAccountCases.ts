@@ -19,10 +19,11 @@ const validStatus = (status: unknown) => typeof status === 'string'
   && ['open', 'dismissed', 'needs-action'].includes(status);
 
 const summary = {
-  id: true, ruleVersion: true, signal: true, browserId: true, fingerprint: true, ip: true,
+  id: true, appealCode: true, ruleVersion: true, signal: true, browserId: true,
+  fingerprint: true, ip: true,
   accountCount: true, threshold: true, confidence: true, firstSeen: true, lastSeen: true,
   windowStart: true, windowEnd: true, detectedAt: true,
-  excludedCount: true, status: true, revision: true,
+  excludedCount: true, status: true, revision: true, automaticAt: true, automaticNote: true,
 } satisfies Prisma.MultipleAccountCaseSelect;
 
 /** Snapshot changed evidence only; retries cannot overwrite evidence or reviewer decisions. */
@@ -94,20 +95,35 @@ export const createMultipleAccountCases = async (
 };
 
 export const listMultipleAccountCases = async (
-  prisma: PrismaClient, status: unknown = 'open', cursor?: unknown,
+  prisma: PrismaClient, status: unknown = 'open', cursor?: unknown, userId?: unknown,
 ): Promise<UserMultipleAccountsListResponse> => {
-  if (!validStatus(status) || (cursor !== undefined && !validId(cursor))) {
+  if ((!validStatus(status) && status !== 'processed' && status !== 'all')
+    || (cursor !== undefined && !validId(cursor))
+    || (userId !== undefined && (typeof userId !== 'string' || !isUuid(userId)))) {
     throw new ExpectedError('Invalid case filter or cursor');
   }
 
   const rows = await prisma.multipleAccountCase.findMany({
-    where: { status: String(status) }, select: summary,
+    where: {
+      ...(status !== 'all' ? { status: String(status) } : {}),
+      ...(typeof userId === 'string' ? { userIds: { has: userId.toLowerCase() } } : {})
+    }, select: summary,
     orderBy: [{ detectedAt: 'desc' }, { id: 'desc' }], take: PAGE_SIZE + 1,
     ...(typeof cursor === 'string' ? { cursor: { id: cursor }, skip: 1 } : {}),
   });
 
+  const page = rows.slice(0, PAGE_SIZE);
+  const actions = typeof userId === 'string' && page.length
+    ? await prisma.multipleAccountCaseAction.findMany({
+      where: {
+        userId: userId.toLowerCase(),
+        caseId: { in: page.map((row) => row.id) }
+      }
+    }) : [];
+  const byCase = new Map(actions.map((action) => [action.caseId, action]));
+
   return {
-    cases: rows.slice(0, PAGE_SIZE),
+    cases: page.map((row) => ({ ...row, accountAction: byCase.get(row.id) })),
     nextCursor: rows.length > PAGE_SIZE
       ? rows[PAGE_SIZE - 1]?.id ?? null
       : null
@@ -117,46 +133,56 @@ export const listMultipleAccountCases = async (
 export const getMultipleAccountCase = async (
   prisma: PrismaClient, id: unknown, offset: unknown = '0',
 ): Promise<MultipleAccountCaseDetailResponse> => {
-  if (!validId(id) || typeof offset !== 'string' || !/^\d{1,8}$/.test(offset)) {
+  const code = typeof id === 'string' ? id.trim().replace(/^MC-/i, '').toLowerCase() : '';
+  if ((!validId(id) && !isUuid(code)) || typeof offset !== 'string' || !/^\d{1,8}$/.test(offset)) {
     throw new ExpectedError('Invalid case ID or account offset');
   }
 
   const index = Number(offset);
 
   const row = await prisma.multipleAccountCase.findUnique({
-    where: { id },
+    where: validId(id) ? { id } : { appealCode: code },
     select: { ...summary, exemptions: true }
   });
 
   if (!row) throw new NotFoundError('Case not found');
+  const caseId = row.id;
 
   const [members, reviews] = await Promise.all([
     prisma.$queryRaw<{ id: string }[]>`
       SELECT member.id::text AS id FROM "MultipleAccountCase" c
       CROSS JOIN LATERAL unnest(c."userIds"[${index + 1}::int : ${index + PAGE_SIZE + 1}::int])
         WITH ORDINALITY AS member(id, position)
-      WHERE c.id = ${id} ORDER BY member.position
+      WHERE c.id = ${caseId} ORDER BY member.position
     `,
     prisma.multipleAccountCaseReview.findMany({
-      where: { caseId: id },
+      where: { caseId },
       orderBy: { revision: 'desc' }, take: 25
     }),
   ]);
 
   const selected = members.slice(0, PAGE_SIZE);
 
-  const accounts = await prisma.user.findMany({
+  const [accounts, actions] = await Promise.all([prisma.user.findMany({
     where: { id: { in: selected.map((user) => user.id) } },
     select: { id: true, name: true, bannedAt: true },
-  });
+  }), prisma.multipleAccountCaseAction.findMany({
+    where: {
+      caseId,
+      userId: { in: selected.map((user) => user.id) }
+    }
+  })]);
 
   const byId = new Map(accounts.map((user) => [user.id, user]));
+  const byUser = new Map(actions.map((action) => [action.userId, action]));
 
   const { exemptions, ...caseSummary } = row;
 
   return {
-    case: caseSummary, users: selected.map((user) => byId.get(user.id)
-      ?? { id: user.id, name: null, bannedAt: null }),
+    case: caseSummary, users: selected.map((user) => ({
+      ...(byId.get(user.id) ?? { id: user.id, name: null, bannedAt: null }),
+      automaticAction: byUser.get(user.id),
+    })),
     nextAccountOffset: members.length > PAGE_SIZE ? index + PAGE_SIZE : null,
     exemptions: exemptions as unknown as MultipleAccountCaseExemption[], reviews,
   };
@@ -203,6 +229,15 @@ export const reviewMultipleAccountCase = async (
       data: {
         id: randomUUID(), caseId: id, revision: input.revision + 1,
         reviewerId: actorId, decision: input.decision, reason,
+      }
+    });
+
+    await tx.multipleAccountCaseAction.updateMany({
+      where: {
+        caseId: id,
+        status: { in: ['pending', 'failed'] }
+      }, data: {
+        status: 'skipped', reason: 'Stopped by manual case review', updatedAt: new Date(),
       }
     });
 

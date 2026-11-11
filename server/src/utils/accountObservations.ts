@@ -145,7 +145,7 @@ export const findMultipleAccountObservationGroups = async (
   `;
 };
 
-/** Report only until calibration and exemption/sanction work in steps 3 and 6 is complete. */
+/** Capture immutable detection evidence; the separate daily worker applies the sanction policy. */
 export const reportMultipleAccountObservations = async (
   prisma: PrismaClient,
   logger: { log: (message: string) => void },
@@ -160,7 +160,7 @@ export const reportMultipleAccountObservations = async (
       }, { isolationLevel: 'RepeatableRead', timeout: 30000 });
 
       if (groups.length) {
-        logger.log(`Multiple-account observations (report only): ${groups.length} groups; ${created} new review cases`);
+        logger.log(`Multiple-account observations: ${groups.length} groups; ${created} new cases`);
       }
 
       return groups;

@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { LOGGER } from '../context.js';
 import { traced } from './trace.js';
 import { normalizeIp } from './clientIp.js';
+import { lockMultipleAccountPolicy } from './multipleAccountPolicyLock.js';
 
 let SERVER_READY = true;
 let MODIFIERS: Modifiers | null = null;
@@ -185,17 +186,17 @@ const addKnownFingerprint = async (
   fingerprint: string,
   description?: string,
 ) => {
-  const knownFingerprints = await getKnownFingerprints(prisma);
+  await prisma.$transaction(async (tx) => {
+    await lockMultipleAccountPolicy(tx);
 
-  if (knownFingerprints.includes(fingerprint)) {
-    return;
+    await traced('serverState.addKnownFingerprint.createKnownFingerprint', () => tx.knownFingerprint.createMany({
+      data: [{ id: fingerprint, description }], skipDuplicates: true,
+    }));
+  });
+
+  if (KNOWN_FINGERPRINTS && !KNOWN_FINGERPRINTS.includes(fingerprint)) {
+    KNOWN_FINGERPRINTS.push(fingerprint);
   }
-
-  await traced('serverState.addKnownFingerprint.createKnownFingerprint', () => prisma.knownFingerprint.create({
-    data: { id: fingerprint, description },
-  }));
-
-  if (KNOWN_FINGERPRINTS) KNOWN_FINGERPRINTS.push(fingerprint);
 };
 
 const isFingerprintKnown = async (prisma: PrismaClient, fingerprint: string) => {
@@ -205,12 +206,13 @@ const isFingerprintKnown = async (prisma: PrismaClient, fingerprint: string) => 
 };
 
 const removeKnownFingerprint = async (prisma: PrismaClient, fingerprint: string) => {
-  await traced('serverState.removeKnownFingerprint.deleteKnownFingerprint', () => prisma.knownFingerprint.delete({
-    where: { id: fingerprint },
-  }));
+  await prisma.$transaction(async (tx) => {
+    await lockMultipleAccountPolicy(tx);
 
+    await traced('serverState.removeKnownFingerprint.deleteKnownFingerprint', () => tx.knownFingerprint.deleteMany({ where: { id: fingerprint } }));
+  });
   if (KNOWN_FINGERPRINTS) {
-    KNOWN_FINGERPRINTS = KNOWN_FINGERPRINTS.filter((fp) => fp !== fingerprint);
+    KNOWN_FINGERPRINTS = KNOWN_FINGERPRINTS.filter((known) => known !== fingerprint);
   }
 };
 

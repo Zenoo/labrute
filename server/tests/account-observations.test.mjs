@@ -127,6 +127,18 @@ before(async () => {
   for (const statement of casesMigration.split(';').filter((sql) => sql.trim())) {
     await prisma.$executeRawUnsafe(statement);
   }
+  const automaticMigration = readFileSync(new URL(
+    '../prisma/migrations/20261111210000_automatic_case_actions/migration.sql', import.meta.url,
+  ), 'utf8');
+  for (const statement of automaticMigration.split(';').filter((sql) => sql.trim())) {
+    await prisma.$executeRawUnsafe(statement);
+  }
+  const appealMigration = readFileSync(new URL(
+    '../prisma/migrations/20261111220000_ban_appeal_codes/migration.sql', import.meta.url,
+  ), 'utf8');
+  for (const statement of appealMigration.split(';').filter((sql) => sql.trim())) {
+    await prisma.$executeRawUnsafe(statement);
+  }
   fingerprintReset = {
     users: await prisma.$queryRaw`SELECT fingerprints, "bannedAt", "browserIds", ips FROM "User"`,
     known: await prisma.knownFingerprint.count(), banned: await prisma.bannedFingerprint.count(),
@@ -140,7 +152,7 @@ before(async () => {
 beforeEach(async () => {
   if (prisma) await prisma.$executeRawUnsafe(`TRUNCATE "AccountObservation", "KnownFingerprint", "User",
     "SharedBrowser", "SecurityAction", "BannedBrowser", "BannedFingerprint",
-    "MultipleAccountCaseReview", "MultipleAccountCase" CASCADE`);
+    "MultipleAccountCaseAction", "MultipleAccountCaseReview", "MultipleAccountCase" CASCADE`);
 });
 
 after(async () => {
@@ -545,7 +557,7 @@ integration('thresholds count distinct accounts, ignore old evidence and banned 
   assert.equal(groups.length, 1);
   assert.equal(groups[0].signal, 'browser');
   assert.deepEqual(groups[0].userIds, ids.sort());
-  assert.match(logs[0], /report only/);
+  assert.match(logs[0], /Multiple-account observations/);
   const banned = await prisma.$queryRaw`SELECT COUNT(*)::int AS count FROM "User" WHERE "bannedAt" IS NOT NULL`;
   assert.equal(banned[0].count, 1, 'reporting must not ban another account');
   await prisma.$executeRaw`UPDATE "User" SET "lastSeen" = ${now}`;

@@ -1,6 +1,6 @@
 import {
   AchievementData, BanBrowserRequest, BanFingerprintRequest,
-  BruteDeletionReason, CalculatedLevelUpStats, EditSharedBrowserRequest, ExpectedError,
+  CalculatedLevelUpStats, EditSharedBrowserRequest, ExpectedError,
   ForbiddenError,
   GetSharedBrowserResponse,
   InvalidAPIUseError,
@@ -35,7 +35,7 @@ import {
 } from '@labrute/core';
 import {
   Achievement,
-  InventoryItemType, Lang, PrismaClient,
+  Lang, PrismaClient,
   StatsGranularity, UserLogType
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
@@ -54,6 +54,8 @@ import { sendError } from '../utils/sendError.js';
 import { traced } from '../utils/trace.js';
 import { translate } from '../utils/translate.js';
 import { banUser } from '../utils/user/banUser.js';
+import { lockMultipleAccountPolicy } from '../utils/multipleAccountPolicyLock.js';
+import { unbanUser } from '../utils/user/unbanUser.js';
 import { deleteBrutes } from '../utils/user/deleteUserBrutes.js';
 
 export const Users = {
@@ -71,6 +73,7 @@ export const Users = {
       const isId = isUuid(req.params.identifier);
 
       const user = await traced('users.get.getUser', () => prisma.user.findFirst({
+        omit: { fingerprints: true, browserIds: true, ips: true, sharedBrowserId: true },
         where: {
           id: isId ? req.params.identifier : undefined,
           name: !isId ? ilike(req.params.identifier) : undefined,
@@ -116,64 +119,6 @@ export const Users = {
         return acc;
       }, [] as Pick<Achievement, 'count' | 'name'>[]);
 
-      // Get other users sharing fingerprints
-      const otherUsersSharingFingerprints = await traced('users.get.otherUsersSharingFingerprints', () => prisma.user.findMany({
-        where: {
-          fingerprints: {
-            hasSome: user.fingerprints,
-          },
-          id: {
-            not: user.id,
-          },
-        },
-        select: {
-          id: true,
-          name: true,
-          bannedAt: true,
-          banReason: true,
-          fingerprints: true,
-          lastSeen: true,
-          createdAt: true,
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      }));
-
-      // Ignore known fingerprints
-      const knownFingerprints = await ServerState.getKnownFingerprints(prisma);
-
-      const filteredOtherUsersSharingFingerprints = otherUsersSharingFingerprints
-        .map((otherUser) => ({
-          ...otherUser,
-          fingerprints: otherUser.fingerprints.filter((fp) => !knownFingerprints.includes(fp)),
-        }))
-        .filter((otherUser) => user.fingerprints.some((fp) => otherUser.fingerprints.includes(fp)));
-
-      // Get other users sharing browser IDs
-      const otherUsersSharingBrowserIds = await traced('users.get.otherUsersSharingBrowserIds', () => prisma.user.findMany({
-        where: {
-          browserIds: {
-            hasSome: user.browserIds,
-          },
-          id: {
-            not: user.id,
-          },
-        },
-        select: {
-          id: true,
-          name: true,
-          bannedAt: true,
-          banReason: true,
-          browserIds: true,
-          lastSeen: true,
-          createdAt: true,
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      }));
-
       // List other users with the same identifier (name)
       const duplicates = isId ? [] : await traced('users.get.findDuplicates', () => prisma.user.findMany({
         where: {
@@ -188,13 +133,21 @@ export const Users = {
         },
       }));
 
+      const securityHistory = await prisma.securityAction.findMany({
+        where: {
+          subjectType: 'account',
+          subjectId: user.id,
+        },
+        orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+        take: 25
+      });
+
       res.send({
+        securityHistory,
         duplicates,
         user: {
           ...user,
           achievements: mergedAchievements,
-          otherUsersSharingFingerprints: filteredOtherUsersSharingFingerprints,
-          otherUsersSharingBrowserIds,
         },
       });
     } catch (error) {
@@ -383,12 +336,9 @@ export const Users = {
       }
 
       // Update the user
-      await traced('users.adminUpdate.updateUser', () => prisma.user.update({
-        where: { id: user.id },
-        data: {
-          ...req.body.user,
-        },
-        select: { id: true },
+      await traced('users.adminUpdate.updateUser', () => prisma.$transaction(async (tx) => {
+        await lockMultipleAccountPolicy(tx);
+        await tx.user.update({ where: { id: user.id }, data: req.body.user, select: { id: true } });
       }));
 
       // Update achievements
@@ -939,86 +889,7 @@ export const Users = {
         throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
       }
 
-      const user = await traced('users.unban.getUser', () => prisma.user.findFirst({
-        where: { id: req.body.userId },
-        select: {
-          bannedAt: true,
-          brutes: {
-            where: {
-              deletedAt: { not: null },
-              deletionReason: BruteDeletionReason.BANNED_USER,
-            },
-            select: { id: true, name: true },
-          },
-        },
-      }));
-
-      if (!user) {
-        throw new NotFoundError(translate('userNotFound', authed));
-      }
-
-      if (!user.bannedAt) {
-        throw new ForbiddenError(translate('userNotBanned', authed));
-      }
-
-      // Unban only this account. Identifier/network restrictions require their own review.
-      await traced('users.unban.updateUser', () => prisma.user.update({
-        where: { id: req.body.userId },
-        data: {
-          bannedAt: null,
-          banReason: null,
-        },
-      }));
-
-      // Restore all brutes
-      for (const brute of user.brutes) {
-        // Check if the name is available
-        const existingBrute = await traced('users.unban.getExistingBrute', () => prisma.brute.count({
-          where: {
-            name: brute.name,
-            deletedAt: null,
-          },
-        }));
-
-        if (existingBrute) {
-          // Rename brute with _unbanned suffix
-          await traced('users.unban.updateBruteName', () => prisma.brute.update({
-            where: { id: brute.id },
-            data: {
-              name: `${brute.name}_unbanned`,
-            },
-          }));
-
-          // Add 1x free name change
-          await traced('users.unban.upsertInventoryItem', () => prisma.inventoryItem.upsert({
-            where: {
-              type_bruteId: {
-                type: InventoryItemType.nameChange,
-                bruteId: brute.id,
-              },
-            },
-            create: {
-              type: InventoryItemType.nameChange,
-              count: 1,
-              bruteId: brute.id,
-            },
-            update: {
-              count: {
-                increment: 1,
-              },
-            },
-          }));
-        }
-
-        // Restore brute
-        await traced('users.unban.updateBrute', () => prisma.brute.update({
-          where: { id: brute.id },
-          data: {
-            deletedAt: null,
-            deletionReason: null,
-          },
-        }));
-      }
+      await unbanUser(prisma, req.body.userId, authed);
 
       res.send({
         success: true,

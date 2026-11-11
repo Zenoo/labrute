@@ -76,7 +76,9 @@ try {
   await prisma.$executeRawUnsafe(`CREATE TABLE "User" (
     id UUID PRIMARY KEY, "connexionToken" UUID NOT NULL, lang TEXT DEFAULT 'en',
     admin BOOLEAN DEFAULT false, moderator BOOLEAN DEFAULT false, "bannedAt" TIMESTAMP, "banReason" TEXT,
-    "lastSeen" DATE DEFAULT CURRENT_DATE, ips TEXT[], fingerprints TEXT[], "browserIds" TEXT[],
+    "banAppealCode" UUID,
+    "lastSeen" DATE DEFAULT ((CURRENT_TIMESTAMP AT TIME ZONE 'UTC')::date),
+    ips TEXT[], fingerprints TEXT[], "browserIds" TEXT[],
     "sharedBrowserId" TEXT
   )`);
   await prisma.$executeRawUnsafe('CREATE TABLE "KnownFingerprint" (id VARCHAR(255) PRIMARY KEY)');

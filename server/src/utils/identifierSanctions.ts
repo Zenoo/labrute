@@ -3,6 +3,7 @@ import {
   Prisma, PrismaClient, User
 } from '@labrute/prisma';
 import { isFingerprintFormatValid } from './fingerprintIdentity.js';
+import { lockMultipleAccountPolicy } from './multipleAccountPolicyLock.js';
 
 const reviewReason = (reason: unknown) => {
   if (typeof reason !== 'string' || !reason.trim() || reason.trim().length > 500) {
@@ -57,7 +58,7 @@ export const getIdentifierRestrictions = async (
 };
 
 type AuthenticationUser = Pick<User,
-  'id' | 'lang' | 'admin' | 'moderator' | 'bannedAt' | 'banReason'
+  'id' | 'lang' | 'admin' | 'moderator' | 'bannedAt' | 'banReason' | 'banAppealCode'
   | 'ips' | 'fingerprints' | 'browserIds' | 'lastSeen'
 > & IdentifierRestrictions;
 
@@ -71,7 +72,7 @@ export const findUserForAuthentication = async (
   // Preserve fresh moderation checks without adding a round trip to every authenticated request.
   const [user] = await prisma.$queryRaw<AuthenticationUser[]>`
     SELECT u.id, u.lang::text AS lang, u.admin, u.moderator, u."bannedAt", u."banReason",
-      u.ips, u.fingerprints, u."browserIds", u."lastSeen",
+      u.ips, u.fingerprints, u."browserIds", u."lastSeen", u."banAppealCode",
       restrictions."browserRestricted", restrictions."fingerprintRestricted"
     FROM "User" u
     CROSS JOIN LATERAL (
@@ -133,35 +134,47 @@ export const editSharedBrowserExemptions = async (
   removeBrowser = false,
 ) => {
   const reviewedReason = reviewReason(reason);
+
   if (!isUuid(actorId) || browserId.length !== 36 || !isUuid(browserId)
     || !Array.isArray(userIds) || userIds.some((id) => typeof id !== 'string' || !isUuid(id))) {
     throw new ExpectedError('Invalid shared-browser identifiers');
   }
+
   const subjectId = browserId.toLowerCase();
   const requested = new Set(removeBrowser ? [] : userIds.map((id) => id.toLowerCase()));
+
   await prisma.$transaction(async (tx) => {
+    await lockMultipleAccountPolicy(tx);
+
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${`shared-browser:${subjectId}`}, 0))`;
+
     if (!removeBrowser) await tx.sharedBrowser.upsert({
       where: { id: subjectId },
       create: { id: subjectId, description: reviewedReason },
       update: { description: reviewedReason },
     });
+
     const existing = await tx.sharedBrowserExemption.findMany({ where: { browserId: subjectId } });
+
     for (const member of existing) {
       const retained = requested.has(member.userId);
+
       if (retained && member.reason === reviewedReason) {
         requested.delete(member.userId);
         continue;
       }
+
       if (retained) {
         await tx.sharedBrowserExemption.update({
           where: { userId_browserId: { userId: member.userId, browserId: subjectId } },
           data: { reason: reviewedReason },
         });
+
         requested.delete(member.userId);
       } else await tx.sharedBrowserExemption.delete({
         where: { userId_browserId: { userId: member.userId, browserId: subjectId } },
       });
+
       await tx.securityAction.create({
         data: {
           subjectType: 'shared-browser', subjectId, userId: member.userId, actorId,
@@ -169,12 +182,14 @@ export const editSharedBrowserExemptions = async (
         }
       });
     }
+
     for (const userId of requested) {
       await tx.sharedBrowserExemption.create({
         data: {
           browserId: subjectId, userId, createdBy: actorId, reason: reviewedReason,
         }
       });
+
       await tx.securityAction.create({
         data: {
           subjectType: 'shared-browser', subjectId, userId, actorId,
@@ -182,6 +197,7 @@ export const editSharedBrowserExemptions = async (
         }
       });
     }
+
     if (removeBrowser) await tx.sharedBrowser.delete({ where: { id: subjectId } });
   });
 };

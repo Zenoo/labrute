@@ -3,6 +3,7 @@ import { after, before, mock, test } from 'node:test';
 import { randomUUID } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import i18next from 'i18next';
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { AuthType } from '@eternaltwin/core/auth/auth-type';
 import { CSRF_HEADER, getPredictableHeaders } from '@labrute/core';
@@ -160,8 +161,11 @@ before(async () => {
   assert.ok(['localhost', '127.0.0.1'].includes(url.hostname));
   assert.equal(url.pathname, '/observation_test');
   admin = new PrismaClient({ datasources: { db: { url: url.toString() } } });
-  await admin.$executeRawUnsafe('CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public');
-  await admin.$executeRawUnsafe('CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public');
+  await admin.$transaction(async (tx) => {
+    await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended('security-test-extensions', 0))`;
+    await tx.$executeRawUnsafe('CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public');
+    await tx.$executeRawUnsafe('CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public');
+  });
   await admin.$executeRawUnsafe(`CREATE SCHEMA "${schema}"`);
   url.searchParams.set('schema', schema);
   database = new PrismaClient({ datasources: { db: { url: url.toString() } },
@@ -249,6 +253,22 @@ integration('real OAuth rejects banned accounts without changing their token, na
   assert.equal(await database.accountObservation.count(), 0);
   assert.equal(tracked.operations.filter((op) => op === 'account-read').length, 1,
     'the ban explanation is fetched only after the conditional write rejects');
+});
+
+integration('OAuth rejected writes return the recorded case code for Discord appeals', async () => {
+  await reset();
+  await i18next.init({ lng: 'en', resources: { en: { translation: {
+    bannedAccount: 'Banned: {{reason}}', banAppealCode: 'Appeal code: {{code}} on Discord',
+  } } } });
+  const code = randomUUID();
+  await database.user.create({ data: {
+    id, name: 'Original', connexionToken: randomUUID(), bannedAt: new Date(),
+    banReason: 'multipleAccounts', banAppealCode: code,
+  } });
+  const result = await run({ database: trackDatabase().client });
+  assert.equal(result.res.statusCode, 403);
+  assert.match(JSON.stringify(result.res.body), new RegExp(`MC-${code}`));
+  assert.equal(await database.accountObservation.count(), 0);
 });
 
 integration('a ban committed between restriction checking and upsert prevents OAuth account changes', async () => {

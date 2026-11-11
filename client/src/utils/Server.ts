@@ -75,10 +75,13 @@ export const Server = {
     ban: (data: UsersBanRequest) => Fetch<never>(`/api/user/ban`, data, 'PATCH'),
     unban: (data: UsersUnbanRequest) => Fetch<never>(`/api/user/unban`, data, 'PATCH'),
     banlist: () => Fetch<UserBannedListResponse>('/api/user/banlist'),
-    multipleAccounts: (status: MultipleAccountCaseStatus, cursor?: string) => Fetch<
+    multipleAccounts: (
+      status: MultipleAccountCaseStatus, cursor?: string, userId?: string,
+    ) => Fetch<
       UserMultipleAccountsListResponse
     >(
-      '/api/user/multiple-accounts', { status, ...(cursor ? { cursor } : {}) },
+      '/api/user/multiple-accounts', { status, ...(cursor ? { cursor } : {}),
+        ...(userId ? { userId } : {}) },
     ),
     multipleAccountCase: (id: string, offset = 0) => Fetch<MultipleAccountCaseDetailResponse>(
       `/api/user/multiple-accounts/${id}`, { offset: String(offset) },

@@ -4,7 +4,7 @@ import {
   Clan, ClanPost, ClanRole, ClanThread, ClanWar, ClanWarFighters,
   Config, DestinyChoice, DestinyChoiceSide, DestinyChoiceType, Event, Fight, FightModifier, Gender,
   InventoryItem, InventoryItemType, KnownFingerprint, Log, MultipleAccountCase,
-  MultipleAccountCaseReview, Notification,
+  MultipleAccountCaseReview, MultipleAccountCaseAction, Notification,
   PetName, Prisma, SecurityAction, SharedBrowser, SharedBrowserExemption, SkillName, Tournament,
   User, UserLog, UserStats, WeaponName
 } from '@labrute/prisma';
@@ -862,11 +862,10 @@ export type UserGetAdminRequest = {
 };
 export type UserGetAdminResponse = {
   duplicates: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[],
-  user: User & {
+  securityHistory: SecurityAction[],
+  user: Omit<User, 'fingerprints' | 'browserIds' | 'ips' | 'sharedBrowserId'> & {
     achievements: Pick<Achievement, 'name' | 'count'>[],
     brutes: Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'>[],
-    otherUsersSharingFingerprints: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'fingerprints' | 'lastSeen' | 'createdAt'>[],
-    otherUsersSharingBrowserIds: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason' | 'browserIds' | 'lastSeen' | 'createdAt'>[],
   },
 };
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
@@ -905,8 +904,11 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
   })[],
 };
 export type UserBannedListResponse = Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[];
-export type MultipleAccountCaseStatus = 'open' | 'dismissed' | 'needs-action';
-export type MultipleAccountCaseSummary = Omit<MultipleAccountCase, 'userIds' | 'exemptions'>;
+export type MultipleAccountReviewDecision = 'open' | 'dismissed' | 'needs-action';
+export type MultipleAccountCaseStatus = MultipleAccountReviewDecision | 'processed' | 'all';
+export type MultipleAccountCaseSummary = Omit<MultipleAccountCase, 'userIds' | 'exemptions'> & {
+  accountAction?: MultipleAccountCaseAction;
+};
 export type UserMultipleAccountsListResponse = {
   cases: MultipleAccountCaseSummary[];
   nextCursor: string | null;
@@ -919,14 +921,15 @@ export type MultipleAccountCaseExemption = {
 };
 export type MultipleAccountCaseDetailResponse = {
   case: MultipleAccountCaseSummary;
-  users: { id: string; name: string | null; bannedAt: Date | null }[];
+  users: { id: string; name: string | null; bannedAt: Date | null;
+    automaticAction?: MultipleAccountCaseAction }[];
   nextAccountOffset: number | null;
   exemptions: MultipleAccountCaseExemption[];
   reviews: MultipleAccountCaseReview[];
 };
 export type ReviewMultipleAccountCaseRequest = {
   revision: number;
-  decision: MultipleAccountCaseStatus;
+  decision: MultipleAccountReviewDecision;
   reason: string;
 };
 export type UserUpdateSettingsRequest = Pick<User, 'fightSpeed' | 'backgroundMusic' | 'displayVersusPage' | 'displayOpponentDetails' | 'alwaysDisplayScrubber'>;

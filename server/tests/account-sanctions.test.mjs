@@ -25,13 +25,18 @@ const { Users } = await import('../lib/controllers/Users.js');
 const response = () => ({ status() { return this; }, send(data) { this.body = data; } });
 const database = (bannedAt) => {
   const writes = [];
-  return { writes, user: {
-    findFirst: async () => ({
+  let currentBan = bannedAt;
+  const row = () => ({
       id: userId, bannedAt, fingerprints: ['a'.repeat(32) + '0000'],
       browserIds: [actorId], ips: ['192.0.2.1'], brutes: [],
-    }),
-    update: async ({ data }) => { writes.push(data); return {}; },
-  } };
+    });
+  const db = { writes, user: {
+    findFirst: async () => ({ ...row(), bannedAt: currentBan }),
+    findUnique: async () => ({ ...row(), bannedAt: currentBan }),
+    update: async ({ data }) => { writes.push(data); currentBan = data.bannedAt; return {}; },
+  }, userLog: { create: async () => ({}) }, securityAction: { create: async () => ({}) },
+  $executeRaw: async () => 0, $transaction: async (callback) => callback(db) };
+  return db;
 };
 
 test('account bans never restrict historical devices, including stale bulk-restriction flags', async () => {
@@ -50,5 +55,5 @@ test('unbanning an account cannot revoke independently reviewed IP, browser or f
   const res = response();
   await Users.unban(prisma)({ body: { userId } }, res);
   assert.deepEqual(res.body, { success: true });
-  assert.deepEqual(prisma.writes, [{ bannedAt: null, banReason: null }]);
+  assert.deepEqual(prisma.writes, [{ bannedAt: null, banReason: null, banAppealCode: null }]);
 });

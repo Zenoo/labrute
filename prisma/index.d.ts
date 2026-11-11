@@ -140,12 +140,17 @@ export type SecurityAction = $Result.DefaultSelection<Prisma.$SecurityActionPayl
 export type BannedBrowser = $Result.DefaultSelection<Prisma.$BannedBrowserPayload>
 /**
  * Model MultipleAccountCase
- *
+ * 
  */
 export type MultipleAccountCase = $Result.DefaultSelection<Prisma.$MultipleAccountCasePayload>
 /**
+ * Model MultipleAccountCaseAction
+ * 
+ */
+export type MultipleAccountCaseAction = $Result.DefaultSelection<Prisma.$MultipleAccountCaseActionPayload>
+/**
  * Model MultipleAccountCaseReview
- *
+ * 
  */
 export type MultipleAccountCaseReview = $Result.DefaultSelection<Prisma.$MultipleAccountCaseReviewPayload>
 /**
@@ -1164,6 +1169,16 @@ export class PrismaClient<
   get multipleAccountCase(): Prisma.MultipleAccountCaseDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.multipleAccountCaseAction`: Exposes CRUD operations for the **MultipleAccountCaseAction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MultipleAccountCaseActions
+    * const multipleAccountCaseActions = await prisma.multipleAccountCaseAction.findMany()
+    * ```
+    */
+  get multipleAccountCaseAction(): Prisma.MultipleAccountCaseActionDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.multipleAccountCaseReview`: Exposes CRUD operations for the **MultipleAccountCaseReview** model.
     * Example usage:
     * ```ts
@@ -1799,6 +1814,7 @@ export namespace Prisma {
     SecurityAction: 'SecurityAction',
     BannedBrowser: 'BannedBrowser',
     MultipleAccountCase: 'MultipleAccountCase',
+    MultipleAccountCaseAction: 'MultipleAccountCaseAction',
     MultipleAccountCaseReview: 'MultipleAccountCaseReview',
     Clan: 'Clan',
     ClanThread: 'ClanThread',
@@ -1834,7 +1850,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "sharedBrowserExemption" | "securityAction" | "bannedBrowser" | "multipleAccountCase" | "multipleAccountCaseReview" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
+      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "sharedBrowserExemption" | "securityAction" | "bannedBrowser" | "multipleAccountCase" | "multipleAccountCaseAction" | "multipleAccountCaseReview" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3762,6 +3778,80 @@ export namespace Prisma {
           }
         }
       }
+      MultipleAccountCaseAction: {
+        payload: Prisma.$MultipleAccountCaseActionPayload<ExtArgs>
+        fields: Prisma.MultipleAccountCaseActionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MultipleAccountCaseActionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MultipleAccountCaseActionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload>
+          }
+          findFirst: {
+            args: Prisma.MultipleAccountCaseActionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MultipleAccountCaseActionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload>
+          }
+          findMany: {
+            args: Prisma.MultipleAccountCaseActionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload>[]
+          }
+          create: {
+            args: Prisma.MultipleAccountCaseActionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload>
+          }
+          createMany: {
+            args: Prisma.MultipleAccountCaseActionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MultipleAccountCaseActionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload>[]
+          }
+          delete: {
+            args: Prisma.MultipleAccountCaseActionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload>
+          }
+          update: {
+            args: Prisma.MultipleAccountCaseActionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload>
+          }
+          deleteMany: {
+            args: Prisma.MultipleAccountCaseActionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MultipleAccountCaseActionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MultipleAccountCaseActionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload>[]
+          }
+          upsert: {
+            args: Prisma.MultipleAccountCaseActionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MultipleAccountCaseActionPayload>
+          }
+          aggregate: {
+            args: Prisma.MultipleAccountCaseActionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMultipleAccountCaseAction>
+          }
+          groupBy: {
+            args: Prisma.MultipleAccountCaseActionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MultipleAccountCaseActionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MultipleAccountCaseActionCountArgs<ExtArgs>
+            result: $Utils.Optional<MultipleAccountCaseActionCountAggregateOutputType> | number
+          }
+        }
+      }
       MultipleAccountCaseReview: {
         payload: Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>
         fields: Prisma.MultipleAccountCaseReviewFieldRefs
@@ -5142,6 +5232,7 @@ export namespace Prisma {
     securityAction?: SecurityActionOmit
     bannedBrowser?: BannedBrowserOmit
     multipleAccountCase?: MultipleAccountCaseOmit
+    multipleAccountCaseAction?: MultipleAccountCaseActionOmit
     multipleAccountCaseReview?: MultipleAccountCaseReviewOmit
     clan?: ClanOmit
     clanThread?: ClanThreadOmit
@@ -5808,10 +5899,12 @@ export namespace Prisma {
 
   export type MultipleAccountCaseCountOutputType = {
     reviews: number
+    actions: number
   }
 
   export type MultipleAccountCaseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | MultipleAccountCaseCountOutputTypeCountReviewsArgs
+    actions?: boolean | MultipleAccountCaseCountOutputTypeCountActionsArgs
   }
 
   // Custom InputTypes
@@ -5830,6 +5923,13 @@ export namespace Prisma {
    */
   export type MultipleAccountCaseCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MultipleAccountCaseReviewWhereInput
+  }
+
+  /**
+   * MultipleAccountCaseCountOutputType without action
+   */
+  export type MultipleAccountCaseCountOutputTypeCountActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MultipleAccountCaseActionWhereInput
   }
 
 
@@ -6145,6 +6245,7 @@ export namespace Prisma {
     createdAt: Date | null
     bannedAt: Date | null
     banReason: string | null
+    banAppealCode: string | null
     displayVersusPage: boolean | null
     alwaysDisplayScrubber: boolean | null
     displayOpponentDetails: boolean | null
@@ -6169,6 +6270,7 @@ export namespace Prisma {
     createdAt: Date | null
     bannedAt: Date | null
     banReason: string | null
+    banAppealCode: string | null
     displayVersusPage: boolean | null
     alwaysDisplayScrubber: boolean | null
     displayOpponentDetails: boolean | null
@@ -6196,6 +6298,7 @@ export namespace Prisma {
     createdAt: number
     bannedAt: number
     banReason: number
+    banAppealCode: number
     displayVersusPage: number
     alwaysDisplayScrubber: number
     displayOpponentDetails: number
@@ -6236,6 +6339,7 @@ export namespace Prisma {
     createdAt?: true
     bannedAt?: true
     banReason?: true
+    banAppealCode?: true
     displayVersusPage?: true
     alwaysDisplayScrubber?: true
     displayOpponentDetails?: true
@@ -6260,6 +6364,7 @@ export namespace Prisma {
     createdAt?: true
     bannedAt?: true
     banReason?: true
+    banAppealCode?: true
     displayVersusPage?: true
     alwaysDisplayScrubber?: true
     displayOpponentDetails?: true
@@ -6287,6 +6392,7 @@ export namespace Prisma {
     createdAt?: true
     bannedAt?: true
     banReason?: true
+    banAppealCode?: true
     displayVersusPage?: true
     alwaysDisplayScrubber?: true
     displayOpponentDetails?: true
@@ -6401,6 +6507,7 @@ export namespace Prisma {
     createdAt: Date
     bannedAt: Date | null
     banReason: string | null
+    banAppealCode: string | null
     displayVersusPage: boolean
     alwaysDisplayScrubber: boolean
     displayOpponentDetails: boolean
@@ -6447,6 +6554,7 @@ export namespace Prisma {
     createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    banAppealCode?: boolean
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -6490,6 +6598,7 @@ export namespace Prisma {
     createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    banAppealCode?: boolean
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -6518,6 +6627,7 @@ export namespace Prisma {
     createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    banAppealCode?: boolean
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -6546,6 +6656,7 @@ export namespace Prisma {
     createdAt?: boolean
     bannedAt?: boolean
     banReason?: boolean
+    banAppealCode?: boolean
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -6555,7 +6666,7 @@ export namespace Prisma {
     sharedBrowserId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "displayVersusPage" | "alwaysDisplayScrubber" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "banAppealCode" | "displayVersusPage" | "alwaysDisplayScrubber" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accountObservations?: boolean | User$accountObservationsArgs<ExtArgs>
     sharedBrowserExemptions?: boolean | User$sharedBrowserExemptionsArgs<ExtArgs>
@@ -6618,6 +6729,7 @@ export namespace Prisma {
       createdAt: Date
       bannedAt: Date | null
       banReason: string | null
+      banAppealCode: string | null
       displayVersusPage: boolean
       alwaysDisplayScrubber: boolean
       displayOpponentDetails: boolean
@@ -7080,6 +7192,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly bannedAt: FieldRef<"User", 'DateTime'>
     readonly banReason: FieldRef<"User", 'String'>
+    readonly banAppealCode: FieldRef<"User", 'String'>
     readonly displayVersusPage: FieldRef<"User", 'Boolean'>
     readonly alwaysDisplayScrubber: FieldRef<"User", 'Boolean'>
     readonly displayOpponentDetails: FieldRef<"User", 'Boolean'>
@@ -35963,6 +36076,7 @@ export namespace Prisma {
 
   export type MultipleAccountCaseMinAggregateOutputType = {
     id: string | null
+    appealCode: string | null
     ruleVersion: number | null
     signal: string | null
     browserId: string | null
@@ -35979,10 +36093,13 @@ export namespace Prisma {
     excludedCount: number | null
     status: string | null
     revision: number | null
+    automaticAt: Date | null
+    automaticNote: string | null
   }
 
   export type MultipleAccountCaseMaxAggregateOutputType = {
     id: string | null
+    appealCode: string | null
     ruleVersion: number | null
     signal: string | null
     browserId: string | null
@@ -35999,10 +36116,13 @@ export namespace Prisma {
     excludedCount: number | null
     status: string | null
     revision: number | null
+    automaticAt: Date | null
+    automaticNote: string | null
   }
 
   export type MultipleAccountCaseCountAggregateOutputType = {
     id: number
+    appealCode: number
     ruleVersion: number
     signal: number
     browserId: number
@@ -36021,6 +36141,8 @@ export namespace Prisma {
     excludedCount: number
     status: number
     revision: number
+    automaticAt: number
+    automaticNote: number
     _all: number
   }
 
@@ -36043,6 +36165,7 @@ export namespace Prisma {
 
   export type MultipleAccountCaseMinAggregateInputType = {
     id?: true
+    appealCode?: true
     ruleVersion?: true
     signal?: true
     browserId?: true
@@ -36059,10 +36182,13 @@ export namespace Prisma {
     excludedCount?: true
     status?: true
     revision?: true
+    automaticAt?: true
+    automaticNote?: true
   }
 
   export type MultipleAccountCaseMaxAggregateInputType = {
     id?: true
+    appealCode?: true
     ruleVersion?: true
     signal?: true
     browserId?: true
@@ -36079,10 +36205,13 @@ export namespace Prisma {
     excludedCount?: true
     status?: true
     revision?: true
+    automaticAt?: true
+    automaticNote?: true
   }
 
   export type MultipleAccountCaseCountAggregateInputType = {
     id?: true
+    appealCode?: true
     ruleVersion?: true
     signal?: true
     browserId?: true
@@ -36101,6 +36230,8 @@ export namespace Prisma {
     excludedCount?: true
     status?: true
     revision?: true
+    automaticAt?: true
+    automaticNote?: true
     _all?: true
   }
 
@@ -36192,6 +36323,7 @@ export namespace Prisma {
 
   export type MultipleAccountCaseGroupByOutputType = {
     id: string
+    appealCode: string
     ruleVersion: number
     signal: string
     browserId: string | null
@@ -36210,6 +36342,8 @@ export namespace Prisma {
     excludedCount: number
     status: string
     revision: number
+    automaticAt: Date | null
+    automaticNote: string | null
     _count: MultipleAccountCaseCountAggregateOutputType | null
     _avg: MultipleAccountCaseAvgAggregateOutputType | null
     _sum: MultipleAccountCaseSumAggregateOutputType | null
@@ -36233,6 +36367,7 @@ export namespace Prisma {
 
   export type MultipleAccountCaseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    appealCode?: boolean
     ruleVersion?: boolean
     signal?: boolean
     browserId?: boolean
@@ -36251,12 +36386,16 @@ export namespace Prisma {
     excludedCount?: boolean
     status?: boolean
     revision?: boolean
+    automaticAt?: boolean
+    automaticNote?: boolean
     reviews?: boolean | MultipleAccountCase$reviewsArgs<ExtArgs>
+    actions?: boolean | MultipleAccountCase$actionsArgs<ExtArgs>
     _count?: boolean | MultipleAccountCaseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["multipleAccountCase"]>
 
   export type MultipleAccountCaseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    appealCode?: boolean
     ruleVersion?: boolean
     signal?: boolean
     browserId?: boolean
@@ -36275,10 +36414,13 @@ export namespace Prisma {
     excludedCount?: boolean
     status?: boolean
     revision?: boolean
+    automaticAt?: boolean
+    automaticNote?: boolean
   }, ExtArgs["result"]["multipleAccountCase"]>
 
   export type MultipleAccountCaseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    appealCode?: boolean
     ruleVersion?: boolean
     signal?: boolean
     browserId?: boolean
@@ -36297,10 +36439,13 @@ export namespace Prisma {
     excludedCount?: boolean
     status?: boolean
     revision?: boolean
+    automaticAt?: boolean
+    automaticNote?: boolean
   }, ExtArgs["result"]["multipleAccountCase"]>
 
   export type MultipleAccountCaseSelectScalar = {
     id?: boolean
+    appealCode?: boolean
     ruleVersion?: boolean
     signal?: boolean
     browserId?: boolean
@@ -36319,11 +36464,14 @@ export namespace Prisma {
     excludedCount?: boolean
     status?: boolean
     revision?: boolean
+    automaticAt?: boolean
+    automaticNote?: boolean
   }
 
-  export type MultipleAccountCaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ruleVersion" | "signal" | "browserId" | "fingerprint" | "ip" | "userIds" | "accountCount" | "threshold" | "confidence" | "firstSeen" | "lastSeen" | "windowStart" | "windowEnd" | "detectedAt" | "exemptions" | "excludedCount" | "status" | "revision", ExtArgs["result"]["multipleAccountCase"]>
+  export type MultipleAccountCaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appealCode" | "ruleVersion" | "signal" | "browserId" | "fingerprint" | "ip" | "userIds" | "accountCount" | "threshold" | "confidence" | "firstSeen" | "lastSeen" | "windowStart" | "windowEnd" | "detectedAt" | "exemptions" | "excludedCount" | "status" | "revision" | "automaticAt" | "automaticNote", ExtArgs["result"]["multipleAccountCase"]>
   export type MultipleAccountCaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | MultipleAccountCase$reviewsArgs<ExtArgs>
+    actions?: boolean | MultipleAccountCase$actionsArgs<ExtArgs>
     _count?: boolean | MultipleAccountCaseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MultipleAccountCaseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -36333,9 +36481,11 @@ export namespace Prisma {
     name: "MultipleAccountCase"
     objects: {
       reviews: Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>[]
+      actions: Prisma.$MultipleAccountCaseActionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      appealCode: string
       ruleVersion: number
       signal: string
       browserId: string | null
@@ -36354,6 +36504,8 @@ export namespace Prisma {
       excludedCount: number
       status: string
       revision: number
+      automaticAt: Date | null
+      automaticNote: string | null
     }, ExtArgs["result"]["multipleAccountCase"]>
     composites: {}
   }
@@ -36674,7 +36826,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends MultipleAccountCaseGroupByArgs,
@@ -36749,6 +36901,7 @@ export namespace Prisma {
   export interface Prisma__MultipleAccountCaseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     reviews<T extends MultipleAccountCase$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, MultipleAccountCase$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    actions<T extends MultipleAccountCase$actionsArgs<ExtArgs> = {}>(args?: Subset<T, MultipleAccountCase$actionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -36779,6 +36932,7 @@ export namespace Prisma {
    */
   interface MultipleAccountCaseFieldRefs {
     readonly id: FieldRef<"MultipleAccountCase", 'String'>
+    readonly appealCode: FieldRef<"MultipleAccountCase", 'String'>
     readonly ruleVersion: FieldRef<"MultipleAccountCase", 'Int'>
     readonly signal: FieldRef<"MultipleAccountCase", 'String'>
     readonly browserId: FieldRef<"MultipleAccountCase", 'String'>
@@ -36797,8 +36951,10 @@ export namespace Prisma {
     readonly excludedCount: FieldRef<"MultipleAccountCase", 'Int'>
     readonly status: FieldRef<"MultipleAccountCase", 'String'>
     readonly revision: FieldRef<"MultipleAccountCase", 'Int'>
+    readonly automaticAt: FieldRef<"MultipleAccountCase", 'DateTime'>
+    readonly automaticNote: FieldRef<"MultipleAccountCase", 'String'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -36869,31 +37025,31 @@ export namespace Prisma {
     where?: MultipleAccountCaseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of MultipleAccountCases to fetch.
      */
     orderBy?: MultipleAccountCaseOrderByWithRelationInput | MultipleAccountCaseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for MultipleAccountCases.
      */
     cursor?: MultipleAccountCaseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` MultipleAccountCases from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` MultipleAccountCases.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of MultipleAccountCases.
      */
     distinct?: MultipleAccountCaseScalarFieldEnum | MultipleAccountCaseScalarFieldEnum[]
@@ -36922,31 +37078,31 @@ export namespace Prisma {
     where?: MultipleAccountCaseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of MultipleAccountCases to fetch.
      */
     orderBy?: MultipleAccountCaseOrderByWithRelationInput | MultipleAccountCaseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for MultipleAccountCases.
      */
     cursor?: MultipleAccountCaseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` MultipleAccountCases from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` MultipleAccountCases.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of MultipleAccountCases.
      */
     distinct?: MultipleAccountCaseScalarFieldEnum | MultipleAccountCaseScalarFieldEnum[]
@@ -36975,25 +37131,25 @@ export namespace Prisma {
     where?: MultipleAccountCaseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of MultipleAccountCases to fetch.
      */
     orderBy?: MultipleAccountCaseOrderByWithRelationInput | MultipleAccountCaseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing MultipleAccountCases.
      */
     cursor?: MultipleAccountCaseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` MultipleAccountCases from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` MultipleAccountCases.
      */
     skip?: number
@@ -37218,6 +37374,30 @@ export namespace Prisma {
   }
 
   /**
+   * MultipleAccountCase.actions
+   */
+  export type MultipleAccountCase$actionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    where?: MultipleAccountCaseActionWhereInput
+    orderBy?: MultipleAccountCaseActionOrderByWithRelationInput | MultipleAccountCaseActionOrderByWithRelationInput[]
+    cursor?: MultipleAccountCaseActionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MultipleAccountCaseActionScalarFieldEnum | MultipleAccountCaseActionScalarFieldEnum[]
+  }
+
+  /**
    * MultipleAccountCase without action
    */
   export type MultipleAccountCaseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -37233,6 +37413,1150 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MultipleAccountCaseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MultipleAccountCaseAction
+   */
+
+  export type AggregateMultipleAccountCaseAction = {
+    _count: MultipleAccountCaseActionCountAggregateOutputType | null
+    _avg: MultipleAccountCaseActionAvgAggregateOutputType | null
+    _sum: MultipleAccountCaseActionSumAggregateOutputType | null
+    _min: MultipleAccountCaseActionMinAggregateOutputType | null
+    _max: MultipleAccountCaseActionMaxAggregateOutputType | null
+  }
+
+  export type MultipleAccountCaseActionAvgAggregateOutputType = {
+    policyVersion: number | null
+    attempts: number | null
+  }
+
+  export type MultipleAccountCaseActionSumAggregateOutputType = {
+    policyVersion: number | null
+    attempts: number | null
+  }
+
+  export type MultipleAccountCaseActionMinAggregateOutputType = {
+    caseId: string | null
+    userId: string | null
+    policyVersion: number | null
+    status: string | null
+    reason: string | null
+    attempts: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MultipleAccountCaseActionMaxAggregateOutputType = {
+    caseId: string | null
+    userId: string | null
+    policyVersion: number | null
+    status: string | null
+    reason: string | null
+    attempts: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MultipleAccountCaseActionCountAggregateOutputType = {
+    caseId: number
+    userId: number
+    policyVersion: number
+    status: number
+    reason: number
+    attempts: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MultipleAccountCaseActionAvgAggregateInputType = {
+    policyVersion?: true
+    attempts?: true
+  }
+
+  export type MultipleAccountCaseActionSumAggregateInputType = {
+    policyVersion?: true
+    attempts?: true
+  }
+
+  export type MultipleAccountCaseActionMinAggregateInputType = {
+    caseId?: true
+    userId?: true
+    policyVersion?: true
+    status?: true
+    reason?: true
+    attempts?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MultipleAccountCaseActionMaxAggregateInputType = {
+    caseId?: true
+    userId?: true
+    policyVersion?: true
+    status?: true
+    reason?: true
+    attempts?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MultipleAccountCaseActionCountAggregateInputType = {
+    caseId?: true
+    userId?: true
+    policyVersion?: true
+    status?: true
+    reason?: true
+    attempts?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MultipleAccountCaseActionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MultipleAccountCaseAction to aggregate.
+     */
+    where?: MultipleAccountCaseActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MultipleAccountCaseActions to fetch.
+     */
+    orderBy?: MultipleAccountCaseActionOrderByWithRelationInput | MultipleAccountCaseActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MultipleAccountCaseActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MultipleAccountCaseActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MultipleAccountCaseActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MultipleAccountCaseActions
+    **/
+    _count?: true | MultipleAccountCaseActionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MultipleAccountCaseActionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MultipleAccountCaseActionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MultipleAccountCaseActionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MultipleAccountCaseActionMaxAggregateInputType
+  }
+
+  export type GetMultipleAccountCaseActionAggregateType<T extends MultipleAccountCaseActionAggregateArgs> = {
+        [P in keyof T & keyof AggregateMultipleAccountCaseAction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMultipleAccountCaseAction[P]>
+      : GetScalarType<T[P], AggregateMultipleAccountCaseAction[P]>
+  }
+
+
+
+
+  export type MultipleAccountCaseActionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MultipleAccountCaseActionWhereInput
+    orderBy?: MultipleAccountCaseActionOrderByWithAggregationInput | MultipleAccountCaseActionOrderByWithAggregationInput[]
+    by: MultipleAccountCaseActionScalarFieldEnum[] | MultipleAccountCaseActionScalarFieldEnum
+    having?: MultipleAccountCaseActionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MultipleAccountCaseActionCountAggregateInputType | true
+    _avg?: MultipleAccountCaseActionAvgAggregateInputType
+    _sum?: MultipleAccountCaseActionSumAggregateInputType
+    _min?: MultipleAccountCaseActionMinAggregateInputType
+    _max?: MultipleAccountCaseActionMaxAggregateInputType
+  }
+
+  export type MultipleAccountCaseActionGroupByOutputType = {
+    caseId: string
+    userId: string
+    policyVersion: number
+    status: string
+    reason: string
+    attempts: number
+    createdAt: Date
+    updatedAt: Date
+    _count: MultipleAccountCaseActionCountAggregateOutputType | null
+    _avg: MultipleAccountCaseActionAvgAggregateOutputType | null
+    _sum: MultipleAccountCaseActionSumAggregateOutputType | null
+    _min: MultipleAccountCaseActionMinAggregateOutputType | null
+    _max: MultipleAccountCaseActionMaxAggregateOutputType | null
+  }
+
+  type GetMultipleAccountCaseActionGroupByPayload<T extends MultipleAccountCaseActionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MultipleAccountCaseActionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MultipleAccountCaseActionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MultipleAccountCaseActionGroupByOutputType[P]>
+            : GetScalarType<T[P], MultipleAccountCaseActionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MultipleAccountCaseActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    caseId?: boolean
+    userId?: boolean
+    policyVersion?: boolean
+    status?: boolean
+    reason?: boolean
+    attempts?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["multipleAccountCaseAction"]>
+
+  export type MultipleAccountCaseActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    caseId?: boolean
+    userId?: boolean
+    policyVersion?: boolean
+    status?: boolean
+    reason?: boolean
+    attempts?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["multipleAccountCaseAction"]>
+
+  export type MultipleAccountCaseActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    caseId?: boolean
+    userId?: boolean
+    policyVersion?: boolean
+    status?: boolean
+    reason?: boolean
+    attempts?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["multipleAccountCaseAction"]>
+
+  export type MultipleAccountCaseActionSelectScalar = {
+    caseId?: boolean
+    userId?: boolean
+    policyVersion?: boolean
+    status?: boolean
+    reason?: boolean
+    attempts?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MultipleAccountCaseActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"caseId" | "userId" | "policyVersion" | "status" | "reason" | "attempts" | "createdAt" | "updatedAt", ExtArgs["result"]["multipleAccountCaseAction"]>
+  export type MultipleAccountCaseActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }
+  export type MultipleAccountCaseActionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }
+  export type MultipleAccountCaseActionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    case?: boolean | MultipleAccountCaseDefaultArgs<ExtArgs>
+  }
+
+  export type $MultipleAccountCaseActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MultipleAccountCaseAction"
+    objects: {
+      case: Prisma.$MultipleAccountCasePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      caseId: string
+      userId: string
+      policyVersion: number
+      status: string
+      reason: string
+      attempts: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["multipleAccountCaseAction"]>
+    composites: {}
+  }
+
+  type MultipleAccountCaseActionGetPayload<S extends boolean | null | undefined | MultipleAccountCaseActionDefaultArgs> = $Result.GetResult<Prisma.$MultipleAccountCaseActionPayload, S>
+
+  type MultipleAccountCaseActionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MultipleAccountCaseActionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: MultipleAccountCaseActionCountAggregateInputType | true
+    }
+
+  export interface MultipleAccountCaseActionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MultipleAccountCaseAction'], meta: { name: 'MultipleAccountCaseAction' } }
+    /**
+     * Find zero or one MultipleAccountCaseAction that matches the filter.
+     * @param {MultipleAccountCaseActionFindUniqueArgs} args - Arguments to find a MultipleAccountCaseAction
+     * @example
+     * // Get one MultipleAccountCaseAction
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MultipleAccountCaseActionFindUniqueArgs>(args: SelectSubset<T, MultipleAccountCaseActionFindUniqueArgs<ExtArgs>>): Prisma__MultipleAccountCaseActionClient<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MultipleAccountCaseAction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MultipleAccountCaseActionFindUniqueOrThrowArgs} args - Arguments to find a MultipleAccountCaseAction
+     * @example
+     * // Get one MultipleAccountCaseAction
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MultipleAccountCaseActionFindUniqueOrThrowArgs>(args: SelectSubset<T, MultipleAccountCaseActionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MultipleAccountCaseActionClient<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MultipleAccountCaseAction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseActionFindFirstArgs} args - Arguments to find a MultipleAccountCaseAction
+     * @example
+     * // Get one MultipleAccountCaseAction
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MultipleAccountCaseActionFindFirstArgs>(args?: SelectSubset<T, MultipleAccountCaseActionFindFirstArgs<ExtArgs>>): Prisma__MultipleAccountCaseActionClient<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MultipleAccountCaseAction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseActionFindFirstOrThrowArgs} args - Arguments to find a MultipleAccountCaseAction
+     * @example
+     * // Get one MultipleAccountCaseAction
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MultipleAccountCaseActionFindFirstOrThrowArgs>(args?: SelectSubset<T, MultipleAccountCaseActionFindFirstOrThrowArgs<ExtArgs>>): Prisma__MultipleAccountCaseActionClient<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MultipleAccountCaseActions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseActionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MultipleAccountCaseActions
+     * const multipleAccountCaseActions = await prisma.multipleAccountCaseAction.findMany()
+     * 
+     * // Get first 10 MultipleAccountCaseActions
+     * const multipleAccountCaseActions = await prisma.multipleAccountCaseAction.findMany({ take: 10 })
+     * 
+     * // Only select the `caseId`
+     * const multipleAccountCaseActionWithCaseIdOnly = await prisma.multipleAccountCaseAction.findMany({ select: { caseId: true } })
+     * 
+     */
+    findMany<T extends MultipleAccountCaseActionFindManyArgs>(args?: SelectSubset<T, MultipleAccountCaseActionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MultipleAccountCaseAction.
+     * @param {MultipleAccountCaseActionCreateArgs} args - Arguments to create a MultipleAccountCaseAction.
+     * @example
+     * // Create one MultipleAccountCaseAction
+     * const MultipleAccountCaseAction = await prisma.multipleAccountCaseAction.create({
+     *   data: {
+     *     // ... data to create a MultipleAccountCaseAction
+     *   }
+     * })
+     * 
+     */
+    create<T extends MultipleAccountCaseActionCreateArgs>(args: SelectSubset<T, MultipleAccountCaseActionCreateArgs<ExtArgs>>): Prisma__MultipleAccountCaseActionClient<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MultipleAccountCaseActions.
+     * @param {MultipleAccountCaseActionCreateManyArgs} args - Arguments to create many MultipleAccountCaseActions.
+     * @example
+     * // Create many MultipleAccountCaseActions
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MultipleAccountCaseActionCreateManyArgs>(args?: SelectSubset<T, MultipleAccountCaseActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MultipleAccountCaseActions and returns the data saved in the database.
+     * @param {MultipleAccountCaseActionCreateManyAndReturnArgs} args - Arguments to create many MultipleAccountCaseActions.
+     * @example
+     * // Create many MultipleAccountCaseActions
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MultipleAccountCaseActions and only return the `caseId`
+     * const multipleAccountCaseActionWithCaseIdOnly = await prisma.multipleAccountCaseAction.createManyAndReturn({
+     *   select: { caseId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MultipleAccountCaseActionCreateManyAndReturnArgs>(args?: SelectSubset<T, MultipleAccountCaseActionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MultipleAccountCaseAction.
+     * @param {MultipleAccountCaseActionDeleteArgs} args - Arguments to delete one MultipleAccountCaseAction.
+     * @example
+     * // Delete one MultipleAccountCaseAction
+     * const MultipleAccountCaseAction = await prisma.multipleAccountCaseAction.delete({
+     *   where: {
+     *     // ... filter to delete one MultipleAccountCaseAction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MultipleAccountCaseActionDeleteArgs>(args: SelectSubset<T, MultipleAccountCaseActionDeleteArgs<ExtArgs>>): Prisma__MultipleAccountCaseActionClient<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MultipleAccountCaseAction.
+     * @param {MultipleAccountCaseActionUpdateArgs} args - Arguments to update one MultipleAccountCaseAction.
+     * @example
+     * // Update one MultipleAccountCaseAction
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MultipleAccountCaseActionUpdateArgs>(args: SelectSubset<T, MultipleAccountCaseActionUpdateArgs<ExtArgs>>): Prisma__MultipleAccountCaseActionClient<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MultipleAccountCaseActions.
+     * @param {MultipleAccountCaseActionDeleteManyArgs} args - Arguments to filter MultipleAccountCaseActions to delete.
+     * @example
+     * // Delete a few MultipleAccountCaseActions
+     * const { count } = await prisma.multipleAccountCaseAction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MultipleAccountCaseActionDeleteManyArgs>(args?: SelectSubset<T, MultipleAccountCaseActionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MultipleAccountCaseActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseActionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MultipleAccountCaseActions
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MultipleAccountCaseActionUpdateManyArgs>(args: SelectSubset<T, MultipleAccountCaseActionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MultipleAccountCaseActions and returns the data updated in the database.
+     * @param {MultipleAccountCaseActionUpdateManyAndReturnArgs} args - Arguments to update many MultipleAccountCaseActions.
+     * @example
+     * // Update many MultipleAccountCaseActions
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MultipleAccountCaseActions and only return the `caseId`
+     * const multipleAccountCaseActionWithCaseIdOnly = await prisma.multipleAccountCaseAction.updateManyAndReturn({
+     *   select: { caseId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MultipleAccountCaseActionUpdateManyAndReturnArgs>(args: SelectSubset<T, MultipleAccountCaseActionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MultipleAccountCaseAction.
+     * @param {MultipleAccountCaseActionUpsertArgs} args - Arguments to update or create a MultipleAccountCaseAction.
+     * @example
+     * // Update or create a MultipleAccountCaseAction
+     * const multipleAccountCaseAction = await prisma.multipleAccountCaseAction.upsert({
+     *   create: {
+     *     // ... data to create a MultipleAccountCaseAction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MultipleAccountCaseAction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MultipleAccountCaseActionUpsertArgs>(args: SelectSubset<T, MultipleAccountCaseActionUpsertArgs<ExtArgs>>): Prisma__MultipleAccountCaseActionClient<$Result.GetResult<Prisma.$MultipleAccountCaseActionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MultipleAccountCaseActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseActionCountArgs} args - Arguments to filter MultipleAccountCaseActions to count.
+     * @example
+     * // Count the number of MultipleAccountCaseActions
+     * const count = await prisma.multipleAccountCaseAction.count({
+     *   where: {
+     *     // ... the filter for the MultipleAccountCaseActions we want to count
+     *   }
+     * })
+    **/
+    count<T extends MultipleAccountCaseActionCountArgs>(
+      args?: Subset<T, MultipleAccountCaseActionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MultipleAccountCaseActionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MultipleAccountCaseAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseActionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MultipleAccountCaseActionAggregateArgs>(args: Subset<T, MultipleAccountCaseActionAggregateArgs>): Prisma.PrismaPromise<GetMultipleAccountCaseActionAggregateType<T>>
+
+    /**
+     * Group by MultipleAccountCaseAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MultipleAccountCaseActionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MultipleAccountCaseActionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MultipleAccountCaseActionGroupByArgs['orderBy'] }
+        : { orderBy?: MultipleAccountCaseActionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MultipleAccountCaseActionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMultipleAccountCaseActionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MultipleAccountCaseAction model
+   */
+  readonly fields: MultipleAccountCaseActionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MultipleAccountCaseAction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MultipleAccountCaseActionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    case<T extends MultipleAccountCaseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MultipleAccountCaseDefaultArgs<ExtArgs>>): Prisma__MultipleAccountCaseClient<$Result.GetResult<Prisma.$MultipleAccountCasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MultipleAccountCaseAction model
+   */
+  interface MultipleAccountCaseActionFieldRefs {
+    readonly caseId: FieldRef<"MultipleAccountCaseAction", 'String'>
+    readonly userId: FieldRef<"MultipleAccountCaseAction", 'String'>
+    readonly policyVersion: FieldRef<"MultipleAccountCaseAction", 'Int'>
+    readonly status: FieldRef<"MultipleAccountCaseAction", 'String'>
+    readonly reason: FieldRef<"MultipleAccountCaseAction", 'String'>
+    readonly attempts: FieldRef<"MultipleAccountCaseAction", 'Int'>
+    readonly createdAt: FieldRef<"MultipleAccountCaseAction", 'DateTime'>
+    readonly updatedAt: FieldRef<"MultipleAccountCaseAction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MultipleAccountCaseAction findUnique
+   */
+  export type MultipleAccountCaseActionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseAction to fetch.
+     */
+    where: MultipleAccountCaseActionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseAction findUniqueOrThrow
+   */
+  export type MultipleAccountCaseActionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseAction to fetch.
+     */
+    where: MultipleAccountCaseActionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseAction findFirst
+   */
+  export type MultipleAccountCaseActionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseAction to fetch.
+     */
+    where?: MultipleAccountCaseActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MultipleAccountCaseActions to fetch.
+     */
+    orderBy?: MultipleAccountCaseActionOrderByWithRelationInput | MultipleAccountCaseActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MultipleAccountCaseActions.
+     */
+    cursor?: MultipleAccountCaseActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MultipleAccountCaseActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MultipleAccountCaseActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MultipleAccountCaseActions.
+     */
+    distinct?: MultipleAccountCaseActionScalarFieldEnum | MultipleAccountCaseActionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseAction findFirstOrThrow
+   */
+  export type MultipleAccountCaseActionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseAction to fetch.
+     */
+    where?: MultipleAccountCaseActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MultipleAccountCaseActions to fetch.
+     */
+    orderBy?: MultipleAccountCaseActionOrderByWithRelationInput | MultipleAccountCaseActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MultipleAccountCaseActions.
+     */
+    cursor?: MultipleAccountCaseActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MultipleAccountCaseActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MultipleAccountCaseActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MultipleAccountCaseActions.
+     */
+    distinct?: MultipleAccountCaseActionScalarFieldEnum | MultipleAccountCaseActionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseAction findMany
+   */
+  export type MultipleAccountCaseActionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    /**
+     * Filter, which MultipleAccountCaseActions to fetch.
+     */
+    where?: MultipleAccountCaseActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MultipleAccountCaseActions to fetch.
+     */
+    orderBy?: MultipleAccountCaseActionOrderByWithRelationInput | MultipleAccountCaseActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MultipleAccountCaseActions.
+     */
+    cursor?: MultipleAccountCaseActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MultipleAccountCaseActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MultipleAccountCaseActions.
+     */
+    skip?: number
+    distinct?: MultipleAccountCaseActionScalarFieldEnum | MultipleAccountCaseActionScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseAction create
+   */
+  export type MultipleAccountCaseActionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MultipleAccountCaseAction.
+     */
+    data: XOR<MultipleAccountCaseActionCreateInput, MultipleAccountCaseActionUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseAction createMany
+   */
+  export type MultipleAccountCaseActionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MultipleAccountCaseActions.
+     */
+    data: MultipleAccountCaseActionCreateManyInput | MultipleAccountCaseActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MultipleAccountCaseAction createManyAndReturn
+   */
+  export type MultipleAccountCaseActionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * The data used to create many MultipleAccountCaseActions.
+     */
+    data: MultipleAccountCaseActionCreateManyInput | MultipleAccountCaseActionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MultipleAccountCaseAction update
+   */
+  export type MultipleAccountCaseActionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MultipleAccountCaseAction.
+     */
+    data: XOR<MultipleAccountCaseActionUpdateInput, MultipleAccountCaseActionUncheckedUpdateInput>
+    /**
+     * Choose, which MultipleAccountCaseAction to update.
+     */
+    where: MultipleAccountCaseActionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseAction updateMany
+   */
+  export type MultipleAccountCaseActionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MultipleAccountCaseActions.
+     */
+    data: XOR<MultipleAccountCaseActionUpdateManyMutationInput, MultipleAccountCaseActionUncheckedUpdateManyInput>
+    /**
+     * Filter which MultipleAccountCaseActions to update
+     */
+    where?: MultipleAccountCaseActionWhereInput
+    /**
+     * Limit how many MultipleAccountCaseActions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultipleAccountCaseAction updateManyAndReturn
+   */
+  export type MultipleAccountCaseActionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * The data used to update MultipleAccountCaseActions.
+     */
+    data: XOR<MultipleAccountCaseActionUpdateManyMutationInput, MultipleAccountCaseActionUncheckedUpdateManyInput>
+    /**
+     * Filter which MultipleAccountCaseActions to update
+     */
+    where?: MultipleAccountCaseActionWhereInput
+    /**
+     * Limit how many MultipleAccountCaseActions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MultipleAccountCaseAction upsert
+   */
+  export type MultipleAccountCaseActionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MultipleAccountCaseAction to update in case it exists.
+     */
+    where: MultipleAccountCaseActionWhereUniqueInput
+    /**
+     * In case the MultipleAccountCaseAction found by the `where` argument doesn't exist, create a new MultipleAccountCaseAction with this data.
+     */
+    create: XOR<MultipleAccountCaseActionCreateInput, MultipleAccountCaseActionUncheckedCreateInput>
+    /**
+     * In case the MultipleAccountCaseAction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MultipleAccountCaseActionUpdateInput, MultipleAccountCaseActionUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseAction delete
+   */
+  export type MultipleAccountCaseActionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
+    /**
+     * Filter which MultipleAccountCaseAction to delete.
+     */
+    where: MultipleAccountCaseActionWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * MultipleAccountCaseAction deleteMany
+   */
+  export type MultipleAccountCaseActionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MultipleAccountCaseActions to delete
+     */
+    where?: MultipleAccountCaseActionWhereInput
+    /**
+     * Limit how many MultipleAccountCaseActions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MultipleAccountCaseAction without action
+   */
+  export type MultipleAccountCaseActionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MultipleAccountCaseAction
+     */
+    select?: MultipleAccountCaseActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MultipleAccountCaseAction
+     */
+    omit?: MultipleAccountCaseActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MultipleAccountCaseActionInclude<ExtArgs> | null
   }
 
 
@@ -37334,55 +38658,55 @@ export namespace Prisma {
     where?: MultipleAccountCaseReviewWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of MultipleAccountCaseReviews to fetch.
      */
     orderBy?: MultipleAccountCaseReviewOrderByWithRelationInput | MultipleAccountCaseReviewOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: MultipleAccountCaseReviewWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` MultipleAccountCaseReviews from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` MultipleAccountCaseReviews.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned MultipleAccountCaseReviews
     **/
     _count?: true | MultipleAccountCaseReviewCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: MultipleAccountCaseReviewAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: MultipleAccountCaseReviewSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MultipleAccountCaseReviewMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: MultipleAccountCaseReviewMaxAggregateInputType
@@ -37588,13 +38912,13 @@ export namespace Prisma {
      * @example
      * // Get all MultipleAccountCaseReviews
      * const multipleAccountCaseReviews = await prisma.multipleAccountCaseReview.findMany()
-     *
+     * 
      * // Get first 10 MultipleAccountCaseReviews
      * const multipleAccountCaseReviews = await prisma.multipleAccountCaseReview.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const multipleAccountCaseReviewWithIdOnly = await prisma.multipleAccountCaseReview.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends MultipleAccountCaseReviewFindManyArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -37608,7 +38932,7 @@ export namespace Prisma {
      *     // ... data to create a MultipleAccountCaseReview
      *   }
      * })
-     *
+     * 
      */
     create<T extends MultipleAccountCaseReviewCreateArgs>(args: SelectSubset<T, MultipleAccountCaseReviewCreateArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -37622,7 +38946,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends MultipleAccountCaseReviewCreateManyArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -37636,7 +38960,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many MultipleAccountCaseReviews and only return the `id`
      * const multipleAccountCaseReviewWithIdOnly = await prisma.multipleAccountCaseReview.createManyAndReturn({
      *   select: { id: true },
@@ -37646,7 +38970,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends MultipleAccountCaseReviewCreateManyAndReturnArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -37660,7 +38984,7 @@ export namespace Prisma {
      *     // ... filter to delete one MultipleAccountCaseReview
      *   }
      * })
-     *
+     * 
      */
     delete<T extends MultipleAccountCaseReviewDeleteArgs>(args: SelectSubset<T, MultipleAccountCaseReviewDeleteArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -37677,7 +39001,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends MultipleAccountCaseReviewUpdateArgs>(args: SelectSubset<T, MultipleAccountCaseReviewUpdateArgs<ExtArgs>>): Prisma__MultipleAccountCaseReviewClient<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -37691,7 +39015,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends MultipleAccountCaseReviewDeleteManyArgs>(args?: SelectSubset<T, MultipleAccountCaseReviewDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -37710,7 +39034,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends MultipleAccountCaseReviewUpdateManyArgs>(args: SelectSubset<T, MultipleAccountCaseReviewUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -37727,7 +39051,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more MultipleAccountCaseReviews and only return the `id`
      * const multipleAccountCaseReviewWithIdOnly = await prisma.multipleAccountCaseReview.updateManyAndReturn({
      *   select: { id: true },
@@ -37740,7 +39064,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends MultipleAccountCaseReviewUpdateManyAndReturnArgs>(args: SelectSubset<T, MultipleAccountCaseReviewUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MultipleAccountCaseReviewPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -37829,7 +39153,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends MultipleAccountCaseReviewGroupByArgs,
@@ -37941,7 +39265,7 @@ export namespace Prisma {
     readonly reason: FieldRef<"MultipleAccountCaseReview", 'String'>
     readonly createdAt: FieldRef<"MultipleAccountCaseReview", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -38012,31 +39336,31 @@ export namespace Prisma {
     where?: MultipleAccountCaseReviewWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of MultipleAccountCaseReviews to fetch.
      */
     orderBy?: MultipleAccountCaseReviewOrderByWithRelationInput | MultipleAccountCaseReviewOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for MultipleAccountCaseReviews.
      */
     cursor?: MultipleAccountCaseReviewWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` MultipleAccountCaseReviews from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` MultipleAccountCaseReviews.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of MultipleAccountCaseReviews.
      */
     distinct?: MultipleAccountCaseReviewScalarFieldEnum | MultipleAccountCaseReviewScalarFieldEnum[]
@@ -38065,31 +39389,31 @@ export namespace Prisma {
     where?: MultipleAccountCaseReviewWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of MultipleAccountCaseReviews to fetch.
      */
     orderBy?: MultipleAccountCaseReviewOrderByWithRelationInput | MultipleAccountCaseReviewOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for MultipleAccountCaseReviews.
      */
     cursor?: MultipleAccountCaseReviewWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` MultipleAccountCaseReviews from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` MultipleAccountCaseReviews.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of MultipleAccountCaseReviews.
      */
     distinct?: MultipleAccountCaseReviewScalarFieldEnum | MultipleAccountCaseReviewScalarFieldEnum[]
@@ -38118,25 +39442,25 @@ export namespace Prisma {
     where?: MultipleAccountCaseReviewWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of MultipleAccountCaseReviews to fetch.
      */
     orderBy?: MultipleAccountCaseReviewOrderByWithRelationInput | MultipleAccountCaseReviewOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing MultipleAccountCaseReviews.
      */
     cursor?: MultipleAccountCaseReviewWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` MultipleAccountCaseReviews from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` MultipleAccountCaseReviews.
      */
     skip?: number
@@ -38491,55 +39815,55 @@ export namespace Prisma {
     where?: ClanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Clans to fetch.
      */
     orderBy?: ClanOrderByWithRelationInput | ClanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: ClanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Clans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Clans.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Clans
     **/
     _count?: true | ClanCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: ClanAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: ClanSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ClanMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: ClanMaxAggregateInputType
@@ -38789,13 +40113,13 @@ export namespace Prisma {
      * @example
      * // Get all Clans
      * const clans = await prisma.clan.findMany()
-     *
+     * 
      * // Get first 10 Clans
      * const clans = await prisma.clan.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const clanWithIdOnly = await prisma.clan.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends ClanFindManyArgs>(args?: SelectSubset<T, ClanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -38809,7 +40133,7 @@ export namespace Prisma {
      *     // ... data to create a Clan
      *   }
      * })
-     *
+     * 
      */
     create<T extends ClanCreateArgs>(args: SelectSubset<T, ClanCreateArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -38823,7 +40147,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends ClanCreateManyArgs>(args?: SelectSubset<T, ClanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -38837,7 +40161,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Clans and only return the `id`
      * const clanWithIdOnly = await prisma.clan.createManyAndReturn({
      *   select: { id: true },
@@ -38847,7 +40171,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends ClanCreateManyAndReturnArgs>(args?: SelectSubset<T, ClanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -38861,7 +40185,7 @@ export namespace Prisma {
      *     // ... filter to delete one Clan
      *   }
      * })
-     *
+     * 
      */
     delete<T extends ClanDeleteArgs>(args: SelectSubset<T, ClanDeleteArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -38878,7 +40202,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends ClanUpdateArgs>(args: SelectSubset<T, ClanUpdateArgs<ExtArgs>>): Prisma__ClanClient<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -38892,7 +40216,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends ClanDeleteManyArgs>(args?: SelectSubset<T, ClanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -38911,7 +40235,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends ClanUpdateManyArgs>(args: SelectSubset<T, ClanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -38928,7 +40252,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Clans and only return the `id`
      * const clanWithIdOnly = await prisma.clan.updateManyAndReturn({
      *   select: { id: true },
@@ -38941,7 +40265,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends ClanUpdateManyAndReturnArgs>(args: SelectSubset<T, ClanUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClanPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -57126,6 +58450,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     bannedAt: 'bannedAt',
     banReason: 'banReason',
+    banAppealCode: 'banAppealCode',
     displayVersusPage: 'displayVersusPage',
     alwaysDisplayScrubber: 'alwaysDisplayScrubber',
     displayOpponentDetails: 'displayOpponentDetails',
@@ -57484,6 +58809,7 @@ export namespace Prisma {
 
   export const MultipleAccountCaseScalarFieldEnum: {
     id: 'id',
+    appealCode: 'appealCode',
     ruleVersion: 'ruleVersion',
     signal: 'signal',
     browserId: 'browserId',
@@ -57501,10 +58827,26 @@ export namespace Prisma {
     exemptions: 'exemptions',
     excludedCount: 'excludedCount',
     status: 'status',
-    revision: 'revision'
+    revision: 'revision',
+    automaticAt: 'automaticAt',
+    automaticNote: 'automaticNote'
   };
 
   export type MultipleAccountCaseScalarFieldEnum = (typeof MultipleAccountCaseScalarFieldEnum)[keyof typeof MultipleAccountCaseScalarFieldEnum]
+
+
+  export const MultipleAccountCaseActionScalarFieldEnum: {
+    caseId: 'caseId',
+    userId: 'userId',
+    policyVersion: 'policyVersion',
+    status: 'status',
+    reason: 'reason',
+    attempts: 'attempts',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MultipleAccountCaseActionScalarFieldEnum = (typeof MultipleAccountCaseActionScalarFieldEnum)[keyof typeof MultipleAccountCaseActionScalarFieldEnum]
 
 
   export const MultipleAccountCaseReviewScalarFieldEnum: {
@@ -58064,14 +59406,14 @@ export namespace Prisma {
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-
+    
 
 
   /**
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-
+    
 
 
   /**
@@ -58224,6 +59566,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
+    banAppealCode?: UuidNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
     alwaysDisplayScrubber?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
@@ -58266,6 +59609,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
+    banAppealCode?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
     alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
@@ -58311,6 +59655,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
+    banAppealCode?: UuidNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
     alwaysDisplayScrubber?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
@@ -58353,6 +59698,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     bannedAt?: SortOrderInput | SortOrder
     banReason?: SortOrderInput | SortOrder
+    banAppealCode?: SortOrderInput | SortOrder
     displayVersusPage?: SortOrder
     alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
@@ -58388,6 +59734,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     banReason?: StringNullableWithAggregatesFilter<"User"> | string | null
+    banAppealCode?: UuidNullableWithAggregatesFilter<"User"> | string | null
     displayVersusPage?: BoolWithAggregatesFilter<"User"> | boolean
     alwaysDisplayScrubber?: BoolWithAggregatesFilter<"User"> | boolean
     displayOpponentDetails?: BoolWithAggregatesFilter<"User"> | boolean
@@ -60237,6 +61584,7 @@ export namespace Prisma {
     OR?: MultipleAccountCaseWhereInput[]
     NOT?: MultipleAccountCaseWhereInput | MultipleAccountCaseWhereInput[]
     id?: StringFilter<"MultipleAccountCase"> | string
+    appealCode?: UuidFilter<"MultipleAccountCase"> | string
     ruleVersion?: IntFilter<"MultipleAccountCase"> | number
     signal?: StringFilter<"MultipleAccountCase"> | string
     browserId?: UuidNullableFilter<"MultipleAccountCase"> | string | null
@@ -60255,11 +61603,15 @@ export namespace Prisma {
     excludedCount?: IntFilter<"MultipleAccountCase"> | number
     status?: StringFilter<"MultipleAccountCase"> | string
     revision?: IntFilter<"MultipleAccountCase"> | number
+    automaticAt?: DateTimeNullableFilter<"MultipleAccountCase"> | Date | string | null
+    automaticNote?: StringNullableFilter<"MultipleAccountCase"> | string | null
     reviews?: MultipleAccountCaseReviewListRelationFilter
+    actions?: MultipleAccountCaseActionListRelationFilter
   }
 
   export type MultipleAccountCaseOrderByWithRelationInput = {
     id?: SortOrder
+    appealCode?: SortOrder
     ruleVersion?: SortOrder
     signal?: SortOrder
     browserId?: SortOrderInput | SortOrder
@@ -60278,11 +61630,15 @@ export namespace Prisma {
     excludedCount?: SortOrder
     status?: SortOrder
     revision?: SortOrder
+    automaticAt?: SortOrderInput | SortOrder
+    automaticNote?: SortOrderInput | SortOrder
     reviews?: MultipleAccountCaseReviewOrderByRelationAggregateInput
+    actions?: MultipleAccountCaseActionOrderByRelationAggregateInput
   }
 
   export type MultipleAccountCaseWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    appealCode?: string
     AND?: MultipleAccountCaseWhereInput | MultipleAccountCaseWhereInput[]
     OR?: MultipleAccountCaseWhereInput[]
     NOT?: MultipleAccountCaseWhereInput | MultipleAccountCaseWhereInput[]
@@ -60304,11 +61660,15 @@ export namespace Prisma {
     excludedCount?: IntFilter<"MultipleAccountCase"> | number
     status?: StringFilter<"MultipleAccountCase"> | string
     revision?: IntFilter<"MultipleAccountCase"> | number
+    automaticAt?: DateTimeNullableFilter<"MultipleAccountCase"> | Date | string | null
+    automaticNote?: StringNullableFilter<"MultipleAccountCase"> | string | null
     reviews?: MultipleAccountCaseReviewListRelationFilter
-  }, "id">
+    actions?: MultipleAccountCaseActionListRelationFilter
+  }, "id" | "appealCode">
 
   export type MultipleAccountCaseOrderByWithAggregationInput = {
     id?: SortOrder
+    appealCode?: SortOrder
     ruleVersion?: SortOrder
     signal?: SortOrder
     browserId?: SortOrderInput | SortOrder
@@ -60327,6 +61687,8 @@ export namespace Prisma {
     excludedCount?: SortOrder
     status?: SortOrder
     revision?: SortOrder
+    automaticAt?: SortOrderInput | SortOrder
+    automaticNote?: SortOrderInput | SortOrder
     _count?: MultipleAccountCaseCountOrderByAggregateInput
     _avg?: MultipleAccountCaseAvgOrderByAggregateInput
     _max?: MultipleAccountCaseMaxOrderByAggregateInput
@@ -60339,6 +61701,7 @@ export namespace Prisma {
     OR?: MultipleAccountCaseScalarWhereWithAggregatesInput[]
     NOT?: MultipleAccountCaseScalarWhereWithAggregatesInput | MultipleAccountCaseScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MultipleAccountCase"> | string
+    appealCode?: UuidWithAggregatesFilter<"MultipleAccountCase"> | string
     ruleVersion?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
     signal?: StringWithAggregatesFilter<"MultipleAccountCase"> | string
     browserId?: UuidNullableWithAggregatesFilter<"MultipleAccountCase"> | string | null
@@ -60357,6 +61720,81 @@ export namespace Prisma {
     excludedCount?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
     status?: StringWithAggregatesFilter<"MultipleAccountCase"> | string
     revision?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
+    automaticAt?: DateTimeNullableWithAggregatesFilter<"MultipleAccountCase"> | Date | string | null
+    automaticNote?: StringNullableWithAggregatesFilter<"MultipleAccountCase"> | string | null
+  }
+
+  export type MultipleAccountCaseActionWhereInput = {
+    AND?: MultipleAccountCaseActionWhereInput | MultipleAccountCaseActionWhereInput[]
+    OR?: MultipleAccountCaseActionWhereInput[]
+    NOT?: MultipleAccountCaseActionWhereInput | MultipleAccountCaseActionWhereInput[]
+    caseId?: StringFilter<"MultipleAccountCaseAction"> | string
+    userId?: UuidFilter<"MultipleAccountCaseAction"> | string
+    policyVersion?: IntFilter<"MultipleAccountCaseAction"> | number
+    status?: StringFilter<"MultipleAccountCaseAction"> | string
+    reason?: StringFilter<"MultipleAccountCaseAction"> | string
+    attempts?: IntFilter<"MultipleAccountCaseAction"> | number
+    createdAt?: DateTimeFilter<"MultipleAccountCaseAction"> | Date | string
+    updatedAt?: DateTimeFilter<"MultipleAccountCaseAction"> | Date | string
+    case?: XOR<MultipleAccountCaseScalarRelationFilter, MultipleAccountCaseWhereInput>
+  }
+
+  export type MultipleAccountCaseActionOrderByWithRelationInput = {
+    caseId?: SortOrder
+    userId?: SortOrder
+    policyVersion?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    attempts?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    case?: MultipleAccountCaseOrderByWithRelationInput
+  }
+
+  export type MultipleAccountCaseActionWhereUniqueInput = Prisma.AtLeast<{
+    caseId_userId?: MultipleAccountCaseActionCaseIdUserIdCompoundUniqueInput
+    AND?: MultipleAccountCaseActionWhereInput | MultipleAccountCaseActionWhereInput[]
+    OR?: MultipleAccountCaseActionWhereInput[]
+    NOT?: MultipleAccountCaseActionWhereInput | MultipleAccountCaseActionWhereInput[]
+    caseId?: StringFilter<"MultipleAccountCaseAction"> | string
+    userId?: UuidFilter<"MultipleAccountCaseAction"> | string
+    policyVersion?: IntFilter<"MultipleAccountCaseAction"> | number
+    status?: StringFilter<"MultipleAccountCaseAction"> | string
+    reason?: StringFilter<"MultipleAccountCaseAction"> | string
+    attempts?: IntFilter<"MultipleAccountCaseAction"> | number
+    createdAt?: DateTimeFilter<"MultipleAccountCaseAction"> | Date | string
+    updatedAt?: DateTimeFilter<"MultipleAccountCaseAction"> | Date | string
+    case?: XOR<MultipleAccountCaseScalarRelationFilter, MultipleAccountCaseWhereInput>
+  }, "caseId_userId">
+
+  export type MultipleAccountCaseActionOrderByWithAggregationInput = {
+    caseId?: SortOrder
+    userId?: SortOrder
+    policyVersion?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    attempts?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MultipleAccountCaseActionCountOrderByAggregateInput
+    _avg?: MultipleAccountCaseActionAvgOrderByAggregateInput
+    _max?: MultipleAccountCaseActionMaxOrderByAggregateInput
+    _min?: MultipleAccountCaseActionMinOrderByAggregateInput
+    _sum?: MultipleAccountCaseActionSumOrderByAggregateInput
+  }
+
+  export type MultipleAccountCaseActionScalarWhereWithAggregatesInput = {
+    AND?: MultipleAccountCaseActionScalarWhereWithAggregatesInput | MultipleAccountCaseActionScalarWhereWithAggregatesInput[]
+    OR?: MultipleAccountCaseActionScalarWhereWithAggregatesInput[]
+    NOT?: MultipleAccountCaseActionScalarWhereWithAggregatesInput | MultipleAccountCaseActionScalarWhereWithAggregatesInput[]
+    caseId?: StringWithAggregatesFilter<"MultipleAccountCaseAction"> | string
+    userId?: UuidWithAggregatesFilter<"MultipleAccountCaseAction"> | string
+    policyVersion?: IntWithAggregatesFilter<"MultipleAccountCaseAction"> | number
+    status?: StringWithAggregatesFilter<"MultipleAccountCaseAction"> | string
+    reason?: StringWithAggregatesFilter<"MultipleAccountCaseAction"> | string
+    attempts?: IntWithAggregatesFilter<"MultipleAccountCaseAction"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"MultipleAccountCaseAction"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MultipleAccountCaseAction"> | Date | string
   }
 
   export type MultipleAccountCaseReviewWhereInput = {
@@ -61646,6 +63084,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -61687,6 +63126,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -61728,6 +63168,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -61769,6 +63210,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -61810,6 +63252,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -61837,6 +63280,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -61863,6 +63307,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -63832,6 +65277,7 @@ export namespace Prisma {
 
   export type MultipleAccountCaseCreateInput = {
     id: string
+    appealCode?: string
     ruleVersion: number
     signal: string
     browserId?: string | null
@@ -63850,11 +65296,15 @@ export namespace Prisma {
     excludedCount: number
     status?: string
     revision?: number
+    automaticAt?: Date | string | null
+    automaticNote?: string | null
     reviews?: MultipleAccountCaseReviewCreateNestedManyWithoutCaseInput
+    actions?: MultipleAccountCaseActionCreateNestedManyWithoutCaseInput
   }
 
   export type MultipleAccountCaseUncheckedCreateInput = {
     id: string
+    appealCode?: string
     ruleVersion: number
     signal: string
     browserId?: string | null
@@ -63873,11 +65323,15 @@ export namespace Prisma {
     excludedCount: number
     status?: string
     revision?: number
+    automaticAt?: Date | string | null
+    automaticNote?: string | null
     reviews?: MultipleAccountCaseReviewUncheckedCreateNestedManyWithoutCaseInput
+    actions?: MultipleAccountCaseActionUncheckedCreateNestedManyWithoutCaseInput
   }
 
   export type MultipleAccountCaseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealCode?: StringFieldUpdateOperationsInput | string
     ruleVersion?: IntFieldUpdateOperationsInput | number
     signal?: StringFieldUpdateOperationsInput | string
     browserId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63896,11 +65350,15 @@ export namespace Prisma {
     excludedCount?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     revision?: IntFieldUpdateOperationsInput | number
+    automaticAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    automaticNote?: NullableStringFieldUpdateOperationsInput | string | null
     reviews?: MultipleAccountCaseReviewUpdateManyWithoutCaseNestedInput
+    actions?: MultipleAccountCaseActionUpdateManyWithoutCaseNestedInput
   }
 
   export type MultipleAccountCaseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealCode?: StringFieldUpdateOperationsInput | string
     ruleVersion?: IntFieldUpdateOperationsInput | number
     signal?: StringFieldUpdateOperationsInput | string
     browserId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63919,11 +65377,15 @@ export namespace Prisma {
     excludedCount?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     revision?: IntFieldUpdateOperationsInput | number
+    automaticAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    automaticNote?: NullableStringFieldUpdateOperationsInput | string | null
     reviews?: MultipleAccountCaseReviewUncheckedUpdateManyWithoutCaseNestedInput
+    actions?: MultipleAccountCaseActionUncheckedUpdateManyWithoutCaseNestedInput
   }
 
   export type MultipleAccountCaseCreateManyInput = {
     id: string
+    appealCode?: string
     ruleVersion: number
     signal: string
     browserId?: string | null
@@ -63942,10 +65404,13 @@ export namespace Prisma {
     excludedCount: number
     status?: string
     revision?: number
+    automaticAt?: Date | string | null
+    automaticNote?: string | null
   }
 
   export type MultipleAccountCaseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealCode?: StringFieldUpdateOperationsInput | string
     ruleVersion?: IntFieldUpdateOperationsInput | number
     signal?: StringFieldUpdateOperationsInput | string
     browserId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63964,10 +65429,13 @@ export namespace Prisma {
     excludedCount?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     revision?: IntFieldUpdateOperationsInput | number
+    automaticAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    automaticNote?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MultipleAccountCaseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealCode?: StringFieldUpdateOperationsInput | string
     ruleVersion?: IntFieldUpdateOperationsInput | number
     signal?: StringFieldUpdateOperationsInput | string
     browserId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63986,6 +65454,84 @@ export namespace Prisma {
     excludedCount?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     revision?: IntFieldUpdateOperationsInput | number
+    automaticAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    automaticNote?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MultipleAccountCaseActionCreateInput = {
+    userId: string
+    policyVersion: number
+    status?: string
+    reason: string
+    attempts?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    case: MultipleAccountCaseCreateNestedOneWithoutActionsInput
+  }
+
+  export type MultipleAccountCaseActionUncheckedCreateInput = {
+    caseId: string
+    userId: string
+    policyVersion: number
+    status?: string
+    reason: string
+    attempts?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MultipleAccountCaseActionUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    policyVersion?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    case?: MultipleAccountCaseUpdateOneRequiredWithoutActionsNestedInput
+  }
+
+  export type MultipleAccountCaseActionUncheckedUpdateInput = {
+    caseId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    policyVersion?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultipleAccountCaseActionCreateManyInput = {
+    caseId: string
+    userId: string
+    policyVersion: number
+    status?: string
+    reason: string
+    attempts?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MultipleAccountCaseActionUpdateManyMutationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    policyVersion?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultipleAccountCaseActionUncheckedUpdateManyInput = {
+    caseId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    policyVersion?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MultipleAccountCaseReviewCreateInput = {
@@ -65414,6 +66960,18 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type UuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
   export type AccountObservationListRelationFilter = {
     every?: AccountObservationWhereInput
     some?: AccountObservationWhereInput
@@ -65562,6 +67120,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
+    banAppealCode?: SortOrder
     displayVersusPage?: SortOrder
     alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
@@ -65593,6 +67152,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
+    banAppealCode?: SortOrder
     displayVersusPage?: SortOrder
     alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
@@ -65617,6 +67177,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     bannedAt?: SortOrder
     banReason?: SortOrder
+    banAppealCode?: SortOrder
     displayVersusPage?: SortOrder
     alwaysDisplayScrubber?: SortOrder
     displayOpponentDetails?: SortOrder
@@ -65746,6 +67307,21 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -65809,18 +67385,6 @@ export namespace Prisma {
     in?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumUserLogTypeFilter<$PrismaModel> | $Enums.UserLogType
-  }
-
-  export type UuidNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -65888,21 +67452,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserLogTypeFilter<$PrismaModel>
     _max?: NestedEnumUserLogTypeFilter<$PrismaModel>
-  }
-
-  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -67272,12 +68821,23 @@ export namespace Prisma {
     none?: MultipleAccountCaseReviewWhereInput
   }
 
+  export type MultipleAccountCaseActionListRelationFilter = {
+    every?: MultipleAccountCaseActionWhereInput
+    some?: MultipleAccountCaseActionWhereInput
+    none?: MultipleAccountCaseActionWhereInput
+  }
+
   export type MultipleAccountCaseReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MultipleAccountCaseActionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type MultipleAccountCaseCountOrderByAggregateInput = {
     id?: SortOrder
+    appealCode?: SortOrder
     ruleVersion?: SortOrder
     signal?: SortOrder
     browserId?: SortOrder
@@ -67296,6 +68856,8 @@ export namespace Prisma {
     excludedCount?: SortOrder
     status?: SortOrder
     revision?: SortOrder
+    automaticAt?: SortOrder
+    automaticNote?: SortOrder
   }
 
   export type MultipleAccountCaseAvgOrderByAggregateInput = {
@@ -67308,6 +68870,7 @@ export namespace Prisma {
 
   export type MultipleAccountCaseMaxOrderByAggregateInput = {
     id?: SortOrder
+    appealCode?: SortOrder
     ruleVersion?: SortOrder
     signal?: SortOrder
     browserId?: SortOrder
@@ -67324,10 +68887,13 @@ export namespace Prisma {
     excludedCount?: SortOrder
     status?: SortOrder
     revision?: SortOrder
+    automaticAt?: SortOrder
+    automaticNote?: SortOrder
   }
 
   export type MultipleAccountCaseMinOrderByAggregateInput = {
     id?: SortOrder
+    appealCode?: SortOrder
     ruleVersion?: SortOrder
     signal?: SortOrder
     browserId?: SortOrder
@@ -67344,6 +68910,8 @@ export namespace Prisma {
     excludedCount?: SortOrder
     status?: SortOrder
     revision?: SortOrder
+    automaticAt?: SortOrder
+    automaticNote?: SortOrder
   }
 
   export type MultipleAccountCaseSumOrderByAggregateInput = {
@@ -67383,6 +68951,54 @@ export namespace Prisma {
   export type MultipleAccountCaseScalarRelationFilter = {
     is?: MultipleAccountCaseWhereInput
     isNot?: MultipleAccountCaseWhereInput
+  }
+
+  export type MultipleAccountCaseActionCaseIdUserIdCompoundUniqueInput = {
+    caseId: string
+    userId: string
+  }
+
+  export type MultipleAccountCaseActionCountOrderByAggregateInput = {
+    caseId?: SortOrder
+    userId?: SortOrder
+    policyVersion?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    attempts?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MultipleAccountCaseActionAvgOrderByAggregateInput = {
+    policyVersion?: SortOrder
+    attempts?: SortOrder
+  }
+
+  export type MultipleAccountCaseActionMaxOrderByAggregateInput = {
+    caseId?: SortOrder
+    userId?: SortOrder
+    policyVersion?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    attempts?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MultipleAccountCaseActionMinOrderByAggregateInput = {
+    caseId?: SortOrder
+    userId?: SortOrder
+    policyVersion?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    attempts?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MultipleAccountCaseActionSumOrderByAggregateInput = {
+    policyVersion?: SortOrder
+    attempts?: SortOrder
   }
 
   export type MultipleAccountCaseReviewCaseIdRevisionCompoundUniqueInput = {
@@ -71033,11 +72649,25 @@ export namespace Prisma {
     connect?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
   }
 
+  export type MultipleAccountCaseActionCreateNestedManyWithoutCaseInput = {
+    create?: XOR<MultipleAccountCaseActionCreateWithoutCaseInput, MultipleAccountCaseActionUncheckedCreateWithoutCaseInput> | MultipleAccountCaseActionCreateWithoutCaseInput[] | MultipleAccountCaseActionUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: MultipleAccountCaseActionCreateOrConnectWithoutCaseInput | MultipleAccountCaseActionCreateOrConnectWithoutCaseInput[]
+    createMany?: MultipleAccountCaseActionCreateManyCaseInputEnvelope
+    connect?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
+  }
+
   export type MultipleAccountCaseReviewUncheckedCreateNestedManyWithoutCaseInput = {
     create?: XOR<MultipleAccountCaseReviewCreateWithoutCaseInput, MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput> | MultipleAccountCaseReviewCreateWithoutCaseInput[] | MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput[]
     connectOrCreate?: MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput | MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput[]
     createMany?: MultipleAccountCaseReviewCreateManyCaseInputEnvelope
     connect?: MultipleAccountCaseReviewWhereUniqueInput | MultipleAccountCaseReviewWhereUniqueInput[]
+  }
+
+  export type MultipleAccountCaseActionUncheckedCreateNestedManyWithoutCaseInput = {
+    create?: XOR<MultipleAccountCaseActionCreateWithoutCaseInput, MultipleAccountCaseActionUncheckedCreateWithoutCaseInput> | MultipleAccountCaseActionCreateWithoutCaseInput[] | MultipleAccountCaseActionUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: MultipleAccountCaseActionCreateOrConnectWithoutCaseInput | MultipleAccountCaseActionCreateOrConnectWithoutCaseInput[]
+    createMany?: MultipleAccountCaseActionCreateManyCaseInputEnvelope
+    connect?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
   }
 
   export type MultipleAccountCaseUpdateuserIdsInput = {
@@ -71059,6 +72689,20 @@ export namespace Prisma {
     deleteMany?: MultipleAccountCaseReviewScalarWhereInput | MultipleAccountCaseReviewScalarWhereInput[]
   }
 
+  export type MultipleAccountCaseActionUpdateManyWithoutCaseNestedInput = {
+    create?: XOR<MultipleAccountCaseActionCreateWithoutCaseInput, MultipleAccountCaseActionUncheckedCreateWithoutCaseInput> | MultipleAccountCaseActionCreateWithoutCaseInput[] | MultipleAccountCaseActionUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: MultipleAccountCaseActionCreateOrConnectWithoutCaseInput | MultipleAccountCaseActionCreateOrConnectWithoutCaseInput[]
+    upsert?: MultipleAccountCaseActionUpsertWithWhereUniqueWithoutCaseInput | MultipleAccountCaseActionUpsertWithWhereUniqueWithoutCaseInput[]
+    createMany?: MultipleAccountCaseActionCreateManyCaseInputEnvelope
+    set?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
+    disconnect?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
+    delete?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
+    connect?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
+    update?: MultipleAccountCaseActionUpdateWithWhereUniqueWithoutCaseInput | MultipleAccountCaseActionUpdateWithWhereUniqueWithoutCaseInput[]
+    updateMany?: MultipleAccountCaseActionUpdateManyWithWhereWithoutCaseInput | MultipleAccountCaseActionUpdateManyWithWhereWithoutCaseInput[]
+    deleteMany?: MultipleAccountCaseActionScalarWhereInput | MultipleAccountCaseActionScalarWhereInput[]
+  }
+
   export type MultipleAccountCaseReviewUncheckedUpdateManyWithoutCaseNestedInput = {
     create?: XOR<MultipleAccountCaseReviewCreateWithoutCaseInput, MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput> | MultipleAccountCaseReviewCreateWithoutCaseInput[] | MultipleAccountCaseReviewUncheckedCreateWithoutCaseInput[]
     connectOrCreate?: MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput | MultipleAccountCaseReviewCreateOrConnectWithoutCaseInput[]
@@ -71071,6 +72715,34 @@ export namespace Prisma {
     update?: MultipleAccountCaseReviewUpdateWithWhereUniqueWithoutCaseInput | MultipleAccountCaseReviewUpdateWithWhereUniqueWithoutCaseInput[]
     updateMany?: MultipleAccountCaseReviewUpdateManyWithWhereWithoutCaseInput | MultipleAccountCaseReviewUpdateManyWithWhereWithoutCaseInput[]
     deleteMany?: MultipleAccountCaseReviewScalarWhereInput | MultipleAccountCaseReviewScalarWhereInput[]
+  }
+
+  export type MultipleAccountCaseActionUncheckedUpdateManyWithoutCaseNestedInput = {
+    create?: XOR<MultipleAccountCaseActionCreateWithoutCaseInput, MultipleAccountCaseActionUncheckedCreateWithoutCaseInput> | MultipleAccountCaseActionCreateWithoutCaseInput[] | MultipleAccountCaseActionUncheckedCreateWithoutCaseInput[]
+    connectOrCreate?: MultipleAccountCaseActionCreateOrConnectWithoutCaseInput | MultipleAccountCaseActionCreateOrConnectWithoutCaseInput[]
+    upsert?: MultipleAccountCaseActionUpsertWithWhereUniqueWithoutCaseInput | MultipleAccountCaseActionUpsertWithWhereUniqueWithoutCaseInput[]
+    createMany?: MultipleAccountCaseActionCreateManyCaseInputEnvelope
+    set?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
+    disconnect?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
+    delete?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
+    connect?: MultipleAccountCaseActionWhereUniqueInput | MultipleAccountCaseActionWhereUniqueInput[]
+    update?: MultipleAccountCaseActionUpdateWithWhereUniqueWithoutCaseInput | MultipleAccountCaseActionUpdateWithWhereUniqueWithoutCaseInput[]
+    updateMany?: MultipleAccountCaseActionUpdateManyWithWhereWithoutCaseInput | MultipleAccountCaseActionUpdateManyWithWhereWithoutCaseInput[]
+    deleteMany?: MultipleAccountCaseActionScalarWhereInput | MultipleAccountCaseActionScalarWhereInput[]
+  }
+
+  export type MultipleAccountCaseCreateNestedOneWithoutActionsInput = {
+    create?: XOR<MultipleAccountCaseCreateWithoutActionsInput, MultipleAccountCaseUncheckedCreateWithoutActionsInput>
+    connectOrCreate?: MultipleAccountCaseCreateOrConnectWithoutActionsInput
+    connect?: MultipleAccountCaseWhereUniqueInput
+  }
+
+  export type MultipleAccountCaseUpdateOneRequiredWithoutActionsNestedInput = {
+    create?: XOR<MultipleAccountCaseCreateWithoutActionsInput, MultipleAccountCaseUncheckedCreateWithoutActionsInput>
+    connectOrCreate?: MultipleAccountCaseCreateOrConnectWithoutActionsInput
+    upsert?: MultipleAccountCaseUpsertWithoutActionsInput
+    connect?: MultipleAccountCaseWhereUniqueInput
+    update?: XOR<XOR<MultipleAccountCaseUpdateToOneWithWhereWithoutActionsInput, MultipleAccountCaseUpdateWithoutActionsInput>, MultipleAccountCaseUncheckedUpdateWithoutActionsInput>
   }
 
   export type MultipleAccountCaseCreateNestedOneWithoutReviewsInput = {
@@ -72175,6 +73847,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedUuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -72307,34 +73990,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumUserLogTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserLogType | EnumUserLogTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserLogTypeFilter<$PrismaModel> | $Enums.UserLogType
-  }
-
-  export type NestedUuidNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumUserLogTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.UserLogType | EnumUserLogTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumUserLogTypeWithAggregatesFilter<$PrismaModel> | $Enums.UserLogType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumUserLogTypeFilter<$PrismaModel>
-    _max?: NestedEnumUserLogTypeFilter<$PrismaModel>
-  }
-
   export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -72347,6 +74002,23 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserLogTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserLogType | EnumUserLogTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserLogTypeFilter<$PrismaModel> | $Enums.UserLogType
+  }
+
+  export type NestedEnumUserLogTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserLogType | EnumUserLogTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserLogType[] | ListEnumUserLogTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserLogTypeWithAggregatesFilter<$PrismaModel> | $Enums.UserLogType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserLogTypeFilter<$PrismaModel>
+    _max?: NestedEnumUserLogTypeFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -73993,6 +75665,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -74033,6 +75706,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -74089,6 +75763,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -74129,6 +75804,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -74169,6 +75845,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -74209,6 +75886,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -74442,6 +76120,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -74482,6 +76161,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -74705,6 +76385,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -74745,6 +76426,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -76070,6 +77752,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -76110,6 +77793,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -76433,6 +78117,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -76473,6 +78158,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -77256,6 +78942,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     bannedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     banReason?: StringNullableFilter<"User"> | string | null
+    banAppealCode?: UuidNullableFilter<"User"> | string | null
     displayVersusPage?: BoolFilter<"User"> | boolean
     alwaysDisplayScrubber?: BoolFilter<"User"> | boolean
     displayOpponentDetails?: BoolFilter<"User"> | boolean
@@ -78682,6 +80369,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -78722,6 +80410,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -80913,6 +82602,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -80953,6 +82643,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -81009,6 +82700,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -81049,6 +82741,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -81986,6 +83679,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -82026,6 +83720,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -82265,6 +83960,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -82305,6 +84001,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -82522,6 +84219,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -82562,6 +84260,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -82607,6 +84306,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -82647,6 +84347,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -82902,6 +84603,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -82942,6 +84644,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -82982,6 +84685,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -83022,6 +84726,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -83147,6 +84852,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -83187,6 +84893,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -83268,6 +84975,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -83308,6 +85016,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -83358,6 +85067,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MultipleAccountCaseActionCreateWithoutCaseInput = {
+    userId: string
+    policyVersion: number
+    status?: string
+    reason: string
+    attempts?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MultipleAccountCaseActionUncheckedCreateWithoutCaseInput = {
+    userId: string
+    policyVersion: number
+    status?: string
+    reason: string
+    attempts?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MultipleAccountCaseActionCreateOrConnectWithoutCaseInput = {
+    where: MultipleAccountCaseActionWhereUniqueInput
+    create: XOR<MultipleAccountCaseActionCreateWithoutCaseInput, MultipleAccountCaseActionUncheckedCreateWithoutCaseInput>
+  }
+
+  export type MultipleAccountCaseActionCreateManyCaseInputEnvelope = {
+    data: MultipleAccountCaseActionCreateManyCaseInput | MultipleAccountCaseActionCreateManyCaseInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MultipleAccountCaseReviewUpsertWithWhereUniqueWithoutCaseInput = {
     where: MultipleAccountCaseReviewWhereUniqueInput
     update: XOR<MultipleAccountCaseReviewUpdateWithoutCaseInput, MultipleAccountCaseReviewUncheckedUpdateWithoutCaseInput>
@@ -83387,8 +85126,39 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"MultipleAccountCaseReview"> | Date | string
   }
 
-  export type MultipleAccountCaseCreateWithoutReviewsInput = {
+  export type MultipleAccountCaseActionUpsertWithWhereUniqueWithoutCaseInput = {
+    where: MultipleAccountCaseActionWhereUniqueInput
+    update: XOR<MultipleAccountCaseActionUpdateWithoutCaseInput, MultipleAccountCaseActionUncheckedUpdateWithoutCaseInput>
+    create: XOR<MultipleAccountCaseActionCreateWithoutCaseInput, MultipleAccountCaseActionUncheckedCreateWithoutCaseInput>
+  }
+
+  export type MultipleAccountCaseActionUpdateWithWhereUniqueWithoutCaseInput = {
+    where: MultipleAccountCaseActionWhereUniqueInput
+    data: XOR<MultipleAccountCaseActionUpdateWithoutCaseInput, MultipleAccountCaseActionUncheckedUpdateWithoutCaseInput>
+  }
+
+  export type MultipleAccountCaseActionUpdateManyWithWhereWithoutCaseInput = {
+    where: MultipleAccountCaseActionScalarWhereInput
+    data: XOR<MultipleAccountCaseActionUpdateManyMutationInput, MultipleAccountCaseActionUncheckedUpdateManyWithoutCaseInput>
+  }
+
+  export type MultipleAccountCaseActionScalarWhereInput = {
+    AND?: MultipleAccountCaseActionScalarWhereInput | MultipleAccountCaseActionScalarWhereInput[]
+    OR?: MultipleAccountCaseActionScalarWhereInput[]
+    NOT?: MultipleAccountCaseActionScalarWhereInput | MultipleAccountCaseActionScalarWhereInput[]
+    caseId?: StringFilter<"MultipleAccountCaseAction"> | string
+    userId?: UuidFilter<"MultipleAccountCaseAction"> | string
+    policyVersion?: IntFilter<"MultipleAccountCaseAction"> | number
+    status?: StringFilter<"MultipleAccountCaseAction"> | string
+    reason?: StringFilter<"MultipleAccountCaseAction"> | string
+    attempts?: IntFilter<"MultipleAccountCaseAction"> | number
+    createdAt?: DateTimeFilter<"MultipleAccountCaseAction"> | Date | string
+    updatedAt?: DateTimeFilter<"MultipleAccountCaseAction"> | Date | string
+  }
+
+  export type MultipleAccountCaseCreateWithoutActionsInput = {
     id: string
+    appealCode?: string
     ruleVersion: number
     signal: string
     browserId?: string | null
@@ -83407,10 +85177,134 @@ export namespace Prisma {
     excludedCount: number
     status?: string
     revision?: number
+    automaticAt?: Date | string | null
+    automaticNote?: string | null
+    reviews?: MultipleAccountCaseReviewCreateNestedManyWithoutCaseInput
+  }
+
+  export type MultipleAccountCaseUncheckedCreateWithoutActionsInput = {
+    id: string
+    appealCode?: string
+    ruleVersion: number
+    signal: string
+    browserId?: string | null
+    fingerprint?: string | null
+    ip?: string | null
+    userIds?: MultipleAccountCaseCreateuserIdsInput | string[]
+    accountCount: number
+    threshold: number
+    confidence: string
+    firstSeen: Date | string
+    lastSeen: Date | string
+    windowStart: Date | string
+    windowEnd: Date | string
+    detectedAt: Date | string
+    exemptions: JsonNullValueInput | InputJsonValue
+    excludedCount: number
+    status?: string
+    revision?: number
+    automaticAt?: Date | string | null
+    automaticNote?: string | null
+    reviews?: MultipleAccountCaseReviewUncheckedCreateNestedManyWithoutCaseInput
+  }
+
+  export type MultipleAccountCaseCreateOrConnectWithoutActionsInput = {
+    where: MultipleAccountCaseWhereUniqueInput
+    create: XOR<MultipleAccountCaseCreateWithoutActionsInput, MultipleAccountCaseUncheckedCreateWithoutActionsInput>
+  }
+
+  export type MultipleAccountCaseUpsertWithoutActionsInput = {
+    update: XOR<MultipleAccountCaseUpdateWithoutActionsInput, MultipleAccountCaseUncheckedUpdateWithoutActionsInput>
+    create: XOR<MultipleAccountCaseCreateWithoutActionsInput, MultipleAccountCaseUncheckedCreateWithoutActionsInput>
+    where?: MultipleAccountCaseWhereInput
+  }
+
+  export type MultipleAccountCaseUpdateToOneWithWhereWithoutActionsInput = {
+    where?: MultipleAccountCaseWhereInput
+    data: XOR<MultipleAccountCaseUpdateWithoutActionsInput, MultipleAccountCaseUncheckedUpdateWithoutActionsInput>
+  }
+
+  export type MultipleAccountCaseUpdateWithoutActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appealCode?: StringFieldUpdateOperationsInput | string
+    ruleVersion?: IntFieldUpdateOperationsInput | number
+    signal?: StringFieldUpdateOperationsInput | string
+    browserId?: NullableStringFieldUpdateOperationsInput | string | null
+    fingerprint?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    userIds?: MultipleAccountCaseUpdateuserIdsInput | string[]
+    accountCount?: IntFieldUpdateOperationsInput | number
+    threshold?: IntFieldUpdateOperationsInput | number
+    confidence?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: JsonNullValueInput | InputJsonValue
+    excludedCount?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    automaticAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    automaticNote?: NullableStringFieldUpdateOperationsInput | string | null
+    reviews?: MultipleAccountCaseReviewUpdateManyWithoutCaseNestedInput
+  }
+
+  export type MultipleAccountCaseUncheckedUpdateWithoutActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appealCode?: StringFieldUpdateOperationsInput | string
+    ruleVersion?: IntFieldUpdateOperationsInput | number
+    signal?: StringFieldUpdateOperationsInput | string
+    browserId?: NullableStringFieldUpdateOperationsInput | string | null
+    fingerprint?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    userIds?: MultipleAccountCaseUpdateuserIdsInput | string[]
+    accountCount?: IntFieldUpdateOperationsInput | number
+    threshold?: IntFieldUpdateOperationsInput | number
+    confidence?: StringFieldUpdateOperationsInput | string
+    firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    windowEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    exemptions?: JsonNullValueInput | InputJsonValue
+    excludedCount?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    revision?: IntFieldUpdateOperationsInput | number
+    automaticAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    automaticNote?: NullableStringFieldUpdateOperationsInput | string | null
+    reviews?: MultipleAccountCaseReviewUncheckedUpdateManyWithoutCaseNestedInput
+  }
+
+  export type MultipleAccountCaseCreateWithoutReviewsInput = {
+    id: string
+    appealCode?: string
+    ruleVersion: number
+    signal: string
+    browserId?: string | null
+    fingerprint?: string | null
+    ip?: string | null
+    userIds?: MultipleAccountCaseCreateuserIdsInput | string[]
+    accountCount: number
+    threshold: number
+    confidence: string
+    firstSeen: Date | string
+    lastSeen: Date | string
+    windowStart: Date | string
+    windowEnd: Date | string
+    detectedAt: Date | string
+    exemptions: JsonNullValueInput | InputJsonValue
+    excludedCount: number
+    status?: string
+    revision?: number
+    automaticAt?: Date | string | null
+    automaticNote?: string | null
+    actions?: MultipleAccountCaseActionCreateNestedManyWithoutCaseInput
   }
 
   export type MultipleAccountCaseUncheckedCreateWithoutReviewsInput = {
     id: string
+    appealCode?: string
     ruleVersion: number
     signal: string
     browserId?: string | null
@@ -83429,6 +85323,9 @@ export namespace Prisma {
     excludedCount: number
     status?: string
     revision?: number
+    automaticAt?: Date | string | null
+    automaticNote?: string | null
+    actions?: MultipleAccountCaseActionUncheckedCreateNestedManyWithoutCaseInput
   }
 
   export type MultipleAccountCaseCreateOrConnectWithoutReviewsInput = {
@@ -83449,6 +85346,7 @@ export namespace Prisma {
 
   export type MultipleAccountCaseUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealCode?: StringFieldUpdateOperationsInput | string
     ruleVersion?: IntFieldUpdateOperationsInput | number
     signal?: StringFieldUpdateOperationsInput | string
     browserId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83467,10 +85365,14 @@ export namespace Prisma {
     excludedCount?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     revision?: IntFieldUpdateOperationsInput | number
+    automaticAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    automaticNote?: NullableStringFieldUpdateOperationsInput | string | null
+    actions?: MultipleAccountCaseActionUpdateManyWithoutCaseNestedInput
   }
 
   export type MultipleAccountCaseUncheckedUpdateWithoutReviewsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealCode?: StringFieldUpdateOperationsInput | string
     ruleVersion?: IntFieldUpdateOperationsInput | number
     signal?: StringFieldUpdateOperationsInput | string
     browserId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83489,6 +85391,9 @@ export namespace Prisma {
     excludedCount?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     revision?: IntFieldUpdateOperationsInput | number
+    automaticAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    automaticNote?: NullableStringFieldUpdateOperationsInput | string | null
+    actions?: MultipleAccountCaseActionUncheckedUpdateManyWithoutCaseNestedInput
   }
 
   export type BruteCreateWithoutMasterOfClanInput = {
@@ -87011,6 +88916,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -87051,6 +88957,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -87290,6 +89197,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -87330,6 +89238,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -87980,6 +89889,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -88020,6 +89930,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -88076,6 +89987,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -88116,6 +90028,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -88450,6 +90363,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -88490,6 +90404,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -88546,6 +90461,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -88586,6 +90502,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -88986,6 +90903,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -89026,6 +90944,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -89082,6 +91001,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -89122,6 +91042,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -91909,6 +93830,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -91949,6 +93871,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -91989,6 +93912,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92274,6 +94198,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92314,6 +94239,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92354,6 +94280,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92741,6 +94668,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92781,6 +94709,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92821,6 +94750,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92848,6 +94778,7 @@ export namespace Prisma {
     createdAt?: Date | string
     bannedAt?: Date | string | null
     banReason?: string | null
+    banAppealCode?: string | null
     displayVersusPage?: boolean
     alwaysDisplayScrubber?: boolean
     displayOpponentDetails?: boolean
@@ -92881,6 +94812,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92921,6 +94853,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92961,6 +94894,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
     displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
     alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
     displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
@@ -92999,6 +94933,16 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type MultipleAccountCaseActionCreateManyCaseInput = {
+    userId: string
+    policyVersion: number
+    status?: string
+    reason: string
+    attempts?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type MultipleAccountCaseReviewUpdateWithoutCaseInput = {
     id?: StringFieldUpdateOperationsInput | string
     revision?: IntFieldUpdateOperationsInput | number
@@ -93024,6 +94968,36 @@ export namespace Prisma {
     decision?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultipleAccountCaseActionUpdateWithoutCaseInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    policyVersion?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultipleAccountCaseActionUncheckedUpdateWithoutCaseInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    policyVersion?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MultipleAccountCaseActionUncheckedUpdateManyWithoutCaseInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    policyVersion?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BruteCreateManyClanInput = {

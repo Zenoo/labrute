@@ -28,6 +28,7 @@ import { getBrowserId } from '../utils/browserId.js';
 import { traced } from '../utils/trace.js';
 import { recordAccountObservation } from '../utils/accountObservations.js';
 import { getClientIp } from '../utils/clientIp.js';
+import { bannedAccountMessage } from '../utils/user/bannedAccountMessage.js';
 
 export class OAuth {
   #oauthClient: RfcOauthClient;
@@ -199,7 +200,7 @@ export class OAuth {
         if (user.banReason === 'account_deleted') {
           throw new ForbiddenError(translate('deletedAccount', user));
         } else {
-          throw new ForbiddenError(translate('bannedAccount', user, { reason: translate(`banReason.${user.banReason || ''}`, user) }));
+          throw new ForbiddenError(bannedAccountMessage(user));
         }
       }
 
@@ -227,14 +228,13 @@ export class OAuth {
       // Fetch the explanation only on this failure path, never before a successful upsert.
       if (oauthUserId && error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
         const rejected = await this.#prisma.user.findUnique({
-          where: { id: oauthUserId }, select: { bannedAt: true, banReason: true, lang: true },
+          where: { id: oauthUserId },
+          select: { id: true, bannedAt: true, banReason: true, lang: true, banAppealCode: true },
         });
         if (rejected?.bannedAt) {
           const message = rejected.banReason === 'account_deleted'
             ? translate('deletedAccount', rejected)
-            : translate('bannedAccount', rejected, {
-              reason: translate(`banReason.${rejected.banReason || ''}`, rejected),
-            });
+            : bannedAccountMessage(rejected);
           sendError(res, new ForbiddenError(message));
           return;
         }

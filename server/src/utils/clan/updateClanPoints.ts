@@ -3,7 +3,7 @@ import { Brute, PrismaClient } from '@labrute/prisma';
 import { traced } from '../trace.js';
 
 export const updateClanPoints = async (
-  prisma: PrismaClient,
+  prisma: Pick<PrismaClient, 'clan'>,
   clanId: string,
   operation: 'add' | 'remove',
   brute: Pick<Brute, 'level' | 'ranking' | 'ascensions'>,

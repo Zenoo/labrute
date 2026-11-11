@@ -13,8 +13,21 @@ export const MultipleAccountCaseEvidence = ({ detail }: {
   <Stack spacing={2}>
     <Alert severity="info">
       Uncalibrated signal: shared devices and networks can belong to different people.
-      Reviewing this case does not ban accounts or restrict identifiers.
+      The daily automatic policy uses the stated thresholds and excludes staff and approved pairs.
+      A manual review stops remaining automatic actions; it does not ban accounts directly.
+      Use account Unban to reverse a completed ban. Review affects this snapshot only;
+      use shared-browser approvals or known-fingerprint exceptions for ongoing exceptions.
     </Alert>
+    <Link to="/admin-panel/shared-browser">Manage shared-browser approvals</Link>
+    {detail.case.signal === 'fingerprint-ip' && (
+      <Link to="/admin-panel/known-fingerprints">Manage known fingerprint exceptions</Link>
+    )}
+    {detail.case.status === 'open' && detail.case.revision > 1 && (
+      <Typography>Automatic processing is paused by a manual review.</Typography>
+    )}
+    {detail.case.automaticAt && <Typography>
+      Automatically processed {date(detail.case.automaticAt)}: {detail.case.automaticNote}
+    </Typography>}
     <Typography>
       Rule {detail.case.signal}, version {detail.case.ruleVersion}:
       {' '}{detail.case.accountCount} non-exempt accounts
@@ -31,13 +44,18 @@ export const MultipleAccountCaseEvidence = ({ detail }: {
       {detail.case.fingerprint && <Typography>Fingerprint: {detail.case.fingerprint}</Typography>}
       {detail.case.ip && <Typography>IP: {detail.case.ip}</Typography>}
     </Box>
+    <Typography sx={{ overflowWrap: 'anywhere' }}>Appeal code: MC-{detail.case.appealCode}</Typography>
     <Typography variant="h6">Accounts in this snapshot</Typography>
     <List dense>
       {detail.users.map((user) => (
-        <ListItem key={user.id}>
-          <Link to={`/user/${encodeURIComponent(user.id)}`} target="_blank">
+        <ListItem key={user.id} sx={{ display: 'block' }}>
+          <Link to={`/admin-panel/user/${encodeURIComponent(user.id)}`} target="_blank">
             {user.name ?? 'Deleted account'} ({user.id}){user.bannedAt ? ' - currently banned' : ''}
           </Link>
+          {user.automaticAction && <Typography variant="body2" sx={{ overflowWrap: 'anywhere' }}>
+            Automatic policy v{user.automaticAction.policyVersion}: {user.automaticAction.status}
+            {' '}({user.automaticAction.attempts} attempts). {user.automaticAction.reason}
+          </Typography>}
         </ListItem>
       ))}
     </List>

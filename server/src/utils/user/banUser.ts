@@ -1,18 +1,32 @@
-import { NotFoundError, ExpectedError } from '@labrute/core';
-import { PrismaClient, UserLogType } from '@labrute/prisma';
+import {
+  NotFoundError, ExpectedError, isUuid,
+} from '@labrute/core';
+import {
+  Prisma, PrismaClient, UserLogType,
+} from '@labrute/prisma';
 import { LOGGER } from '../../context.js';
-import { createUserLog } from '../createUserLog.js';
 import { translate } from '../translate.js';
 import { AuthedUser } from '../auth.js';
 import { deleteBrutes } from './deleteUserBrutes.js';
 import { traced } from '../trace.js';
+import { lockAccountSanction } from './accountSanctionLock.js';
 
-export const banUser = async (
-  prisma: PrismaClient,
-  userId: string,
+export const banUserInTransaction = async (
+  prisma: Prisma.TransactionClient,
+  rawUserId: string,
   reason: string,
   authed?: AuthedUser,
+  auditReason = reason,
+  appealCode?: string,
 ) => {
+  if (!isUuid(rawUserId) || typeof reason !== 'string' || !reason.trim() || reason.length > 500) {
+    throw new ExpectedError('Invalid account ban');
+  }
+
+  const userId = rawUserId.toLowerCase();
+
+  await lockAccountSanction(prisma, userId);
+
   const user = await traced('banUser.getUser', () => prisma.user.findFirst({
     where: { id: userId },
     select: {
@@ -41,7 +55,7 @@ export const banUser = async (
   }
 
   if (user.bannedAt) {
-    throw new ExpectedError(translate('userAlreadyBanned', authed));
+    return false;
   }
 
   // Delete all brutes
@@ -53,16 +67,33 @@ export const banUser = async (
     data: {
       bannedAt: new Date(),
       banReason: reason,
+      banAppealCode: appealCode ?? null,
     },
   }));
 
   // User log
-  createUserLog(prisma, {
-    type: UserLogType.BANNED,
-    userId,
-  });
+  await traced('banUser.createUserLog', () => prisma.userLog.create({ data: { type: UserLogType.BANNED, userId } }));
+
+  await traced('banUser.createSecurityAction', () => prisma.securityAction.create({
+    data: {
+      subjectType: 'account', subjectId: userId, userId, action: 'ban',
+      actorId: authed?.id ?? null, reason: auditReason,
+    }
+  }));
 
   // Account sanctions never create browser or fingerprint restrictions.
+
+  return true;
+};
+
+export const banUser = async (
+  prisma: PrismaClient, userId: string, reason: string, authed?: AuthedUser,
+) => {
+  const changed = await prisma.$transaction((tx) => banUserInTransaction(
+    tx, userId, reason, authed,
+  ), { timeout: 30000 });
+
+  if (!changed) return;
 
   if (authed) {
     LOGGER.log(`User ${userId} has been banned by ${authed.id}`);
