@@ -6,10 +6,12 @@ import {
 import dayjs from 'dayjs';
 import { LOGGER } from '../context.js';
 import { traced } from './trace.js';
+import { normalizeIp } from './clientIp.js';
 
 let SERVER_READY = true;
 let MODIFIERS: Modifiers | null = null;
 let BANNED_IPS: string[] | null = null;
+let BANNED_IP_KEYS: Set<string> | null = null;
 let KNOWN_FINGERPRINTS: string[] | null = null;
 let NEXT_MODIFIERS: Modifiers | null = null;
 let CURRENT_EVENT: Event | null | undefined;
@@ -134,12 +136,22 @@ const addBannedIps = async (prisma: PrismaClient, ips: string[]) => {
   }));
 
   if (BANNED_IPS) BANNED_IPS.push(...newIps);
+  BANNED_IP_KEYS = null;
 };
 
 const isIpBanned = async (prisma: PrismaClient, ip: string) => {
   const bannedIps = await getBannedIps(prisma);
 
-  return bannedIps.includes(ip);
+  const normalized = normalizeIp(ip);
+
+  if (!normalized) return false;
+
+  if (!BANNED_IP_KEYS) {
+    BANNED_IP_KEYS = new Set(bannedIps.map(normalizeIp)
+      .filter((value): value is string => value !== null));
+  }
+
+  return BANNED_IP_KEYS.has(normalized);
 };
 
 const removeBannedIps = async (prisma: PrismaClient, ips: string[]) => {
@@ -150,6 +162,8 @@ const removeBannedIps = async (prisma: PrismaClient, ips: string[]) => {
   }));
 
   if (BANNED_IPS) BANNED_IPS = bannedIps.filter((ip) => !ips.includes(ip));
+
+  BANNED_IP_KEYS = null;
 };
 
 const getKnownFingerprints = async (prisma: PrismaClient) => {

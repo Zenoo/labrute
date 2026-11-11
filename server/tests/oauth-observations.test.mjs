@@ -15,6 +15,7 @@ let fingerprintBanned = false;
 let browserBanned = false;
 const bans = [];
 let exchanges = 0;
+const checkedIps = [];
 const accessToken = '44444444-4444-4444-8444-444444444444';
 mock.module('../lib/context.js', { namedExports: {
   GLOBAL: { config: { fpAesSecret } },
@@ -32,7 +33,7 @@ mock.module('@eternaltwin/client-node', { namedExports: {
   },
 } });
 mock.module('../lib/utils/ServerState.js', { namedExports: { ServerState: {
-  isIpBanned: async () => false,
+  isIpBanned: async (_prisma, ip) => { checkedIps.push(ip); return false; },
   isFingerprintBanned: async () => fingerprintBanned,
   isBrowserBanned: async () => false,
   getModifiers: async () => ({}), getCurrentEvent: async () => null,
@@ -43,7 +44,7 @@ const { OAuth } = await import('../lib/controllers/OAuth.js');
 const { issueFingerprintEvent } = await import('../lib/utils/fingerprintEvent.js');
 
 const run = async ({ bannedAt = null, validHeaders = true, mismatchedEvent = false, expired = false,
-  newFingerprint = false, newAccount = false, database } = {}) => {
+  newFingerprint = false, newAccount = false, database, headers = {}, remoteAddress = '192.0.2.1' } = {}) => {
   const observations = [];
   const writes = [];
   const previousExchanges = exchanges;
@@ -84,9 +85,9 @@ const run = async ({ bannedAt = null, validHeaders = true, mismatchedEvent = fal
   );
   const req = {
     body: { code: 'test-code', eventId },
-    headers: validHeaders ? { [CSRF_HEADER]: 'csrf', ...getPredictableHeaders('csrf') } : {},
+    headers: validHeaders ? { [CSRF_HEADER]: 'csrf', ...getPredictableHeaders('csrf'), ...headers } : {},
     security: { fingerprint: mismatchedEvent ? 'b'.repeat(32) + '0000' : fingerprint, browserId, validHeaders },
-    signedCookies: { browserId }, socket: { remoteAddress: '192.0.2.1' },
+    signedCookies: { browserId }, socket: { remoteAddress },
   };
   const res = { header() {}, status(code) { this.statusCode = code; return this; }, send(body) { this.body = body; } };
   await controller.token(req, res);
@@ -115,6 +116,14 @@ test('first-time OAuth stores the fingerprint in account creation without a sepa
   assert.equal(result.accountReads, 0);
   assert.deepEqual(result.writes, ['upsert']);
   assert.deepEqual(result.res.body.user.fingerprints, [fingerprint]);
+});
+
+test('OAuth ban checks and observations use the same normalized address', async () => {
+  const result = await run({ headers: { 'x-forwarded-for': '::FFFF:c000:0201,198.51.100.1' },
+    remoteAddress: '127.0.0.1' });
+  assert.equal(result.res.body.user.id, id);
+  assert.equal(checkedIps.at(-1), '192.0.2.1');
+  assert.equal(result.observations[0][8], '192.0.2.1');
 });
 
 test('OAuth cannot record observations for banned users, invalid headers, or mismatched events', async () => {

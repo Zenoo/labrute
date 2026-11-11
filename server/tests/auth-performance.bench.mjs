@@ -85,7 +85,7 @@ try {
   await prisma.$executeRawUnsafe(`CREATE TABLE "SharedBrowser" (
     id VARCHAR(255) PRIMARY KEY, description VARCHAR(500), "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )`);
-  for (const migration of ['20261111160000_account_observations', '20261111180000_separate_identifier_sanctions', '20261111190000_fingerprint_v2']) {
+  for (const migration of ['20261111160000_account_observations', '20261111170000_separate_identifier_sanctions', '20261111180000_fingerprint_v2']) {
     const sql = readFileSync(new URL(`../prisma/migrations/${migration}/migration.sql`, import.meta.url), 'utf8');
     for (const statement of sql.split(';').filter((part) => part.trim())) await prisma.$executeRawUnsafe(statement);
   }

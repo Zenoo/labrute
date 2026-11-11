@@ -17,6 +17,7 @@ mock.module('../lib/context.js', { namedExports: {
 const { securityCheck } = await import('../lib/utils/middlewares/securityCheck.js');
 const { getFingerprintEvent } = await import('../lib/utils/fingerprint.js');
 const { verifyFingerprintEvent } = await import('../lib/utils/fingerprintEvent.js');
+const { getClientIp } = await import('../lib/utils/clientIp.js');
 const browserId = '11111111-1111-4111-8111-111111111111';
 const visitorId = 'a'.repeat(32);
 const secret = 'synthetic-benchmark-secret';
@@ -39,6 +40,12 @@ const run = (name, count, operation) => {
   console.log(JSON.stringify({ name, iterations: count,
     microsecondsPerCall: +(elapsed * 1000 / count).toFixed(2) }));
 };
+run('resolve forwarded client IP and reuse it within the same request', 50000, () => {
+  const request = { headers: { 'x-forwarded-for': '192.0.2.1,198.51.100.1' },
+    socket: { remoteAddress: '127.0.0.1' } };
+  assert.equal(getClientIp(request), '192.0.2.1');
+  assert.equal(getClientIp(request), '192.0.2.1');
+});
 run('parse unsigned browser cookie', 50000, () => {
   parseCookies({ headers: { cookie: `browserId=${browserId}${commonCookies}` } }, {}, next);
 });

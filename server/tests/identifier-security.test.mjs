@@ -15,6 +15,7 @@ const config = { fpAesSecret: 'a'.repeat(32) };
 const bans = [];
 let deviceRestrictions = { browserRestricted: false, fingerprintRestricted: false };
 let fingerprintLogs = 0;
+const checkedIps = [];
 mock.module('../lib/context.js', {
   namedExports: {
     GLOBAL: { config },
@@ -24,7 +25,7 @@ mock.module('../lib/context.js', {
 });
 mock.module('../lib/utils/ServerState.js', {
   namedExports: { ServerState: {
-    isIpBanned: async () => false,
+    isIpBanned: async (_prisma, ip) => { checkedIps.push(ip); return false; },
     isFingerprintBanned: async () => false,
     isBrowserBanned: async () => false,
     getModifiers: async () => ({}),
@@ -242,6 +243,18 @@ test('accepted requests still record browser ID and IP', async () => {
   assert.deepEqual(prisma.writes, [
     { browserIds: { push: browserId } }, { ips: { push: '192.0.2.1' } },
   ]);
+});
+
+test('authentication ban checks, IP history and observations share the normalized forwarded address', async () => {
+  const prisma = database();
+  const req = request();
+  req.headers['x-forwarded-for'] = ' ::FFFF:c000:0201,198.51.100.1';
+  req.headers['x-real-ip'] = '203.0.113.1';
+  req.socket.remoteAddress = '127.0.0.1';
+  await auth(prisma, req);
+  assert.equal(checkedIps.at(-1), '192.0.2.1');
+  assert.deepEqual(prisma.writes.at(-1), { ips: { push: '192.0.2.1' } });
+  assert.equal(prisma.observations[0][8], '192.0.2.1');
 });
 
 test('invalid or mismatched reauthentication events do not mutate account identifiers', async () => {

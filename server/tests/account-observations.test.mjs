@@ -8,7 +8,7 @@ mock.module('../lib/context.js', {
   namedExports: { GLOBAL: {}, LOGGER: { log() {}, error() {} }, DISCORD: () => ({}) },
 });
 const {
-  recordAccountObservation, normalizeObservationIp, findMultipleAccountObservationGroups,
+  recordAccountObservation, findMultipleAccountObservationGroups,
   reportMultipleAccountObservations, cleanupAccountObservations,
 } = await import('../lib/utils/accountObservations.js');
 const {
@@ -17,14 +17,15 @@ const {
 } = await import('../lib/utils/identifierSanctions.js');
 const { registerFingerprintIdentity } = await import('../lib/utils/fingerprintEvent.js');
 const { createFingerprint } = await import('../lib/utils/fingerprintIdentity.js');
+const { normalizeIp } = await import('../lib/utils/clientIp.js');
 
-test('observation IPs normalize chains, IPv6 spelling and mapped IPv4 without inventing missing IPs', () => {
+test('observation IPs normalize IPv6 spelling and mapped IPv4 without inventing missing IPs', () => {
   for (const [input, expected] of [
-    [' 192.0.2.1,198.51.100.1', '192.0.2.1'],
+    [' 192.0.2.1 ', '192.0.2.1'],
     ['2001:0DB8:0:0:0:0:0:1', '2001:db8::1'],
     ['::ffff:192.0.2.1', '192.0.2.1'], ['::FFFF:c000:201', '192.0.2.1'],
     [undefined, null], ['', null], ['unknown', null], ['999.0.0.1', null], ['fe80::1%eth0', null],
-  ]) assert.equal(normalizeObservationIp(input), expected);
+  ]) assert.equal(normalizeIp(input), expected);
 });
 
 const databaseUrl = process.env.OBSERVATION_TEST_DATABASE_URL;
@@ -80,7 +81,7 @@ before(async () => {
   await prisma.$executeRaw`INSERT INTO "BannedBrowser" (id) VALUES (${browser})`;
   await prisma.$executeRaw`INSERT INTO "BannedFingerprint" (id) VALUES (${fingerprint})`;
   const sanctionsMigration = readFileSync(new URL(
-    '../prisma/migrations/20261111180000_separate_identifier_sanctions/migration.sql', import.meta.url,
+    '../prisma/migrations/20261111170000_separate_identifier_sanctions/migration.sql', import.meta.url,
   ), 'utf8');
   for (const statement of sanctionsMigration.split(';').filter((sql) => sql.trim())) {
     await prisma.$executeRawUnsafe(statement);
@@ -98,7 +99,7 @@ before(async () => {
     VALUES (${'f'.repeat(64)}, ${legacyUser}::uuid, ${browser}::uuid, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0000',
       'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '2026-11-01'::date, '2026-11-01'::timestamp, '2026-11-01'::timestamp)`;
   const resetMigration = readFileSync(new URL(
-    '../prisma/migrations/20261111190000_fingerprint_v2/migration.sql', import.meta.url,
+    '../prisma/migrations/20261111180000_fingerprint_v2/migration.sql', import.meta.url,
   ), 'utf8');
   for (const statement of resetMigration.split(';').filter((sql) => sql.trim())) {
     await prisma.$executeRawUnsafe(statement);

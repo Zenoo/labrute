@@ -6,9 +6,7 @@ import {
   checkPredictableHeaders,
   ExpectedError,
   ForbiddenError,
-  FORWARDED_FOR_HEADER,
   OAuthTokenRequest,
-  REAL_IP_HEADER,
   UsersAuthenticateResponse,
   UserWithBrutesBodyColor,
   Version,
@@ -29,6 +27,7 @@ import { getIdentifierRestrictions } from '../utils/identifierSanctions.js';
 import { getBrowserId } from '../utils/browserId.js';
 import { traced } from '../utils/trace.js';
 import { recordAccountObservation } from '../utils/accountObservations.js';
+import { getClientIp } from '../utils/clientIp.js';
 
 export class OAuth {
   #oauthClient: RfcOauthClient;
@@ -100,11 +99,7 @@ export class OAuth {
       trace.getActiveSpan()?.addEvent('getAuthSelf', { 'user.id': self.user.id });
 
       // Get user's IP
-      const forwardedFor = req.headers[FORWARDED_FOR_HEADER];
-      const realIp = req.headers[REAL_IP_HEADER];
-      const ip = forwardedFor?.toString().split(', ')[0]
-        || realIp?.toString().split(', ')[0]
-        || req.socket.remoteAddress;
+      const ip = getClientIp(req);
 
       if (ip) {
         // Check if the IP is banned

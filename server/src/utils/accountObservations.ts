@@ -1,27 +1,11 @@
-import {
-  FORWARDED_FOR_HEADER, isUuid, REAL_IP_HEADER
-} from '@labrute/core';
+import { isUuid } from '@labrute/core';
 import type { PrismaClient } from '@labrute/prisma';
 import { createHash } from 'node:crypto';
-import { isIP } from 'node:net';
 import type { Request } from 'express';
 import { getBrowserId } from './browserId.js';
 import { getTlsFingerprints, parseFingerprint } from './fingerprintIdentity.js';
 import { traced } from './trace.js';
-
-export const normalizeObservationIp = (value: string | undefined) => {
-  const ip = value?.split(',')[0]?.trim();
-
-  if (!ip || ip.includes('%') || !isIP(ip)) return null;
-  if (isIP(ip) === 4) return ip;
-
-  const canonical = new URL(`http://[${ip}]/`).hostname.slice(1, -1);
-  const mapped = /^::ffff:([a-f0-9]+):([a-f0-9]+)$/.exec(canonical);
-  if (!mapped) return canonical;
-  const high = parseInt(mapped[1] ?? '', 16);
-  const low = parseInt(mapped[2] ?? '', 16);
-  return `${Math.floor(high / 256)}.${high % 256}.${Math.floor(low / 256)}.${low % 256}`;
-};
+import { getClientIp } from './clientIp.js';
 
 const sha256 = (value: string) => createHash('sha256').update(value).digest('hex');
 
@@ -47,13 +31,7 @@ export const recordAccountObservation = async (
   if (!isUuid(userId) || !browserId || !identity || !fingerprint
     || !request.security?.validHeaders) return;
 
-  // Keep the current IP source precedence. Normalization does not establish proxy trust (plan step 5).
-  const forwarded = request.headers[FORWARDED_FOR_HEADER];
-  const real = request.headers[REAL_IP_HEADER];
-  const ip = normalizeObservationIp(
-    typeof forwarded === 'string' && forwarded.trim() ? forwarded
-      : typeof real === 'string' && real.trim() ? real : request.socket.remoteAddress,
-  );
+  const ip = getClientIp(request);
   const { ja3Hash, ja4Hash } = getTlsFingerprints(request);
   const observedDay = now.toISOString().slice(0, 10);
   const normalizedUserId = userId.toLowerCase();

@@ -1,8 +1,6 @@
 import {
   ExpectedError, ForbiddenError,
-  FORWARDED_FOR_HEADER,
   isUuid, NotFoundError,
-  REAL_IP_HEADER
 } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import dayjs from 'dayjs';
@@ -14,6 +12,7 @@ import { traced } from './trace.js';
 import { increaseStats } from './stats/updateStats.js';
 import { recordAccountObservation } from './accountObservations.js';
 import { logSecurityRejection } from './securityRejectionLog.js';
+import { getClientIp } from './clientIp.js';
 
 export const auth = async (prisma: PrismaClient, request: Request, options?: {
   admin?: boolean;
@@ -58,11 +57,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   }
 
   // Update user's IP
-  const forwardedFor = request.headers[FORWARDED_FOR_HEADER];
-  const realIp = request.headers[REAL_IP_HEADER];
-  const ip = forwardedFor?.toString().split(', ')[0]
-    || realIp?.toString().split(', ')[0]
-    || request.socket.remoteAddress;
+  const ip = getClientIp(request);
 
   if (ip) {
     // Check if the IP is banned
