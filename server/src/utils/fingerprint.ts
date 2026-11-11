@@ -3,10 +3,7 @@ import {
 } from '@labrute/core';
 import crypto from 'crypto';
 import { Request, Response } from 'express';
-import { TLSSocket } from 'tls';
-import {
-  DISCORD, GLOBAL, LOGGER
-} from '../context.js';
+import { DISCORD, GLOBAL } from '../context.js';
 import { sendError } from './sendError.js';
 
 export const readFP = (input: string): Record<string, unknown> => {
@@ -80,37 +77,21 @@ type FingerPrint = {
 };
 
 /**
- * Appends a short, unique string representing TLS info to the visitorId.
+ * Appends a short hash of the provider's TLS client fingerprints to the visitorId.
  * The result is: {visitorId}{shortTlsString}
- * No use of 'any'.
  */
 
-const appendTlsToVisitorId = (
+export const appendTlsToVisitorId = (
   visitorId: string,
   request: Request<unknown, unknown, unknown>,
 ) => {
-  const socket = request.socket as TLSSocket;
-
-  // Direct TLS when Node terminates HTTPS itself.
-  const socketProtocol = typeof socket.getProtocol === 'function' ? socket.getProtocol() : '';
-  const socketCipher = typeof socket.getCipher === 'function' ? socket.getCipher().name : '';
-  const socketAuth = typeof socket.authorized === 'boolean' ? String(socket.authorized) : '';
-
-  // Fallback for reverse-proxy TLS termination.
-  const forwardedProto = request.headers['x-forwarded-proto']?.toString().split(',')[0]?.trim() ?? '';
-  const forwardedSsl = request.headers['x-forwarded-ssl']?.toString().split(',')[0]?.trim() ?? '';
-  const forwardedTlsVersion = request.headers['x-forwarded-tls-version']?.toString().split(',')[0]?.trim() ?? '';
-  const forwardedCipher = request.headers['x-forwarded-tls-cipher']?.toString().split(',')[0]?.trim() ?? '';
-  const cfVisitor = request.headers['cf-visitor']?.toString() ?? '';
-
-  const protocol = socketProtocol || forwardedTlsVersion || forwardedProto || (request.secure ? 'https' : 'http');
-  const cipher = socketCipher || forwardedCipher;
-  const auth = socketAuth || forwardedSsl || (request.secure ? 'secure' : 'insecure');
-  const raw = `${protocol}|${cipher}|${auth}|${cfVisitor}`;
-
-  if (visitorId === 'b4e0e8ddaa9cbc0cb11808045ca140b9') {
-    LOGGER.log(`TLS Info for visitorId ${visitorId}: ${raw}`);
-  }
+  // The TLS-terminating proxy must overwrite these headers and prevent direct origin access.
+  // Preserve commas: et-ja3 can contain the full JA3 string rather than its MD5 hash.
+  const ja3Header = request.headers['et-ja3'];
+  const ja4Header = request.headers['et-ja4'];
+  const ja3 = typeof ja3Header === 'string' ? ja3Header.trim() : '';
+  const ja4 = typeof ja4Header === 'string' ? ja4Header.trim() : '';
+  const raw = `${ja3}|${ja4}`;
 
   // Combine and hash for uniqueness, but keep it short.
   // Simple hash: sum char codes, base36
@@ -168,7 +149,7 @@ export const getFingerprintEvent = (
       throw new ForbiddenError('Fingerprint missing visitorId');
     }
 
-    // Collect TLS handshake info
+    // Include the TLS client fingerprints supplied by the provider.
     visitorId = appendTlsToVisitorId(visitorId, request);
 
     const encryptedVisitorId = encryptFPEvent(visitorId);
