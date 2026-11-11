@@ -75,13 +75,13 @@ model AccountObservation {
   userId        String   @db.Uuid
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   browserId     String   @db.Uuid
-  fingerprint   String   @db.VarChar(36)
+  fingerprint   String   @db.VarChar(128)
   visitorId     String   @db.Char(32)
   // Null means that this request did not supply a nonempty provider fingerprint.
   ja3Hash       String?  @db.Char(64)
   ja4Hash       String?  @db.Char(64)
   ip            String?  @db.VarChar(45)
-  formatVersion Int      @default(1)
+  formatVersion Int      @default(2)
   observedDay   DateTime @db.Date
   firstSeen     DateTime @db.Timestamp(3)
   lastSeen      DateTime @db.Timestamp(3)

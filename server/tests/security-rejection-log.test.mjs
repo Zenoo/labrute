@@ -14,7 +14,7 @@ const request = {
   headers: { authorization: 'private-token', ...Object.fromEntries(Array.from({ length: 20 }, (_, i) => [
     `${PREDICTABLE_HEADERS_PREFIX}${i}`, 'x'.repeat(10000),
   ])) },
-  security: { fingerprint: 'a'.repeat(32) + '0000' },
+  security: { fingerprint: `v2:${'a'.repeat(32)}:none` },
 };
 
 test('repeated rejections are sampled before serialization and sensitive/large fields are excluded', async (t) => {

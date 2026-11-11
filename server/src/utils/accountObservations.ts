@@ -6,7 +6,7 @@ import { createHash } from 'node:crypto';
 import { isIP } from 'node:net';
 import type { Request } from 'express';
 import { getBrowserId } from './browserId.js';
-import { isFingerprintFormatValid } from './fingerprint.js';
+import { getTlsFingerprints, parseFingerprint } from './fingerprintIdentity.js';
 import { traced } from './trace.js';
 
 export const normalizeObservationIp = (value: string | undefined) => {
@@ -25,9 +25,6 @@ export const normalizeObservationIp = (value: string | undefined) => {
 
 const sha256 = (value: string) => createHash('sha256').update(value).digest('hex');
 
-const hashHeader = (value: unknown) => (typeof value === 'string' && value.trim()
-  ? sha256(value.trim()) : null);
-
 type ObservationWrite = { recordedAt: number; pending?: Promise<unknown> };
 const OBSERVATION_INTERVAL_MS = 5 * 60 * 1000;
 const MAX_OBSERVATION_CACHE_ENTRIES = 10000;
@@ -45,7 +42,9 @@ export const recordAccountObservation = async (
 ) => {
   const browserId = getBrowserId(request);
   const fingerprint = request.security?.fingerprint;
-  if (!isUuid(userId) || !browserId || !isFingerprintFormatValid(fingerprint)
+  const identity = parseFingerprint(fingerprint);
+
+  if (!isUuid(userId) || !browserId || !identity || !fingerprint
     || !request.security?.validHeaders) return;
 
   // Keep the current IP source precedence. Normalization does not establish proxy trust (plan step 5).
@@ -55,13 +54,13 @@ export const recordAccountObservation = async (
     typeof forwarded === 'string' && forwarded.trim() ? forwarded
       : typeof real === 'string' && real.trim() ? real : request.socket.remoteAddress,
   );
-  const ja3Hash = hashHeader(request.headers['et-ja3']);
-  const ja4Hash = hashHeader(request.headers['et-ja4']);
+  const { ja3Hash, ja4Hash } = getTlsFingerprints(request);
   const observedDay = now.toISOString().slice(0, 10);
   const normalizedUserId = userId.toLowerCase();
   const normalizedBrowserId = browserId.toLowerCase();
   const id = sha256(JSON.stringify([
-    1, normalizedUserId, normalizedBrowserId, fingerprint, ip, ja3Hash, ja4Hash, observedDay,
+    identity.version, normalizedUserId, normalizedBrowserId, fingerprint,
+    ip, ja3Hash, ja4Hash, observedDay,
   ]));
 
   let writes = observationWrites.get(prisma);
@@ -100,7 +99,7 @@ export const recordAccountObservation = async (
       "formatVersion", "observedDay", "firstSeen", "lastSeen"
     ) VALUES (
       ${id}, ${normalizedUserId}::uuid, ${normalizedBrowserId}::uuid,
-      ${fingerprint}, ${fingerprint.slice(0, 32)}, ${ja3Hash}, ${ja4Hash}, ${ip}, 1,
+      ${fingerprint}, ${identity.visitorId}, ${ja3Hash}, ${ja4Hash}, ${ip}, ${identity.version},
       ${observedDay}::date,
       (${now}::timestamptz AT TIME ZONE 'UTC'), (${now}::timestamptz AT TIME ZONE 'UTC')
     )
@@ -141,7 +140,7 @@ export const findMultipleAccountObservationGroups = async (
       INNER JOIN "User" u ON u.id = o."userId"
       WHERE o."lastSeen" >= (${since}::timestamptz AT TIME ZONE 'UTC')
         AND o."lastSeen" <= (${now}::timestamptz AT TIME ZONE 'UTC')
-        AND o."formatVersion" = 1 AND u."bannedAt" IS NULL
+        AND o."formatVersion" = 2 AND u."bannedAt" IS NULL
         AND NOT EXISTS (
           SELECT 1 FROM "SharedBrowserExemption" e
           WHERE e."userId" = o."userId" AND e."browserId" = o."browserId"::text

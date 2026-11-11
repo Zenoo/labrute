@@ -10,12 +10,13 @@ import {
 
 let externalLogs = 0;
 mock.module('../lib/context.js', { namedExports: {
-  GLOBAL: { config: { fpAesSecret: 'a'.repeat(32), fpAesIv: 'b'.repeat(16) } },
+  GLOBAL: { config: { fpAesSecret: 'a'.repeat(32) } },
   LOGGER: { log() {}, error() {} },
   DISCORD: () => ({ logObject: async () => { externalLogs++; } }),
 } });
 const { securityCheck } = await import('../lib/utils/middlewares/securityCheck.js');
 const { getFingerprintEvent } = await import('../lib/utils/fingerprint.js');
+const { verifyFingerprintEvent } = await import('../lib/utils/fingerprintEvent.js');
 const browserId = '11111111-1111-4111-8111-111111111111';
 const visitorId = 'a'.repeat(32);
 const secret = 'synthetic-benchmark-secret';
@@ -26,7 +27,7 @@ express.response.cookie.call({ req: { secret }, append(header, value) { signedCo
 const commonCookies = '; analytics=test; csrfToken=synthetic-token; preference=en';
 const headers = {
   [CSRF_HEADER]: 'synthetic-csrf', ...getPredictableHeaders('synthetic-csrf'),
-  [VERSION_HEADER]: Version, [FINGERPRINT_HEADER]: visitorId + '0000',
+  [VERSION_HEADER]: Version, [FINGERPRINT_HEADER]: `v2:${visitorId}:none`,
 };
 const response = { status() { return this; }, send() { assert.fail('valid middleware request rejected'); } };
 const next = () => {};
@@ -67,6 +68,11 @@ for (const [name, payload] of [['full payload (synthetic 16 KiB component)', ful
   const res = { send(value) { result = value; }, cookie() { assert.fail('verified cookie reissued'); } };
   run(`fingerprint issuance, ${name}`, 200, () => getFingerprintEvent(req, res));
   assert.ok(result.eventId);
+  run('verify browser-bound fingerprint receipt (registration only)', 50000, () => {
+    verifyFingerprintEvent(result.eventId, {
+      signedCookies: { browserId }, security: { fingerprint: result.visitorId },
+    });
+  });
   console.log(JSON.stringify({ name, encodedCharacters: data.length }));
 }
 const invalid = { headers: {}, body: { data: encode({ visitorId: '<invalid>', components: full.components }) } };

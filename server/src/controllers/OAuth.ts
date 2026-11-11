@@ -24,12 +24,11 @@ import { createUserLog } from '../utils/createUserLog.js';
 import { sendError } from '../utils/sendError.js';
 import { ServerState } from '../utils/ServerState.js';
 import { translate } from '../utils/translate.js';
-import { decryptFPEvent } from '../utils/fingerprint.js';
+import { verifyFingerprintEvent, registerFingerprintIdentity } from '../utils/fingerprintEvent.js';
 import { getIdentifierRestrictions } from '../utils/identifierSanctions.js';
 import { getBrowserId } from '../utils/browserId.js';
 import { traced } from '../utils/trace.js';
 import { recordAccountObservation } from '../utils/accountObservations.js';
-import { logSecurityRejection } from '../utils/securityRejectionLog.js';
 
 export class OAuth {
   #oauthClient: RfcOauthClient;
@@ -70,9 +69,22 @@ export class OAuth {
     // Disable CORS
     res.header('Access-Control-Allow-Origin', '*');
 
+    let oauthUserId: string | undefined;
     try {
-      if (!req.body.code || typeof req.body.code !== 'string') {
+      if (!req.body?.code || typeof req.body.code !== 'string') {
         throw new ExpectedError('Invalid code');
+      }
+
+      // Validate the receipt, verified browser, header binding and purpose before any account writes.
+      const { fingerprint } = verifyFingerprintEvent(req.body.eventId, req);
+      const browserId = getBrowserId(req);
+
+      if (!browserId) throw new ForbiddenError('Missing or invalid browser ID. Reload the page.');
+
+      try {
+        checkPredictableHeaders(req.headers);
+      } catch {
+        throw new ForbiddenError('Invalid predictable headers');
       }
 
       // ETwin Token
@@ -84,6 +96,7 @@ export class OAuth {
       if (self.type !== AuthType.AccessToken) {
         throw new Error('Invalid auth type');
       }
+      oauthUserId = self.user.id;
       trace.getActiveSpan()?.addEvent('getAuthSelf', { 'user.id': self.user.id });
 
       // Get user's IP
@@ -102,13 +115,19 @@ export class OAuth {
         }
       }
 
+      const restrictions = await traced('oauth.token.getIdentifierRestrictions', () => getIdentifierRestrictions(
+        this.#prisma, self.user.id, browserId, fingerprint,
+      ));
+      if (restrictions.browserRestricted) throw new ForbiddenError(translate('banned', null));
+      if (restrictions.fingerprintRestricted) throw new ForbiddenError(translate('fingerprintBanned', null));
+
       // Update or store user
       const { user: etwinUser } = self;
       let user: UserWithBrutesBodyColor | null = null;
 
       try {
         user = await traced('oauth.token.upsertUser', () => this.#prisma.user.upsert({
-          where: { id: etwinUser.id },
+          where: { id: etwinUser.id, bannedAt: null },
           update: {
             connexionToken: token.accessToken,
             name: etwinUser.displayName.current.value,
@@ -117,6 +136,7 @@ export class OAuth {
             id: etwinUser.id,
             connexionToken: token.accessToken,
             name: etwinUser.displayName.current.value,
+            fingerprints: [fingerprint],
             // 5 free favorite fights
             inventory: {
               create: {
@@ -147,7 +167,7 @@ export class OAuth {
             case 'P2002': {
               // Upsert race condition, update the user
               user = await traced('oauth.token.updateUser', () => this.#prisma.user.update({
-                where: { id: etwinUser.id },
+                where: { id: etwinUser.id, bannedAt: null },
                 data: {
                   connexionToken: token.accessToken,
                   name: etwinUser.displayName.current.value,
@@ -179,24 +199,6 @@ export class OAuth {
         }
       }
 
-      const fingerprint = decryptFPEvent(req.body.eventId);
-      if (fingerprint !== req.security?.fingerprint) {
-        throw new ForbiddenError('Fingerprint event does not match request');
-      }
-
-      // Handle new fingerprints
-      if (!user.fingerprints.includes(fingerprint)) {
-        await traced('oauth.token.updateUserFingerprints', () => this.#prisma.user.update({
-          where: { id: user.id },
-          data: {
-            fingerprints: {
-              push: fingerprint,
-            },
-          },
-        }));
-        user.fingerprints.push(fingerprint);
-      }
-
       // Check if user is banned
       if (user.bannedAt) {
         if (user.banReason === 'account_deleted') {
@@ -206,23 +208,9 @@ export class OAuth {
         }
       }
 
-      const browserId = getBrowserId(req);
-
-      if (!browserId) throw new ForbiddenError('Missing or invalid browser ID. Reload the page.');
-
-      const restrictions = await getIdentifierRestrictions(
-        this.#prisma, user.id, browserId, fingerprint,
-      );
-
-      if (restrictions.browserRestricted) throw new ForbiddenError(translate('banned', user));
-      if (restrictions.fingerprintRestricted) throw new ForbiddenError(translate('fingerprintBanned', user));
-
-      // Check expected headers
-      try {
-        checkPredictableHeaders(req.headers);
-      } catch (_error) {
-        logSecurityRejection(user.id, 'headers-tampering', req);
-        throw new ForbiddenError(translate('banReason.headers_tampering', user));
+      if (!user.fingerprints.includes(fingerprint)) {
+        await registerFingerprintIdentity(this.#prisma, user.id, fingerprint);
+        user.fingerprints.push(fingerprint);
       }
 
       await recordAccountObservation(this.#prisma, user.id, req);
@@ -240,6 +228,22 @@ export class OAuth {
         version: Version,
       });
     } catch (error: unknown) {
+      // A conditional write can reject a banned account or a ban committed during login.
+      // Fetch the explanation only on this failure path, never before a successful upsert.
+      if (oauthUserId && error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+        const rejected = await this.#prisma.user.findUnique({
+          where: { id: oauthUserId }, select: { bannedAt: true, banReason: true, lang: true },
+        });
+        if (rejected?.bannedAt) {
+          const message = rejected.banReason === 'account_deleted'
+            ? translate('deletedAccount', rejected)
+            : translate('bannedAccount', rejected, {
+              reason: translate(`banReason.${rejected.banReason || ''}`, rejected),
+            });
+          sendError(res, new ForbiddenError(message));
+          return;
+        }
+      }
       if (error instanceof GetAccessTokenError) {
         switch (error?.eternaltwin?.code) {
           case ErrorCode.OauthCodeTimeError:

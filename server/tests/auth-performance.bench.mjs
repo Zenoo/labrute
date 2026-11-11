@@ -15,7 +15,7 @@ mock.module('../lib/utils/ServerState.js', { namedExports: {
   ServerState: { isIpBanned: async () => false },
 } });
 const { auth } = await import('../lib/utils/auth.js');
-const { findUserForAuthentication } = await import('../lib/utils/identifierSanctions.js');
+const { findUserForAuthentication, getIdentifierRestrictions } = await import('../lib/utils/identifierSanctions.js');
 const url = new URL(process.env.OBSERVATION_TEST_DATABASE_URL);
 assert.ok(['127.0.0.1', 'localhost'].includes(url.hostname));
 assert.equal(url.pathname, '/observation_test');
@@ -29,7 +29,7 @@ const prisma = new PrismaClient({
 let queries = 0;
 prisma.$on('query', () => { queries++; });
 const token = randomUUID();
-const fingerprint = 'a'.repeat(32) + '0000';
+const fingerprint = `v2:${'a'.repeat(32)}:ja4:${'c'.repeat(64)}`;
 const browserId = randomUUID();
 const ids = Array.from({ length: 128 }, () => randomUUID());
 const extraAccounts = Number(process.env.AUTH_BENCH_EXTRA_ACCOUNTS ?? '0');
@@ -85,7 +85,7 @@ try {
   await prisma.$executeRawUnsafe(`CREATE TABLE "SharedBrowser" (
     id VARCHAR(255) PRIMARY KEY, description VARCHAR(500), "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )`);
-  for (const migration of ['20261111160000_account_observations', '20261111180000_separate_identifier_sanctions']) {
+  for (const migration of ['20261111160000_account_observations', '20261111180000_separate_identifier_sanctions', '20261111190000_fingerprint_v2']) {
     const sql = readFileSync(new URL(`../prisma/migrations/${migration}/migration.sql`, import.meta.url), 'utf8');
     for (const statement of sql.split(';').filter((part) => part.trim())) await prisma.$executeRawUnsafe(statement);
   }
@@ -102,10 +102,10 @@ try {
   await prisma.$executeRawUnsafe(`INSERT INTO "BannedBrowser" (id)
     SELECT md5(n::text)::uuid::text FROM generate_series(1,10000) n`);
   await prisma.$executeRawUnsafe(`INSERT INTO "BannedFingerprint" (id)
-    SELECT md5(n::text) || '0000' FROM generate_series(1,10000) n`);
+    SELECT 'v2:' || md5(n::text) || ':none' FROM generate_series(1,10000) n`);
   if (extraAccounts >= 10000) {
     await prisma.$executeRawUnsafe(`INSERT INTO "KnownFingerprint" (id)
-      SELECT md5('known-' || n::text) || '0000' FROM generate_series(1,10000) n`);
+      SELECT 'v2:' || md5('known-' || n::text) || ':none' FROM generate_series(1,10000) n`);
     await prisma.$executeRawUnsafe(`INSERT INTO "SharedBrowser" (id)
       SELECT md5('shared-' || n::text)::uuid::text FROM generate_series(1,10000) n`);
     await prisma.$executeRawUnsafe(`INSERT INTO "SharedBrowserExemption" ("userId", "browserId", reason)
@@ -133,6 +133,9 @@ try {
   };
   visit(lookupPlan.Plan);
   console.log(JSON.stringify({ lookupExecutionMs: lookupPlan['Execution Time'], scans }));
+  await run('OAuth identifier restrictions (no account read)', (i) => getIdentifierRestrictions(
+    prisma, ids[i % ids.length], browserId, fingerprint,
+  ));
   await run('account lookup only (comparison)', (i) => prisma.user.findFirst({
     where: { id: ids[i % ids.length], connexionToken: token }, select,
   }));

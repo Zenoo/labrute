@@ -11,7 +11,7 @@ const browserId = randomUUID();
 const now = new Date('2026-11-11T12:00:00.000Z');
 const request = (browser = browserId, headers = {}) => ({
   signedCookies: { browserId: browser },
-  security: { fingerprint: 'a'.repeat(32) + '0000', validHeaders: true },
+  security: { fingerprint: `v2:${'a'.repeat(32)}:none`, validHeaders: true },
   socket: { remoteAddress: '192.0.2.1' }, headers,
 });
 

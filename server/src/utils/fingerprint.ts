@@ -3,13 +3,10 @@ import {
 } from '@labrute/core';
 import crypto from 'crypto';
 import { Request, Response } from 'express';
-import { GLOBAL } from '../context.js';
 import { sendError } from './sendError.js';
 import { getBrowserId } from './browserId.js';
-
-export const isFingerprintFormatValid = (fingerprint: unknown): fingerprint is string => typeof fingerprint === 'string'
-  && fingerprint.length === 36
-  && /^[a-f0-9]{32}[a-z0-9]{4}$/.test(fingerprint);
+import { createFingerprint } from './fingerprintIdentity.js';
+import { issueFingerprintEvent } from './fingerprintEvent.js';
 
 export const readFP = (input: string): Record<string, unknown> => {
   // Step 6: Reverse custom character mapping
@@ -49,54 +46,6 @@ export const readFP = (input: string): Record<string, unknown> => {
   return JSON.parse(decoded) as Record<string, unknown>;
 };
 
-const encryptFPEvent = (text: string) => {
-  const cipher = crypto.createCipheriv('aes-256-cbc', GLOBAL.config.fpAesSecret.slice(0, 32), GLOBAL.config.fpAesIv.slice(0, 16));
-  let encrypted = cipher.update(text, 'utf8', 'base64');
-  encrypted += cipher.final('base64');
-  return encrypted;
-};
-
-export const decryptFPEvent = (encrypted: string) => {
-  const decipher = crypto.createDecipheriv(
-    'aes-256-cbc',
-    GLOBAL.config.fpAesSecret.slice(0, 32),
-    GLOBAL.config.fpAesIv.slice(0, 16),
-  );
-  let decrypted = decipher.update(encrypted, 'base64', 'utf8');
-  decrypted += decipher.final('utf8');
-  if (!isFingerprintFormatValid(decrypted)) {
-    throw new ForbiddenError('Invalid fingerprint event');
-  }
-  return decrypted;
-};
-
-/**
- * Appends a short hash of the provider's TLS client fingerprints to the visitorId.
- * The result is: {visitorId}{shortTlsString}
- */
-
-export const appendTlsToVisitorId = (
-  visitorId: string,
-  request: Request<unknown, unknown, unknown>,
-) => {
-  // The TLS-terminating proxy must overwrite these headers and prevent direct origin access.
-  // Preserve commas: et-ja3 can contain the full JA3 string rather than its MD5 hash.
-  const ja3Header = request.headers['et-ja3'];
-  const ja4Header = request.headers['et-ja4'];
-  const ja3 = typeof ja3Header === 'string' ? ja3Header.trim() : '';
-  const ja4 = typeof ja4Header === 'string' ? ja4Header.trim() : '';
-  const raw = `${ja3}|${ja4}`;
-
-  // Combine and hash for uniqueness, but keep it short.
-  // Simple hash: sum char codes, base36
-  let hash = 0;
-  for (let i = 0; i < raw.length; i++) {
-    hash = (hash * 31 + raw.charCodeAt(i)) % 1000000;
-  }
-  const short = hash.toString(36).padStart(4, '0');
-  return `${visitorId}${short}`;
-};
-
 export const getFingerprintEvent = (
   request: Request<unknown, unknown, { data: string }>,
   response: Response<GetFingerprintResponse>,
@@ -122,9 +71,7 @@ export const getFingerprintEvent = (
     }
 
     // Include the TLS client fingerprints supplied by the provider.
-    const visitorId = appendTlsToVisitorId(baseVisitorId, request);
-
-    const encryptedVisitorId = encryptFPEvent(visitorId);
+    const visitorId = createFingerprint(baseVisitorId, request);
 
     // Only reuse authenticated UUIDs. Replace legacy unsigned or tampered cookies.
     let browserId = getBrowserId(request);
@@ -142,7 +89,9 @@ export const getFingerprintEvent = (
     }
 
     response.send({
-      eventId: encryptedVisitorId,
+      eventId: issueFingerprintEvent(
+        visitorId, browserId, request.body.data,
+      ),
       visitorId,
     });
 

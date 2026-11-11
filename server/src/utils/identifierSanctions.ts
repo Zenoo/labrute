@@ -2,7 +2,7 @@ import { ExpectedError, isUuid } from '@labrute/core';
 import {
   Prisma, PrismaClient, User
 } from '@labrute/prisma';
-import { isFingerprintFormatValid } from './fingerprint.js';
+import { isFingerprintFormatValid } from './fingerprintIdentity.js';
 
 const reviewReason = (reason: unknown) => {
   if (typeof reason !== 'string' || !reason.trim() || reason.trim().length > 500) {

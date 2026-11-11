@@ -97,14 +97,9 @@ export type Config = {
   readonly csrfSecret: string;
 
   /**
-   * AES secret for encrypting the fingerprint data
+   * Fingerprint secret, used to derive the receipt signing key.
    */
   readonly fpAesSecret: string;
-
-  /**
-   * AES initialization vector for encrypting the fingerprint data
-   */
-  readonly fpAesIv: string;
 
   /**
    * Configuration for the Eternaltwin client.
@@ -169,7 +164,6 @@ export const emptyConfig: Config = {
   discordKnownIssuesMessageId: '1310056621774471241',
   dinoRpgUrl: 'https://dinorpg.eternaltwin.org',
   fpAesSecret: 'default_secret_key_32bytes!',
-  fpAesIv: 'default_iv_16_bytes',
 };
 
 /**
@@ -249,7 +243,6 @@ export async function readConfig(
   const cookieSecret = readStringEnv(env.COOKIE_SECRET, emptyConfig.cookieSecret);
   const csrfSecret = readStringEnv(env.CSRF_SECRET, emptyConfig.csrfSecret);
   let fpAesSecret = readStringEnv(env.FP_AES_SECRET, emptyConfig.fpAesSecret);
-  let fpAesIv = readStringEnv(env.FP_AES_IV, emptyConfig.fpAesIv);
 
   const configVars = await prisma?.config.findMany({
     select: {
@@ -327,9 +320,6 @@ export async function readConfig(
       case 'FP_AES_SECRET':
         fpAesSecret = decryptedValue;
         break;
-      case 'FP_AES_IV':
-        fpAesIv = decryptedValue;
-        break;
       case 'CORS_REGEX':
         corsRegex = new RegExp(decryptedValue);
         break;
@@ -386,6 +376,11 @@ export async function readConfig(
     };
   }
 
+  if (!fpAesSecret || (isProduction
+    && (fpAesSecret.length < 32 || fpAesSecret === emptyConfig.fpAesSecret))) {
+    throw new Error('Configure a strong FP_AES_SECRET (at least 32 characters) in production');
+  }
+
   return {
     isProduction,
     port,
@@ -402,7 +397,6 @@ export async function readConfig(
     discordKnownIssuesMessageId,
     dinoRpgUrl,
     fpAesSecret,
-    fpAesIv,
   };
 }
 

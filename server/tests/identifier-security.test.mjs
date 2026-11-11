@@ -11,7 +11,7 @@ import {
 } from '@labrute/core';
 
 dayjs.extend(utc);
-const config = { fpAesSecret: 'a'.repeat(32), fpAesIv: 'b'.repeat(16) };
+const config = { fpAesSecret: 'a'.repeat(32) };
 const bans = [];
 let deviceRestrictions = { browserRestricted: false, fingerprintRestricted: false };
 let fingerprintLogs = 0;
@@ -36,14 +36,21 @@ mock.module('../lib/utils/user/banUser.js', {
 });
 
 const { getBrowserId } = await import('../lib/utils/browserId.js');
-const { getFingerprintEvent, decryptFPEvent } = await import('../lib/utils/fingerprint.js');
+const { getFingerprintEvent } = await import('../lib/utils/fingerprint.js');
 const { auth } = await import('../lib/utils/auth.js');
 const { securityCheck } = await import('../lib/utils/middlewares/securityCheck.js');
 const { Users } = await import('../lib/controllers/Users.js');
 const browserId = '11111111-1111-4111-8111-111111111111';
 const userId = '22222222-2222-4222-8222-222222222222';
+const { issueFingerprintEvent, verifyFingerprintEvent } = await import('../lib/utils/fingerprintEvent.js');
+const { createFingerprint } = await import('../lib/utils/fingerprintIdentity.js');
 const visitorId = 'b4e0e8ddaa9cbc0cb11808045ca140b9';
-const fingerprint = `${visitorId}0000`;
+const fingerprint = createFingerprint(visitorId, { headers: {} });
+const verifyIssued = (body, cookieId = browserId) => verifyFingerprintEvent(body.eventId, {
+  signedCookies: { browserId: cookieId }, security: { fingerprint: body.visitorId },
+}).fingerprint;
+const event = (fp) => issueFingerprintEvent(fp, browserId, 'synthetic-full-payload');
+
 
 const encode = (value) => {
   const json = JSON.stringify(value);
@@ -58,7 +65,8 @@ const encode = (value) => {
 };
 
 const encrypt = (value) => {
-  const cipher = createCipheriv('aes-256-cbc', config.fpAesSecret, config.fpAesIv);
+  // Generate obsolete CBC events only to verify that the current endpoint rejects them.
+  const cipher = createCipheriv('aes-256-cbc', config.fpAesSecret, Buffer.alloc(16, 0x62));
   return cipher.update(value, 'utf8', 'base64') + cipher.final('base64');
 };
 
@@ -95,11 +103,11 @@ test('issuance replaces unsigned cookies and cookie-parser verifies the new sign
   assert.equal(options.httpOnly, true);
   assert.equal(options.sameSite, 'lax');
   assert.equal(options.path, '/');
-  assert.equal(decryptFPEvent(res.body.eventId), res.body.visitorId);
   const parsed = { headers: { cookie: setCookie.split(';')[0] } };
   cookieParser('test-cookie-secret')(parsed, {}, () => {});
   assert.match(getBrowserId(parsed), /^[a-f0-9-]{36}$/);
   assert.notEqual(getBrowserId(parsed), browserId, 'do not adopt unsigned identifiers');
+  assert.equal(verifyIssued(res.body, getBrowserId(parsed)), res.body.visitorId);
   const wrongSecret = { headers: { cookie: setCookie.split(';')[0] } };
   cookieParser('another-cookie-secret')(wrongSecret, {}, () => {});
   assert.equal(getBrowserId(wrongSecret), undefined);
@@ -130,10 +138,10 @@ test('malformed visitor IDs cannot obtain events, and malformed decrypted events
     getFingerprintEvent({ headers: {}, body: { data: encode({ visitorId: value }) } }, res);
     assert.equal(typeof res.body, 'string');
     assert.match(res.body, /Invalid fingerprint visitorId/);
-    assert.throws(() => decryptFPEvent(encrypt(String(value))), /Invalid fingerprint event/);
+    assert.throws(() => verifyFingerprintEvent(encrypt(String(value)), { signedCookies: { browserId } }), /fingerprint event/);
   }
-  assert.equal(decryptFPEvent(encrypt(fingerprint)), fingerprint);
-  assert.throws(() => decryptFPEvent(encrypt(`${fingerprint}\n`)), /Invalid fingerprint event/);
+  assert.throws(() => verifyFingerprintEvent(encrypt(fingerprint), { signedCookies: { browserId } }), /fingerprint event/);
+  assert.throws(() => verifyFingerprintEvent(encrypt(`${fingerprint}\n`), { signedCookies: { browserId } }), /fingerprint event/);
   assert.equal(fingerprintLogs, previousLogs, 'invalid payloads must not enqueue external log work');
 });
 
@@ -157,8 +165,8 @@ test('older clients can still submit a full fingerprint result', () => {
       components: { legacy: { value: 'x'.repeat(16384), duration: 1 } },
     }) },
   }, res);
-  assert.ok(res.body.visitorId.startsWith(visitorId));
-  assert.equal(decryptFPEvent(res.body.eventId), res.body.visitorId);
+  assert.ok(res.body.visitorId.startsWith(`v2:${visitorId}:`));
+  assert.equal(verifyIssued(res.body), res.body.visitorId);
 });
 
 const request = (overrides = {}) => ({
@@ -185,7 +193,11 @@ const database = () => {
   });
   return { writes, observations,
     $queryRaw: async () => [{ ...user(), ...deviceRestrictions }],
-    $executeRaw: async (...args) => { observations.push(args); return 1; }, user: {
+    $executeRaw: async (strings, ...values) => {
+      if (strings[0].includes('UPDATE "User"')) writes.push({ fingerprints: { push: values[0] } });
+      else observations.push([strings, ...values]);
+      return 1;
+    }, user: {
     findFirst: async () => user(),
     update: async ({ data }) => { writes.push(data); return {}; },
   } };
@@ -246,9 +258,9 @@ test('invalid or mismatched reauthentication events do not mutate account identi
 test('valid reauthentication can register a new fingerprint after event verification', async () => {
   const prisma = database();
   const res = response();
-  const newFingerprint = `${visitorId}1111`;
+  const newFingerprint = createFingerprint(visitorId, { headers: { 'et-ja4': 'new-client' } });
   await Users.authenticate(prisma)(request({
-    body: { eventId: encrypt(newFingerprint) },
+    body: { eventId: event(newFingerprint) },
     security: { browserId, fingerprint: newFingerprint, validHeaders: true },
   }), res);
   assert.equal(res.body.user.id, userId);

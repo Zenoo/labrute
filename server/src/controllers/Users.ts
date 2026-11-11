@@ -47,7 +47,7 @@ import { dailyJob } from '../dailyJob.js';
 import { ServerState } from '../utils/ServerState.js';
 import { auth } from '../utils/auth.js';
 import { createUserLog } from '../utils/createUserLog.js';
-import { decryptFPEvent } from '../utils/fingerprint.js';
+import { verifyFingerprintEvent, registerFingerprintIdentity } from '../utils/fingerprintEvent.js';
 import { recordAccountObservation } from '../utils/accountObservations.js';
 import { editSharedBrowserExemptions, setIdentifierRestriction } from '../utils/identifierSanctions.js';
 import { ilike } from '../utils/ilike.js';
@@ -213,22 +213,14 @@ export const Users = {
           throw new ExpectedError('Invalid event ID');
         }
 
-        const fingerprint = decryptFPEvent(req.body.eventId);
-        if (fingerprint !== req.security?.fingerprint) {
-          throw new ExpectedError('Fingerprint event does not match request');
-        }
+        const { fingerprint } = verifyFingerprintEvent(req.body.eventId, req);
 
-        authResult = await auth(prisma, req, { skipFingerprintCheck: true });
+        authResult = await auth(prisma, req, {
+          skipFingerprintCheck: true,
+        });
 
         if (!authResult.fingerprints.includes(fingerprint)) {
-          await traced('users.authenticate.updateUserFingerprints', () => prisma.user.update({
-            where: { id: authResult.id },
-            data: {
-              fingerprints: {
-                push: fingerprint,
-              },
-            },
-          }));
+          await registerFingerprintIdentity(prisma, authResult.id, fingerprint);
           authResult.fingerprints.push(fingerprint);
         }
 

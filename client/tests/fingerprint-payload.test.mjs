@@ -3,10 +3,11 @@ import { mock, test } from 'node:test';
 import { formatFP } from '../src/utils/fingerprint.ts';
 
 mock.module(new URL('../../server/lib/context.js', import.meta.url).href, { namedExports: {
-  GLOBAL: { config: { fpAesSecret: 'a'.repeat(32), fpAesIv: 'b'.repeat(16) } },
+  GLOBAL: { config: { fpAesSecret: 'a'.repeat(32) } },
   DISCORD: () => ({}), LOGGER: { log() {}, error() {} },
 } });
-const { readFP, getFingerprintEvent, decryptFPEvent } = await import('../../server/lib/utils/fingerprint.js');
+const { readFP, getFingerprintEvent } = await import('../../server/lib/utils/fingerprint.js');
+const { verifyFingerprintEvent } = await import('../../server/lib/utils/fingerprintEvent.js');
 const visitorId = 'a'.repeat(32);
 
 test('fingerprint submission preserves the full result for future server-side bot detection', () => {
@@ -43,6 +44,9 @@ test('the actual client encoder and server endpoint remain compatible', () => {
       components: { languages: { value: [['en-US']], duration: 1 } },
     }) },
   }, res);
-  assert.ok(res.body.visitorId.startsWith(visitorId));
-  assert.equal(decryptFPEvent(res.body.eventId), res.body.visitorId);
+  assert.ok(res.body.visitorId.startsWith(`v2:${visitorId}:`));
+  assert.equal(verifyFingerprintEvent(res.body.eventId, {
+    signedCookies: { browserId: '11111111-1111-4111-8111-111111111111' },
+    security: { fingerprint: res.body.visitorId },
+  }).fingerprint, res.body.visitorId);
 });

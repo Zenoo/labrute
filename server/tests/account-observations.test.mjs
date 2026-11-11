@@ -15,6 +15,8 @@ const {
   editSharedBrowserExemptions, setIdentifierRestriction, getIdentifierRestrictions,
   findUserForAuthentication,
 } = await import('../lib/utils/identifierSanctions.js');
+const { registerFingerprintIdentity } = await import('../lib/utils/fingerprintEvent.js');
+const { createFingerprint } = await import('../lib/utils/fingerprintIdentity.js');
 
 test('observation IPs normalize chains, IPv6 spelling and mapped IPv4 without inventing missing IPs', () => {
   for (const [input, expected] of [
@@ -30,10 +32,11 @@ const schema = `observation_test_${randomUUID().replaceAll('-', '')}`;
 let admin;
 let prisma;
 let migratedLegacy;
+let fingerprintReset;
 const now = new Date('2026-11-11T12:00:00.000Z');
 const browser = randomUUID();
-const fingerprint = 'a'.repeat(32) + '0000';
-const otherFingerprint = 'b'.repeat(32) + '0000';
+const fingerprint = `v2:${'a'.repeat(32)}:none`;
+const otherFingerprint = `v2:${'b'.repeat(32)}:none`;
 const daysAgo = (days) => new Date(now.getTime() - days * 86400000);
 const request = (browserId = browser, fp = fingerprint, ip = '192.0.2.1', headers = {}) => ({
   signedCookies: { browserId },
@@ -86,6 +89,28 @@ before(async () => {
     exemptions: await prisma.sharedBrowserExemption.findMany(),
     history: await prisma.securityAction.findMany(),
   };
+  await prisma.$executeRaw`UPDATE "User" SET fingerprints = ARRAY['aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0000'],
+    "bannedAt" = '2026-11-01'::timestamp, "browserIds" = ARRAY[${browser}], ips = ARRAY['192.0.2.1']
+    WHERE id = ${legacyUser}::uuid`;
+  await prisma.$executeRawUnsafe(`INSERT INTO "KnownFingerprint" (id) VALUES ('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0000')`);
+  await prisma.$executeRaw`INSERT INTO "AccountObservation"
+    (id, "userId", "browserId", fingerprint, "visitorId", "observedDay", "firstSeen", "lastSeen")
+    VALUES (${'f'.repeat(64)}, ${legacyUser}::uuid, ${browser}::uuid, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0000',
+      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '2026-11-01'::date, '2026-11-01'::timestamp, '2026-11-01'::timestamp)`;
+  const resetMigration = readFileSync(new URL(
+    '../prisma/migrations/20261111190000_fingerprint_v2/migration.sql', import.meta.url,
+  ), 'utf8');
+  for (const statement of resetMigration.split(';').filter((sql) => sql.trim())) {
+    await prisma.$executeRawUnsafe(statement);
+  }
+  fingerprintReset = {
+    users: await prisma.$queryRaw`SELECT fingerprints, "bannedAt", "browserIds", ips FROM "User"`,
+    known: await prisma.knownFingerprint.count(), banned: await prisma.bannedFingerprint.count(),
+    observations: await prisma.accountObservation.count(), browsers: await prisma.bannedBrowser.count(),
+    approvals: await prisma.sharedBrowserExemption.count(),
+    audits: await prisma.securityAction.count(),
+  };
+
 });
 
 beforeEach(async () => {
@@ -134,6 +159,47 @@ integration('authentication lookup combines credentials with fresh restrictions 
   await editSharedBrowserExemptions(prisma, browser, [id], actorId, 'Family approval');
   row = await findUserForAuthentication(prisma, id, token, browser, fingerprint);
   assert.equal(row.browserRestricted, false, 'no stale authorization cache');
+});
+
+integration('fingerprint reset clears old identity state while preserving account and browser decisions', async () => {
+  assert.deepEqual(fingerprintReset.users[0].fingerprints, []);
+  assert.ok(fingerprintReset.users[0].bannedAt);
+  assert.deepEqual(fingerprintReset.users[0].browserIds, [browser]);
+  assert.deepEqual(fingerprintReset.users[0].ips, ['192.0.2.1']);
+  assert.equal(fingerprintReset.known, 0);
+  assert.equal(fingerprintReset.banned, 0);
+  assert.equal(fingerprintReset.observations, 0);
+  assert.equal(fingerprintReset.browsers, 1);
+  assert.equal(fingerprintReset.approvals, 1);
+  assert.equal(fingerprintReset.audits, migratedLegacy.history.length);
+});
+
+integration('new identities register atomically without duplicates and banned accounts cannot gain identities', async () => {
+  const id = await user();
+  await Promise.all(Array.from({ length: 12 }, () => registerFingerprintIdentity(prisma, id, fingerprint)));
+  const [row] = await prisma.$queryRaw`SELECT fingerprints FROM "User" WHERE id = ${id}::uuid`;
+  assert.deepEqual(row.fingerprints, [fingerprint]);
+  const banned = await user(null, now);
+  assert.equal(await registerFingerprintIdentity(prisma, banned, fingerprint), 0);
+  await assert.rejects(async () => registerFingerprintIdentity(prisma, id, 'a'.repeat(32) + '0000'));
+});
+
+integration('full JA4 comparison identities persist and enforce independently of other visitor IDs', async () => {
+  const id = await user();
+  const headers = { 'et-ja4': 't13d1516h2_synthetic_ja4' };
+  const current = createFingerprint('a'.repeat(32), { headers });
+  const unrelated = createFingerprint('b'.repeat(32), { headers });
+  assert.equal(current.length, 104);
+  await registerFingerprintIdentity(prisma, id, current);
+  await recordAccountObservation(prisma, id, request(browser, current, '192.0.2.1', headers), now);
+  const row = await prisma.accountObservation.findFirst();
+  assert.equal(row.fingerprint, current);
+  assert.equal(row.visitorId, 'a'.repeat(32));
+  assert.equal(row.formatVersion, 2);
+  assert.equal(row.ja4Hash, current.split(':')[3]);
+  await setIdentifierRestriction(prisma, 'fingerprint', current, true, randomUUID(), 'Reviewed abuse');
+  assert.equal((await getIdentifierRestrictions(prisma, id, browser, current)).fingerprintRestricted, true);
+  assert.equal((await getIdentifierRestrictions(prisma, id, browser, unrelated)).fingerprintRestricted, false);
 });
 
 integration('migration preserves legacy approvals and explicitly labels unknown restriction provenance', async () => {
@@ -278,7 +344,7 @@ integration('TLS keys are separate SHA-256 values; missing signals and invalid I
   const missing = await prisma.accountObservation.findFirst({ where: { ip: null } });
   assert.equal(missing.ja3Hash, null);
   assert.equal(missing.ja4Hash, null);
-  assert.equal(missing.formatVersion, 1);
+  assert.equal(missing.formatVersion, 2);
 });
 
 integration('invalid or unverified request identifiers cannot create observations', async () => {
@@ -298,7 +364,7 @@ integration('home/school switching cannot manufacture a fingerprint/IP pair from
       ips = ARRAY['192.0.2.1', '198.51.100.1'] WHERE id = ${id}::uuid`;
     // Different actual home IP per account; a shared school IP with different fingerprints.
     await recordAccountObservation(prisma, id, request(randomUUID(), fingerprint, `192.0.2.${i + 1}`), now);
-    await recordAccountObservation(prisma, id, request(randomUUID(), i.toString(16).padStart(32, '0') + '0000', '198.51.100.1'), now);
+    await recordAccountObservation(prisma, id, request(randomUUID(), `v2:${i.toString(16).padStart(32, '0')}:none`, '198.51.100.1'), now);
   }
   assert.deepEqual(await findMultipleAccountObservationGroups(prisma, now), []);
 });
@@ -374,7 +440,7 @@ integration('representative observation volume has a measured query plan', async
     (id, "userId", "browserId", fingerprint, "visitorId", ip, "observedDay", "firstSeen", "lastSeen")
     SELECT md5(n::text || '-' || d::text || '-' || v::text) || md5('tuple-' || n::text || '-' || d::text || '-' || v::text),
       md5('user-' || n::text)::uuid, md5('browser-' || n::text)::uuid,
-      md5('fingerprint-' || n::text) || '0000', md5('fingerprint-' || n::text),
+      'v2:' || md5('fingerprint-' || n::text) || ':none', md5('fingerprint-' || n::text),
       '192.0.2.' || ((n % 250) + 1)::text,
       ('2026-11-11'::date - d),
       ('2026-11-11 12:00:00'::timestamp - d * INTERVAL '1 day'),

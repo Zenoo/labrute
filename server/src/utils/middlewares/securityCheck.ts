@@ -13,7 +13,7 @@ import type {
 import { sendError } from '../sendError.js';
 import { translate } from '../translate.js';
 import { Lang } from '@labrute/prisma';
-import { isFingerprintFormatValid } from '../fingerprint.js';
+import { isFingerprintFormatValid } from '../fingerprintIdentity.js';
 import { getBrowserId } from '../browserId.js';
 
 /**
@@ -76,7 +76,7 @@ export const securityCheck = (req: Request, res: Response, next: NextFunction) =
   }
 
   if (!isFingerprintFormatValid(fingerprint)) {
-    return sendError(res, new ExpectedError('Invalid fingerprint format'));
+    return sendError(res, new ExpectedError('Invalid or outdated fingerprint format. Reload the page.'));
   }
 
   req.security.fingerprint = fingerprint;

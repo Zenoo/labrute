@@ -28,7 +28,7 @@ export const logSecurityRejection = (
   // Do not serialize full headers, URLs, fingerprint histories, or request objects.
   const details = {
     userId,
-    fingerprint: request.security?.fingerprint?.slice(0, 36),
+    fingerprint: request.security?.fingerprint?.slice(0, 128),
     endpoint: `${request.method} ${request.path}`.slice(0, 256),
     headers: kind === 'headers-tampering' ? Object.fromEntries(Object.entries(request.headers)
       .filter(([name]) => name.startsWith(PREDICTABLE_HEADERS_PREFIX))
