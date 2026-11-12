@@ -86,6 +86,7 @@
   "modifier.chaos": "Caos controlado",
   "modifier.chaos.desc": "Todo está un poco raro hoy. Todas las estadísticas han cambiado aleatoriamente.",
   "bannedAccount": "Tu cuenta ha sido baneada por el siguiente motivo: {{reason}}",
+  "banAppealCode": "Appeal code: {{code}}. Include this code when appealing on Discord.",
   "deletedAccount": "Your account has been deleted",
   "userNotBanned": "Usuario no baneado",
   "userAlreadyBanned": "El usuario ya está baneado",
