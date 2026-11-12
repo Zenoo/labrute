@@ -1,5 +1,5 @@
 import {
-  AchievementsStore, ExtraTieredSkillData, FightWeapon, Skill, StepType, Tiered
+  AchievementsStore, ExtraTieredSkillData, FightWeapon, Skill, StepType, Tiered,
 } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 import type { DetailedFight, DetailedFighter } from './generateFight.js';
@@ -17,21 +17,31 @@ type TurnSnapshot = {
 const cloneFighters = (fighters: DetailedFighter[]) => {
   const skills = new Map<Tiered<Skill>, Tiered<Skill>>();
   const weapons = new Map<FightWeapon, FightWeapon>();
+
   const cloneSkill = (skill: Tiered<Skill>) => {
     let copy = skills.get(skill);
+
     if (!copy) {
       copy = { ...skill };
-      if (skill.uses) copy.uses = [...skill.uses];
+
+      if (skill.uses) {
+        copy.uses = [...skill.uses];
+      }
+
       skills.set(skill, copy);
     }
+
     return copy;
   };
+
   const cloneWeapon = (weapon: FightWeapon) => {
     let copy = weapons.get(weapon);
+
     if (!copy) {
       copy = { ...weapon };
       weapons.set(weapon, copy);
     }
+
     return copy;
   };
 
@@ -70,6 +80,7 @@ export class FightRewind {
   beginTurn(fight: DetailedFight) {
     if (!fight.fighters.some((fighter) => this.canRewind(fighter))) {
       this.history.length = 0;
+
       return false;
     }
 
@@ -81,21 +92,32 @@ export class FightRewind {
       loser: fight.loser,
       consumed: new Set(this.consumed),
     });
-    if (this.history.length > 5) this.history.shift();
+
+    if (this.history.length > 5) {
+      this.history.shift();
+    }
+
     return true;
   }
 
   private canRewind(fighter: DetailedFighter) {
     const skill = fighter.skills[SkillName.rewind];
+
     return !this.consumed.has(fighter.index)
       && !!skill?.uses?.[skill.tier - 1];
   }
 
   request(fight: DetailedFight) {
-    if (!this.history.length) return;
+    if (!this.history.length) {
+      return;
+    }
+
     const fighter = fight.fighters.find((candidate) => candidate.hp <= 0
       && this.canRewind(candidate));
-    if (fighter) throw new RewindRequested(fighter);
+
+    if (fighter) {
+      throw new RewindRequested(fighter);
+    }
   }
 
   restore(
@@ -106,14 +128,21 @@ export class FightRewind {
   ) {
     const tier = caster.skills[SkillName.rewind]?.tier;
     const turns = tier && ExtraTieredSkillData[SkillName.rewind]?.[tier - 1];
-    if (!turns) throw new Error('Invalid Rewind skill tier');
+
+    if (!turns) {
+      throw new Error('Invalid Rewind skill tier');
+    }
 
     const count = Math.min(turns, this.history.length);
     const targetIndex = this.history.length - count;
     const snapshot = this.history[targetIndex];
-    if (!snapshot) throw new Error('Rewind turn snapshot not found');
+
+    if (!snapshot) {
+      throw new Error('Rewind turn snapshot not found');
+    }
 
     const steps = fight.steps.length - snapshot.stepIndex;
+
     this.consumed.add(caster.index);
     fight.fighters = cloneFighters(snapshot.fighters);
     fight.initiative = snapshot.initiative;
@@ -121,22 +150,33 @@ export class FightRewind {
     fight.loser = snapshot.loser;
 
     for (const fighter of fight.fighters) {
-      if (!this.consumed.has(fighter.index)) continue;
+      if (!this.consumed.has(fighter.index)) {
+        continue;
+      }
+
       delete fighter.skills[SkillName.rewind];
       delete fighter.reloadableSkills[SkillName.rewind];
       const fighterStats = stats[fighter.id];
+
       if (!snapshot.consumed.has(fighter.index) && fighterStats) {
         fighterStats.skillsUsed = (fighterStats.skillsUsed ?? 0) + 1;
       }
     }
 
     const restoredCaster = fight.fighters.find((fighter) => fighter.index === caster.index);
+
     if (!restoredCaster || restoredCaster.hp <= 0) {
       throw new Error('Rewind did not restore its caster alive');
     }
+
     advanceInitiative(restoredCaster, fight);
     this.history.length = targetIndex;
-    fight.steps.push({ a: StepType.Rewind, f: caster.index, n: steps, t: count });
+    fight.steps.push({
+      a: StepType.Rewind,
+      f: caster.index,
+      n: steps,
+      t: count,
+    });
   }
 }
 
@@ -158,21 +198,28 @@ export const withFightRewind = (
   advanceInitiative: (fighter: DetailedFighter, fight: DetailedFight) => void,
 ) => {
   const history = fight.rewind;
+
   if (!history) {
     playTurn(fight, stats, achievements);
+
     return;
   }
 
   if (!history.beginTurn(fight)) {
     fight.rewind = null;
     playTurn(fight, stats, achievements);
+
     return;
   }
+
   try {
     playTurn(fight, stats, achievements);
     history.request(fight);
   } catch (error) {
-    if (!(error instanceof RewindRequested)) throw error;
+    if (!(error instanceof RewindRequested)) {
+      throw error;
+    }
+
     history.restore(fight, stats, error.fighter, advanceInitiative);
   }
 };

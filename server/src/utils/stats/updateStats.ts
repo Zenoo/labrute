@@ -1,10 +1,10 @@
 import {
-  Brute, BruteStats, DestinyChoice, DestinyChoiceType, Prisma, PrismaClient, User, UserStats
-} from "@labrute/prisma";
-import { DISCORD } from "../../context.js";
-import { traced } from "../trace.js";
+  Brute, BruteStats, DestinyChoice, DestinyChoiceType, Prisma, PrismaClient, User, UserStats,
+} from '@labrute/prisma';
+import { DISCORD } from '../../context.js';
+import { traced } from '../trace.js';
 
-type Stat = keyof Omit<UserStats, "date" | "granularity" | "userId" | "createdAt" | "updatedAt"> | keyof Omit<BruteStats, "date" | "granularity" | "bruteId" | "userId" | "createdAt" | "updatedAt">;
+type Stat = keyof Omit<UserStats, 'date' | 'granularity' | 'userId' | 'createdAt' | 'updatedAt'> | keyof Omit<BruteStats, 'date' | 'granularity' | 'bruteId' | 'userId' | 'createdAt' | 'updatedAt'>;
 
 type StatsWithValue = Partial<Record<Stat, number>>;
 
@@ -20,10 +20,13 @@ const toIdentifier = (key: string) => {
 };
 
 export const increaseStats = ({
-  prisma, user, brute, stats: _stats
+  prisma, user, brute, stats: _stats,
 }: UpdateStatsParams) => {
   const stats = Array.isArray(_stats)
-    ? _stats.reduce<StatsWithValue>((acc, stat) => ({ ...acc, [stat]: 1 }), {})
+    ? _stats.reduce<StatsWithValue>((acc, stat) => ({
+      ...acc,
+      [stat]: 1,
+    }), {})
     : _stats ?? {};
 
   const statsKeys = Object.keys(stats) as (keyof StatsWithValue)[];
@@ -46,6 +49,7 @@ export const increaseStats = ({
         }),
         ', ',
       );
+
       traced('updateStats.increaseUserStats', () => prisma.$executeRaw`
         INSERT INTO "UserStats"(
           date,
@@ -109,7 +113,7 @@ export const increaseStats = ({
 };
 
 export const increaseLevelUpStats = ({
-  prisma, user, brute, choices, chosenId
+  prisma, user, brute, choices, chosenId,
 }: {
   prisma: PrismaClient;
   user: Pick<User, 'id'>;
@@ -139,6 +143,7 @@ export const increaseLevelUpStats = ({
 
         if (existing) {
           existing.offered += 1;
+
           if (choice.id === chosenId) {
             existing.picked += 1;
           }
@@ -161,7 +166,9 @@ export const increaseLevelUpStats = ({
   }
 
   const userValuesSql = Prisma.join(
-    aggregatedChoices.map(({ type, choice, offered, picked }) => Prisma.sql`(
+    aggregatedChoices.map(({
+      type, choice, offered, picked,
+    }) => Prisma.sql`(
       CURRENT_DATE,
       EXTRACT(DOW FROM CURRENT_DATE)::int,
       'daily'::"StatsGranularity",
@@ -175,7 +182,9 @@ export const increaseLevelUpStats = ({
   );
 
   const bruteValuesSql = Prisma.join(
-    aggregatedChoices.map(({ type, choice, offered, picked }) => Prisma.sql`(
+    aggregatedChoices.map(({
+      type, choice, offered, picked,
+    }) => Prisma.sql`(
       CURRENT_DATE,
       EXTRACT(DOW FROM CURRENT_DATE)::int,
       'daily'::"StatsGranularity",

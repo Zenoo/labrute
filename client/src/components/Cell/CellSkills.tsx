@@ -1,7 +1,7 @@
 import { skillList } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 import {
-  Grid, PaperProps, useTheme
+  Grid, PaperProps, useTheme,
 } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import { useBrute } from '../../hooks/useBrute';
@@ -27,7 +27,7 @@ export const CellSkills = ({
 
   const randomSkill = useMemo(
     () => (brute && !hoverSelectAscend ? brute.randomSkill : null),
-    [brute, hoverSelectAscend]
+    [brute, hoverSelectAscend],
   );
 
   const getFilter = (skill: SkillName) => {
@@ -36,6 +36,7 @@ export const CellSkills = ({
     if (randomSkill === skill) {
       filter += ` drop-shadow(0 2px 0 ${PerkColor.Random}) drop-shadow(2px 0 0 ${PerkColor.Random}) drop-shadow(0 -2px 0 ${PerkColor.Random}) drop-shadow(-2px 0 0 ${PerkColor.Random})`;
     }
+
     if (brute?.ascendedSkills.includes(skill)
       || selectedSkill === skill
       || (hoverSelectAscend && hoveredSkill === skill && brute?.skills[skill])) {
@@ -49,14 +50,19 @@ export const CellSkills = ({
     if (selectCallback === undefined) {
       return;
     }
+
     if (!brute?.skills[clicked]) {
       return;
     }
+
     selectCallback(clicked);
   };
 
   return brute && (
-    <Grid container spacing={1} sx={{ pt: 1, ...sx }} {...props}>
+    <Grid container spacing={1} sx={{
+      pt: 1,
+      ...sx,
+    }} {...props}>
       {skillList.map((skill) => {
         const hasSkill = brute.skills[skill.name] !== undefined;
 

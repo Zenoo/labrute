@@ -1,5 +1,5 @@
 import {
-  Application, ColorMatrixFilter, Container, Graphics, RenderTexture, Sprite, Ticker
+  Application, ColorMatrixFilter, Container, Graphics, RenderTexture, Sprite, Ticker,
 } from 'pixi.js';
 
 export type HypnosisEffect = Promise<void> & {
@@ -16,11 +16,22 @@ export const playHypnosisEffect = (
   sustained = false,
 ): HypnosisEffect => {
   let complete = () => {};
-  const result = new Promise<void>((resolve) => { complete = resolve; }) as HypnosisEffect;
+
+  const result = new Promise<void>((resolve) => {
+    complete = resolve;
+  }) as HypnosisEffect;
+
   result.dispose = complete;
-  result.finish = () => { result.dispose(); return Promise.resolve(); };
+
+  result.finish = () => {
+    result.dispose();
+
+    return Promise.resolve();
+  };
+
   if (shouldAbort() || !app.stage || app.stage.destroyed) {
     complete();
+
     return result;
   }
 
@@ -28,12 +39,25 @@ export const playHypnosisEffect = (
   const spiralContainer = new Container();
   const invertedContainer = new Container();
   const hypnosisFilter = new ColorMatrixFilter();
+
   hypnosisFilter.negative(true);
-  if (!sustained) hypnosisFilter.hue(73, true);
+
+  if (!sustained) {
+    hypnosisFilter.hue(73, true);
+  }
+
   const invertFilter = new ColorMatrixFilter();
-  if (sustained) invertFilter.negative(true);
-  else invertFilter.hue(-146, false);
-  if (!sustained) stage.filters = [...(stage.filters ?? []), hypnosisFilter];
+
+  if (sustained) {
+    invertFilter.negative(true);
+  } else {
+    invertFilter.hue(-146, false);
+  }
+
+  if (!sustained) {
+    stage.filters = [...(stage.filters ?? []), hypnosisFilter];
+  }
+
   spiralContainer.filters = sustained ? [] : [invertFilter];
   invertedContainer.filters = [invertFilter];
   spiralContainer.zIndex = 1002;
@@ -43,8 +67,10 @@ export const playHypnosisEffect = (
   stage.addChild(invertedContainer);
 
   const stageTexture = RenderTexture.create({
-    width: app.screen.width, height: app.screen.height,
+    width: app.screen.width,
+    height: app.screen.height,
   });
+
   const stageSprite = new Sprite(stageTexture);
   const spiralStageSprite = new Sprite(stageTexture);
   const spiral = new Graphics();
@@ -65,53 +91,77 @@ export const playHypnosisEffect = (
       stage.filters = stage.filters?.filter((filter) => filter !== hypnosisFilter) ?? [];
     }
   };
+
   // Build a single ribbon once. Rebuilding hundreds of stroked paths each tick
   // forces Pixi to tessellate the mask again throughout the rewind.
   const points: number[] = [];
   const inner: number[] = [];
+
   for (let i = 0; i < 12 * Math.PI * 2; i += 0.1) {
     const radius = i * 4;
     const halfWidth = i * 0.2;
+
     points.push((radius + halfWidth) * Math.cos(i), (radius + halfWidth) * Math.sin(i));
     inner.unshift((radius - halfWidth) * Math.cos(i), (radius - halfWidth) * Math.sin(i));
   }
+
   spiral.poly([...points, ...inner]).fill(0xffffff);
   spiral.position.set(app.screen.width / 2, app.screen.height / 2);
 
   const update = (frame: Ticker) => {
     if (shouldAbort() || stage.destroyed) {
       result.dispose();
+
       return;
     }
-    if (holding) return;
+
+    if (holding) {
+      return;
+    }
+
     const delta = Math.max(0, frame.elapsedMS) / 1000 * Math.max(0, speed.current);
+
     elapsed += delta;
     spiral.rotation += (closing ? 15 : -15) * delta;
     spiral.scale.set(1 + 0.1 * Math.sin(elapsed));
+
     if (sustained) {
       const progress = Math.min(elapsed / 1.2, 1);
+
       spiralContainer.alpha = Math.sin(progress * Math.PI);
       invertedContainer.alpha = 1 - progress;
+
       if (progress === 1) {
         spiralContainer.removeFromParent();
         invertedContainer.removeFromParent();
         holding = true;
-        if (closing) result.dispose();
-        else complete();
+
+        if (closing) {
+          result.dispose();
+        } else {
+          complete();
+        }
       }
+
       return;
     }
+
     if (phase >= 3 && brightness > 1) {
       brightness--;
       hypnosisFilter.brightness(brightness, false);
-      if (brightness <= 1) removeFilter();
+
+      if (brightness <= 1) {
+        removeFilter();
+      }
     }
 
     // Use the same elapsed fight time as FightClock, never GSAP's wall clock.
     phaseElapsed += frame.elapsedMS / 1000;
+
     while (phase < 4 && phaseElapsed >= duration) {
       phaseElapsed -= duration;
       phase++;
+
       if (phase === 1) {
         spiralContainer.alpha = 1;
         duration = 1 / speed.current;
@@ -130,16 +180,35 @@ export const playHypnosisEffect = (
         spiralContainer.removeFromParent();
       }
     }
+
     const progress = Math.min(phaseElapsed / duration, 1);
-    if (phase === 0) spiralContainer.alpha = progress;
-    if (phase === 1) invertedContainer.alpha = 1 - progress;
-    if (phase === 2) spiralContainer.alpha = 1 - 0.7 * progress;
-    if (phase === 3) spiralContainer.alpha = 0.3 * (1 - progress);
-    if (phase === 4 && brightness <= 1) result.dispose();
+
+    if (phase === 0) {
+      spiralContainer.alpha = progress;
+    }
+
+    if (phase === 1) {
+      invertedContainer.alpha = 1 - progress;
+    }
+
+    if (phase === 2) {
+      spiralContainer.alpha = 1 - 0.7 * progress;
+    }
+
+    if (phase === 3) {
+      spiralContainer.alpha = 0.3 * (1 - progress);
+    }
+
+    if (phase === 4 && brightness <= 1) {
+      result.dispose();
+    }
   };
 
   result.dispose = () => {
-    if (disposed) return;
+    if (disposed) {
+      return;
+    }
+
     disposed = true;
     ticker.remove(update);
     stage.off('destroyed', result.dispose);
@@ -161,20 +230,32 @@ export const playHypnosisEffect = (
     complete();
     finishComplete();
   };
+
   if (sustained) {
     result.finish = () => {
       if (disposed || shouldAbort() || stage.destroyed) {
         result.dispose();
+
         return Promise.resolve();
       }
-      if (finishPromise) return finishPromise;
-      finishPromise = new Promise<void>((resolve) => { finishComplete = resolve; });
+
+      if (finishPromise) {
+        return finishPromise;
+      }
+
+      finishPromise = new Promise<void>((resolve) => {
+        finishComplete = resolve;
+      });
+
       try {
         // Refresh from the restored live scene, never the pre-rewind snapshot.
         // Detach both copies before writing into their shared texture.
         spiralContainer.removeFromParent();
         invertedContainer.removeFromParent();
-        app.renderer.render({ container: stage, target: stageTexture });
+        app.renderer.render({
+          container: stage,
+          target: stageTexture,
+        });
         removeFilter();
         // The snapshot is negative already; the masked copy reveals normal colors.
         invertedContainer.filters = [];
@@ -187,15 +268,26 @@ export const playHypnosisEffect = (
         closing = true;
       } catch (error) {
         result.dispose();
+
         return Promise.reject(error);
       }
+
       return finishPromise;
     };
   }
+
   stage.once('destroyed', result.dispose);
+
   try {
-    app.renderer.render({ container: stage, target: stageTexture });
-    if (sustained) stage.filters = [...(stage.filters ?? []), hypnosisFilter];
+    app.renderer.render({
+      container: stage,
+      target: stageTexture,
+    });
+
+    if (sustained) {
+      stage.filters = [...(stage.filters ?? []), hypnosisFilter];
+    }
+
     invertedContainer.addChild(stageSprite);
     spiralContainer.addChild(spiralStageSprite);
     // Attach only after the snapshot, so it does not capture the mask itself.
@@ -206,5 +298,6 @@ export const playHypnosisEffect = (
     result.dispose();
     throw error;
   }
+
   return result;
 };

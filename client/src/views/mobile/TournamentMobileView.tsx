@@ -1,10 +1,10 @@
 import {
-  CalculatedBrute, Fighter, isWinner, TournamentsGetDailyResponse
+  CalculatedBrute, Fighter, isWinner, TournamentsGetDailyResponse,
 } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import {
-  Box, Paper, useTheme
+  Box, Paper, useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { Fragment } from 'react';
@@ -14,7 +14,7 @@ import { BruteTooltip } from '../../components/Brute/BruteTooltip';
 import { FantasyButton } from '../../components/FantasyButton';
 import { Page } from '../../components/Page';
 import {
-  StyledButtonHeight, StyledButtonWidth, StyledButton
+  StyledButtonHeight, StyledButtonWidth, StyledButton,
 } from '../../components/StyledButton';
 import { Text } from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
@@ -79,7 +79,10 @@ export const TournamentMobileView = ({
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {dayjs.utc(tournament.date).format('DD MMMM YYYY')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2, }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {ownsBrute && stepWatched < 6 && (
           <FantasyButton onClick={setWatched} color="success">
             {t('setAsWatched')}
@@ -89,20 +92,31 @@ export const TournamentMobileView = ({
           const shouldDisplay = ownsBrute
             ? stepWatched >= index
             : true;
+
           const shouldDisplayResult = ownsBrute
             ? stepWatched - 1 >= index
             : true;
 
+          const getRoundLabel = () => {
+            if (index < 3) {
+              return t('round', { value: index + 1 });
+            }
+
+            if (index === 3) {
+              return t('quarterFinals');
+            }
+
+            if (index === 4) {
+              return t('semiFinals');
+            }
+
+            return t('finals');
+          };
+
           return shouldDisplay && (
             <Fragment key={start}>
               <Text h4 bold>
-                {index < 3
-                  ? t('round', { value: index + 1 })
-                  : index === 3
-                    ? t('quarterFinals')
-                    : index === 4
-                      ? t('semiFinals')
-                      : t('finals')}
+                {getRoundLabel()}
               </Text>
               <Box
                 sx={{
@@ -112,7 +126,7 @@ export const TournamentMobileView = ({
                 }}
               >
                 {tournament.fights.filter(
-                  (fight) => fight.tournamentStep > start && fight.tournamentStep <= end
+                  (fight) => fight.tournamentStep > start && fight.tournamentStep <= end,
                 ).map((fight) => {
                   const fighters = JSON.parse(fight.fighters) as Fighter[];
                   const brute1 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'L');
@@ -149,14 +163,13 @@ export const TournamentMobileView = ({
                           }}
                           >
                             {brute1 && (
-                              <BruteRender brute={
-                                {
+                              <BruteRender
+                                brute={{
                                   ...brute1,
                                   gender: brute1.gender ?? Gender.male,
                                   body: brute1.body ?? '',
-                                  colors: brute1.colors ?? ''
-                                }
-                              }
+                                  colors: brute1.colors ?? '',
+                                }}
                                 small
                               />
                             )}

@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 const rankingCache = new Map<string, number>();
 let rankingCacheDate = dayjs.utc().startOf('day');

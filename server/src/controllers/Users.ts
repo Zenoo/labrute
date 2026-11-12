@@ -36,7 +36,7 @@ import {
 import {
   Achievement,
   Lang, PrismaClient,
-  StatsGranularity, UserLogType
+  StatsGranularity, UserLogType,
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
@@ -73,7 +73,12 @@ export const Users = {
       const isId = isUuid(req.params.identifier);
 
       const user = await traced('users.get.getUser', () => prisma.user.findFirst({
-        omit: { fingerprints: true, browserIds: true, ips: true, sharedBrowserId: true },
+        omit: {
+          fingerprints: true,
+          browserIds: true,
+          ips: true,
+          sharedBrowserId: true,
+        },
         where: {
           id: isId ? req.params.identifier : undefined,
           name: !isId ? ilike(req.params.identifier) : undefined,
@@ -103,6 +108,7 @@ export const Users = {
       // Merge achievements with same name
       const mergedAchievements = user.achievements.reduce((acc, achievement) => {
         const existingAchievement = acc.find((a) => a.name === achievement.name);
+
         if (existingAchievement) {
           // Display the highest count for some achievements
           if (AchievementData[achievement.name].max) {
@@ -116,6 +122,7 @@ export const Users = {
         } else {
           acc.push(achievement);
         }
+
         return acc;
       }, [] as Pick<Achievement, 'count' | 'name'>[]);
 
@@ -139,7 +146,7 @@ export const Users = {
           subjectId: user.id,
         },
         orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
-        take: 25
+        take: 25,
       });
 
       res.send({
@@ -160,6 +167,7 @@ export const Users = {
   ) => {
     try {
       let authResult: Awaited<ReturnType<typeof auth>>;
+
       try {
         if (typeof req.body.eventId !== 'string') {
           throw new ExpectedError('Invalid event ID');
@@ -183,6 +191,7 @@ export const Users = {
           currentEvent: await ServerState.getCurrentEvent(prisma),
           version: Version,
         });
+
         return;
       }
 
@@ -338,7 +347,11 @@ export const Users = {
       // Update the user
       await traced('users.adminUpdate.updateUser', () => prisma.$transaction(async (tx) => {
         await lockMultipleAccountPolicy(tx);
-        await tx.user.update({ where: { id: user.id }, data: req.body.user, select: { id: true } });
+        await tx.user.update({
+          where: { id: user.id },
+          data: req.body.user,
+          select: { id: true },
+        });
       }));
 
       // Update achievements
@@ -463,10 +476,16 @@ export const Users = {
               date: true,
               fighters: true,
               brute1: {
-                select: { id: true, name: true },
+                select: {
+                  id: true,
+                  name: true,
+                },
               },
               brute2: {
-                select: { id: true, name: true },
+                select: {
+                  id: true,
+                  name: true,
+                },
               },
             },
           },
@@ -480,6 +499,7 @@ export const Users = {
       // Merge achievements with same name
       const mergedAchievements = user.achievements.reduce((acc, achievement) => {
         const existingAchievement = acc.find((a) => a.name === achievement.name);
+
         if (existingAchievement) {
           // Display the highest count for some achievements
           if (AchievementData[achievement.name].max) {
@@ -493,6 +513,7 @@ export const Users = {
         } else {
           acc.push(achievement);
         }
+
         return acc;
       }, [] as Pick<Achievement, 'count' | 'name'>[]);
 
@@ -500,10 +521,23 @@ export const Users = {
       mergedAchievements.sort((a, b) => {
         const aRarety = RaretyOrder.indexOf(AchievementData[a.name].rarety);
         const bRarety = RaretyOrder.indexOf(AchievementData[b.name].rarety);
-        if (aRarety < bRarety) return 1;
-        if (aRarety > bRarety) return -1;
-        if (a.count > b.count) return -1;
-        if (a.count < b.count) return 1;
+
+        if (aRarety < bRarety) {
+          return 1;
+        }
+
+        if (aRarety > bRarety) {
+          return -1;
+        }
+
+        if (a.count > b.count) {
+          return -1;
+        }
+
+        if (a.count < b.count) {
+          return 1;
+        }
+
         return 0;
       });
 
@@ -520,7 +554,9 @@ export const Users = {
     res: Response<UserStatsGetResponse<UserStatsGetRequest>>,
   ) => {
     try {
-      const { userId, month, year, bruteId } = req.body;
+      const {
+        userId, month, year, bruteId,
+      } = req.body;
 
       if (!userId) {
         throw new MissingElementError(translate('missingParameters'));
@@ -557,11 +593,17 @@ export const Users = {
         throw new NotFoundError(translate('userNotFound'));
       }
 
-      const granularity = year
-        ? month
-          ? StatsGranularity.monthly
-          : StatsGranularity.yearly
-        : StatsGranularity.allTime;
+      let granularity: StatsGranularity;
+
+      if (year) {
+        if (month) {
+          granularity = StatsGranularity.monthly;
+        } else {
+          granularity = StatsGranularity.yearly;
+        }
+      } else {
+        granularity = StatsGranularity.allTime;
+      }
 
       let start = dayjs.utc();
       let end = dayjs.utc();
@@ -581,7 +623,10 @@ export const Users = {
 
       const where = granularity !== StatsGranularity.allTime
         ? {
-          date: { gte: start.toDate(), lte: end.toDate() },
+          date: {
+            gte: start.toDate(),
+            lte: end.toDate(),
+          },
           granularity: { in: [granularity, StatsGranularity.daily] },
         }
         : {
@@ -610,7 +655,10 @@ export const Users = {
             granularity: granularity,
             date: granularity === StatsGranularity.allTime
               ? undefined
-              : { gte: start.toDate(), lte: end.toDate() }
+              : {
+                gte: start.toDate(),
+                lte: end.toDate(),
+              },
           },
           orderBy: { date: 'desc' },
         }));
@@ -629,11 +677,16 @@ export const Users = {
           if (!parsedLevelUpStats[stat.choiceType]) {
             parsedLevelUpStats[stat.choiceType] = {};
           }
+
           if (!parsedLevelUpStats[stat.choiceType][stat.choice]) {
-            parsedLevelUpStats[stat.choiceType][stat.choice] = { offered: 0, picked: 0 };
+            parsedLevelUpStats[stat.choiceType][stat.choice] = {
+              offered: 0,
+              picked: 0,
+            };
           }
 
           const choice = parsedLevelUpStats[stat.choiceType][stat.choice];
+
           if (choice) {
             choice.offered += stat.offered;
             choice.picked += stat.picked;
@@ -643,8 +696,12 @@ export const Users = {
         res.send({
           user,
           daily,
-          current: current ? { ...current, levelUp: parsedLevelUpStats } : undefined,
+          current: current ? {
+            ...current,
+            levelUp: parsedLevelUpStats,
+          } : undefined,
         });
+
         return;
       }
 
@@ -662,7 +719,10 @@ export const Users = {
           granularity: granularity,
           date: granularity === StatsGranularity.allTime
             ? undefined
-            : { gte: start.toDate(), lte: end.toDate() }
+            : {
+              gte: start.toDate(),
+              lte: end.toDate(),
+            },
         },
       }));
 
@@ -681,11 +741,16 @@ export const Users = {
         if (!parsedLevelUpStats[stat.choiceType]) {
           parsedLevelUpStats[stat.choiceType] = {};
         }
+
         if (!parsedLevelUpStats[stat.choiceType][stat.choice]) {
-          parsedLevelUpStats[stat.choiceType][stat.choice] = { offered: 0, picked: 0 };
+          parsedLevelUpStats[stat.choiceType][stat.choice] = {
+            offered: 0,
+            picked: 0,
+          };
         }
 
         const choice = parsedLevelUpStats[stat.choiceType][stat.choice];
+
         if (choice) {
           choice.offered += stat.offered;
           choice.picked += stat.picked;
@@ -695,7 +760,10 @@ export const Users = {
       res.send({
         user,
         daily,
-        current: current ? { ...current, levelUp: parsedLevelUpStats } : undefined,
+        current: current ? {
+          ...current,
+          levelUp: parsedLevelUpStats,
+        } : undefined,
       });
     } catch (error) {
       sendError(res, error);
@@ -732,8 +800,12 @@ export const Users = {
       }
 
       const modifiers = await ServerState.getModifiers(prisma);
+
       const isDoneForToday = brutes.every(
-        (brute) => getFightsLeft({ ...brute, skills: getTieredSkills(brute, modifiers) }) === 0,
+        (brute) => getFightsLeft({
+          ...brute,
+          skills: getTieredSkills(brute, modifiers),
+        }) === 0,
       );
 
       res.send(isDoneForToday);
@@ -832,7 +904,10 @@ export const Users = {
 
       for (const brute of brutes) {
         const fightsLeft = getFightsLeft(
-          { ...brute, skills: getTieredSkills(brute, modifiers) },
+          {
+            ...brute,
+            skills: getTieredSkills(brute, modifiers),
+          },
         ) + 1;
 
         await traced('users.getDinoRpgRewards.updateBrute', () => prisma.brute.update({
@@ -868,7 +943,7 @@ export const Users = {
         prisma,
         req.body.userId,
         req.body.reason,
-        authed
+        authed,
       );
 
       res.send({
@@ -1358,16 +1433,27 @@ export const Users = {
         },
         include: {
           exemptions: {
-            include: { user: { select: { id: true, name: true } } },
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
           },
         },
       });
 
       const history = await prisma.securityAction.findMany({
-        where: { subjectId: req.params.id.toLowerCase(), subjectType: { in: ['shared-browser', 'browser'] } },
+        where: {
+          subjectId: req.params.id.toLowerCase(),
+          subjectType: { in: ['shared-browser', 'browser'] },
+        },
         orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
         take: 100,
       });
+
       if (!sharedBrowser && !history.length) {
         throw new NotFoundError(translate('sharedBrowserNotFound', authed));
       }
@@ -1528,7 +1614,7 @@ export const Users = {
         where: {
           id: req.body.id,
         },
-        select: { id: true }
+        select: { id: true },
       });
 
       if (!user) {
@@ -1539,7 +1625,7 @@ export const Users = {
         where: {
           type_userId: {
             type: req.body.item,
-            userId: user.id
+            userId: user.id,
           },
         },
         create: {

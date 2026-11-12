@@ -1,5 +1,7 @@
 import { EventListCurrentResponse, formatLargeNumber } from '@labrute/core';
-import { Badge, Box, Grid, Paper } from '@mui/material';
+import {
+  Badge, Box, Grid, Paper,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -56,7 +58,11 @@ export const CurrentEventsView = () => {
         <Grid container spacing={1} sx={{ justifyContent: 'center' }}>
           {/* Events */}
           {loading ? (
-            <Box sx={{ display: 'flex', mb: 2, justifyContent: 'center' }}>
+            <Box sx={{
+              display: 'flex',
+              mb: 2,
+              justifyContent: 'center',
+            }}>
               <Loader />
             </Box>
           ) : events.map((event) => {
@@ -83,7 +89,12 @@ export const CurrentEventsView = () => {
                         }}
                         sx={{ width: 1 }}
                         componentsProps={{
-                          badge: { style: { marginTop: -16, marginLeft: 8 } },
+                          badge: {
+                            style: {
+                              marginTop: -16,
+                              marginLeft: 8,
+                            },
+                          },
                         }}
                       >
                         <Badge
@@ -95,7 +106,12 @@ export const CurrentEventsView = () => {
                           }}
                           sx={{ width: 1 }}
                           componentsProps={{
-                            badge: { style: { marginBottom: -12, marginLeft: -4 } },
+                            badge: {
+                              style: {
+                                marginBottom: -12,
+                                marginLeft: -4,
+                              },
+                            },
                           }}
                         >
                           <Badge
@@ -103,7 +119,12 @@ export const CurrentEventsView = () => {
                             badgeContent={t('participants', { value: formatLargeNumber(event.bruteCount) })}
                             sx={{ width: 1 }}
                             componentsProps={{
-                              badge: { style: { marginTop: -16, marginRight: 8 } },
+                              badge: {
+                                style: {
+                                  marginTop: -16,
+                                  marginRight: 8,
+                                },
+                              },
                             }}
                           >
                             <Badge
@@ -129,15 +150,23 @@ export const CurrentEventsView = () => {
                   </Grid>
                 );
               }
+
               default: {
                 return null;
               }
             }
           })}
         </Grid>
-        <Box sx={{ display: 'flex', mt: 1, justifyContent: 'center' }}>
+        <Box sx={{
+          display: 'flex',
+          mt: 1,
+          justifyContent: 'center',
+        }}>
           <FantasyButton color="secondary" to="../history" sx={{ m: 1 }}>
-            <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+            <History sx={{
+              verticalAlign: 'middle',
+              mr: 1,
+            }} />
             {t('eventHistory')}
           </FantasyButton>
         </Box>

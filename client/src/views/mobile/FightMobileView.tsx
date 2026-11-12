@@ -1,6 +1,6 @@
 import { Fighter, FightGetResponse } from '@labrute/core';
 import {
-  Box, Grid, Link, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip
+  Box, Grid, Link, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,6 @@ import { AdResult } from '../../utils/ads';
 import { BruteTooltip } from '../../components/Brute/BruteTooltip';
 
 export type FightMobileViewProps = {
-  pageTitle?: string;
   headerUrl?: string;
   ads: AdResult[];
   fight: FightGetResponse | null;
@@ -20,7 +19,6 @@ export type FightMobileViewProps = {
 }
 
 export const FightMobileView = ({
-  pageTitle,
   headerUrl,
   ads,
   fight,
@@ -71,7 +69,7 @@ export const FightMobileView = ({
               </TableHead>
               <TableBody>
                 {Array.from({
-                  length: Math.max(attackers.length, defenders.length)
+                  length: Math.max(attackers.length, defenders.length),
                 }).map((_, i) => (
                   <TableRow key={attackers[i]?.name || defenders[i]?.name}>
                     <TableCell>
@@ -101,11 +99,18 @@ export const FightMobileView = ({
           {ads.map((ad) => (
             <Grid item key={ad.name} xs={12} sm={6}>
               <Tooltip title={t(`${ad.name}.desc`)}>
-                <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
+                <Link href={ad.url} target="_blank" sx={{
+                  width: 200,
+                  display: 'inline-block',
+                }}>
                   <Box
                     component="img"
                     src={`/images/redirects/${ad.illustration}`}
-                    sx={{ width: 1, border: 2, borderColor: 'common.white' }}
+                    sx={{
+                      width: 1,
+                      border: 2,
+                      borderColor: 'common.white',
+                    }}
                   />
                 </Link>
               </Tooltip>

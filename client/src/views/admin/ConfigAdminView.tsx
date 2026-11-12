@@ -1,6 +1,10 @@
 import { ConfigsListResponse } from '@labrute/core';
-import { Close, Edit, Visibility } from '@mui/icons-material';
-import { Grid, IconButton, List, ListItem, ListItemText, Paper, TextField, Tooltip } from '@mui/material';
+import {
+  Close, Edit, Visibility,
+} from '@mui/icons-material';
+import {
+  Grid, IconButton, List, ListItem, ListItemText, Paper, TextField, Tooltip,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { FantasyButton } from '../../components/FantasyButton';
 import { Page } from '../../components/Page';
@@ -17,6 +21,7 @@ export const ConfigAdminView = () => {
   const [configs, setConfigs] = useState<(ConfigsListResponse[number] & {
     decrypted?: string;
   })[]>([]);
+
   const [editing, setEditing] = useState(false);
   const [editingConfigKey, setEditingConfigKey] = useState('');
   const [editingConfigValue, setEditingConfigValue] = useState('');
@@ -24,7 +29,9 @@ export const ConfigAdminView = () => {
 
   // Trigger reports fetch on page load
   useEffect(() => {
-    if (!user?.admin && !user?.moderator) return;
+    if (!user?.admin && !user?.moderator) {
+      return;
+    }
 
     Server.Config.list().then((data) => {
       setConfigs(data);
@@ -33,7 +40,9 @@ export const ConfigAdminView = () => {
 
   // Save config
   const save = () => {
-    if (!editingConfigKey || !editingConfigValue) return;
+    if (!editingConfigKey || !editingConfigValue) {
+      return;
+    }
 
     Server.Config.set(editingConfigKey, editingConfigValue).then((updatedConfig) => {
       setEditing(false);
@@ -43,13 +52,19 @@ export const ConfigAdminView = () => {
       if (updatedConfig.key !== 'CRYPTR_SECRET') {
         setConfigs((prev) => {
           const index = prev.findIndex((c) => c.key === updatedConfig.key);
-          if (index === -1) return [...prev, updatedConfig];
+
+          if (index === -1) {
+            return [...prev, updatedConfig];
+          }
 
           const newConfigs = [...prev];
+
           newConfigs[index] = updatedConfig;
+
           return newConfigs;
         });
       }
+
       Alert.open('success', 'Config saved');
     }).catch(catchError(Alert));
   };
@@ -58,7 +73,10 @@ export const ConfigAdminView = () => {
   const reveal = (config: ConfigsListResponse[number]) => () => {
     Server.Config.decrypt(config.value).then(({ decrypted }) => {
       setConfigs((prev) => prev.map((c) => (c.key === config.key
-        ? { ...c, decrypted }
+        ? {
+          ...c,
+          decrypted,
+        }
         : c)));
       Alert.open('success', 'Config decrypted');
     }).catch(catchError(Alert));
@@ -84,7 +102,10 @@ export const ConfigAdminView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Config</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {editing ? (
           <Grid container spacing={2} mr={1}>
             <Grid item xs={12} sm={6}>
@@ -142,7 +163,12 @@ export const ConfigAdminView = () => {
               <ListItemText
                 primary={config.key}
                 secondary={config.decrypted ?? config.value}
-                secondaryTypographyProps={{ sx: { wordBreak: 'break-all', mr: 8 } }}
+                secondaryTypographyProps={{
+                  sx: {
+                    wordBreak: 'break-all',
+                    mr: 8,
+                  },
+                }}
               />
             </ListItem>
           ))}

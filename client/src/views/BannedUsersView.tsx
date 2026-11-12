@@ -1,7 +1,7 @@
 import { UserBannedListResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import {
-  IconButton, List, ListItem, ListItemText, Paper, Stack
+  IconButton, List, ListItem, ListItemText, Paper, Stack,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect } from 'react';
@@ -26,7 +26,9 @@ export const BannedUsersView = () => {
 
   // Trigger reports fetch when status changes
   useEffect(() => {
-    if (!admin?.admin) return;
+    if (!admin?.admin) {
+      return;
+    }
 
     Server.User.banlist().then((data) => {
       setUsers(data);
@@ -47,7 +49,10 @@ export const BannedUsersView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Banned users</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {admin?.admin ? (
           <Stack spacing={2}>
             {/* Report list */}

@@ -1,6 +1,6 @@
 import { gsap } from 'gsap';
 import {
-  AnimatedSprite, type AnimatedSpriteFrames, Application, Container, Ticker, UPDATE_PRIORITY
+  AnimatedSprite, type AnimatedSpriteFrames, Application, Container, Ticker, UPDATE_PRIORITY,
 } from 'pixi.js';
 
 const activeClock: { current: FightClock | null } = { current: null };
@@ -28,10 +28,13 @@ export class FightClock {
   }
 
   private update = (ticker: Ticker) => {
-    if (this.suspended) return;
+    if (this.suspended) {
+      return;
+    }
 
     this.elapsed += ticker.elapsedMS / 1000;
     this.timeline.totalTime(this.elapsed, false);
+
     if (!this.disposed) {
       this.effects.update(this.elapsed * 1000);
     }
@@ -51,6 +54,7 @@ export class FightClock {
     for (const sprite of this.sprites) {
       sprite.destroy();
     }
+
     for (const transient of this.transients) {
       transient.destroy({ children: true });
     }
@@ -60,6 +64,7 @@ export class FightClock {
   transient<T extends Container>(container: T): T {
     this.transients.add(container);
     container.once('destroyed', () => this.transients.delete(container));
+
     return container;
   }
 
@@ -69,33 +74,51 @@ export class FightClock {
 
   sprite(frames: AnimatedSpriteFrames) {
     const sprite = new AnimatedSprite(frames, false);
+
     this.sprites.add(sprite);
+
     const update = (ticker: Ticker) => {
-      if (sprite.playing) sprite.update(ticker);
+      if (sprite.playing) {
+        sprite.update(ticker);
+      }
     };
+
     this.effects.add(update);
     sprite.once('destroyed', () => {
       this.sprites.delete(sprite);
-      if (!this.disposed) this.effects.remove(update);
+
+      if (!this.disposed) {
+        this.effects.remove(update);
+      }
     });
+
     return sprite;
   }
 
   destroy() {
-    if (this.disposed) return;
+    if (this.disposed) {
+      return;
+    }
+
     this.disposed = true;
     this.app.ticker.remove(this.update, this);
     this.timeline.kill();
     this.effects.destroy();
-    if (activeClock.current === this) activeClock.current = null;
+
+    if (activeClock.current === this) {
+      activeClock.current = null;
+    }
   }
 }
 
 export const getFightClock = () => {
-  if (!activeClock.current) throw new Error('Fight clock not initialized');
+  if (!activeClock.current) {
+    throw new Error('Fight clock not initialized');
+  }
+
   return activeClock.current;
 };
 
 export const fightSprite = (
-  frames: AnimatedSpriteFrames | undefined
+  frames: AnimatedSpriteFrames | undefined,
 ) => getFightClock().sprite(frames ?? []);

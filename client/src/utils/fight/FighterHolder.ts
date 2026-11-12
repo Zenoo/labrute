@@ -1,25 +1,41 @@
 import {
-  bosses, Fighter, FIGHTER_HEIGHT, FIGHTER_WIDTH, readBodyString, readColorString, SkillId
+  bosses, Fighter, FIGHTER_HEIGHT, FIGHTER_WIDTH, readBodyString, readColorString, SkillId,
 } from '@labrute/core';
 import {
-  BossName, Gender, PetName
+  BossName, Gender, PetName,
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { AdjustmentFilter } from 'pixi-filters/adjustment';
 import { Application, Filter } from 'pixi.js';
 import {
-  Animation, FighterAppearance, FighterHolder as PixiFighterHolder, SpeedRef
+  Animation, FighterAppearance, FighterHolder as PixiFighterHolder, SpeedRef,
 } from 'labrute-pixi-fighter';
 
 const appearance = (fighter: Fighter): FighterAppearance => {
   const boss = fighter.type === 'boss' ? bosses.find(({ name }) => name === fighter.name) : undefined;
 
-  if (fighter.type === 'boss' && !boss) throw new Error(`Boss not found: ${fighter.name}`);
+  if (fighter.type === 'boss' && !boss) {
+    throw new Error(`Boss not found: ${fighter.name}`);
+  }
 
   const base = boss?.base ?? fighter.name;
-  const model = fighter.type === 'brute' ? fighter.gender ?? Gender.male
-    : base === 'bear' ? 'bear' : 'dog';
-  const dimensionType = fighter.type === 'brute' ? 'brute' : model === 'bear' ? 'bear' : 'dog';
+
+  let model: FighterAppearance['model'] = 'dog';
+
+  if (fighter.type === 'brute') {
+    model = fighter.gender ?? Gender.male;
+  } else if (base === 'bear') {
+    model = 'bear';
+  }
+
+  let dimensionType: keyof typeof FIGHTER_WIDTH = 'dog';
+
+  if (fighter.type === 'brute') {
+    dimensionType = 'brute';
+  } else if (model === 'bear') {
+    dimensionType = 'bear';
+  }
+
   let filters: Filter[] = [];
 
   // Change color on bosses
@@ -77,7 +93,11 @@ const appearance = (fighter: Fighter): FighterAppearance => {
     height: FIGHTER_HEIGHT[dimensionType],
     filters,
     colorOffset: fighter.type === 'pet' && fighter.name === PetName.panther
-      ? { r: -82, g: -97, b: -82 } : undefined,
+      ? {
+        r: -82,
+        g: -97,
+        b: -82,
+      } : undefined,
   };
 };
 
@@ -88,6 +108,7 @@ export class FighterHolder extends PixiFighterHolder {
   constructor(app: Application, fighter: Fighter, speed: SpeedRef, scale = 1) {
     const boss = fighter.type === 'boss' ? bosses.find(({ name }) => name === fighter.name) : undefined;
     const modelScale = fighter.type === 'pet' && fighter.name === PetName.panther ? 1.5 : boss?.scale ?? 1;
+
     super(app, appearance(fighter), speed, scale * modelScale);
     this.skills = fighter.skills;
   }

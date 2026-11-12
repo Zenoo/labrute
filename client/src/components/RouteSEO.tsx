@@ -22,10 +22,22 @@ const localeByLang: Record<string, string> = {
 };
 
 const langCodes: { url: string, langCode: string }[] = [
-  { url: `https://${Host.LaBrute}.eternaltwin.org`, langCode: 'fr' },
-  { url: `https://${Host.MyBrute}.eternaltwin.org`, langCode: 'en' },
-  { url: `https://${Host.ElBruto}.eternaltwin.org`, langCode: 'es' },
-  { url: `https://${Host.MeinBrutalo}.eternaltwin.org`, langCode: 'de' },
+  {
+    url: `https://${Host.LaBrute}.eternaltwin.org`,
+    langCode: 'fr',
+  },
+  {
+    url: `https://${Host.MyBrute}.eternaltwin.org`,
+    langCode: 'en',
+  },
+  {
+    url: `https://${Host.ElBruto}.eternaltwin.org`,
+    langCode: 'es',
+  },
+  {
+    url: `https://${Host.MeinBrutalo}.eternaltwin.org`,
+    langCode: 'de',
+  },
 ];
 
 type RouteHandle = {
@@ -48,7 +60,9 @@ export const RouteSEO = () => {
   const ogLocale = localeByLang[language] || localeByLang.en;
 
   const seo = useMemo(() => {
-    if (!match) return null;
+    if (!match) {
+      return null;
+    }
 
     // Avoid false missing-key warnings while the seo namespace is still loading.
     if (!i18n.hasLoadedNamespace('seo')) {
@@ -84,7 +98,7 @@ export const RouteSEO = () => {
     }
 
     const params: Partial<Record<string, string>> = {
-      brand
+      brand,
     };
 
     switch (routeId) {

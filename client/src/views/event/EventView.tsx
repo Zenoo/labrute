@@ -1,17 +1,17 @@
 import {
   EventFightsPerDay, EventFreeResets, EventGetResponse, EventPauseDuration,
-  Fighter, formatLargeNumber, isWinner
+  Fighter, formatLargeNumber, isWinner,
 } from '@labrute/core';
 import {
-  EventStatus, EventType, Gender
+  EventStatus, EventType, Gender,
 } from '@labrute/prisma';
 import { Close, Groups } from '@mui/icons-material';
 import {
-  Badge, Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, Tooltip, useTheme
+  Badge, Box, List, ListItem, ListItemButton, ListItemText, ListSubheader, Paper, Tooltip, useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, {
-  useEffect, useMemo, useState
+  useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -51,7 +51,11 @@ export const EventView = () => {
   const { bruteName, id } = useParams();
   const Alert = useAlert();
   const { user } = useAuth();
-  const { brute, owner, updateBrute } = useBrute();
+
+  const {
+    brute, owner, updateBrute,
+  } = useBrute();
+
   const navigate = useNavigate();
   const theme = useTheme();
   const Server = useServer();
@@ -61,7 +65,9 @@ export const EventView = () => {
 
   // Fetch event
   useEffect(() => {
-    if (!brute || !id) return;
+    if (!brute || !id) {
+      return;
+    }
 
     setLoading(true);
     Server.Event.get(brute.id, id)
@@ -72,6 +78,7 @@ export const EventView = () => {
           // Clear local storage from other events
           Object.keys(localStorage).forEach((key) => {
             const currentEventKey = getLSKeyEventRoundWatched(id);
+
             if (key.startsWith(LS_KEY_PREFIX_EVENT_ROUND_WATCHED) && key !== currentEventKey) {
               localStorage.removeItem(key);
             }
@@ -83,9 +90,14 @@ export const EventView = () => {
   }, [Alert, Server.Event, brute, id]);
 
   const watchingRound = useMemo(() => {
-    if (!data) return 0;
+    if (!data) {
+      return 0;
+    }
+
     // Only participants need to watch their own rounds before revealing the finals.
-    if (data.event.finishedAt || !owner || brute?.eventId !== data.event.id) return 999;
+    if (data.event.finishedAt || !owner || brute?.eventId !== data.event.id) {
+      return 999;
+    }
 
     const firstFoughtRound = ([...data.fights].sort(
       (a, b) => a.tournamentStep - b.tournamentStep,
@@ -119,9 +131,11 @@ export const EventView = () => {
     currentBrute: string,
     round: number,
     fightId: string,
-    skipUpdate?: boolean
+    skipUpdate?: boolean,
   ) => () => {
-    if (!data) return;
+    if (!data) {
+      return;
+    }
 
     // Update watched round
     if (owner && !skipUpdate && round >= watchingRound) {
@@ -144,23 +158,48 @@ export const EventView = () => {
     fight: EventGetResponse['fights'][0] | undefined,
     finals = false,
   ) => {
-    if (!brute || !bruteName || !fight) return null;
+    if (!brute || !bruteName || !fight) {
+      return null;
+    }
 
     const bruteInFight = fight.brute1Id === brute.id
       || fight.brute2Id === brute.id;
+
     const won = bruteInFight && isWinner(brute, fight);
 
     const fighters = JSON.parse(fight.fighters) as Fighter[];
 
     const fighter1 = fighters
       .find((fighter) => fighter.type === 'brute' && fighter.team === 'L');
+
     const fighter2 = fighters
       .find((fighter) => fighter.type === 'brute' && fighter.team === 'R');
 
-    if (!fighter1) return null;
-    if (!fighter2) return null;
+    if (!fighter1) {
+      return null;
+    }
+
+    if (!fighter2) {
+      return null;
+    }
 
     const ownFight = brute.id === fighter1.id || brute.id === fighter2.id;
+
+    const getFightBackground = () => {
+      if (bruteInFight) {
+        if (watchingRound > fight.tournamentStep) {
+          if (won) {
+            return 'logs.success.light';
+          }
+
+          return 'logs.error.light';
+        }
+
+        return 'warning.light';
+      }
+
+      return 'background.paperDark';
+    };
 
     return (
       <Box
@@ -168,7 +207,7 @@ export const EventView = () => {
           ownFight ? bruteName : fighter1.name,
           fight.tournamentStep,
           fight.id,
-          !ownFight
+          !ownFight,
         )}
         key={fight.id}
         sx={{
@@ -176,13 +215,7 @@ export const EventView = () => {
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          bgcolor: bruteInFight
-            ? watchingRound > fight.tournamentStep
-              ? won
-                ? 'logs.success.light'
-                : 'logs.error.light'
-              : 'warning.light'
-            : 'background.paperDark',
+          bgcolor: getFightBackground(),
           border: '1px solid',
           borderColor: theme.palette.border.shadow,
           borderRadius: 1,
@@ -275,313 +308,192 @@ export const EventView = () => {
       borderBottomColor: theme.palette.border.shadow,
       '&:last-child': {
         borderBottom: 'none',
-      }
+      },
     }}
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
-          value: lostRound.winner
+          value: lostRound.winner,
         })}
       </Text>
     </Box>
   );
 
-  return (
-    <Page headerUrl={`/${bruteName || ''}/cell`}>
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
-          {t('event')}
-        </Text>
-      </Paper>
-      <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
-        overflowX: 'auto',
-      }}
-      >
-        {loading ? (
-          <Box sx={{ display: 'flex', mb: 2, justifyContent: 'center' }}>
-            <Loader />
-          </Box>
-        ) : data ? (
-          <>
-            <Paper
-              sx={{
-                bgcolor: 'background.paperDark',
-                textAlign: 'center',
-                p: 1,
-                borderRadius: 0,
-                mb: 3,
+  const renderEventContent = () => {
+    if (loading) {
+      return (
+        <Box sx={{
+          display: 'flex',
+          mb: 2,
+          justifyContent: 'center',
+        }}>
+          <Loader />
+        </Box>
+      );
+    }
+
+    if (data) {
+      return (
+        <>
+          <Paper
+            sx={{
+              bgcolor: 'background.paperDark',
+              textAlign: 'center',
+              p: 1,
+              borderRadius: 0,
+              mb: 3,
+            }}
+          >
+            <Badge
+              color="success"
+              badgeContent={`${t('maxLevel')}: ${data.event.maxLevel}`}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              sx={{ width: 1 }}
+              componentsProps={{
+                badge: {
+                  style: {
+                    marginTop: -16,
+                    marginLeft: 8,
+                  },
+                },
               }}
             >
               <Badge
-                color="success"
-                badgeContent={`${t('maxLevel')}: ${data.event.maxLevel}`}
+                color="warning"
+                badgeContent={t(`event.status.${data.event.status}`)}
                 anchorOrigin={{
-                  vertical: 'top',
+                  vertical: 'bottom',
                   horizontal: 'left',
                 }}
                 sx={{ width: 1 }}
                 componentsProps={{
-                  badge: { style: { marginTop: -16, marginLeft: 8 } },
+                  badge: {
+                    style: {
+                      marginBottom: -12,
+                      marginLeft: -4,
+                    },
+                  },
                 }}
               >
                 <Badge
-                  color="warning"
-                  badgeContent={t(`event.status.${data.event.status}`)}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
+                  color="error"
+                  badgeContent={t('participants', { value: formatLargeNumber(data.participants) })}
                   sx={{ width: 1 }}
                   componentsProps={{
-                    badge: { style: { marginBottom: -12, marginLeft: -4 } },
+                    badge: {
+                      style: {
+                        marginTop: -16,
+                        marginRight: 8,
+                      },
+                    },
                   }}
                 >
                   <Badge
-                    color="error"
-                    badgeContent={t('participants', { value: formatLargeNumber(data.participants) })}
+                    color="info"
+                    badgeContent={data.event.tournament ? t('day', { day: data.event.tournament?.rounds }) : 0}
                     sx={{ width: 1 }}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
+                    }}
                     componentsProps={{
-                      badge: { style: { marginTop: -16, marginRight: 8 } },
+                      badge: { style: { marginBottom: -12 } },
                     }}
                   >
-                    <Badge
-                      color="info"
-                      badgeContent={data.event.tournament ? t('day', { day: data.event.tournament?.rounds }) : 0}
-                      sx={{ width: 1 }}
-                      anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right',
-                      }}
-                      componentsProps={{
-                        badge: { style: { marginBottom: -12 } },
-                      }}
-                    >
-                      <Box sx={{ width: 1 }}>
-                        <Text h4 bold upperCase typo="handwritten">{t(`event.${data.event.type}`)}</Text>
-                      </Box>
-                    </Badge>
+                    <Box sx={{ width: 1 }}>
+                      <Text h4 bold upperCase typo="handwritten">{t(`event.${data.event.type}`)}</Text>
+                    </Box>
                   </Badge>
                 </Badge>
               </Badge>
-            </Paper>
-            {/* CREATE BRUTE */}
-            {user
+            </Badge>
+          </Paper>
+          {/* CREATE BRUTE */}
+          {user
               && !user.brutes.some((b) => b.eventId === data.event.id)
               && data.event.status === EventStatus.starting
               && (
-                <FantasyButton color="primary" to={`/?event=${data.event.id}`} sx={{ mt: 2, mx: 'auto' }}>
+                <FantasyButton color="primary" to={`/?event=${data.event.id}`} sx={{
+                  mt: 2,
+                  mx: 'auto',
+                }}>
                   {t('createABrute')}
                 </FantasyButton>
               )}
-            {/* FIGHTS */}
-            {!!data.event.tournament?.rounds && (
-              <Box sx={{
-                mt: 1,
-                bgcolor: 'background.paper',
-                border: '1px solid',
-                borderColor: theme.palette.border.shadow,
-                textAlign: 'left',
-                mx: 'auto',
-                maxWidth: 600,
-              }}
-              >
-                {/* Rounds */}
-                {Array.from({
-                  length: Math.min(data.event.tournament?.rounds || 0, data.event.maxRound - 3),
-                }).map((_, i) => {
-                  const fight = data.fights.find((f) => f.tournamentStep === i + 1);
+          {/* FIGHTS */}
+          {!!data.event.tournament?.rounds && (
+          <Box sx={{
+            mt: 1,
+            bgcolor: 'background.paper',
+            border: '1px solid',
+            borderColor: theme.palette.border.shadow,
+            textAlign: 'left',
+            mx: 'auto',
+            maxWidth: 600,
+          }}
+          >
+            {/* Rounds */}
+            {Array.from({
+              length: Math.min(data.event.tournament?.rounds || 0, data.event.maxRound - 3),
+            }).map((_, i) => {
+              const fight = data.fights.find((f) => f.tournamentStep === i + 1);
 
-                  // Not participated
-                  if (brute?.eventId !== data.event.id) {
-                    return (
-                      <Box
+              // Not participated
+              if (brute?.eventId !== data.event.id) {
+                return (
+                  <Box
 
-                        key={i}
-                        sx={{
-                          display: 'flex',
-                          px: 0.5,
-                          py: 0.25,
-                          borderBottom: '1px solid',
-                          borderBottomColor: theme.palette.border.shadow,
-                          '&:last-child': {
-                            borderBottom: 'none',
-                          }
-                        }}
-                      >
-                        <Tooltip title={t('seeParticipants')}>
-                          <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
-                            <Groups
-                              sx={{
-                                cursor: 'pointer',
-                                color: 'text.disabled',
-                                mr: 1,
-                              }}
-                            />
-                          </Link>
-                        </Tooltip>
-                        <Text bold color="text.disabled">{t('dayOver', { day: i + 1 })}</Text>
-                      </Box>
-                    );
-                  }
-
-                  // Free bye
-                  if (!fight) {
-                    // Check if brute lost a fight before
-                    const lost = data.fights
-                      .some((f) => f.tournamentStep < i + 1 && f.winner !== bruteName);
-
-                    if (lost) {
-                      return (
-                        <Box
-
-                          key={i}
+                    key={i}
+                    sx={{
+                      display: 'flex',
+                      px: 0.5,
+                      py: 0.25,
+                      borderBottom: '1px solid',
+                      borderBottomColor: theme.palette.border.shadow,
+                      '&:last-child': {
+                        borderBottom: 'none',
+                      },
+                    }}
+                  >
+                    <Tooltip title={t('seeParticipants')}>
+                      <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
+                        <Groups
                           sx={{
-                            display: 'flex',
-                            px: 0.5,
-                            py: 0.25,
-                            borderBottom: '1px solid',
-                            borderBottomColor: theme.palette.border.shadow,
-                            '&:last-child': {
-                              borderBottom: 'none',
-                            }
+                            cursor: 'pointer',
+                            color: 'text.disabled',
+                            mr: 1,
                           }}
-                        >
-                          <Tooltip title={t('seeParticipants')}>
-                            <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
-                              <Groups
-                                sx={{
-                                  cursor: 'pointer',
-                                  color: 'text.disabled',
-                                  mr: 1,
-                                }}
-                              />
-                            </Link>
-                          </Tooltip>
-                          <Text bold color="text.disabled">{t('dayOver', { day: i + 1 })}</Text>
-                        </Box>
-                      );
-                    }
+                        />
+                      </Link>
+                    </Tooltip>
+                    <Text bold color="text.disabled">{t('dayOver', { day: i + 1 })}</Text>
+                  </Box>
+                );
+              }
 
-                    return (
-                      <Box
+              // Free bye
+              if (!fight) {
+                // Check if brute lost a fight before
+                const lost = data.fights
+                  .some((f) => f.tournamentStep < i + 1 && f.winner !== bruteName);
 
-                        key={i}
-                        sx={{
-                          display: 'flex',
-                          px: 0.5,
-                          py: 0.25,
-                          borderBottom: '1px solid',
-                          borderBottomColor: theme.palette.border.shadow,
-                          '&:last-child': {
-                            borderBottom: 'none',
-                          }
-                        }}
-                      >
-                        <Tooltip title={t('seeParticipants')}>
-                          <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
-                            <Groups
-                              sx={{
-                                cursor: 'pointer',
-                                color: 'text.disabled',
-                                mr: 1,
-                              }}
-                            />
-                          </Link>
-                        </Tooltip>
-                        <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { day: i + 1 })}</Text>
-                        <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>
-                      </Box>
-                    );
-                  }
-
-                  const fighters = JSON.parse(fight.fighters) as Fighter[];
-                  const fighter1 = fighters
-                    .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute1Id);
-                  const fighter2 = fighters
-                    .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute2Id);
-
-                  if (!fighter1) return null;
-                  if (!fighter2) return null;
-
-                  const won = isWinner(brute, fight);
-                  const opponent = brute?.id === fight.brute1Id
-                    ? fighter2.name
-                    : fighter1.name;
-
-                  // Hide unwatched fights
-                  if (owner && (watchingRound === i + 1)) {
-                    return (
-                      <Box
-                        key={fight.id}
-                        sx={{
-                          display: 'flex',
-                          px: 0.5,
-                          py: 0.25,
-                          cursor: 'pointer',
-                          bgcolor: 'logs.warning.light',
-                          borderBottom: '1px solid',
-                          borderBottomColor: theme.palette.border.shadow,
-                          '&:last-child': {
-                            borderBottom: 'none',
-                          }
-                        }}
-                      >
-                        <Tooltip title={t('seeParticipants')}>
-                          <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
-                            <Groups
-                              sx={{
-                                cursor: 'pointer',
-                                mr: 1,
-                              }}
-                            />
-                          </Link>
-                        </Tooltip>
-                        <BruteTooltip
-                          fighter={bruteName === fighter2.name ? fighter1 : fighter2}
-                        >
-                          <Box onClick={watchFight(bruteName || '', i + 1, fight.id)} sx={{ display: 'flex' }}>
-                            <Text
-                              bold
-                              color="warning.main"
-                              sx={{ width: 50 }}
-                            >
-                              {t('day', { day: fight.tournamentStep })}
-                            </Text>
-                            <Text
-                              bold
-                              color="warning.main"
-                            >
-                              {t('log.fight', { value: opponent })}
-                            </Text>
-                          </Box>
-                        </BruteTooltip>
-                      </Box>
-                    );
-                  }
-
-                  // Hide fights after unwatched fights
-                  if (owner && watchingRound < i + 1) {
-                    return null;
-                  }
-
-                  // Normal fight
+                if (lost) {
                   return (
                     <Box
-                      key={fight.id}
+
+                      key={i}
                       sx={{
                         display: 'flex',
                         px: 0.5,
                         py: 0.25,
-                        bgcolor: won
-                          ? 'logs.success.light'
-                          : 'logs.error.light',
                         borderBottom: '1px solid',
                         borderBottomColor: theme.palette.border.shadow,
                         '&:last-child': {
                           borderBottom: 'none',
-                        }
+                        },
                       }}
                     >
                       <Tooltip title={t('seeParticipants')}>
@@ -589,48 +501,196 @@ export const EventView = () => {
                           <Groups
                             sx={{
                               cursor: 'pointer',
+                              color: 'text.disabled',
                               mr: 1,
                             }}
                           />
                         </Link>
                       </Tooltip>
-                      <BruteTooltip
-                        fighter={bruteName === fighter2.name ? fighter1 : fighter2}
-                      >
-                        <Link to={`/${bruteName}/fight/${fight.id}`} sx={{ display: 'flex' }}>
-                          <Text
-                            bold
-                            color={won ? 'success.main' : 'error'}
-                            sx={{ width: 50 }}
-                          >
-                            {t('day', { day: fight.tournamentStep })}
-                          </Text>
-                          <Box
-                            component="img"
-                            src={`/images/log/${won ? 'win' : 'lose'}.webp`}
-                            sx={{ width: 20, height: 20, mr: 0.5 }}
-                          />
-                          <Text
-                            bold
-                            color={won ? 'success.main' : 'error'}
-                          >
-                            {won
-                              ? t('log.win', { value: opponent })
-                              : t('log.lose', { value: opponent })}
-                          </Text>
-                        </Link>
-                      </BruteTooltip>
+                      <Text bold color="text.disabled">{t('dayOver', { day: i + 1 })}</Text>
                     </Box>
                   );
-                })}
-                {/* Lost marker */}
-                {lostRound
+                }
+
+                return (
+                  <Box
+
+                    key={i}
+                    sx={{
+                      display: 'flex',
+                      px: 0.5,
+                      py: 0.25,
+                      borderBottom: '1px solid',
+                      borderBottomColor: theme.palette.border.shadow,
+                      '&:last-child': {
+                        borderBottom: 'none',
+                      },
+                    }}
+                  >
+                    <Tooltip title={t('seeParticipants')}>
+                      <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
+                        <Groups
+                          sx={{
+                            cursor: 'pointer',
+                            color: 'text.disabled',
+                            mr: 1,
+                          }}
+                        />
+                      </Link>
+                    </Tooltip>
+                    <Text bold color="text.disabled" sx={{ width: 50 }}>{t('day', { day: i + 1 })}</Text>
+                    <Text bold color="text.disabled">{t('automaticallyQualified')}</Text>
+                  </Box>
+                );
+              }
+
+              const fighters = JSON.parse(fight.fighters) as Fighter[];
+
+              const fighter1 = fighters
+                .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute1Id);
+
+              const fighter2 = fighters
+                .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute2Id);
+
+              if (!fighter1) {
+                return null;
+              }
+
+              if (!fighter2) {
+                return null;
+              }
+
+              const won = isWinner(brute, fight);
+
+              const opponent = brute?.id === fight.brute1Id
+                ? fighter2.name
+                : fighter1.name;
+
+              // Hide unwatched fights
+              if (owner && (watchingRound === i + 1)) {
+                return (
+                  <Box
+                    key={fight.id}
+                    sx={{
+                      display: 'flex',
+                      px: 0.5,
+                      py: 0.25,
+                      cursor: 'pointer',
+                      bgcolor: 'logs.warning.light',
+                      borderBottom: '1px solid',
+                      borderBottomColor: theme.palette.border.shadow,
+                      '&:last-child': {
+                        borderBottom: 'none',
+                      },
+                    }}
+                  >
+                    <Tooltip title={t('seeParticipants')}>
+                      <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
+                        <Groups
+                          sx={{
+                            cursor: 'pointer',
+                            mr: 1,
+                          }}
+                        />
+                      </Link>
+                    </Tooltip>
+                    <BruteTooltip
+                      fighter={bruteName === fighter2.name ? fighter1 : fighter2}
+                    >
+                      <Box onClick={watchFight(bruteName || '', i + 1, fight.id)} sx={{ display: 'flex' }}>
+                        <Text
+                          bold
+                          color="warning.main"
+                          sx={{ width: 50 }}
+                        >
+                          {t('day', { day: fight.tournamentStep })}
+                        </Text>
+                        <Text
+                          bold
+                          color="warning.main"
+                        >
+                          {t('log.fight', { value: opponent })}
+                        </Text>
+                      </Box>
+                    </BruteTooltip>
+                  </Box>
+                );
+              }
+
+              // Hide fights after unwatched fights
+              if (owner && watchingRound < i + 1) {
+                return null;
+              }
+
+              // Normal fight
+              return (
+                <Box
+                  key={fight.id}
+                  sx={{
+                    display: 'flex',
+                    px: 0.5,
+                    py: 0.25,
+                    bgcolor: won
+                      ? 'logs.success.light'
+                      : 'logs.error.light',
+                    borderBottom: '1px solid',
+                    borderBottomColor: theme.palette.border.shadow,
+                    '&:last-child': {
+                      borderBottom: 'none',
+                    },
+                  }}
+                >
+                  <Tooltip title={t('seeParticipants')}>
+                    <Link to={`round/${i + 1}`} sx={{ fontSize: 0 }}>
+                      <Groups
+                        sx={{
+                          cursor: 'pointer',
+                          mr: 1,
+                        }}
+                      />
+                    </Link>
+                  </Tooltip>
+                  <BruteTooltip
+                    fighter={bruteName === fighter2.name ? fighter1 : fighter2}
+                  >
+                    <Link to={`/${bruteName}/fight/${fight.id}`} sx={{ display: 'flex' }}>
+                      <Text
+                        bold
+                        color={won ? 'success.main' : 'error'}
+                        sx={{ width: 50 }}
+                      >
+                        {t('day', { day: fight.tournamentStep })}
+                      </Text>
+                      <Box
+                        component="img"
+                        src={`/images/log/${won ? 'win' : 'lose'}.webp`}
+                        sx={{
+                          width: 20,
+                          height: 20,
+                          mr: 0.5,
+                        }}
+                      />
+                      <Text
+                        bold
+                        color={won ? 'success.main' : 'error'}
+                      >
+                        {won
+                          ? t('log.win', { value: opponent })
+                          : t('log.lose', { value: opponent })}
+                      </Text>
+                    </Link>
+                  </BruteTooltip>
+                </Box>
+              );
+            })}
+            {/* Lost marker */}
+            {lostRound
                   && lostRound.tournamentStep <= data.event.maxRound - 3
                   && (!owner || watchingRound > lostRound.tournamentStep)
                   && renderLostMarker()}
-                {/* Last rounds */}
-                {/* Quarter-final */}
-                {data.lastRounds.length > 0
+            {/* Last rounds */}
+            {/* Quarter-final */}
+            {data.lastRounds.length > 0
                   && (!owner || watchingRound >= lastRoundsFirstStep)
                   && (
                     <>
@@ -644,7 +704,7 @@ export const EventView = () => {
                         borderBottomColor: theme.palette.border.shadow,
                         '&:last-child': {
                           borderBottom: 'none',
-                        }
+                        },
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
@@ -663,8 +723,8 @@ export const EventView = () => {
                         && renderLostMarker()}
                     </>
                   )}
-                {/* Semi-final */}
-                {data.lastRounds.length > 4
+            {/* Semi-final */}
+            {data.lastRounds.length > 4
                   && (!owner || watchingRound >= lastRoundsFirstStep + 1)
                   && (
                     <>
@@ -678,7 +738,7 @@ export const EventView = () => {
                         borderBottomColor: theme.palette.border.shadow,
                         '&:last-child': {
                           borderBottom: 'none',
-                        }
+                        },
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
@@ -697,10 +757,10 @@ export const EventView = () => {
                         && renderLostMarker()}
                     </>
                   )}
-                {/* Final */}
-                {data.lastRounds.find(
-                  (fight) => fight.tournamentStep === lastRoundsFirstStep + 2
-                )
+            {/* Final */}
+            {data.lastRounds.find(
+              (fight) => fight.tournamentStep === lastRoundsFirstStep + 2,
+            )
                   && (!owner || watchingRound >= lastRoundsFirstStep + 2)
                   && (
                     <>
@@ -714,7 +774,7 @@ export const EventView = () => {
                         borderBottomColor: theme.palette.border.shadow,
                         '&:last-child': {
                           borderBottom: 'none',
-                        }
+                        },
                       }}
                       >
                         <Text bold sx={{ flexBasis: '100%' }}>
@@ -731,44 +791,82 @@ export const EventView = () => {
                         && renderLostMarker()}
                     </>
                   )}
-              </Box>
+          </Box>
+          )}
+          {/* RULES */}
+          <List
+            dense
+            subheader={(
+              <ListSubheader component="div">
+                <Text bold py={1}>{t('event.rules')}</Text>
+              </ListSubheader>
             )}
-            {/* RULES */}
-            <List
-              dense
-              subheader={(
-                <ListSubheader component="div">
-                  <Text bold py={1}>{t('event.rules')}</Text>
-                </ListSubheader>
-              )}
-              sx={{
-                border: '1px solid',
-                borderColor: theme.palette.border.shadow,
-                pb: 0,
-                mt: 1.5,
-              }}
-            >
-              {Array.from({ length: eventRules[data.event.type] }).map((_, i) => (
+            sx={{
+              border: '1px solid',
+              borderColor: theme.palette.border.shadow,
+              pb: 0,
+              mt: 1.5,
+            }}
+          >
+            {Array.from({ length: eventRules[data.event.type] }).map((_, i) => {
+              const getRuleCount = () => {
+                if (data.event.type === EventType.battleRoyale) {
+                  if (i === 3) {
+                    return EventFightsPerDay;
+                  }
+
+                  if (i === 4) {
+                    return EventFreeResets;
+                  }
+
+                  if (i === 8) {
+                    return EventPauseDuration;
+                  }
+
+                  if (i === 9) {
+                    return data.event.maxLevel;
+                  }
+
+                  return undefined;
+                }
+
+                return undefined;
+              };
+
+              return (
 
                 <ListItem disablePadding key={i}>
                   <ListItemButton>
                     <ListItemText primary={t(`event.${data.event.type}.rule.${i}`, {
-                      count: data.event.type === EventType.battleRoyale
-                        ? i === 3 ? EventFightsPerDay
-                          : i === 4 ? EventFreeResets
-                            : i === 8 ? EventPauseDuration
-                              : i === 9 ? data.event.maxLevel
-                                : undefined : undefined,
+                      count: getRuleCount(),
                     })}
                     />
                   </ListItemButton>
                 </ListItem>
-              ))}
-            </List>
-          </>
-        ) : (
-          <Text center>{t('noEvent')}</Text>
-        )}
+              );
+            })}
+          </List>
+        </>
+      );
+    }
+
+    return <Text center>{t('noEvent')}</Text>;
+  };
+
+  return (
+    <Page headerUrl={`/${bruteName || ''}/cell`}>
+      <Paper sx={{ mx: 4 }}>
+        <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
+          {t('event')}
+        </Text>
+      </Paper>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+        overflowX: 'auto',
+      }}
+      >
+        {renderEventContent()}
       </Paper>
     </Page>
   );

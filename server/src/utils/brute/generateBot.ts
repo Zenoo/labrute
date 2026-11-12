@@ -1,10 +1,10 @@
 import {
   createRandomBruteStats, FIGHTS_PER_DAY,
-  getBruteToSave, getLevelUpChoices, getRandomBody, getRandomColors
-} from "@labrute/core";
-import { Gender, Prisma } from "@labrute/prisma";
-import dayjs from "dayjs";
-import { updateBruteData } from "./updateBruteData.js";
+  getBruteToSave, getLevelUpChoices, getRandomBody, getRandomColors,
+} from '@labrute/core';
+import { Gender, Prisma } from '@labrute/prisma';
+import dayjs from 'dayjs';
+import { updateBruteData } from './updateBruteData.js';
 
 
 export const generateBot = (
@@ -49,7 +49,11 @@ export const generateBot = (
     bruteData = {
       ...bruteData,
       ...updateBruteData(
-        { ...bruteData, id: '', eventId: null },
+        {
+          ...bruteData,
+          id: '',
+          eventId: null,
+        },
         levelUpChoice,
       ),
       id: undefined,

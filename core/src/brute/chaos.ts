@@ -30,6 +30,7 @@ export const refreshChaosSeeds = (modifiers: Modifiers) => {
     for (const stat of STATS) {
       for (const type of TYPES) {
         const seed = getSkillStatSeed(skill.name, stat, type);
+
         CHAOS_SEEDS.set(seed, seedToRandom(`${today}:${seed}`, false));
       }
     }
@@ -39,6 +40,7 @@ export const refreshChaosSeeds = (modifiers: Modifiers) => {
   for (const pet of petList) {
     for (const stat of STATS) {
       const seed = getPetStatSeed(pet, stat);
+
       CHAOS_SEEDS.set(seed, seedToRandom(`${today}:${seed}`, false));
     }
   }
@@ -47,6 +49,7 @@ export const refreshChaosSeeds = (modifiers: Modifiers) => {
   for (const weapon of weaponList) {
     for (const stat of STATS) {
       const seed = getWeaponStatSeed(weapon, stat);
+
       CHAOS_SEEDS.set(seed, seedToRandom(`${today}:${seed}`, false));
     }
   }

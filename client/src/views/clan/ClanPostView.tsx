@@ -2,14 +2,14 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ClanGetThreadResponse } from '@labrute/core';
 import {
-  Box, Paper, useTheme
+  Box, Paper, useTheme,
 } from '@mui/material';
 import React, {
-  useEffect, useMemo, useState
+  useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  useLocation, useNavigate, useParams
+  useLocation, useNavigate, useParams,
 } from 'react-router';
 import { FantasyButton } from '../../components/FantasyButton';
 import { Link } from '../../components/Link';
@@ -23,7 +23,11 @@ import { catchError } from '../../utils/catchError';
 export const ClanPostView = () => {
   const { t } = useTranslation('clan');
   const location = useLocation();
-  const { bruteName, id, tid } = useParams();
+
+  const {
+    bruteName, id, tid,
+  } = useParams();
+
   const Alert = useAlert();
   const navigate = useNavigate();
   const { palette: { mode } } = useTheme();
@@ -43,17 +47,21 @@ export const ClanPostView = () => {
   };
 
   const save = () => {
-    if (!id || !bruteName || !tid) return;
+    if (!id || !bruteName || !tid) {
+      return;
+    }
 
     // Check if title is not empty if creating a new thread
     if (!title && tid === '0') {
       Alert.open('error', t('missingTitle'));
+
       return;
     }
 
     // Check if content is not empty
     if (!content) {
       Alert.open('error', t('missingContent'));
+
       return;
     }
 
@@ -76,7 +84,9 @@ export const ClanPostView = () => {
   };
 
   useEffect(() => {
-    if (mode !== 'dark') return () => { };
+    if (mode !== 'dark') {
+      return () => { };
+    }
 
     const { head } = document;
     const link = document.createElement('link');
@@ -87,7 +97,9 @@ export const ClanPostView = () => {
 
     head.appendChild(link);
 
-    return () => { head.removeChild(link); };
+    return () => {
+      head.removeChild(link);
+    };
   }, [mode]);
 
   useEffect(() => {
@@ -95,15 +107,18 @@ export const ClanPostView = () => {
       Server.Clan.getThread(bruteName, id, tid, 1)
         .then((thread) => {
           const firstPost = thread.posts[0];
+
           if (firstPost) {
             setPost(firstPost);
             setContent(firstPost.message);
           }
+
           setTitle(thread.title);
         })
         .catch(catchError(Alert));
     }
   }, [Alert, Server.Clan, bruteName, editing, id, tid]);
+
   return (
     <Page headerUrl={`/${bruteName || ''}/cell`}>
       <Paper sx={{ mx: 4 }}>
@@ -111,7 +126,10 @@ export const ClanPostView = () => {
           {tid === '0' ? t('startThread') : t('reply')}
         </Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Box sx={{
           display: 'flex',
           flexWrap: 'wrap',

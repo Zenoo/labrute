@@ -1,9 +1,9 @@
 import { Version } from '@labrute/core';
 import {
-  AlertTitle, Box, BoxProps, Alert as MuiAlert, Paper, Tooltip
+  AlertTitle, Box, BoxProps, Alert as MuiAlert, Paper, Tooltip,
 } from '@mui/material';
 import React, {
-  Fragment, useEffect, useRef
+  Fragment, useEffect, useRef,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
@@ -28,7 +28,11 @@ export const Page = ({
   ...rest
 }: Props) => {
   const { t } = useTranslation();
-  const { authing, signin, user } = useAuth();
+
+  const {
+    authing, signin, user,
+  } = useAuth();
+
   const signinInitiated = useRef(false);
   const fingerprint = useFingerprint();
   const navigate = useNavigate();
@@ -48,6 +52,49 @@ export const Page = ({
     }
   }, [navigate, user]);
 
+  const renderPageContent = () => {
+    if (fingerprint.loading) {
+      return (
+        <Paper sx={{
+          textAlign: 'center',
+          mt: 4,
+        }}>
+          <Text>
+            {t('fingerprintLoading')}
+          </Text>
+        </Paper>
+      );
+    }
+
+    if (fingerprint.error) {
+      return (
+        <Paper sx={{
+          textAlign: 'center',
+          mt: 4,
+        }}>
+          <Text color="error">
+            {isError(fingerprint.error, 403) ? t('fingerprintError') : t('unableToConnect')}
+          </Text>
+        </Paper>
+      );
+    }
+
+    if (authing) {
+      return (
+        <Paper sx={{
+          textAlign: 'center',
+          mt: 4,
+        }}>
+          <Text>
+            {t('authing')}
+          </Text>
+        </Paper>
+      );
+    }
+
+    return children;
+  };
+
   return (
     <Box
       sx={{
@@ -58,27 +105,12 @@ export const Page = ({
     >
       {/* HEADER */}
       <Header url={headerUrl} />
-      {fingerprint.loading ? (
-        <Paper sx={{ textAlign: 'center', mt: 4 }}>
-          <Text>
-            {t('fingerprintLoading')}
-          </Text>
-        </Paper>
-      ) : fingerprint.error ? (
-        <Paper sx={{ textAlign: 'center', mt: 4 }}>
-          <Text color="error">
-            {isError(fingerprint.error, 403) ? t('fingerprintError') : t('unableToConnect')}
-          </Text>
-        </Paper>
-      ) : authing ? (
-        <Paper sx={{ textAlign: 'center', mt: 4 }}>
-          <Text>
-            {t('authing')}
-          </Text>
-        </Paper>
-      ) : children}
+      {renderPageContent()}
       {/* FOOTER */}
-      <Box sx={{ textAlign: 'center', mt: 2 }}>
+      <Box sx={{
+        textAlign: 'center',
+        mt: 2,
+      }}>
         <Text color="secondary" sx={{ fontWeight: 'bold' }}>
           {t('moreGames')} :{' '}
           {Object.entries(ads).map(([name, ad]) => (
@@ -113,7 +145,10 @@ export const Page = ({
       >
         <AlertTitle>{t('betaTitle')}</AlertTitle>
         {t('betaDescription')}
-        <Link href="https://discord.gg/ERc3svy" target="_blank" sx={{ ml: 0.5, textDecoration: 'underline' }}>
+        <Link href="https://discord.gg/ERc3svy" target="_blank" sx={{
+          ml: 0.5,
+          textDecoration: 'underline',
+        }}>
           {t('discord')}
         </Link>
         .<br />

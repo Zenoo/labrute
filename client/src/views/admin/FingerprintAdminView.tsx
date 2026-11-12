@@ -1,5 +1,5 @@
 import {
-  Paper, Stack, TextField
+  Paper, Stack, TextField,
 } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,9 +21,14 @@ export const FingerprintAdminView = () => {
   const [reason, setReason] = React.useState('');
 
   const unbanFingerprint = useCallback(() => {
-    if (!fingerprint || !reason.trim()) return;
+    if (!fingerprint || !reason.trim()) {
+      return;
+    }
 
-    Server.User.unbanFingerprint({ fingerprint, reason })
+    Server.User.unbanFingerprint({
+      fingerprint,
+      reason,
+    })
       .then(() => {
         Alert.open('success', 'Fingerprint unbanned successfully');
       })
@@ -31,9 +36,14 @@ export const FingerprintAdminView = () => {
   }, [Alert, Server.User, fingerprint, reason]);
 
   const banFingerprint = useCallback(() => {
-    if (!fingerprint || !reason.trim()) return;
+    if (!fingerprint || !reason.trim()) {
+      return;
+    }
 
-    Server.User.banFingerprint({ fingerprint, reason })
+    Server.User.banFingerprint({
+      fingerprint,
+      reason,
+    })
       .then(() => {
         Alert.open('success', 'Fingerprint banned successfully');
       })
@@ -45,7 +55,10 @@ export const FingerprintAdminView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {user && (
           <Stack spacing={2}>
             <TextField

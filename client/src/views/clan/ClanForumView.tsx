@@ -1,10 +1,10 @@
 import { ClanGetThreadsResponse } from '@labrute/core';
 import {
-  Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip
+  Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, {
-  Fragment, useEffect, useState
+  Fragment, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -25,9 +25,14 @@ export const ClanForumView = () => {
 
   // Fetch data
   useEffect(() => {
-    if (!bruteName || !id) return;
+    if (!bruteName || !id) {
+      return;
+    }
 
-    Server.Clan.getThreads({ brute: bruteName, id }).then(setData).catch(catchError(Alert));
+    Server.Clan.getThreads({
+      brute: bruteName,
+      id,
+    }).then(setData).catch(catchError(Alert));
   }, [Alert, Server.Clan, bruteName, id]);
 
   return (
@@ -35,7 +40,10 @@ export const ClanForumView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('forum')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {bruteName && id && data && (
           <>
             <Box sx={{
@@ -100,7 +108,10 @@ export const ClanForumView = () => {
                     {/* Thread row */}
                     <TableRow>
                       <TableCell>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Box sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}>
                           {thread.pinned && (
                             <Tooltip title={t('pinned')}>
                               <Box component="img" src="/images/clan/pinned.png" sx={{ width: 16 }} />
@@ -108,7 +119,10 @@ export const ClanForumView = () => {
                           )}
                           {thread.locked && (
                             <Tooltip title={t('locked')}>
-                              <Box component="img" src="/images/clan/lock.gif" sx={{ mr: 0.5, width: 11 }} />
+                              <Box component="img" src="/images/clan/lock.gif" sx={{
+                                mr: 0.5,
+                                width: 11,
+                              }} />
                             </Tooltip>
                           )}
                           <Link to={`/${bruteName}/clan/${id}/thread/${thread.id}`}>
@@ -117,10 +131,16 @@ export const ClanForumView = () => {
                         </Box>
                       </TableCell>
                       <TableCell>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Box sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}>
                           {thread.creator?.id === data.masterId && (
                             <Tooltip title={t('clanMaster')}>
-                              <Box component="img" src="/images/clan/master.gif" sx={{ mr: 0.5, width: 7 }} />
+                              <Box component="img" src="/images/clan/master.gif" sx={{
+                                mr: 0.5,
+                                width: 7,
+                              }} />
                             </Tooltip>
                           )}
                           <Text bold>{thread.creator?.name ?? t('deleted')}</Text>

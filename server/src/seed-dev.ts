@@ -21,6 +21,7 @@ No Eternaltwin accounts are created by this command.`);
 
   try {
     const { generateFight } = await import('./utils/fight/generateFight.js');
+
     const result = await withSeedRandom(options.seed, () => prisma.$transaction(async (db) => {
       await db.$executeRaw`SELECT pg_advisory_xact_lock(192837465)`;
 
@@ -29,11 +30,13 @@ No Eternaltwin accounts are created by this command.`);
           SELECT tablename FROM pg_tables
           WHERE schemaname = ${options.schema} AND tablename <> '_prisma_migrations'
         `;
+
         const quote = (identifier: string) => `"${identifier.replace(/"/g, '""')}"`;
 
         if (tables.length) {
           // Identifiers come from the catalog, are quoted, and are confined to the selected schema.
           const names = tables.map(({ tablename }) => `${quote(options.schema)}.${quote(tablename)}`);
+
           await db.$executeRawUnsafe(`TRUNCATE TABLE ${names.join(', ')} RESTART IDENTITY`);
         }
       }

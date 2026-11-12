@@ -1,7 +1,7 @@
 
 
 import {
-  FightStep, isLoser, isWinner, SkillById, SkillId, skills, StepType
+  FightStep, isLoser, isWinner, SkillById, SkillId, skills, StepType,
 } from '@labrute/core';
 import { BossName, Fight } from '@labrute/prisma';
 import { Theme } from '@mui/material';
@@ -12,7 +12,7 @@ import { sound } from '@pixi/sound';
 import dayjs from 'dayjs';
 import { TFunction } from 'react-i18next';
 import {
-  Application, Color, Container, Graphics, Sprite, Text, Texture
+  Application, Color, Container, Graphics, Sprite, Text, Texture,
 } from 'pixi.js';
 import { RendererContextInterface } from '../../hooks/useRenderer';
 import { FighterHolder } from './FighterHolder';
@@ -58,7 +58,7 @@ export const setupFight: (
   isDisposed,
   playback,
 ) => {
-    const shouldAbort = () => (isDisposed?.() ?? false) || !app.stage || app.stage.destroyed;
+  const shouldAbort = () => (isDisposed?.() ?? false) || !app.stage || app.stage.destroyed;
 
     type StepPerf = {
       stepName: string;
@@ -87,6 +87,7 @@ export const setupFight: (
       }
 
       const sorted = [...values].sort((a, b) => a - b);
+
       const index = Math.min(
         sorted.length - 1,
         Math.max(0, Math.ceil((percentile / 100) * sorted.length) - 1),
@@ -137,10 +138,12 @@ export const setupFight: (
       perfLiveActive = true;
 
       let elapsed = 0;
+
       app.ticker.add(() => {
         if (!perfLiveActive) {
           return;
         }
+
         if (!perfText) {
           return;
         }
@@ -177,6 +180,7 @@ export const setupFight: (
         if (elapsed < 100) {
           return;
         }
+
         elapsed = 0;
 
         const fps = app.ticker.FPS;
@@ -195,6 +199,7 @@ export const setupFight: (
       if (perfSummaryPrinted || !showPerformanceStats) {
         return;
       }
+
       perfSummaryPrinted = true;
 
       perfLiveActive = false;
@@ -223,6 +228,7 @@ export const setupFight: (
       if (perfText && perfBackground) {
         const currentLines = perfText.text.split('\n').filter(Boolean);
         const topLines = currentLines.slice(0, 3);
+
         perfText.text = [
           ...topLines,
           `FPS p50 ${fpsMedian.toFixed(1)}`,
@@ -247,21 +253,26 @@ export const setupFight: (
 
     const brute1 = fightFighters.find((fighter) => !fighter.master
       && fighter.team === 'L');
+
     const brute2 = fightFighters.find((fighter) => !fighter.master
       && fighter.team === 'R');
+
     const boss = fightFighters.find((fighter) => fighter.type === 'boss');
 
     if (!brute1) {
       throw new Error('Brute not found');
     }
 
-    if (shouldAbort()) return;
+    if (shouldAbort()) {
+      return;
+    }
 
     // TODO: Remove this on release, as background extensions were changed
     const fightBackground = `${fight.background.split('.')[0]}.jpg`;
 
     // Add background
     const background = new Sprite(miscSheet.textures[`background/${fightBackground}`]);
+
     background.zIndex = -1;
 
     // Fill screen
@@ -273,7 +284,11 @@ export const setupFight: (
     // Add 2px border
     const border = new Graphics()
       .rect(0, 0, app.screen.width, app.screen.height)
-      .stroke({ color: new Color(theme.palette.secondary.main), width: 2 });
+      .stroke({
+        color: new Color(theme.palette.secondary.main),
+        width: 2,
+      });
+
     border.zIndex = 102;
     app.stage?.addChild(border);
 
@@ -281,6 +296,7 @@ export const setupFight: (
 
     // First brute header
     const team1Header = new Sprite(miscSheet.textures['header.png']);
+
     team1Header.filters = [new OutlineFilter()];
     team1Header.x = 4;
     team1Header.y = 10;
@@ -292,9 +308,12 @@ export const setupFight: (
     const team1Text = new Text({
       text: brute1.name.toLocaleUpperCase(),
       style: {
-        fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff
-      }
+        fontFamily: 'GameFont',
+        fontSize: 20,
+        fill: 0xffffff,
+      },
     });
+
     team1Text.filters = [new OutlineFilter()];
     team1Text.anchor.set(0, 1);
     team1Text.x = 4;
@@ -307,6 +326,7 @@ export const setupFight: (
     const team1HpBar = new Graphics()
       .roundRect(0, 0, 236, 9, 4)
       .fill(new Color(theme.palette.hpBar.main));
+
     team1HpBar.filters = [new GlowFilter({
       distance: 6,
       innerStrength: 2,
@@ -324,6 +344,7 @@ export const setupFight: (
     const team1PhantomHpBar = new Graphics()
       .roundRect(0, 0, 236, 9, 4)
       .fill(new Color(theme.palette.error.main));
+
     team1PhantomHpBar.x = 7;
     team1PhantomHpBar.y = 21;
     team1PhantomHpBar.zIndex = 102;
@@ -335,19 +356,29 @@ export const setupFight: (
     if (app.stage) {
       app.stage.eventMode = 'static';
     }
+
     app.stage?.on('pointertap', () => {
       toggleTooltip(null, false);
     });
 
     // First team bust
-    if (shouldAbort()) return;
+    if (shouldAbort()) {
+      return;
+    }
+
     const brute1BustImg = await createBustImage(brute1, renderer);
-    if (shouldAbort()) return;
+
+    if (shouldAbort()) {
+      return;
+    }
+
     const team1Bust = new Sprite(Texture.from({
       resource: brute1BustImg,
-      scaleMode: 'linear'
+      scaleMode: 'linear',
     }));
+
     const team1BustContainer = new Container();
+
     team1BustContainer.x = 52;
     team1BustContainer.y = 34;
     team1BustContainer.zIndex = 102;
@@ -367,6 +398,7 @@ export const setupFight: (
     const team1BustMask = new Graphics()
       .rect(0, 0, 300, BUST_HEIGHT)
       .fill(0xFFFFFF);
+
     team1BustContainer.addChild(team1BustMask);
     team1Bust.mask = team1BustMask;
 
@@ -397,8 +429,11 @@ export const setupFight: (
       team2Text = new Text({
         text: brute2.name.toLocaleUpperCase(),
         style: {
-          fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
-        }
+          fontFamily: 'GameFont',
+          fontSize: 20,
+          fill: 0xffffff,
+          align: 'right',
+        },
       });
       team2Text.filters = [new OutlineFilter()];
       team2Text.anchor.set(1, 1);
@@ -439,14 +474,22 @@ export const setupFight: (
       app.stage?.addChild(team2PhantomHpBar);
 
       // Second team bust
-      if (shouldAbort()) return;
+      if (shouldAbort()) {
+        return;
+      }
+
       brute2BustImg = await createBustImage(brute2, renderer);
-      if (shouldAbort()) return;
+
+      if (shouldAbort()) {
+        return;
+      }
+
       team2Bust = new Sprite(Texture.from({
         resource: brute2BustImg,
-        scaleMode: 'linear'
+        scaleMode: 'linear',
       }));
       const team2BustContainer = new Container();
+
       team2BustContainer.x = 450;
       team2BustContainer.y = 34;
       team2BustContainer.zIndex = 102;
@@ -466,6 +509,7 @@ export const setupFight: (
       const team2BustMask = new Graphics()
         .rect(0, 0, 300, BUST_HEIGHT)
         .fill(0xFFFFFF);
+
       team2BustContainer.addChild(team2BustMask);
       team2Bust.mask = team2BustMask;
     }
@@ -473,6 +517,7 @@ export const setupFight: (
     let bossHeader: Sprite | null = null;
     let bossHpBar: Graphics | null = null;
     let bossPhantomHpBar: Graphics | null = null;
+
     if (boss) {
       // Boss header
       bossHeader = new Sprite(miscSheet.textures['header.png']);
@@ -485,21 +530,38 @@ export const setupFight: (
       app.stage?.addChild(bossHeader);
 
       // Boss name
+      // Seasonal names only affect the label; the fighter keeps its original boss identity.
+      const getBossDisplayName = () => {
+        if (!dayjs.utc().isSame(dayjs.utc('04-01', 'MM-DD'), 'day')) {
+          return boss.name;
+        }
+
+        if (boss.name === BossName.EmberFang) {
+          return 'EmberFool';
+        }
+
+        if (boss.name === BossName.GoldClaw) {
+          return 'GoldClown';
+        }
+
+        return boss.name;
+      };
+
       const displayedBossName = (
         // Normal day Display
-        !dayjs.utc().isSame(dayjs.utc('04-01', 'MM-DD'), 'day') ? boss.name
-          // April Fools Display
-          : boss.name === BossName.EmberFang ? 'EmberFool'
-            : boss.name === BossName.GoldClaw ? 'GoldClown'
-              : boss.name
+        getBossDisplayName()
       );
 
       const bossName = new Text({
         text: displayedBossName.toLocaleUpperCase(),
         style: {
-          fontFamily: 'GameFont', fontSize: 20, fill: 0xffffff, align: 'right'
-        }
+          fontFamily: 'GameFont',
+          fontSize: 20,
+          fill: 0xffffff,
+          align: 'right',
+        },
       });
+
       bossName.filters = [new OutlineFilter()];
       bossName.anchor.set(1, 1);
       bossName.x = app.screen.width - 4;
@@ -542,11 +604,16 @@ export const setupFight: (
     }
 
     // Set background music
-    if (shouldAbort()) return;
+    if (shouldAbort()) {
+      return;
+    }
+
     await sound.play('background', { loop: true });
 
     // Get fighters animations
-    if (shouldAbort()) return;
+    if (shouldAbort()) {
+      return;
+    }
 
     const nextFighters: AnimationFighter[] = [];
 
@@ -555,6 +622,7 @@ export const setupFight: (
         for (const createdFighter of nextFighters) {
           createdFighter.animation.destroy();
         }
+
         return;
       }
 
@@ -564,47 +632,101 @@ export const setupFight: (
         fighter.team = (fighter.master || fighter.id) === brute1.id ? 'L' : 'R';
       }
 
+      const getFighterHpBar = () => {
+        if (fighter.master) {
+          return undefined;
+        }
+
+        if (fighter.team === brute1.team) {
+          return team1HpBar;
+        }
+
+        if (fighter.team === brute2?.team) {
+          return team2HpBar;
+        }
+
+        if (fighter.id === boss?.id) {
+          return bossHpBar;
+        }
+
+        return undefined;
+      };
+
+      const getFighterPhantomHpBar = () => {
+        if (fighter.master) {
+          return undefined;
+        }
+
+        if (fighter.team === brute1.team) {
+          return team1PhantomHpBar;
+        }
+
+        if (fighter.team === brute2?.team) {
+          return team2PhantomHpBar;
+        }
+
+        if (fighter.id === boss?.id) {
+          return bossPhantomHpBar;
+        }
+
+        return undefined;
+      };
+
+      const getFighterBustImage = () => {
+        if (fighter.type === 'pet') {
+          return null;
+        }
+
+        if (fighter.id === brute1.id) {
+          return brute1BustImg;
+        }
+
+        if (fighter.id === brute2?.id) {
+          return brute2BustImg;
+        }
+
+        return null;
+      };
+
+      const getFighterBust = () => {
+        if (fighter.type === 'pet') {
+          return undefined;
+        }
+
+        if (fighter.team === brute1.team) {
+          return team1Bust;
+        }
+
+        if (fighter.team === brute2?.team) {
+          return team2Bust;
+        }
+
+        return undefined;
+      };
+
+      const getFighterText = () => {
+        if (fighter.type === 'pet') {
+          return undefined;
+        }
+
+        if (fighter.team === brute1.team) {
+          return team1Text;
+        }
+
+        if (fighter.team === brute2?.team) {
+          return team2Text;
+        }
+
+        return undefined;
+      };
+
       const animationFighter: AnimationFighter = {
         ...fighter,
-        hpBar: (fighter.master
-          ? undefined
-          : fighter.team === brute1.team
-            ? team1HpBar
-            : fighter.team === brute2?.team
-              ? team2HpBar
-              : fighter.id === boss?.id
-                ? bossHpBar
-                : undefined) ?? undefined,
-        hpBarPhantom: (fighter.master
-          ? undefined
-          : fighter.team === brute1.team
-            ? team1PhantomHpBar
-            : fighter.team === brute2?.team
-              ? team2PhantomHpBar
-              : fighter.id === boss?.id
-                ? bossPhantomHpBar
-                : undefined) ?? undefined,
-        bustImage: (fighter.type === 'pet'
-          ? null
-          : fighter.id === brute1.id
-            ? brute1BustImg
-            : fighter.id === brute2?.id
-              ? brute2BustImg
-              : null) ?? null,
-        bust: (fighter.type === 'pet'
-          ? undefined
-          : fighter.team === brute1.team
-            ? team1Bust
-            : fighter.team === brute2?.team
-              ? team2Bust
-              : undefined) ?? undefined,
-        text: (fighter.type === 'pet'
-          ? undefined
-          : fighter.team === brute1.team
-            ? team1Text
-            : fighter.team === brute2?.team
-              ? team2Text
-              : undefined) ?? undefined,
+        hpBar: (getFighterHpBar()) ?? undefined,
+        hpBarPhantom: (getFighterPhantomHpBar()) ?? undefined,
+        bustImage: (getFighterBustImage()) ?? null,
+        bust: (getFighterBust()) ?? undefined,
+        text: (getFighterText()) ?? undefined,
         teamWeaponsIllustrations: fighter.team === brute1.team ? team1Weapons : team2Weapons,
         teamSkillsIllustrations: fighter.team === brute1.team ? team1Skills : team2Skills,
         HUDFocused: fighter.id === brute2?.id || fighter.id === brute1?.id,
@@ -629,7 +751,7 @@ export const setupFight: (
           app,
           fighter,
           speed,
-          fighter.size
+          fighter.size,
         ),
       };
 
@@ -652,7 +774,9 @@ export const setupFight: (
       });
     }
 
-    if (shouldAbort()) return;
+    if (shouldAbort()) {
+      return;
+    }
 
     // Loop on steps
     const steps = JSON.parse(fight.steps) as FightStep[];
@@ -663,29 +787,50 @@ export const setupFight: (
     }
 
     const controller = new FightPlaybackController({
-      app, fight, fighters, speed, spritesheets, renderer, t, shouldAbort, steps,
+      app,
+      fight,
+      fighters,
+      speed,
+      spritesheets,
+      renderer,
+      t,
+      shouldAbort,
+      steps,
     });
 
     let seekFinalized = startStep === 0;
 
     const finalizeSeek = async () => {
       await controller.renderState();
-      if (shouldAbort()) return;
+
+      if (shouldAbort()) {
+        return;
+      }
+
       seekFinalized = true;
       playback?.onReady();
     };
 
-    if (seekFinalized) playback?.onReady();
+    if (seekFinalized) {
+      playback?.onReady();
+    }
 
     for (let i = 0; i < steps.length; i++) {
-      if (shouldAbort()) return;
+      if (shouldAbort()) {
+        return;
+      }
 
       if (i === startStep && !seekFinalized) {
         await finalizeSeek();
-        if (shouldAbort()) return;
+
+        if (shouldAbort()) {
+          return;
+        }
       }
 
-      if (i >= startStep) playback?.onStep(i);
+      if (i >= startStep) {
+        playback?.onStep(i);
+      }
 
       const { [i]: step } = steps;
 
@@ -698,11 +843,19 @@ export const setupFight: (
 
       await controller.runStep(step, i < startStep);
 
-      if (shouldAbort()) return;
+      if (shouldAbort()) {
+        return;
+      }
     }
 
-    if (!seekFinalized) await finalizeSeek();
-    if (shouldAbort()) return;
+    if (!seekFinalized) {
+      await finalizeSeek();
+    }
+
+    if (shouldAbort()) {
+      return;
+    }
+
     playback?.onStep(steps.length);
     playback?.onComplete();
     void sound.play('sfx', { sprite: 'win' });
@@ -715,13 +868,16 @@ export const setupFight: (
 
     // Display dead icon animation on the UI
     const deadIcon = fightSprite(miscSheet.animations.dead);
+
     deadIcon.filters = [new OutlineFilter()];
     deadIcon.loop = false;
     deadIcon.animationSpeed = 0.5;
     deadIcon.zIndex = 1000;
     deadIcon.eventMode = 'none';
+
     if (loser?.team === 'R') {
       deadIcon.scale.x = -1;
+
       if (team2Header) {
         deadIcon.x = team2Header.x + 32;
         deadIcon.y = team2Header.y - 13;
@@ -733,6 +889,7 @@ export const setupFight: (
       deadIcon.x = team1Header.x - 32;
       deadIcon.y = team1Header.y - 13;
     }
+
     app.stage?.addChild(deadIcon);
     deadIcon.play();
 
@@ -744,8 +901,9 @@ export const setupFight: (
         fontSize: 20,
         fill: 0xffffff,
         align: 'center',
-      }
+      },
     });
+
     winMessage.filters = [new OutlineFilter()];
     winMessage.x = app.screen.width / 2;
     winMessage.y = app.screen.height - 20;
@@ -765,8 +923,10 @@ export const setupFight: (
     currentStepName = 'postFight';
     currentStepIndex = steps.length;
     let completedPetals = 0;
+
     for (let i = 0; i < 50; i++) {
       const petal = fightSprite(miscSheet.animations.petals);
+
       petal.filters = [new ColorOverlayFilter({
         // Random color
         color: Math.random() * 0xffffff,
@@ -796,6 +956,7 @@ export const setupFight: (
         petal.stop();
 
         completedPetals += 1;
+
         if (completedPetals >= 50) {
           updatePerformanceSummary();
         }
@@ -808,4 +969,4 @@ export const setupFight: (
         app.ticker.stop();
       }
     }).catch(console.error);
-  };
+};

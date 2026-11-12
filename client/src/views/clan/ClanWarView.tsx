@@ -1,9 +1,9 @@
 import {
-  ClanWarGetAvailableFightersResponse, ClanWarGetResponse, isWinner
+  ClanWarGetAvailableFightersResponse, ClanWarGetResponse, isWinner,
 } from '@labrute/core';
 import { ClanWarStatus } from '@labrute/prisma';
 import {
-  Box, Alert as MuiAlert, Paper, Table, TableBody, TableCell, TableHead, TableRow
+  Box, Alert as MuiAlert, Paper, Table, TableBody, TableCell, TableHead, TableRow,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,11 @@ import { catchError } from '../../utils/catchError';
 
 export const ClanWarView = () => {
   const { t } = useTranslation('clan');
-  const { bruteName, id, warId } = useParams();
+
+  const {
+    bruteName, id, warId,
+  } = useParams();
+
   const Alert = useAlert();
   const { brute, owner } = useBrute();
   const Server = useServer();
@@ -34,7 +38,9 @@ export const ClanWarView = () => {
 
   // Fetch clan war
   useEffect(() => {
-    if (!id || !warId) return;
+    if (!id || !warId) {
+      return;
+    }
 
     Server.ClanWar.get(id, warId)
       .then((data) => {
@@ -51,8 +57,13 @@ export const ClanWarView = () => {
 
   // Fetch clan brutes
   useEffect(() => {
-    if (!id || !warId || !brute) return;
-    if (brute.clanId !== id || !owner) return;
+    if (!id || !warId || !brute) {
+      return;
+    }
+
+    if (brute.clanId !== id || !owner) {
+      return;
+    }
 
     Server.ClanWar.getAvailableFighters(id, warId)
       .then(setBrutes)
@@ -61,7 +72,9 @@ export const ClanWarView = () => {
 
   // Fetch used brutes
   useEffect(() => {
-    if (!id || !warId) return;
+    if (!id || !warId) {
+      return;
+    }
 
     Server.ClanWar.getUsedFighters(id, warId)
       .then(setUsedBrutes)
@@ -76,7 +89,9 @@ export const ClanWarView = () => {
 
   // Toggle fighter
   const toggleFighter = (fighterId: string) => () => {
-    if (!id || !warId) return;
+    if (!id || !warId) {
+      return;
+    }
 
     const add = !selectedFighters.includes(fighterId);
 
@@ -102,7 +117,10 @@ export const ClanWarView = () => {
           </Link>
         </Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {war && (
           <>
             <Text h3 center bold upperCase sx={{ my: 1 }}>{t(`clanWar.${war.status}`)}</Text>
@@ -136,48 +154,70 @@ export const ClanWarView = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {war.fights.map((fight, index) => (
-                    <TableRow
-                      key={fight.id}
-                    >
-                      <TableCell>
-                        <Link
-                          to={`fight/${fight.id}`}
-                          onClick={updateDayWatched(index + 1)}
-                        >
-                          {t('day', { day: index + 1 })}
-                        </Link>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Link
-                          to={`fight/${fight.id}`}
-                          onClick={updateDayWatched(index + 1)}
-                          sx={{
-                            fontWeight: 'bold',
-                            color: dayWatched >= index + 1
-                              ? isWinner(fight.brute1, fight) ? 'success.main' : 'error.main'
-                              : undefined,
-                          }}
-                        >
-                          {war.attacker?.name}
-                        </Link>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Link
-                          to={`fight/${fight.id}`}
-                          onClick={updateDayWatched(index + 1)}
-                          sx={{
-                            fontWeight: 'bold',
-                            color: dayWatched >= index + 1
-                              ? fight.winner !== fight.brute1?.name ? 'success.main' : 'error.main'
-                              : undefined,
-                          }}
-                        >
-                          {war.defender?.name}
-                        </Link>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {war.fights.map((fight, index) => {
+                    const getAttackerFightColor = () => {
+                      if (dayWatched >= index + 1) {
+                        if (isWinner(fight.brute1, fight)) {
+                          return 'success.main';
+                        }
+
+                        return 'error.main';
+                      }
+
+                      return undefined;
+                    };
+
+                    const getDefenderFightColor = () => {
+                      if (dayWatched >= index + 1) {
+                        if (fight.winner !== fight.brute1?.name) {
+                          return 'success.main';
+                        }
+
+                        return 'error.main';
+                      }
+
+                      return undefined;
+                    };
+
+                    return (
+                      <TableRow
+                        key={fight.id}
+                      >
+                        <TableCell>
+                          <Link
+                            to={`fight/${fight.id}`}
+                            onClick={updateDayWatched(index + 1)}
+                          >
+                            {t('day', { day: index + 1 })}
+                          </Link>
+                        </TableCell>
+                        <TableCell align="right">
+                          <Link
+                            to={`fight/${fight.id}`}
+                            onClick={updateDayWatched(index + 1)}
+                            sx={{
+                              fontWeight: 'bold',
+                              color: getAttackerFightColor(),
+                            }}
+                          >
+                            {war.attacker?.name}
+                          </Link>
+                        </TableCell>
+                        <TableCell align="right">
+                          <Link
+                            to={`fight/${fight.id}`}
+                            onClick={updateDayWatched(index + 1)}
+                            sx={{
+                              fontWeight: 'bold',
+                              color: getDefenderFightColor(),
+                            }}
+                          >
+                            {war.defender?.name}
+                          </Link>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                   {/* EARLY END */}
                   {(war.fights.length < war.duration)
                     && (war.status === ClanWarStatus.waitingForRewards
@@ -243,7 +283,11 @@ export const ClanWarView = () => {
                           {t('level')}
                           <Text component="span" bold color="secondary"> {b.level}</Text>
                         </Text>
-                        <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
+                        <Box sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: 115,
+                        }}>
                           <Box component="img" src={`/images/rankings/lvl_${b.ranking}.webp`} sx={{ mr: 1 }} />
                           <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${b.ranking}`)}</Text>
                         </Box>
@@ -324,7 +368,11 @@ export const ClanWarView = () => {
                           {t('level')}
                           <Text component="span" bold color="secondary"> {b.level}</Text>
                         </Text>
-                        <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
+                        <Box sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: 115,
+                        }}>
                           <Box component="img" src={`/images/rankings/lvl_${b.ranking}.webp`} sx={{ mr: 1 }} />
                           <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${b.ranking}`)}</Text>
                         </Box>

@@ -19,14 +19,25 @@ export const TieredStat = <T extends string | number>({
   plus,
   percent,
 }: TieredStatProps<T>) => {
-  if (!values || !tier) return null;
+  if (!values || !tier) {
+    return null;
+  }
 
   // Handle boolean attributes from Trans (can be true, "true", or "" for boolean attrs)
   const showMinus = minus === true || minus === 'true' || minus === '';
   const showPlus = plus === true || plus === 'true' || plus === '';
   const showPercent = percent === true || percent === 'true' || percent === '';
 
-  const prefix = showMinus ? '-' : showPlus ? '+' : '';
+  let prefix;
+
+  if (showMinus) {
+    prefix = '-';
+  } else if (showPlus) {
+    prefix = '+';
+  } else {
+    prefix = '';
+  }
+
   const suffix = showPercent ? '%' : '';
 
   // If all values are the same, just return the formatted first value

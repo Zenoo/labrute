@@ -1,14 +1,14 @@
 import {
-  BrutesGetLevelUpChoicesResponse, getCalculatedBrute, getXPNeeded, pets, skills, weapons
+  BrutesGetLevelUpChoicesResponse, getCalculatedBrute, getXPNeeded, pets, skills, weapons,
 } from '@labrute/core';
 import {
-  BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName
+  BruteStat, DestinyChoiceSide, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import {
-  Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme
+  Box, Alert as MuiAlert, Paper, Stack, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -38,7 +38,11 @@ import { SkillIcon } from '../components/SkillIcon';
 export const LevelUpView = () => {
   const { t } = useTranslation('levelUp');
   const { bruteName } = useParams();
-  const { user, updateData, modifiers } = useAuth();
+
+  const {
+    user, updateData, modifiers,
+  } = useAuth();
+
   const navigate = useNavigate();
   const Alert = useAlert();
   const smallScreen = useMediaQuery('(max-width: 638px)');
@@ -54,10 +58,14 @@ export const LevelUpView = () => {
   // Fetch brute
   useEffect(() => {
     let isSubscribed = true;
+
     if (bruteName && brute) {
       if (brute.xp < getXPNeeded(brute.level + 1)) {
         navigate(`/${bruteName}/cell`);
-        return () => { isSubscribed = false; };
+
+        return () => {
+          isSubscribed = false;
+        };
       }
 
       Server.Brute.getLevelUpChoices(bruteName).then((data) => {
@@ -74,12 +82,17 @@ export const LevelUpView = () => {
         navigate(`/${bruteName}/cell`);
       });
     }
-    return () => { isSubscribed = false; };
+
+    return () => {
+      isSubscribed = false;
+    };
   }, [Alert, Server.Brute, brute, bruteName, navigate, user]);
 
   // Trigger level up
   const levelUp = useCallback((choice: DestinyChoiceSide) => async () => {
-    if (!brute || !choices) return;
+    if (!brute || !choices) {
+      return;
+    }
 
     setLoading(true);
 
@@ -91,6 +104,7 @@ export const LevelUpView = () => {
 
       if (!newBrute) {
         setLoading(false);
+
         return;
       }
 
@@ -98,13 +112,19 @@ export const LevelUpView = () => {
       updateData((data) => (data ? ({
         ...data,
         brutes: data.brutes.map((b) => (b.name === brute.name
-          ? ({ ...b, ...getCalculatedBrute(newBrute, modifiers) })
+          ? ({
+            ...b,
+            ...getCalculatedBrute(newBrute, modifiers),
+          })
           : b)),
       }) : null));
 
       // Update brute data
       updateBrute((data) => (data
-        ? ({ ...data, ...getCalculatedBrute(newBrute, modifiers) })
+        ? ({
+          ...data,
+          ...getCalculatedBrute(newBrute, modifiers),
+        })
         : null));
 
       navigate(getXPNeeded(brute.level + 1) > brute.xp ? `/${brute.name}/cell` : `/${brute.name}/level-up`);
@@ -119,7 +139,11 @@ export const LevelUpView = () => {
       {/* HP */}
       <Box>
         <BruteHP hp={brute.hpValue} />
-        <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.hp }}>{t('healthPoints')}</Text>
+        <Text bold sx={{
+          display: 'inline-block',
+          ml: 1,
+          color: StatColor.hp,
+        }}>{t('healthPoints')}</Text>
       </Box>
       {/* STRENGTH */}
       <CellStats value={brute.strengthValue} stat="strength" />
@@ -150,7 +174,10 @@ export const LevelUpView = () => {
       <MuiAlert severity="success" variant="filled">
         <Text h5>{t('newLevelFor')} {brute.name} !</Text>
       </MuiAlert>
-      <Paper sx={{ mt: 3, bgcolor: 'background.paperLight' }}>
+      <Paper sx={{
+        mt: 3,
+        bgcolor: 'background.paperLight',
+      }}>
         <Text>
           <Text component="span" bold>{brute.name} </Text>
           {t('reached')}
@@ -172,7 +199,7 @@ export const LevelUpView = () => {
             sx={{
               display: 'flex',
               justifyContent: smallScreen ? 'center' : 'space-between',
-              mt: 1
+              mt: 1,
             }}
           >
             {!smallScreen && (
@@ -208,7 +235,11 @@ export const LevelUpView = () => {
             <Box
               component="img"
               src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/level-up/arrows.webp`}
-              sx={{ mt: -3, zIndex: 1, position: 'relative' }}
+              sx={{
+                mt: -3,
+                zIndex: 1,
+                position: 'relative',
+              }}
             />
           )}
           {/* CHOICES */}
@@ -217,6 +248,7 @@ export const LevelUpView = () => {
               let maxedPerk = false;
               let perkUpgrade = false;
               let tier = 0;
+
               if (destinyChoice.type === 'skill' && destinyChoice.skill) {
                 tier = brute.skills[destinyChoice.skill] ?? 0;
                 maxedPerk = tier >= 3;
@@ -230,7 +262,122 @@ export const LevelUpView = () => {
                 maxedPerk = tier >= 3;
                 perkUpgrade = tier > 0;
               }
+
               tier++; // Increment tier to match display (1-3 instead of 0-2)
+
+              const getChoiceLabel = () => {
+                if (destinyChoice.type === 'stats') {
+                  return null;
+                }
+
+                if (maxedPerk) {
+                  return t('maxTierReached');
+                }
+
+                switch (destinyChoice.type) {
+                  case 'weapon':
+                    return perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`;
+                  case 'skill':
+                    return perkUpgrade ? `${t('skillUpgrade')} :` : `${t('newSkill')} :`;
+                  case 'pet':
+                    return perkUpgrade ? `${t('petUpgrade')} :` : t('newPet');
+                  default:
+                    return null;
+                }
+              };
+
+              const renderChoiceBonus = () => {
+                if (destinyChoice.type === 'skill') {
+                  return (
+                    <SkillTooltip
+                      skill={destinyChoice.skill && skills[destinyChoice.skill]}
+                      tier={tier}
+                    >
+                      <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 0.5,
+                      }}>
+                        {destinyChoice.skill && (
+                        <SkillIcon
+                          skill={destinyChoice.skill}
+                          tier={tier}
+                          sx={{
+                            width: 16,
+                            mx: 0.25,
+                            my: 0,
+                            filter: 'drop-shadow(1px 1px 1px black)',
+                          }}
+                        />
+                        )}
+                        <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
+                      </Box>
+                    </SkillTooltip>
+                  );
+                }
+
+                if (destinyChoice.type === 'weapon') {
+                  return (
+                    <WeaponTooltip
+                      weapon={destinyChoice.weapon && weapons[destinyChoice.weapon]}
+                      tier={tier}
+                    >
+                      <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 0.5,
+                      }}>
+                        <Box component="img" src={`/images/game/resources/misc/weapons/${destinyChoice.weapon}.png`} sx={{ filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
+                        <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
+                      </Box>
+                    </WeaponTooltip>
+                  );
+                }
+
+                if (destinyChoice.type === 'pet') {
+                  return (
+                    <PetTooltip
+                      pet={destinyChoice.pet && pets[destinyChoice.pet]}
+                      tier={tier}
+                    >
+                      <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 0.5,
+                      }}>
+                        <Box component="img" src={`/images/pets/${destinyChoice.pet}.svg`} sx={{
+                          width: 16,
+                          m: 0.25,
+                          mb: 0,
+                          filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)',
+                        }} />
+                        <Text h6 bold smallCaps>
+                          {t(destinyChoice.pet as PetName)}
+                        </Text>
+                      </Box>
+                    </PetTooltip>
+                  );
+                }
+
+                if (!destinyChoice.stat2) {
+                  return (
+                    <Text h6 bold smallCaps>
+                      {t(destinyChoice.stat1 as BruteStat)}
+                    </Text>
+                  );
+                }
+
+                return (
+                  <Text h6 bold smallCaps>
+                    {t(destinyChoice.stat1 as BruteStat)}
+                    {' / '}
+                    {t(destinyChoice.stat2)}
+                  </Text>
+                );
+              };
 
               return (
                 <Box
@@ -266,11 +413,7 @@ export const LevelUpView = () => {
                           {/* +2/+1 Stat */}
                           {destinyChoice.type === 'stats' && destinyChoice.stat2 && `+${destinyChoice.stat1Value}/+${destinyChoice.stat2Value} ${t('in')}`}
                           {/* Weapon */}
-                          {destinyChoice.type === 'weapon' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('weaponUpgrade')} :` : `${t('newWeapon')} :`)}
-                          {/* Skill */}
-                          {destinyChoice.type === 'skill' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('skillUpgrade')} :` : `${t('newSkill')} :`)}
-                          {/* Pet */}
-                          {destinyChoice.type === 'pet' && (maxedPerk ? t('maxTierReached') : perkUpgrade ? `${t('petUpgrade')} :` : t('newPet'))}
+                          {getChoiceLabel()}
                           {/* Display pet HP malus */}
                           {destinyChoice.pet
                             && !brute.pets[destinyChoice.pet]
@@ -278,65 +421,12 @@ export const LevelUpView = () => {
                               <Box component="span" color="error.main" sx={{ fontStyle: 'italic' }}>
                                 {' '}(-{pets[destinyChoice.pet].hpMalus[0] * 100}% {t('hp')})
                               </Box>
-                            )}
+                          )}
                         </Text>
 
                         {/* CHOICE CONTENT */}
                         {/* Single value */}
-                        {(destinyChoice.type === 'skill' ? (
-                          <SkillTooltip
-                            skill={destinyChoice.skill && skills[destinyChoice.skill]}
-                            tier={tier}
-                          >
-                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
-                              {destinyChoice.skill && (
-                                <SkillIcon
-                                  skill={destinyChoice.skill}
-                                  tier={tier}
-                                  sx={{
-                                    width: 16,
-                                    mx: 0.25,
-                                    my: 0,
-                                    filter: 'drop-shadow(1px 1px 1px black)',
-                                  }}
-                                />
-                              )}
-                              <Text h6 bold smallCaps>{t(destinyChoice.skill as SkillName)}</Text>
-                            </Box>
-                          </SkillTooltip>
-                        ) : destinyChoice.type === 'weapon' ? (
-                          <WeaponTooltip
-                            weapon={destinyChoice.weapon && weapons[destinyChoice.weapon]}
-                            tier={tier}
-                          >
-                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
-                              <Box component="img" src={`/images/game/resources/misc/weapons/${destinyChoice.weapon}.png`} sx={{ filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
-                              <Text h6 bold smallCaps>{t(destinyChoice.weapon as WeaponName)}</Text>
-                            </Box>
-                          </WeaponTooltip>
-                        ) : destinyChoice.type === 'pet' ? (
-                          <PetTooltip
-                            pet={destinyChoice.pet && pets[destinyChoice.pet]}
-                            tier={tier}
-                          >
-                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
-                              <Box component="img" src={`/images/pets/${destinyChoice.pet}.svg`} sx={{ width: 16, m: 0.25, mb: 0, filter: tier > 1 ? `drop-shadow(1px 1px 1px black) drop-shadow(0 -0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(0.1px 0 0 ${TieredPerkColor[tier]}) drop-shadow(0 0.1px 0 ${TieredPerkColor[tier]}) drop-shadow(-0.1px 0 0 ${TieredPerkColor[tier]})` : 'drop-shadow(1px 1px 1px black)' }} />
-                              <Text h6 bold smallCaps>
-                                {t(destinyChoice.pet as PetName)}
-                              </Text>
-                            </Box>
-                          </PetTooltip>
-                        ) : !destinyChoice.stat2 ? (
-                          <Text h6 bold smallCaps>
-                            {t(destinyChoice.stat1 as BruteStat)}
-                          </Text>
-                        ) : (
-                          <Text h6 bold smallCaps>
-                            {t(destinyChoice.stat1 as BruteStat)}
-                            {' / '}
-                            {t(destinyChoice.stat2)}
-                          </Text>
-                        ))}
+                        {(renderChoiceBonus())}
                       </>
                     )}
                   </BoxBg>
@@ -356,7 +446,7 @@ export const LevelUpView = () => {
                       shadow={false}
                       contrast={false}
                       onClick={!loading ? levelUp(
-                        i === 0 ? DestinyChoiceSide.LEFT : DestinyChoiceSide.RIGHT
+                        i === 0 ? DestinyChoiceSide.LEFT : DestinyChoiceSide.RIGHT,
                       ) : undefined}
                     >
                       {loading ? <Loader color="success" size="16px" /> : (

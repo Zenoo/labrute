@@ -12,10 +12,11 @@ const colorNamesByBodyPart: Partial<Record<string, BruteColor[]>> = {
 
 export const getRandomColors = (
   gender: Gender,
-  unlockedColors?: Pick<UnlockedColors, 'bodyPart' | 'colors'>[]
+  unlockedColors?: Pick<UnlockedColors, 'bodyPart' | 'colors'>[],
 ) => {
   const unlockedColorsMap = unlockedColors?.reduce((acc, uc) => {
     acc[uc.bodyPart] = uc.colors;
+
     return acc;
   }, {} as Partial<Record<string, string[]>>) ?? {};
 
@@ -23,6 +24,7 @@ export const getRandomColors = (
   const sharedCol0Unlocked = unlockedColorsMap.col0
     ?.filter(color => unlockedColorsMap.col0a?.includes(color)
       && unlockedColorsMap.col0c?.includes(color)) ?? [];
+
   unlockedColorsMap.col0 = sharedCol0Unlocked;
   unlockedColorsMap.col0a = sharedCol0Unlocked;
   unlockedColorsMap.col0c = sharedCol0Unlocked;
@@ -33,6 +35,7 @@ export const getRandomColors = (
       && unlockedColorsMap.col1b?.includes(color)
       && unlockedColorsMap.col1c?.includes(color)
       && unlockedColorsMap.col1d?.includes(color)) ?? [];
+
   unlockedColorsMap.col1 = sharedCol1Unlocked;
   unlockedColorsMap.col1a = sharedCol1Unlocked;
   unlockedColorsMap.col1b = sharedCol1Unlocked;
@@ -52,36 +55,47 @@ export const getRandomColors = (
   const col0 = unlockedColorsMap.col0?.[
     randomBetween(0, (unlockedColorsMap.col0?.length ?? 0) - 1)
   ];
+
   const col0a = col0;
   const col0c = col0;
+
   const col1 = unlockedColorsMap.col1?.[
     randomBetween(0, (unlockedColorsMap.col1?.length ?? 0) - 1)
   ];
+
   const col1a = col1;
   const col1b = col1;
   const col1c = col1;
   const col1d = col1;
+
   const col3 = unlockedColorsMap.col3?.[
     randomBetween(0, (unlockedColorsMap.col3?.length ?? 0) - 1)
   ];
+
   const col2 = unlockedColorsMap.col2?.[
     randomBetween(0, (unlockedColorsMap.col2?.length ?? 0) - 1)
   ];
+
   const col2b = unlockedColorsMap.col2b?.[
     randomBetween(0, (unlockedColorsMap.col2b?.length ?? 0) - 1)
   ];
+
   const col3b = unlockedColorsMap.col3b?.[
     randomBetween(0, (unlockedColorsMap.col3b?.length ?? 0) - 1)
   ];
+
   const col2a = unlockedColorsMap.col2a?.[
     randomBetween(0, (unlockedColorsMap.col2a?.length ?? 0) - 1)
   ];
+
   const col4 = unlockedColorsMap.col4?.[
     randomBetween(0, (unlockedColorsMap.col4?.length ?? 0) - 1)
   ];
+
   const col4a = unlockedColorsMap.col4a?.[
     randomBetween(0, (unlockedColorsMap.col4a?.length ?? 0) - 1)
   ];
+
   const col4b = unlockedColorsMap.col4b?.[
     randomBetween(0, (unlockedColorsMap.col4b?.length ?? 0) - 1)
   ];

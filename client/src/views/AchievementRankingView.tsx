@@ -2,7 +2,7 @@ import { AchievementData, AchievementGetRankingsResponse } from '@labrute/core';
 import { AchievementName } from '@labrute/prisma';
 import {
   Box, Checkbox, FormControlLabel, Grid, List,
-  ListItem, ListItemText, ListSubheader, Paper, useTheme
+  ListItem, ListItemText, ListSubheader, Paper, useTheme,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,7 @@ export const AchievementRankingView = () => {
 
   const [byUser, setByUser] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const [rankings, setRankings] = useState<
     Record<AchievementName, AchievementGetRankingsResponse> | null
   >(null);
@@ -38,7 +39,9 @@ export const AchievementRankingView = () => {
         if (!acc[ranking.name]) {
           acc[ranking.name] = [];
         }
+
         acc[ranking.name].push(ranking);
+
         return acc;
       }, {} as Record<AchievementName, AchievementGetRankingsResponse>);
 
@@ -58,7 +61,10 @@ export const AchievementRankingView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievementRankings')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <FormControlLabel
           control={(
             <Checkbox
@@ -86,7 +92,10 @@ export const AchievementRankingView = () => {
                   >
                     <List
                       dense
-                      sx={{ width: 1, py: 0 }}
+                      sx={{
+                        width: 1,
+                        py: 0,
+                      }}
                       subheader={(
                         <AchievementTooltip name={achievementName}>
                           <ListSubheader sx={{
@@ -125,7 +134,10 @@ export const AchievementRankingView = () => {
                                 {ranked.brute
                                   ? <BruteName brute={ranked.brute} />
                                   : <span>{ranked.user?.name}</span>}
-                                <Box component="span" sx={{ ml: 0.5, color: 'text.secondary' }}>(x{ranked.count})</Box>
+                                <Box component="span" sx={{
+                                  ml: 0.5,
+                                  color: 'text.secondary',
+                                }}>(x{ranked.count})</Box>
                               </Link>
                             )}
                           />

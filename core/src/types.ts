@@ -6,11 +6,11 @@ import {
   InventoryItem, InventoryItemType, KnownFingerprint, Log, MultipleAccountCase,
   MultipleAccountCaseReview, MultipleAccountCaseAction, Notification,
   PetName, Prisma, SecurityAction, SharedBrowser, SharedBrowserExemption, SkillName, Tournament,
-  User, UserLog, UserStats, WeaponName
+  User, UserLog, UserStats, WeaponName,
 } from '@labrute/prisma';
 import { SkillId } from './brute/skills.js';
 import {
-  Weapon, WeaponAnimation, WeaponId
+  Weapon, WeaponAnimation, WeaponId,
 } from './brute/weapons.js';
 import { BruteRanking } from './constants.js';
 

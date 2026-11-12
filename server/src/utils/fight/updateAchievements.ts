@@ -1,6 +1,6 @@
 import { AchievementsStore, TournamentAchievements } from '@labrute/core';
 import {
-  AchievementName, Prisma, PrismaClient
+  AchievementName, Prisma, PrismaClient,
 } from '@labrute/prisma';
 import { traced } from '../trace.js';
 import { DISCORD, LOGGER } from '../../context.js';
@@ -12,6 +12,7 @@ export const updateAchievements = async (
 ) => {
   const bruteAchievements: [string, string, AchievementName, number][] = [];
   const bruteAchievementsTournamentRelated: [string, AchievementName, number][] = [];
+
   for (const [bruteId, bruteStore] of Object.entries(store)) {
     // Disable achievements for event or bot brutes
     if (bruteStore.eventId || !bruteStore.userId) {
@@ -20,6 +21,7 @@ export const updateAchievements = async (
 
     for (const [_name, count] of Object.entries(bruteStore.achievements)) {
       const achievementName = _name as AchievementName;
+
       if (isTournamentFight && TournamentAchievements.includes(achievementName)) {
         bruteAchievementsTournamentRelated.push([bruteId, achievementName, count]);
       } else {
@@ -31,6 +33,7 @@ export const updateAchievements = async (
   try {
     if (bruteAchievementsTournamentRelated.length > 0) {
       const tournamentValues = bruteAchievementsTournamentRelated.map(([bruteId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${name}::"AchievementName", ${count}::int, NOW())`);
+
       await traced('updateAchievements.updateTournamentAchievements', () => prisma.$executeRaw`
         INSERT INTO "TournamentAchievement"("bruteId", achievement, "achievementCount", date) VALUES
         ${Prisma.join(tournamentValues)}
@@ -41,6 +44,7 @@ export const updateAchievements = async (
     if (!(error instanceof Error)) {
       throw error;
     }
+
     LOGGER.log(`Error updating tournament achievements: ${error.message}`);
     DISCORD().sendError(error);
   }
@@ -48,6 +52,7 @@ export const updateAchievements = async (
   try {
     if (bruteAchievements.length > 0) {
       const achievementValues = bruteAchievements.map(([bruteId, userId, name, count]) => Prisma.sql`(${bruteId}::uuid, ${userId}::uuid, ${name}::"AchievementName", ${count}::int)`);
+
       await traced('updateAchievements.updateAchievements', () => prisma.$executeRaw`
         INSERT INTO "Achievement"("bruteId", "userId", name, count) VALUES
         ${Prisma.join(achievementValues)}
@@ -63,6 +68,7 @@ export const updateAchievements = async (
     if (!(error instanceof Error)) {
       throw error;
     }
+
     LOGGER.log(`Error updating achievements: ${error.message}`);
     DISCORD().sendError(error);
   }

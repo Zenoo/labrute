@@ -35,11 +35,13 @@ export const analyticsMeasurementIds: Partial<Record<string, string>> = {
 };
 
 const analyticsMeasurementId = analyticsMeasurementIds[HOST];
+
 if (analyticsMeasurementId) {
   ReactGA.initialize(analyticsMeasurementId);
 }
 
 const root = createRoot(container);
+
 root.render(
   <Suspense fallback={<Loader />}>
     <LanguageProvider>
@@ -47,7 +49,7 @@ root.render(
         <App />
       </BrowserRouter>
     </LanguageProvider>
-  </Suspense>
+  </Suspense>,
 );
 
 serviceWorker.unregister();

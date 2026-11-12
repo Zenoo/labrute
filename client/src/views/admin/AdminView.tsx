@@ -1,9 +1,9 @@
 import { FightModifier } from '@labrute/prisma';
 import {
-  Divider, MenuItem, Alert as MuiAlert, Paper, Select, Stack
+  Divider, MenuItem, Alert as MuiAlert, Paper, Select, Stack,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../../components/FantasyButton';
@@ -61,6 +61,7 @@ export const AdminView = () => {
   const saveNextModifiers = useCallback(() => {
     Server.User.setNextModifiers(nextModifiers.reduce<Modifiers>((acc, modifier) => {
       acc[modifier] = true;
+
       return acc;
     }, {})).then(() => {
       Alert.open('success', 'Next modifiers saved');
@@ -77,9 +78,15 @@ export const AdminView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Stack spacing={2}>
-          <Stack direction="row" spacing={0} sx={{ flexWrap: 'wrap', gap: 1 }}>
+          <Stack direction="row" spacing={0} sx={{
+            flexWrap: 'wrap',
+            gap: 1,
+          }}>
             <FantasyButton color="error" onClick={deleteDailyTournaments}>DELETE DAILY TOURNAMENTS</FantasyButton>
             <FantasyButton color="error" onClick={deleteGlobalTournament}>DELETE GLOBAL TOURNAMENT</FantasyButton>
             <FantasyButton color="warning" onClick={runDailyJob}>RUN DAILY JOB</FantasyButton>

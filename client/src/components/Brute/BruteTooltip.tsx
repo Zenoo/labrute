@@ -1,9 +1,9 @@
 import {
-  FightStat, Fighter, SkillById, SkillId, entries, skills
+  FightStat, Fighter, SkillById, SkillId, entries, skills,
 } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import {
-  Box, SxProps, Tooltip, TooltipProps
+  Box, SxProps, Tooltip, TooltipProps,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -53,18 +53,22 @@ export const BruteTooltip = ({
   const target = fighter?.level ? fighter : brute;
   const ranking = fighter ? fighter.rank : brute?.ranking;
 
-  const hp = fighter
-    ? fighter.hp
-    : brute ? brute.hpValue : 0;
-  const strength = fighter
-    ? fighter.strength
-    : brute ? brute.strengthValue : 0;
-  const agility = fighter
-    ? fighter.agility
-    : brute ? brute.agilityValue : 0;
-  const speed = fighter
-    ? fighter.speed
-    : brute ? brute.speedValue : 0;
+  let hp = 0;
+  let strength = 0;
+  let agility = 0;
+  let speed = 0;
+
+  if (fighter) {
+    hp = fighter.hp;
+    strength = fighter.strength;
+    agility = fighter.agility;
+    speed = fighter.speed;
+  } else if (brute) {
+    hp = brute.hpValue;
+    strength = brute.strengthValue;
+    agility = brute.agilityValue;
+    speed = brute.speedValue;
+  }
 
   return (
     <Tooltip
@@ -105,7 +109,10 @@ export const BruteTooltip = ({
               />
             )}
           </Text>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}>
             <BruteHP hp={hp} />
             <Box flexGrow={1} sx={{ ml: 0.5 }}>
               <ArenaStat
@@ -127,11 +134,17 @@ export const BruteTooltip = ({
           </Box>
           {displaySkills && fighter && (
             <>
-              <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
+              <Text sx={{
+                fontSize: 12,
+                lineHeight: 1.2,
+              }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('supers')}: </Text>
                 {entries(fighter.skills).filter(([s]) => skills[SkillById[+s as SkillId]].type === 'super').map(([s, tier]) => (tier > 1 ? `${t(SkillById[+s as SkillId])} (${tier})` : t(SkillById[+s as SkillId]))).join(', ')}
               </Text>
-              <Text sx={{ fontSize: 12, lineHeight: 1.2 }}>
+              <Text sx={{
+                fontSize: 12,
+                lineHeight: 1.2,
+              }}>
                 <Text component="span" bold sx={{ lineHeight: 1.2 }}>{t('skills')}: </Text>
                 {entries(fighter.skills).filter(([s]) => skills[SkillById[+s as SkillId]].type !== 'super').map(([s, tier]) => (tier > 1 ? `${t(SkillById[+s as SkillId])} (${tier})` : t(SkillById[+s as SkillId]))).join(', ')}
               </Text>

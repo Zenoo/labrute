@@ -26,32 +26,34 @@ export const traced = <T>(
   callback: () => Promise<T>,
   attributes?: Record<string, string | number | boolean>,
 ) => tracer.startActiveSpan(spanName, async (span: Span) => {
-  try {
+    try {
     // Add any custom attributes
-    if (attributes) {
-      Object.entries(attributes).forEach(([key, value]) => {
-        span.setAttribute(key, value);
-      });
-    }
+      if (attributes) {
+        Object.entries(attributes).forEach(([key, value]) => {
+          span.setAttribute(key, value);
+        });
+      }
 
-    const result = await callback();
+      const result = await callback();
 
-    span.setStatus({ code: SpanStatusCode.OK });
-    return result;
-  } catch (error) {
+      span.setStatus({ code: SpanStatusCode.OK });
+
+      return result;
+    } catch (error) {
     // Record the exception and mark span as error
-    if (error instanceof Error) {
-      span.recordException(error);
+      if (error instanceof Error) {
+        span.recordException(error);
+      }
+
+      span.setStatus({
+        code: SpanStatusCode.ERROR,
+        message: error instanceof Error ? error.message : 'Unknown error',
+      });
+      throw error;
+    } finally {
+      span.end();
     }
-    span.setStatus({
-      code: SpanStatusCode.ERROR,
-      message: error instanceof Error ? error.message : 'Unknown error',
-    });
-    throw error;
-  } finally {
-    span.end();
-  }
-});
+  });
 
 /**
  * Adds attributes to the current active span if one exists
@@ -59,6 +61,7 @@ export const traced = <T>(
  */
 export const addSpanAttributes = (attributes: Record<string, string | number | boolean>) => {
   const activeSpan = trace.getActiveSpan();
+
   if (activeSpan) {
     Object.entries(attributes).forEach(([key, value]) => {
       activeSpan.setAttribute(key, value);

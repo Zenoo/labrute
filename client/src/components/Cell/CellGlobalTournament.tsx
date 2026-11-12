@@ -1,15 +1,15 @@
 import {
   Fighter, GLOBAL_TOURNAMENT_START_HOUR, isWinner,
-  TournamentsGetGlobalFight, TournamentsGetGlobalResponse
+  TournamentsGetGlobalFight, TournamentsGetGlobalResponse,
 } from '@labrute/core';
 import { Gender, TournamentType } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import {
-  Badge, Box, Paper, PaperProps, useTheme
+  Badge, Box, Paper, PaperProps, useTheme,
 } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import React, {
-  useEffect, useMemo, useState
+  useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -47,7 +47,11 @@ export const CellGlobalTournament = ({
   ...rest
 }: CellGlobalTournamentProps) => {
   const { t } = useTranslation('tournament');
-  const { brute, owner, updateBrute } = useBrute();
+
+  const {
+    brute, owner, updateBrute,
+  } = useBrute();
+
   const theme = useTheme();
   const Alert = useAlert();
   const navigate = useNavigate();
@@ -58,14 +62,26 @@ export const CellGlobalTournament = ({
 
   const [data, setData] = useState<TournamentsGetGlobalResponse | null>(null);
 
-  const watchingRound = useMemo(() => (date
-    ? 999
-    : dayjs.utc().isSame(brute?.globalTournamentWatchedDate, 'day')
-      ? (brute?.globalTournamentRoundWatched || 0) + 1
-      : data?.tournament?.fights.find((f) => f.tournamentStep === 1) ? 1 : 2), [brute, date, data]);
+  const watchingRound = useMemo(() => {
+    if (date) {
+      return 999;
+    }
+
+    if (dayjs.utc().isSame(brute?.globalTournamentWatchedDate, 'day')) {
+      return (brute?.globalTournamentRoundWatched || 0) + 1;
+    }
+
+    if (data?.tournament?.fights.find((f) => f.tournamentStep === 1)) {
+      return 1;
+    }
+
+    return 2;
+  }, [brute, date, data]);
 
   const lastCommonRound = useMemo(() => {
-    if (!brute || !data?.tournament) return 0;
+    if (!brute || !data?.tournament) {
+      return 0;
+    }
 
     return data.tournament.fights
       .reduce((round, fight) => (fight.tournamentStep > round ? fight.tournamentStep : round), 0);
@@ -76,10 +92,18 @@ export const CellGlobalTournament = ({
   // Get data
   useEffect(() => {
     let isSubscribed = true;
-    if (!bruteName) return () => { isSubscribed = false; };
+
+    if (!bruteName) {
+      return () => {
+        isSubscribed = false;
+      };
+    }
 
     setData(null);
-    Server.Tournament.getGlobal({ name: bruteName, date: (date || now).format('YYYY-MM-DD') }).then((d) => {
+    Server.Tournament.getGlobal({
+      name: bruteName,
+      date: (date || now).format('YYYY-MM-DD'),
+    }).then((d) => {
       if (isSubscribed) {
         if (d.tournament) {
           setData(d);
@@ -93,7 +117,9 @@ export const CellGlobalTournament = ({
       }
     });
 
-    return () => { isSubscribed = false; };
+    return () => {
+      isSubscribed = false;
+    };
   }, [Server.Tournament, bruteName, date, now]);
 
   const lostRound = useMemo(
@@ -111,11 +137,12 @@ export const CellGlobalTournament = ({
     currentBrute: string,
     round: number,
     fightId: string,
-    skipUpdate?: boolean
+    skipUpdate?: boolean,
   ) => async () => {
     if (owner && !skipUpdate && round >= watchingRound) {
       try {
         const d = await Server.Tournament.updateGlobalRoundWatched(currentBrute, fightId);
+
         updateBrute((b) => (b ? ({
           ...b,
           globalTournamentRoundWatched: d.globalTournamentRoundWatched,
@@ -152,7 +179,9 @@ export const CellGlobalTournament = ({
     fight: TournamentsGetGlobalFight | undefined,
     finals = false,
   ) => {
-    if (!brute || !bruteName || !fight) return null;
+    if (!brute || !bruteName || !fight) {
+      return null;
+    }
 
     const bruteInFight = fight.brute1Id === brute.id
       || fight.brute2Id === brute.id;
@@ -161,14 +190,36 @@ export const CellGlobalTournament = ({
 
     const fighter1 = fighters
       .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute1Id);
+
     const fighter2 = fighters
       .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute2Id);
 
-    if (!fighter1) return null;
-    if (!fighter2) return null;
+    if (!fighter1) {
+      return null;
+    }
+
+    if (!fighter2) {
+      return null;
+    }
 
     const won = bruteInFight && isWinner(brute, fight);
     const ownFight = bruteName === fighter1.name || bruteName === fighter2.name;
+
+    const getFightBackground = () => {
+      if (bruteInFight) {
+        if (watchingRound > fight.tournamentStep) {
+          if (won) {
+            return 'logs.success.light';
+          }
+
+          return 'logs.error.light';
+        }
+
+        return 'warning.light';
+      }
+
+      return 'background.paperDark';
+    };
 
     return (
       <Box
@@ -176,7 +227,7 @@ export const CellGlobalTournament = ({
           ownFight ? bruteName : fighter1.name,
           fight.tournamentStep,
           fight.id,
-          !ownFight
+          !ownFight,
         )}
         key={fight.id}
         sx={{
@@ -184,13 +235,7 @@ export const CellGlobalTournament = ({
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          bgcolor: bruteInFight
-            ? watchingRound > fight.tournamentStep
-              ? won
-                ? 'logs.success.light'
-                : 'logs.error.light'
-              : 'warning.light'
-            : 'background.paperDark',
+          bgcolor: getFightBackground(),
           border: '1px solid',
           borderColor: theme.palette.border.shadow,
           borderRadius: 1,
@@ -283,13 +328,13 @@ export const CellGlobalTournament = ({
       borderBottomColor: theme.palette.border.shadow,
       '&:last-child': {
         borderBottom: 'none',
-      }
+      },
     }}
     >
       <Text bold color="text.disabled">
         {t('eliminatedBy', {
 
-          value: lostRound.winner
+          value: lostRound.winner,
         })}
       </Text>
     </Box>
@@ -305,7 +350,7 @@ export const CellGlobalTournament = ({
       borderBottomColor: theme.palette.border.shadow,
       '&:last-child': {
         borderBottom: 'none',
-      }
+      },
     }}
     >
       <Text bold color="text.disabled">
@@ -330,7 +375,7 @@ export const CellGlobalTournament = ({
             marginTop: 32,
             marginRight: 24,
             display: data.tournament.type === TournamentType.UNLIMITED_GLOBAL ? 'flex' : 'none',
-          }
+          },
         },
       }}
     >
@@ -340,7 +385,7 @@ export const CellGlobalTournament = ({
           textAlign: 'center',
           p: 1,
           borderRadius: 0,
-          ...sx
+          ...sx,
         }}
         {...rest}
       >
@@ -356,7 +401,9 @@ export const CellGlobalTournament = ({
         >
           {/* Rounds */}
           {Array.from({ length: data.tournament.rounds - 3 }).map((_, i) => {
-            if (!brute) return null;
+            if (!brute) {
+              return null;
+            }
 
             const fight = data.tournament?.fights.find((f) => f.tournamentStep === i + 1);
 
@@ -388,7 +435,7 @@ export const CellGlobalTournament = ({
                     borderBottomColor: theme.palette.border.shadow,
                     '&:last-child': {
                       borderBottom: 'none',
-                    }
+                    },
                   }}
                 >
                   <Text bold color="text.disabled" sx={{ width: 30 }}>{i + GLOBAL_TOURNAMENT_START_HOUR}h</Text>
@@ -398,15 +445,23 @@ export const CellGlobalTournament = ({
             }
 
             const fighters = JSON.parse(fight.fighters) as Fighter[];
+
             const fighter1 = fighters
               .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute1Id);
+
             const fighter2 = fighters
               .find((fighter) => fighter.type === 'brute' && fighter.id === fight.brute2Id);
 
-            if (!fighter1) return null;
-            if (!fighter2) return null;
+            if (!fighter1) {
+              return null;
+            }
+
+            if (!fighter2) {
+              return null;
+            }
 
             const won = isWinner(brute, fight);
+
             const opponent = brute.id === fight.brute1Id
               ? fighter2.name
               : fighter1.name;
@@ -430,7 +485,7 @@ export const CellGlobalTournament = ({
                       borderBottomColor: theme.palette.border.shadow,
                       '&:last-child': {
                         borderBottom: 'none',
-                      }
+                      },
                     }}
                   >
                     <Text
@@ -476,7 +531,7 @@ export const CellGlobalTournament = ({
                     borderBottomColor: theme.palette.border.shadow,
                     '&:last-child': {
                       borderBottom: 'none',
-                    }
+                    },
                   }}
                 >
                   <Text
@@ -489,7 +544,11 @@ export const CellGlobalTournament = ({
                   <Box
                     component="img"
                     src={`/images/log/${won ? 'win' : 'lose'}.webp`}
-                    sx={{ width: 20, height: 20, mr: 0.5 }}
+                    sx={{
+                      width: 20,
+                      height: 20,
+                      mr: 0.5,
+                    }}
                   />
                   <Text
                     bold
@@ -530,7 +589,7 @@ export const CellGlobalTournament = ({
                   borderBottomColor: theme.palette.border.shadow,
                   '&:last-child': {
                     borderBottom: 'none',
-                  }
+                  },
                 }}
                 >
                   <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('quarterFinals')}</Text>
@@ -565,7 +624,7 @@ export const CellGlobalTournament = ({
                   borderBottomColor: theme.palette.border.shadow,
                   '&:last-child': {
                     borderBottom: 'none',
-                  }
+                  },
                 }}
                 >
                   <Text bold sx={{ flexBasis: '100%' }}>{lastRoundsFirstStep + GLOBAL_TOURNAMENT_START_HOUR}h {t('semiFinals')}</Text>
@@ -587,7 +646,7 @@ export const CellGlobalTournament = ({
             )}
           {/* Final */}
           {data.lastRounds.find(
-            (fight) => fight.tournamentStep === lastRoundsFirstStep + 2
+            (fight) => fight.tournamentStep === lastRoundsFirstStep + 2,
           )
             && (!owner || watchingRound >= lastRoundsFirstStep + 2)
             && (
@@ -602,7 +661,7 @@ export const CellGlobalTournament = ({
                   borderBottomColor: theme.palette.border.shadow,
                   '&:last-child': {
                     borderBottom: 'none',
-                  }
+                  },
                 }}
                 >
                   <Text bold sx={{ flexBasis: '100%' }}>{(data.lastRounds[data.lastRounds.length - 1]?.tournamentStep ?? 0) + GLOBAL_TOURNAMENT_START_HOUR - 1}h {t('finals')}</Text>
@@ -626,7 +685,7 @@ export const CellGlobalTournament = ({
                 borderBottomColor: theme.palette.border.shadow,
                 '&:last-child': {
                   borderBottom: 'none',
-                }
+                },
               }}
               >
                 <Text bold color="text.disabled">{t('comeBackInOneHour')} ...</Text>
@@ -644,7 +703,7 @@ export const CellGlobalTournament = ({
                 borderBottomColor: theme.palette.border.shadow,
                 '&:last-child': {
                   borderBottom: 'none',
-                }
+                },
               }}
             >
               <Text smallCaps subtitle2 center>{t('setAsWatched')}</Text>

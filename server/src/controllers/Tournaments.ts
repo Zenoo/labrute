@@ -173,6 +173,7 @@ export const Tournaments = {
       const stepWatched = !brute.currentTournamentDate || dayjs.utc(brute.currentTournamentDate).isBefore(dayjs.utc().startOf('day'))
         ? 0
         : brute.currentTournamentStepWatched || 0;
+
       let newStepWatched = stepWatched;
 
       // If brute was eliminated, set tournament as fully watched
@@ -324,6 +325,7 @@ export const Tournaments = {
           lastRounds: [],
           nextOpponent: null,
         });
+
         return;
       }
 
@@ -387,6 +389,7 @@ export const Tournaments = {
 
       // Get next opponent if exists
       let nextFight;
+
       if (!tournamentEnded) {
         nextFight = await traced('tournaments.getGlobal.findNextFight', () => prisma.fight.findFirst({
           where: {
@@ -409,6 +412,14 @@ export const Tournaments = {
         }));
       }
 
+      let nextOpponent: string | null | undefined = null;
+
+      if (nextFight) {
+        nextOpponent = nextFight.brute1?.name === brute.name
+          ? nextFight.brute2?.name || ''
+          : nextFight.brute1?.name;
+      }
+
       res.send({
         tournament: {
           ...tournament,
@@ -416,11 +427,7 @@ export const Tournaments = {
         },
         lastRounds,
         done: tournamentEnded,
-        nextOpponent: nextFight
-          ? nextFight.brute1?.name === brute.name
-            ? nextFight.brute2?.name || ''
-            : nextFight.brute1?.name
-          : null,
+        nextOpponent: nextOpponent,
         nextRound: nextFight?.tournamentStep,
       });
     } catch (error) {
@@ -519,7 +526,10 @@ export const Tournaments = {
           name: ilike(req.params.name),
           deletedAt: null,
         },
-        select: { id: true, name: true },
+        select: {
+          id: true,
+          name: true,
+        },
       }));
 
       if (!brute) {
@@ -583,14 +593,21 @@ export const Tournaments = {
           .sort((a, b) => a.tournamentStep - b.tournamentStep);
 
         const firstFight = fights[0];
+
         if (firstFight) {
           // Take bye into account for global tournaments
-          const fightsWithBye = (tournament.type === TournamentType.GLOBAL
-            || tournament.type === TournamentType.UNLIMITED_GLOBAL)
-            ? firstFight.tournamentStep !== 1
-              ? fights.length + 1
-              : fights.length
-            : fights.length;
+          let fightsWithBye;
+
+          if ((tournament.type === TournamentType.GLOBAL
+                      || tournament.type === TournamentType.UNLIMITED_GLOBAL)) {
+            if (firstFight.tournamentStep !== 1) {
+              fightsWithBye = fights.length + 1;
+            } else {
+              fightsWithBye = fights.length;
+            }
+          } else {
+            fightsWithBye = fights.length;
+          }
 
 
           tournament.place = 2 ** (tournament.rounds - fightsWithBye);

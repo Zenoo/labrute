@@ -1,19 +1,19 @@
 import {
-  Fighter, FightGetResponse, FightStep, StepType
+  Fighter, FightGetResponse, FightStep, StepType,
 } from '@labrute/core';
 import {
   FastForward, FastRewind, Favorite, FavoriteBorder,
-  MusicNote, MusicOff, Pause, PlayArrow, Replay, Rtt, VolumeOff, VolumeUp
+  MusicNote, MusicOff, Pause, PlayArrow, Replay, Rtt, VolumeOff, VolumeUp,
 } from '@mui/icons-material';
 import {
-  Box, CircularProgress, IconButton, Slider, Stack, Tooltip, useMediaQuery, useTheme
+  Box, CircularProgress, IconButton, Slider, Stack, Tooltip, useMediaQuery, useTheme,
 } from '@mui/material';
 import { sound } from '@pixi/sound';
 import {
-  Application, Assets, Spritesheet
+  Application, Assets, Spritesheet,
 } from 'pixi.js';
 import React, {
-  useCallback, useEffect, useMemo, useRef, useState
+  useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { LS_KEY_FIGHT_BACKGROUND_MUSIC, LS_KEY_FIGHT_SPEED } from '../../utils/constants';
@@ -116,7 +116,7 @@ const sounds = [
   'tamer2',
   'thief',
   'tragicPotion',
-  'vampirism'
+  'vampirism',
 ];
 
 const SHOW_FIGHT_PERFORMANCE_STATS = localStorage.getItem('showFightPerformanceStats') === 'true';
@@ -160,6 +160,7 @@ export const FightComponent = ({
   const displayScrubber = !firstWatch || !!user?.alwaysDisplayScrubber;
   const [progress, setProgress] = useState(0);
   const [scrubPosition, setScrubPosition] = useState<number | null>(null);
+
   const [playbackRequest, setPlaybackRequest] = useState<{
     fightId: string; step: number;
   } | null>(null);
@@ -184,12 +185,17 @@ export const FightComponent = ({
   const [isFavorite, setFavorite] = useState(false);
 
   useEffect(() => {
-    if (!user || !fight) return;
+    if (!user || !fight) {
+      return;
+    }
+
     setFavorite(fight.favoritedBy.some((f) => f.id === user.id));
   }, [fight, user]);
 
   const toggleFavorite = useCallback(async () => {
-    if (!user || !fight) return;
+    if (!user || !fight) {
+      return;
+    }
 
     try {
       await Server.Fight.toggleFavorite(fight.id);
@@ -208,9 +214,17 @@ export const FightComponent = ({
 
   // Tooltip
   const toggleTooltip = useCallback<ToggleFightTooltip>((target, open) => {
-    setTooltipTarget((previous) => (open ? target : (
-      !target || previous === target ? null : previous
-    )));
+    setTooltipTarget((previous) => {
+      if (open) {
+        return target;
+      }
+
+      if (!target || previous === target) {
+        return null;
+      }
+
+      return previous;
+    });
   }, []);
 
   const fighters = useMemo(() => (fight
@@ -220,13 +234,16 @@ export const FightComponent = ({
   const brute1 = useMemo(() => fight && fighters && fighters
     .find((fighter) => !fighter.master
       && fighter.id === fight.brute1Id), [fight, fighters]);
+
   const brute2 = useMemo(() => fight && fighters && fighters
     .find((fighter) => !fighter.master
       && fighter.id === fight.brute2Id), [fight, fighters]);
 
   // Update settings on user change
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     setSpeed(user.fightSpeed as 1 | 2);
     speedRef.current = user.fightSpeed as 1 | 2;
@@ -243,6 +260,7 @@ export const FightComponent = ({
     let appDestroyed = false;
     let mountedCanvas: HTMLCanvasElement | null = null;
     let clock: FightClock | null = null;
+
     const targetStep = playbackRequest && playbackRequest.fightId === fight?.id
       ? playbackRequest.step : 0;
 
@@ -258,6 +276,7 @@ export const FightComponent = ({
       if (appDestroyed || !initialized) {
         return;
       }
+
       appDestroyed = true;
 
       clock?.destroy();
@@ -274,18 +293,21 @@ export const FightComponent = ({
               texture: false,
               textureSource: false,
               context: true,
-            }
+            },
           );
         } catch (error) {
           console.error('Error destroying fight app', error);
         }
       }
 
-      if (appRef.current === app) appRef.current = null;
+      if (appRef.current === app) {
+        appRef.current = null;
+      }
 
       if (mountedCanvas && ref.current?.contains(mountedCanvas)) {
         ref.current.removeChild(mountedCanvas);
       }
+
       mountedCanvas = null;
     };
 
@@ -306,6 +328,7 @@ export const FightComponent = ({
 
       if (disposed) {
         destroyApp();
+
         return undefined;
       }
 
@@ -329,6 +352,7 @@ export const FightComponent = ({
 
       if (disposed) {
         destroyApp();
+
         return undefined;
       }
 
@@ -339,25 +363,31 @@ export const FightComponent = ({
 
       // build sounds from sprites
       const spritesNew: { [key: string]: { start: number; end: number; loop: boolean } } = {};
+
       sounds.forEach((soundName) => {
         spritesNew[soundName] = {
           start: sfx.spritemap[soundName]?.start ?? 0,
           end: sfx.spritemap[soundName]?.end ?? 0,
-          loop: sfx.spritemap[soundName]?.loop ?? false
+          loop: sfx.spritemap[soundName]?.loop ?? false,
         };
       });
 
       if (!sound.exists('sfx')) {
-        sound.add('sfx', { url: sfx.resources[0], sprites: spritesNew, preload: true });
+        sound.add('sfx', {
+          url: sfx.resources[0],
+          sprites: spritesNew,
+          preload: true,
+        });
       }
 
       // Mute all sounds
-      sound.volumeAll = targetStep > 0 ? 0 : (soundRef.current ? 1 : 0);
+      sound.volumeAll = targetStep > 0 || !soundRef.current ? 0 : 1;
       // Background music
       sound.volume('background', backgroundMusicRef.current ? 1 : 0);
 
       if (disposed) {
         destroyApp();
+
         return undefined;
       }
 
@@ -375,16 +405,25 @@ export const FightComponent = ({
         {
           startStep: targetStep,
           onReady: () => {
-            if (disposed) return;
+            if (disposed) {
+              return;
+            }
+
             sound.volumeAll = soundRef.current ? 1 : 0;
             setReady(true);
           },
           onStep: (index) => {
-            if (disposed) return;
+            if (disposed) {
+              return;
+            }
+
             setProgress(index);
           },
           onComplete: () => {
-            if (disposed) return;
+            if (disposed) {
+              return;
+            }
+
             setEnded(true);
             setFirstWatch(false);
             setPlaying(false);
@@ -394,6 +433,7 @@ export const FightComponent = ({
 
       return undefined;
     };
+
     setup().catch((error) => {
       if (!disposed) {
         console.error('Error setting up fight:', error);
@@ -415,22 +455,31 @@ export const FightComponent = ({
   }, [Alert, fight, playbackRequest, toggleTooltip, t, theme, renderer]);
 
   const seek = useCallback((step: number) => {
-    if (!fight) return;
-    setPlaybackRequest({ fightId: fight.id, step });
+    if (!fight) {
+      return;
+    }
+
+    setPlaybackRequest({
+      fightId: fight.id,
+      step,
+    });
   }, [fight]);
 
   // Play/pause
   const toggleAnimation = useCallback(() => {
     if (ended) {
       seek(0);
+
       return;
     }
+
     setPlaying((prev) => {
       if (prev) {
         appRef.current?.ticker.stop();
       } else {
         appRef.current?.ticker.start();
       }
+
       return !prev;
     });
   }, [ended, seek]);
@@ -438,12 +487,15 @@ export const FightComponent = ({
   // Speed
   const toggleSpeed = useCallback(async () => {
     const newSpeed = speedRef.current === 1 ? 2 : 1;
+
     speedRef.current = newSpeed;
     setSpeed(newSpeed);
     localStorage.setItem(LS_KEY_FIGHT_SPEED, newSpeed.toString());
 
     // Update user settings
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     try {
       await Server.User.changeFightSpeed(newSpeed);
@@ -459,6 +511,7 @@ export const FightComponent = ({
   // Sound
   const toggleSound = useCallback(() => {
     const newSound = !soundRef.current;
+
     soundRef.current = newSound;
     setSoundOn(newSound);
     sound.volumeAll = ready && newSound ? 1 : 0;
@@ -466,13 +519,16 @@ export const FightComponent = ({
 
   const toggleBackgroundMusic = useCallback(async () => {
     const newBackgroundMusic = !backgroundMusicRef.current;
+
     backgroundMusicRef.current = newBackgroundMusic;
     setBackgroundMusicOn(newBackgroundMusic);
     sound.volume('background', newBackgroundMusic ? 1 : 0);
     localStorage.setItem(LS_KEY_FIGHT_BACKGROUND_MUSIC, newBackgroundMusic.toString());
 
     // Update user settings
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     try {
       await Server.User.toggleBackgroundMusic(newBackgroundMusic);
@@ -494,12 +550,14 @@ export const FightComponent = ({
   const getScrubberAriaLabel = useCallback((value: number) => `${Math.round(value / (fightSteps?.length || 1) * 100)}%`, [fightSteps?.length]);
 
   const onScrubberChange = useCallback((_event: Event, value: number | number[]) => {
-    if (typeof value === 'number') setScrubPosition(value);
+    if (typeof value === 'number') {
+      setScrubPosition(value);
+    }
   }, []);
 
   const onScrubberCommit = useCallback((
     _event: Event | React.SyntheticEvent<Element, Event>,
-    value: number | number[]
+    value: number | number[],
   ) => {
     if (typeof value === 'number') {
       setScrubPosition(null);
@@ -507,13 +565,32 @@ export const FightComponent = ({
     }
   }, [seek]);
 
+  let playbackLabel: string;
+  let playbackIcon: React.ReactNode;
+
+  if (ended) {
+    playbackLabel = t('fight.replay');
+    playbackIcon = <Replay />;
+  } else if (playing) {
+    playbackLabel = t('fight.pause');
+    playbackIcon = <Pause />;
+  } else {
+    playbackLabel = t('fight.play');
+    playbackIcon = <PlayArrow />;
+  }
+
   return (fight) ? (
     <>
       {/* Hidden typographies */}
       <Text typo="Blocky" sx={{ display: 'none' }}> </Text>
       {/* Fight */}
       <BruteTooltip
-        tooltipSx={{ borderRadius: 0, maxWidth: 200, px: 1, py: 0.5 }}
+        tooltipSx={{
+          borderRadius: 0,
+          maxWidth: 200,
+          px: 1,
+          py: 0.5,
+        }}
         open={tooltipTarget?.type === 'brute'}
         fighter={tooltipTarget?.type === 'brute' ? tooltipTarget.fighter : null}
         displaySkills
@@ -540,13 +617,19 @@ export const FightComponent = ({
                 '& canvas': {
                   maxWidth: '100%',
                   visibility: ready ? 'visible' : 'hidden',
-                }
+                },
               }}
             >
               {!ready && !playbackFailed && (
                 <CircularProgress
                   size={24}
-                  sx={{ position: 'absolute', top: '50%', left: '50%', ml: '-12px', mt: '-12px' }}
+                  sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    ml: '-12px',
+                    mt: '-12px',
+                  }}
                 />
               )}
               {/* LOGS */}
@@ -584,15 +667,15 @@ export const FightComponent = ({
                 }}
               >
                 {/* Play/Pause */}
-                <Tooltip title={ended ? t('fight.replay') : playing ? t('fight.pause') : t('fight.play')}>
+                <Tooltip title={playbackLabel}>
                   <span>
                     <IconButton
                       onClick={toggleAnimation}
                       size="small"
                       disabled={!ready && !playbackFailed}
-                      aria-label={ended ? t('fight.replay') : playing ? t('fight.pause') : t('fight.play')}
+                      aria-label={playbackLabel}
                     >
-                      {ended ? <Replay /> : playing ? <Pause /> : <PlayArrow />}
+                      {playbackIcon}
                     </IconButton>
                   </span>
                 </Tooltip>
@@ -668,7 +751,10 @@ export const FightComponent = ({
                     '& .MuiSlider-thumb': {
                       width: 8,
                       height: 8,
-                      '&::after': { width: 28, height: 28 },
+                      '&::after': {
+                        width: 28,
+                        height: 28,
+                      },
                     },
                     '& .MuiSlider-rail': { opacity: 0.5 },
                   }}
@@ -695,7 +781,7 @@ export const FightComponent = ({
               <Trans
                 i18nKey="bruteCell"
                 components={{
-                  name: <BruteName brute={brute1} />
+                  name: <BruteName brute={brute1} />,
                 }}
               />
             </Text>
@@ -708,7 +794,7 @@ export const FightComponent = ({
                 <Trans
                   i18nKey="bruteCell"
                   components={{
-                    name: <BruteName brute={brute2} />
+                    name: <BruteName brute={brute2} />,
                   }}
                 />
               </Text>

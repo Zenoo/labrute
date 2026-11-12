@@ -1,19 +1,19 @@
 import {
   Paper, Stack, TextField,
-  Tooltip
-} from "@mui/material";
-import { Page } from "../../components/Page";
-import { Text } from "../../components/Text";
+  Tooltip,
+} from '@mui/material';
+import { Page } from '../../components/Page';
+import { Text } from '../../components/Text';
 import React, {
-  useCallback, useEffect, useState
-} from "react";
-import { catchError } from "../../utils/catchError";
-import { BrutesListBannedWordsResponse } from "@labrute/core";
-import { useAlert } from "../../hooks/useAlert";
-import { useTranslation } from "react-i18next";
-import { useServer } from "../../hooks/useServer";
-import { FantasyButton } from "../../components/FantasyButton";
-import { Delete } from "@mui/icons-material";
+  useCallback, useEffect, useState,
+} from 'react';
+import { catchError } from '../../utils/catchError';
+import { BrutesListBannedWordsResponse } from '@labrute/core';
+import { useAlert } from '../../hooks/useAlert';
+import { useTranslation } from 'react-i18next';
+import { useServer } from '../../hooks/useServer';
+import { FantasyButton } from '../../components/FantasyButton';
+import { Delete } from '@mui/icons-material';
 
 export const BannedWordsAdminView = () => {
   const { t } = useTranslation('admin');
@@ -41,16 +41,20 @@ export const BannedWordsAdminView = () => {
   useEffect(() => {
     if (!search) {
       setFilteredBannedWords(bannedWords);
+
       return;
     }
 
     const filtered = bannedWords
       .filter((word) => word.word.toLowerCase().includes(search.toLowerCase()));
+
     setFilteredBannedWords(filtered);
   }, [search, bannedWords]);
 
   const banWord = () => {
-    if (!search) return;
+    if (!search) {
+      return;
+    }
 
     Server.Brute.addBannedWord({ word: search })
       .then(() => {
@@ -67,14 +71,17 @@ export const BannedWordsAdminView = () => {
         fetchBannedWords();
       })
       .catch(catchError(Alert));
-  }
+  };
 
   return (
     <Page headerUrl="/">
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Stack spacing={2} sx={{ p: 2 }}>
           <Text bold h3 smallCaps color="secondary">Banned words</Text>
           <TextField
@@ -100,4 +107,4 @@ export const BannedWordsAdminView = () => {
       </Paper>
     </Page>
   );
-}
+};

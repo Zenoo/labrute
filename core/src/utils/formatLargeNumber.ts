@@ -12,9 +12,11 @@ export const formatLargeNumber = (number: number) => {
   if (numberLength < 7) {
     return `${numberString.slice(0, numberLength - 3)}k`;
   }
+
   if (numberLength < 10) {
     return `${numberString.slice(0, numberLength - 6)}M`;
   }
+
   if (numberLength < 13) {
     return `${numberString.slice(0, numberLength - 9)}B`;
   }

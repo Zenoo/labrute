@@ -1,12 +1,12 @@
 import {
-  Brute, PetName, SkillName
+  Brute, PetName, SkillName,
 } from '@labrute/prisma';
 import {
-  CHAOS_SEEDS, getPetStatSeed, getSkillStatSeed, getWeaponStatSeed
+  CHAOS_SEEDS, getPetStatSeed, getSkillStatSeed, getWeaponStatSeed,
 } from './chaos.js';
 import { Pet } from './pets.js';
 import {
-  FightStat, Skill, SkillModifiers
+  FightStat, Skill, SkillModifiers,
 } from './skills.js';
 import { Weapon } from './weapons.js';
 import { Tiered } from '../types.js';
@@ -19,7 +19,7 @@ const FLAT_STATS = new Set([
   'speed',
   'hp',
   'damage',
-  'toss'
+  'toss',
 ]);
 
 const scalingByPet = {
@@ -69,7 +69,7 @@ export const getScaledStat = ({
   weapon,
   stat,
   value,
-  precision = 0
+  precision = 0,
 }: {
   chaos: boolean,
   skill?: SkillName,
@@ -132,7 +132,7 @@ export const getPetScaledStat = (
   brute: Pick<Brute, 'hpValue' | 'strengthValue' | 'agilityValue' | 'speedValue'>,
   pet: Tiered<Pet>,
   stat: TieredNumberKeysOf<Pet>,
-  precision = 0
+  precision = 0,
 ) => {
   // Some stats scale with brute stats
   if (stat === 'strength' || stat === 'agility' || stat === 'speed' || stat === 'hp') {
@@ -174,7 +174,7 @@ export const getWeaponScaledStat = (
   chaos: boolean,
   weapon: Tiered<Weapon>,
   stat: TieredNumberKeysOf<Weapon>,
-  precision = 0
+  precision = 0,
 ) => {
   if (!chaos) {
     return weapon[stat][weapon.tier - 1] ?? 0;
@@ -212,6 +212,6 @@ export const getSkillScaledStat = (
     type,
     stat,
     value,
-    precision: type === 'percent' ? 2 : 0
+    precision: type === 'percent' ? 2 : 0,
   });
 };

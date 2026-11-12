@@ -44,6 +44,7 @@ export const seedWorld = async (
 ) => {
   const day = (offset = 0) => {
     const date = new Date(now);
+
     date.setUTCHours(0, 0, 0, 0);
     date.setUTCDate(date.getUTCDate() + offset);
 
@@ -71,6 +72,7 @@ export const seedWorld = async (
       termsAccepted: true,
     },
   });
+
   // Separate accounts exercise permission, language, ban, and preference branches in the UI.
   const users = [admin];
 
@@ -110,6 +112,7 @@ export const seedWorld = async (
       ascendedWeapons: Array.isArray(extra.ascendedWeapons) ? extra.ascendedWeapons : [],
       ascendedPets: Array.isArray(extra.ascendedPets) ? extra.ascendedPets : [],
     };
+
     const brute = await db.brute.create({
       data: {
         ...createPlayableBrute(name, level, extra.gender, undefined, retained),
@@ -120,6 +123,7 @@ export const seedWorld = async (
         createdAt: day(-60),
       },
     });
+
     brutes.push(brute);
 
     return brute;
@@ -140,6 +144,7 @@ export const seedWorld = async (
 
   const novice = requiredAt(brutes, 0);
   const veteran = requiredAt(brutes, brutes.length - 1);
+
   await playable('DevLevelReady', 10, {
     gender: 'male',
     xp: getXPNeeded(11),
@@ -230,6 +235,7 @@ export const seedWorld = async (
   for (let level = 1; level <= 200; level++) {
     for (let index = 0; index < ARENA_OPPONENTS_COUNT; index++) {
       const generated = generateBot(level, `DevBot${level}x${index}`);
+
       // generateBot returns scalar fields only, despite its broader Prisma create-input type.
       bots.push({
         ...generated,
@@ -261,6 +267,7 @@ export const seedWorld = async (
 
   for (const [index, boss] of Object.values(BossName).entries()) {
     const master = requiredAt(brutes, index + 2);
+
     const clan = await db.clan.create({
       data: {
         id: seedId(`clan-${index}`),
@@ -273,7 +280,9 @@ export const seedWorld = async (
         limit: 20,
       },
     });
+
     clans.push(clan);
+
     const role = await db.clanRole.create({
       data: {
         clanId: clan.id,
@@ -281,6 +290,7 @@ export const seedWorld = async (
         permissions: Object.values(ClanPermission),
       },
     });
+
     await db.clanRole.create({
       data: {
         clanId: clan.id,
@@ -393,6 +403,7 @@ export const seedWorld = async (
         },
       },
     });
+
     wars.push(war);
   }
 
@@ -404,6 +415,7 @@ export const seedWorld = async (
     const mods = Object.fromEntries(modifiers.map((modifier) => [modifier, true]));
     const leftTeam = extra.clanWar ? [left, requiredAt(brutes, 5)] : [left];
     const rightTeam = extra.clanWar ? [right, requiredAt(brutes, 6)] : [right];
+
     const { data } = await simulate({
       prisma: simulationClient,
       team1: { brutes: leftTeam.map((brute) => getCalculatedBrute(brute, mods)) },
@@ -426,6 +438,7 @@ export const seedWorld = async (
   };
 
   const arenaFight = await fight(novice, requiredAt(brutes, 1));
+
   await db.fight.update({
     where: { id: arenaFight.id },
     data: {
@@ -448,6 +461,7 @@ export const seedWorld = async (
       where: { id: { in: bots.slice(0, 63).map((bot) => bot.id ?? '') } },
       orderBy: { name: 'asc' },
     })] : [novice, requiredAt(brutes, 1)];
+
     const tournament = await db.tournament.create({
       data: {
         type,
@@ -456,6 +470,7 @@ export const seedWorld = async (
         participants: { connect: entrants.map((brute) => ({ id: brute.id })) },
       },
     });
+
     let remaining = entrants;
     let step = 1;
 
@@ -465,10 +480,12 @@ export const seedWorld = async (
       for (let index = 0; index < remaining.length; index += 2) {
         const left = requiredAt(remaining, index);
         const right = requiredAt(remaining, index + 1);
+
         const match = await fight(left, right, {
           tournamentStep: step++,
           tournament: { connect: { id: tournament.id } },
         });
+
         winners.push(match.winnerId === left.id ? left : right);
       }
 
@@ -497,11 +514,13 @@ export const seedWorld = async (
         finishedAt: status === 'finished' ? day() : null,
       },
     });
+
     const left = await playable(`DevEvent${status}A`, 20, {
       gender: 'male',
       event: { connect: { id: event.id } },
       ranking: -1,
     });
+
     const right = await playable(`DevEvent${status}B`, 20, {
       gender: 'female',
       event: { connect: { id: event.id } },
@@ -518,10 +537,12 @@ export const seedWorld = async (
           participants: { connect: [{ id: left.id }, { id: right.id }] },
         },
       });
+
       const final = await fight(left, right, {
         tournamentStep: 1,
         tournament: { connect: { id: tournament.id } },
       });
+
       await db.event.update({
         where: { id: event.id },
         data: {
@@ -631,6 +652,7 @@ export const seedWorld = async (
   // Include each feed template without relying on a scheduled job to produce the corresponding log.
   for (const type of Object.values(LogType)) {
     const choice = await db.destinyChoice.findFirst({ where: { bruteId: novice.id } });
+
     await db.log.create({
       data: {
         currentBruteId: novice.id,
@@ -703,6 +725,7 @@ export const seedWorld = async (
 
   for (let offset = -30; offset <= 0; offset++) {
     const date = day(offset);
+
     await db.bruteStats.create({
       data: {
         bruteId: novice.id,
@@ -712,6 +735,7 @@ export const seedWorld = async (
         ...stats,
       },
     });
+
     const userStats = {
       day: date.getUTCDay(),
       ...stats,
@@ -720,6 +744,7 @@ export const seedWorld = async (
       connectedDays: 1,
       createdBrutes: offset === -30 ? 1 : 0,
     };
+
     await db.userStats.upsert({
       where: {
         date_granularity_userId: {
@@ -777,6 +802,7 @@ export const seedWorld = async (
         pet: 'dog1',
         stats: 'strength',
       }[choiceType];
+
       const data = {
         date,
         granularity,
@@ -785,6 +811,7 @@ export const seedWorld = async (
         offered: 10,
         picked: 5,
       };
+
       await db.userLevelUpStat.create({
         data: {
           ...data,
@@ -803,6 +830,7 @@ export const seedWorld = async (
   // Use synthetic identifiers and documentation IPs so no real device receives a restriction.
   const browserId = seedId('shared-browser');
   const fingerprint = `v2:${'a'.repeat(32)}:none`;
+
   await db.sharedBrowser.create({
     data: {
       id: browserId,
@@ -858,6 +886,7 @@ export const seedWorld = async (
   // Evidence snapshots and reviews are durable records, independent of current account restrictions.
   for (const status of ['open', 'dismissed', 'needs-action']) {
     const caseId = createHash('sha256').update(status).digest('hex');
+
     await db.multipleAccountCase.create({
       data: {
         id: caseId,
@@ -909,6 +938,7 @@ export const seedWorld = async (
     },
   });
   const state = await db.serverState.findFirst();
+
   const stateData = {
     globalTournamentValid: true,
     activeModifiers: [],
@@ -931,6 +961,7 @@ export const seedWorld = async (
     create: { version: '0.0.0-dev-seed' },
     update: {},
   });
+
   // Startup decrypts every Config value, including our marker; plaintext would break the next boot.
   const secret = await db.config.upsert({
     where: { key: 'CRYPTR_SECRET' },
@@ -940,6 +971,7 @@ export const seedWorld = async (
     },
     update: {},
   });
+
   await db.config.create({
     data: {
       key: SEED_MARKER,

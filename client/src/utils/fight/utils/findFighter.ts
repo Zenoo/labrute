@@ -37,7 +37,7 @@ export const findFighter = (
   }
 
   return fighter;
-}
+};
 
 export const findHUDFocusedFighter = (
   fightFighters: Fighter[],
@@ -45,5 +45,6 @@ export const findHUDFocusedFighter = (
   team: string,
 ) => {
   const animationFighter = fighters.find((f) => f.HUDFocused && f.team === team);
+
   return fightFighters.find((f) => f.id === animationFighter?.id);
 };

@@ -30,33 +30,41 @@ export const recordAccountObservation = async (
   const identity = parseFingerprint(fingerprint);
 
   if (!isUuid(userId) || !browserId || !identity || !fingerprint
-    || !request.security?.validHeaders) return;
+    || !request.security?.validHeaders) {
+    return;
+  }
 
   const ip = getClientIp(request);
   const { ja3Hash, ja4Hash } = getTlsFingerprints(request);
   const observedDay = now.toISOString().slice(0, 10);
   const normalizedUserId = userId.toLowerCase();
   const normalizedBrowserId = browserId.toLowerCase();
+
   const id = sha256(JSON.stringify([
     identity.version, normalizedUserId, normalizedBrowserId, fingerprint,
     ip, ja3Hash, ja4Hash, observedDay,
   ]));
 
   let writes = observationWrites.get(prisma);
+
   if (!writes) {
     writes = new Map();
     observationWrites.set(prisma, writes);
   }
 
   const previous = writes.get(id);
+
   if (previous?.pending) {
     await previous.pending;
+
     return;
   }
 
   const elapsed = now.getTime() - (previous?.recordedAt ?? -Infinity);
 
-  if (elapsed >= 0 && elapsed < OBSERVATION_INTERVAL_MS) return;
+  if (elapsed >= 0 && elapsed < OBSERVATION_INTERVAL_MS) {
+    return;
+  }
 
   const entry: ObservationWrite = {
     recordedAt: Math.max(now.getTime(), previous?.recordedAt ?? -Infinity),
@@ -67,7 +75,10 @@ export const recordAccountObservation = async (
 
   if (writes.size > MAX_OBSERVATION_CACHE_ENTRIES) {
     const oldest = writes.keys().next().value;
-    if (oldest !== undefined) writes.delete(oldest);
+
+    if (oldest !== undefined) {
+      writes.delete(oldest);
+    }
   }
 
   // One writer per tuple/process/interval. Database conflicts still coordinate separate processes.
@@ -91,7 +102,10 @@ export const recordAccountObservation = async (
     entry.pending = undefined;
   } catch (error) {
     // Failed writes are never cached as observations; a subsequent request retries normally.
-    if (writes.get(id) === entry) writes.delete(id);
+    if (writes.get(id) === entry) {
+      writes.delete(id);
+    }
+
     throw error;
   }
 };
@@ -156,8 +170,15 @@ export const reportMultipleAccountObservations = async (
       const { groups, created } = await prisma.$transaction(async (tx) => {
         const candidates = await findMultipleAccountObservationGroups(tx, now);
         const count = await createMultipleAccountCases(tx, candidates, now);
-        return { groups: candidates, created: count };
-      }, { isolationLevel: 'RepeatableRead', timeout: 30000 });
+
+        return {
+          groups: candidates,
+          created: count,
+        };
+      }, {
+        isolationLevel: 'RepeatableRead',
+        timeout: 30000,
+      });
 
       if (groups.length) {
         logger.log(`Multiple-account observations: ${groups.length} groups; ${created} new cases`);
@@ -167,7 +188,9 @@ export const reportMultipleAccountObservations = async (
     } catch (error) {
       // Only retry this idempotent snapshot operation, never the surrounding daily job.
       if (attempt >= 2 || !(error instanceof Prisma.PrismaClientKnownRequestError)
-        || error.code !== 'P2034') throw error;
+        || error.code !== 'P2034') {
+        throw error;
+      }
     }
   }
 };
@@ -177,6 +200,7 @@ export const cleanupAccountObservations = async (prisma: PrismaClient, now = new
   const batchSize = 5000;
   let total = 0;
   let deleted;
+
   // Bound each transaction's locks and WAL work while ordinary requests remain available.
   do {
     deleted = await prisma.$executeRaw`

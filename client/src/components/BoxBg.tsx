@@ -15,7 +15,7 @@ export const BoxBg = ({
     sx={{
       backgroundImage: `url("${src}")`,
       backgroundRepeat: 'no-repeat',
-      ...sx
+      ...sx,
     }}
     {...rest}
   >

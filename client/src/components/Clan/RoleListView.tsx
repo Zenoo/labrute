@@ -1,13 +1,13 @@
 import {
   Backdrop, Box, Chip, IconButton, Modal, Paper,
-  Table, TableBody, TableCell, TableHead, TableRow, Tooltip
+  Table, TableBody, TableCell, TableHead, TableRow, Tooltip,
 } from '@mui/material';
 import {
-  Delete, Edit, PersonAdd
+  Delete, Edit, PersonAdd,
 } from '@mui/icons-material';
 import { ClanGetRolesResponse, hasPermission } from '@labrute/core';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../FantasyButton';
@@ -74,11 +74,95 @@ export const RoleListView: React.FC<RoleListViewProps> = ({
             loadRoles();
           })
           .catch(catchError(Alert));
-      }
+      },
     );
   };
 
   const getPermissionCount = (role: Role) => role.permissions?.length ?? 0;
+
+  const renderRoles = () => {
+    if (loading) {
+      return <Text center>{t('loading')}</Text>;
+    }
+
+    if (roles.length === 0) {
+      return <Text center color="text.secondary">{t('noRolesYet')}</Text>;
+    }
+
+    return (
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell><Text bold>{t('roleName')}</Text></TableCell>
+            <TableCell><Text bold>{t('permissions')}</Text></TableCell>
+            <TableCell><Text bold>{t('members')}</Text></TableCell>
+            <TableCell><Text bold>{t('actions')}</Text></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {roles.map((role) => (
+            <TableRow key={role.id}>
+              <TableCell>
+                <Text bold color="secondary">{role.name}</Text>
+              </TableCell>
+              <TableCell>
+                <Tooltip title={role.permissions?.map((p) => t(p)).join(', ') || ''}>
+                  <Chip
+                    label={`${getPermissionCount(role)} ${t('permissions')}`}
+                    size="small"
+                    color="primary"
+                  />
+                </Tooltip>
+              </TableCell>
+              <TableCell>
+                <Text>{role.memberCount ?? 0}</Text>
+              </TableCell>
+              <TableCell>
+                <Box sx={{
+                  display: 'flex',
+                  gap: 1,
+                }}>
+                  {hasPermission(brute, clan, ClanPermission.canChangeRoles) && (
+                  <Tooltip title={t('assignRole')}>
+                    <IconButton
+                      size="small"
+                      onClick={() => onAssignRole(role)}
+                      color="primary"
+                    >
+                      <PersonAdd />
+                    </IconButton>
+                  </Tooltip>
+                  )}
+                  {hasPermission(brute, clan, ClanPermission.canChangeRoles) && (
+                  <Tooltip title={t('editRole')}>
+                    <IconButton
+                      size="small"
+                      onClick={() => onEditRole(role)}
+                      color="secondary"
+                    >
+                      <Edit />
+                    </IconButton>
+                  </Tooltip>
+                  )}
+                  {brute?.id === clan.masterId && (
+                  <Tooltip title={t('deleteRole')}>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleDeleteRole(role)}
+                      color="error"
+                    >
+                      <Delete />
+                    </IconButton>
+                  </Tooltip>
+                  )}
+                </Box>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
+  };
 
   return (
     <Modal
@@ -116,82 +200,13 @@ export const RoleListView: React.FC<RoleListViewProps> = ({
             {t('manageRoles')}
           </Text>
 
-          {loading ? (
-            <Text center>{t('loading')}</Text>
-          ) : roles.length === 0 ? (
-            <Text center color="text.secondary">{t('noRolesYet')}</Text>
-          ) : (
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell><Text bold>{t('roleName')}</Text></TableCell>
-                  <TableCell><Text bold>{t('permissions')}</Text></TableCell>
-                  <TableCell><Text bold>{t('members')}</Text></TableCell>
-                  <TableCell><Text bold>{t('actions')}</Text></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {roles.map((role) => (
-                  <TableRow key={role.id}>
-                    <TableCell>
-                      <Text bold color="secondary">{role.name}</Text>
-                    </TableCell>
-                    <TableCell>
-                      <Tooltip title={role.permissions?.map((p) => t(p)).join(', ') || ''}>
-                        <Chip
-                          label={`${getPermissionCount(role)} ${t('permissions')}`}
-                          size="small"
-                          color="primary"
-                        />
-                      </Tooltip>
-                    </TableCell>
-                    <TableCell>
-                      <Text>{role.memberCount ?? 0}</Text>
-                    </TableCell>
-                    <TableCell>
-                      <Box sx={{ display: 'flex', gap: 1 }}>
-                        {hasPermission(brute, clan, ClanPermission.canChangeRoles) && (
-                          <Tooltip title={t('assignRole')}>
-                            <IconButton
-                              size="small"
-                              onClick={() => onAssignRole(role)}
-                              color="primary"
-                            >
-                              <PersonAdd />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                        {hasPermission(brute, clan, ClanPermission.canChangeRoles) && (
-                          <Tooltip title={t('editRole')}>
-                            <IconButton
-                              size="small"
-                              onClick={() => onEditRole(role)}
-                              color="secondary"
-                            >
-                              <Edit />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                        {brute?.id === clan.masterId && (
-                          <Tooltip title={t('deleteRole')}>
-                            <IconButton
-                              size="small"
-                              onClick={() => handleDeleteRole(role)}
-                              color="error"
-                            >
-                              <Delete />
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          )}
+          {renderRoles()}
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            mt: 3,
+          }}>
             {hasPermission(brute, clan, ClanPermission.canCreateRoles) && (
               <FantasyButton color="success" onClick={() => onEditRole(null)}>
                 {t('createNewRole')}

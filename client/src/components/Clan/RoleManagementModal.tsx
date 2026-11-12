@@ -1,5 +1,5 @@
 import {
-  Backdrop, Box, Checkbox, FormControlLabel, FormGroup, Modal, Paper, TextField
+  Backdrop, Box, Checkbox, FormControlLabel, FormGroup, Modal, Paper, TextField,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -53,6 +53,7 @@ export const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
   const handleSaveRole = () => {
     if (!roleName.trim()) {
       Alert.open('error', t('pleaseEnterRoleName'));
+
       return;
     }
 
@@ -253,7 +254,11 @@ export const RoleManagementModal: React.FC<RoleManagementModalProps> = ({
             />
           </FormGroup>
 
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
+          <Box sx={{
+            display: 'flex',
+            gap: 2,
+            justifyContent: 'flex-end',
+          }}>
             <FantasyButton color="secondary" onClick={onClose}>
               {t('cancel')}
             </FantasyButton>

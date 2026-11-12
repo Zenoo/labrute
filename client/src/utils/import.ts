@@ -6,5 +6,6 @@ export const importModule = <T>(module: T): T => {
   if (typeof module === 'object' && module !== null && (module as { __esModule?: boolean }).__esModule) {
     return (module as unknown as { default: T }).default;
   }
+
   return module;
 };

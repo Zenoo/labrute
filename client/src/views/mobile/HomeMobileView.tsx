@@ -1,5 +1,5 @@
 import {
-  Box, Grid, IconButton, Link, Paper, Tooltip, useMediaQuery, useTheme
+  Box, Grid, IconButton, Link, Paper, Tooltip, useMediaQuery, useTheme,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -35,7 +35,7 @@ export const HomeMobileView = ({
   character,
   fixBruteAppearance,
   setFixBruteAppearance,
-  eventToggle
+  eventToggle,
 }: HomeMobileViewProps) => {
   const { t } = useTranslation('home');
   const theme = useTheme();
@@ -49,13 +49,22 @@ export const HomeMobileView = ({
       {/* OTHER GAMES */}
       <Grid container spacing={1}>
         {[leftAd, isSx ? rightAd : null].map((ad) => ad && (
-          <Grid item xs={12} key={ad.name} sx={{ textAlign: 'center', mt: 1 }}>
+          <Grid item xs={12} key={ad.name} sx={{
+            textAlign: 'center',
+            mt: 1,
+          }}>
             <Tooltip title={t(`${ad.name}.desc`)}>
-              <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
+              <Link href={ad.url} target="_blank" sx={{
+                width: 200,
+                display: 'inline-block',
+              }}>
                 <Box
                   component="img"
                   src={`/images/redirects/${ad.illustration}`}
-                  sx={{ width: 1, border: 2 }}
+                  sx={{
+                    width: 1,
+                    border: 2,
+                  }}
                 />
               </Link>
             </Tooltip>
@@ -78,18 +87,27 @@ export const HomeMobileView = ({
         </Grid>
         {/* CHARACTER CREATION */}
         <Grid item xs={12} sm={6}>
-          <Paper sx={{ bgcolor: 'background.paperLight', height: isSx ? null : `calc(100% - ${theme.spacing(4)})` }}>
+          <Paper sx={{
+            bgcolor: 'background.paperLight',
+            height: isSx ? null : `calc(100% - ${theme.spacing(4)})`,
+          }}>
             {/* CREATION HEADER */}
             <Grid container>
               <Grid item xs={6}>
-                <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
+                <Text sx={{
+                  typography: 'Pixelized',
+                  fontSize: 7,
+                }} color="secondary">{t('chooseName')}</Text>
               </Grid>
               <Grid item xs={6}>
                 <Box component="img" src="/images/creation/arrow.png" />
               </Grid>
             </Grid>
             {/* NAME INPUT */}
-            <Box sx={{ width: 202, mx: 'auto' }}>
+            <Box sx={{
+              width: 202,
+              mx: 'auto',
+            }}>
               <StyledInput
                 onChange={changeName}
                 value={name}
@@ -99,7 +117,10 @@ export const HomeMobileView = ({
                 ? t('unlockBruteAppearance')
                 : t('lockBruteAppearance')}
               >
-                <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{ float: 'right', mt: 1 }}>
+                <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{
+                  float: 'right',
+                  mt: 1,
+                }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
               </Tooltip>
@@ -107,13 +128,20 @@ export const HomeMobileView = ({
               {/* CHARACTER */}
               {character}
               {/* CUSTOMIZATION BUTTONS */}
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}>
                 <Tooltip title={t('changeAppearance')}>
                   <StyledButton
                     onClick={changeAppearance}
                     image="/images/creation/bodyType.svg"
                     swapImage={false}
-                    sx={{ width: 89, height: 89, mt: -9.5 }}
+                    sx={{
+                      width: 89,
+                      height: 89,
+                      mt: -9.5,
+                    }}
                   />
                 </Tooltip>
                 <Tooltip title={t('changeColors')}>
@@ -121,7 +149,11 @@ export const HomeMobileView = ({
                     onClick={changeColors}
                     image="/images/creation/color.svg"
                     swapImage={false}
-                    sx={{ width: 89, height: 89, mt: -9.5 }}
+                    sx={{
+                      width: 89,
+                      height: 89,
+                      mt: -9.5,
+                    }}
                   />
                 </Tooltip>
               </Box>

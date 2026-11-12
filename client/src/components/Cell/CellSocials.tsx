@@ -1,8 +1,8 @@
 import {
-  AccountTree, BookmarkAdd, BookmarkRemove, CopyAll, MilitaryTech, Person, SmartToy, Today
+  AccountTree, BookmarkAdd, BookmarkRemove, CopyAll, MilitaryTech, Person, SmartToy, Today,
 } from '@mui/icons-material';
 import {
-  Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip
+  Box, Button, Grid, IconButton, Paper, PaperProps, Tooltip,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -45,6 +45,7 @@ export const CellSocials = ({
 
     if (getCachedRanking(brute.name) !== null) {
       setRanking(getCachedRanking(brute.name));
+
       return;
     }
 
@@ -61,7 +62,9 @@ export const CellSocials = ({
   const isFollowing = user?.following.some((following) => following.id === brute?.id);
 
   const copyUserId = () => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     if (brute.userId) {
       navigator.clipboard.writeText(brute.userId).then(() => {
@@ -72,7 +75,9 @@ export const CellSocials = ({
 
   // Toggle follow
   const toggleFollow = async () => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     try {
       await Server.User.toggleFollow(brute.id);
@@ -89,7 +94,10 @@ export const CellSocials = ({
   };
 
   return brute && (
-    <Paper sx={{ position: 'relative', ...sx }} {...rest}>
+    <Paper sx={{
+      position: 'relative',
+      ...sx,
+    }} {...rest}>
       <Grid container spacing={1}>
         <Grid item xs={smallScreen ? 12 : 6}>
           {/* No achievements for bots */}
@@ -137,7 +145,10 @@ export const CellSocials = ({
                   color="secondary"
                 >
                   <Text smallCaps subtitle2>{brute.user.name}</Text>
-                  <ActivityStatus user={brute.user} sx={{ fontSize: 10, ml: 0.5 }} />
+                  <ActivityStatus user={brute.user} sx={{
+                    fontSize: 10,
+                    ml: 0.5,
+                  }} />
                 </Button>
               </>
             )}
@@ -163,7 +174,10 @@ export const CellSocials = ({
             </Grid>
             <Grid item xs={6}>
               <Text bold color="secondary" component="span">{t('winrate')}: </Text>
-              <Tooltip title={t('wins-losses', { wins: brute.victories, losses: brute.losses })}>
+              <Tooltip title={t('wins-losses', {
+                wins: brute.victories,
+                losses: brute.losses,
+              })}>
                 <Text bold component="span">
                   {getBruteWinrate(brute)}
                 </Text>
@@ -172,7 +186,10 @@ export const CellSocials = ({
             <Grid item xs={6}>
               <Tooltip title={t('created', { date: dayjs.utc(brute.createdAt).format('LLL') })}>
                 <Text bold component="span">
-                  <Today color="secondary" sx={{ verticalAlign: 'middle', mr: 0.5 }} />
+                  <Today color="secondary" sx={{
+                    verticalAlign: 'middle',
+                    mr: 0.5,
+                  }} />
                   {dayjs.utc(brute.createdAt).fromNow()}
                 </Text>
               </Tooltip>

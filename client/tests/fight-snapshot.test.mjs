@@ -6,30 +6,76 @@ import {
 
 const fighter = (index) => {
   let baseSpeed = 2;
-  const noRender = () => { throw new Error('Snapshots must not render'); };
+
+  const noRender = () => {
+    throw new Error('Snapshots must not render');
+  };
+
   const holder = {
     animation: 'run',
-    seekPose: { animation: 'idle', visible: true, airborne: false, hypnotised: false },
+    seekPose: {
+      animation: 'idle',
+      visible: true,
+      airborne: false,
+      hypnotised: false,
+    },
     weapon: 'knife',
     shield: true,
-    get animationSpeed() { return baseSpeed / 1.5; },
-    get baseAnimationSpeed() { return baseSpeed; },
-    set animationSpeed(value) { baseSpeed = value; },
+    get animationSpeed() {
+      return baseSpeed / 1.5;
+    },
+    get baseAnimationSpeed() {
+      return baseSpeed;
+    },
+    set animationSpeed(value) {
+      baseSpeed = value;
+    },
     container: {
-      x: index * 100, y: 150, zIndex: 150,
-      scale: { x: -1, y: 1 }, rotation: 0, alpha: 0.8, visible: true,
-      get filters() { return noRender(); },
+      x: index * 100,
+      y: 150,
+      zIndex: 150,
+      scale: {
+        x: -1,
+        y: 1,
+      },
+      rotation: 0,
+      alpha: 0.8,
+      visible: true,
+      get filters() {
+        return noRender();
+      },
     },
     setAnimation: noRender,
     setAirborn: noRender,
-    get shadow() { return noRender(); },
+    get shadow() {
+      return noRender();
+    },
   };
+
   return {
-    index, hp: 200, maxHp: 200, strength: 10, agility: 20, speed: 30, size: 1,
-    team: 'L', master: undefined, weapons: { 1: 2 },
-    skills: { 1: { tier: 2, uses: 3 } },
-    stunned: undefined, trapped: false, dead: undefined, fierceBrute: false,
-    resist: true, HUDFocused: true, animation: holder,
+    index,
+    hp: 200,
+    maxHp: 200,
+    strength: 10,
+    agility: 20,
+    speed: 30,
+    size: 1,
+    team: 'L',
+    master: undefined,
+    weapons: { 1: 2 },
+    skills: {
+      1: {
+        tier: 2,
+        uses: 3,
+      },
+    },
+    stunned: undefined,
+    trapped: false,
+    dead: undefined,
+    fierceBrute: false,
+    resist: true,
+    HUDFocused: true,
+    animation: holder,
   };
 };
 
@@ -40,6 +86,7 @@ test('restores active order, removed fighters, gameplay and holder state without
   const holder = first.animation;
   const { container, seekPose } = holder;
   const snapshot = captureFightSnapshot(active, [first, second]);
+
   first.hp = 1;
   first.maxHp = 50;
   first.strength = 99;
@@ -74,7 +121,12 @@ test('restores active order, removed fighters, gameplay and holder state without
   assert.equal(first.animation, holder);
   assert.equal(holder.container, container);
   assert.equal(holder.seekPose, seekPose);
-  assert.deepEqual(first.skills, { 1: { tier: 2, uses: 3 } });
+  assert.deepEqual(first.skills, {
+    1: {
+      tier: 2,
+      uses: 3,
+    },
+  });
   assert.deepEqual(first.weapons, { 1: 2 });
   assert.equal(first.hp, 200);
   assert.equal(second.hp, 200);
@@ -89,14 +141,20 @@ test('restores active order, removed fighters, gameplay and holder state without
   assert.equal(first.resist, true);
   assert.equal(first.HUDFocused, true);
   assert.deepEqual(seekPose, {
-    animation: 'run', visible: true, airborne: false, hypnotised: false,
+    animation: 'run',
+    visible: true,
+    airborne: false,
+    hypnotised: false,
   });
   assert.equal(holder.weapon, 'knife');
   assert.equal(holder.shield, true);
   assert.equal(holder.animationSpeed, 2 / 1.5);
   assert.equal(container.x, 100);
   assert.equal(container.y, 150);
-  assert.deepEqual(container.scale, { x: -1, y: 1 });
+  assert.deepEqual(container.scale, {
+    x: -1,
+    y: 1,
+  });
   assert.equal(container.alpha, 0.8);
   assert.equal(container.visible, true);
 });
@@ -106,6 +164,7 @@ test('seeking captures seekPose and restoration never aliases saved mutable data
   const inactive = fighter(2);
   const active = [first];
   const snapshot = captureFightSnapshot(active, [first, inactive], true);
+
   active.length = 0;
   inactive.hp = 0;
   first.animation.seekPose.animation = 'death';

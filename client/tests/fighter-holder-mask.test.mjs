@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
-import { after, before, test } from 'node:test';
+import {
+  after, before, test,
+} from 'node:test';
 import { setImmediate } from 'node:timers/promises';
-import { Assets, DOMAdapter, Point, Texture } from 'pixi.js';
+import {
+  Assets, DOMAdapter, Point, Texture,
+} from 'pixi.js';
 import { Symbol68 } from 'labrute-pixi-fighter';
 import { createServer } from 'vite';
 
@@ -16,8 +20,15 @@ before(async (t) => {
   server = await createServer({
     configFile: false,
     ssr: { external: ['@labrute/core', '@labrute/prisma', 'pixi.js'] },
-    optimizeDeps: { noDiscovery: true, entries: [] },
-    server: { middlewareMode: true, watch: null, hmr: false },
+    optimizeDeps: {
+      noDiscovery: true,
+      entries: [],
+    },
+    server: {
+      middlewareMode: true,
+      watch: null,
+      hmr: false,
+    },
   });
   ({ FighterHolder } = await server.ssrLoadModule('/src/utils/fight/FighterHolder.ts'));
 });
@@ -33,23 +44,41 @@ for (const gender of ['male', 'female']) {
       const holder = new FighterHolder({
         renderer: { generateTexture: () => Texture.WHITE },
       }, {
-        type: 'brute', name: 'Mask test', gender, team, skills: {}, shield: false,
+        type: 'brute',
+        name: 'Mask test',
+        gender,
+        team,
+        skills: {},
+        shield: false,
       }, { current: 1 });
+
       try {
-        while (!holder.loaded) await setImmediate();
+        while (!holder.loaded) {
+          await setImmediate();
+        }
+
         const maskDefinition = Symbol68.parts.find((part) => part.name === 'Symbol39');
         const maskOffset = maskDefinition.parts.find((part) => part.type === 'svg').offset;
+
         for (const weapon of ['piopio', 'broadsword', 'knife', 'piopio']) {
           holder.weapon = weapon;
           holder.setAnimation('idle');
           const weaponHolder = holder.container.getChildByLabel('Symbol68', true);
           const mask = weaponHolder.children.find((child) => child.label === 'Symbol39');
-          const weaponPartName = { piopio: 'Symbol62', broadsword: 'Symbol41', knife: 'Symbol40' }[weapon];
+
+          const weaponPartName = {
+            piopio: 'Symbol62',
+            broadsword: 'Symbol41',
+            knife: 'Symbol40',
+          }[weapon];
+
           const weaponPart = weaponHolder.getChildByLabel(weaponPartName);
+
           assert.equal(weaponPart.mask, mask, `${weapon}: hand mask remains applied`);
           assert.equal(mask.renderable, false, 'mask is not drawn as artwork');
           const actual = mask.toGlobal(new Point(0, 0));
           const expected = weaponHolder.toGlobal(new Point(-maskOffset.x, -maskOffset.y));
+
           assert.ok(Math.abs(actual.x - expected.x) < 1e-6, `${weapon}: mask x stays in hand space`);
           assert.ok(Math.abs(actual.y - expected.y) < 1e-6, `${weapon}: mask y stays in hand space`);
         }

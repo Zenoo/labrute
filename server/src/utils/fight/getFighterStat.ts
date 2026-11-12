@@ -1,6 +1,6 @@
 import {
   BASE_FIGHTER_STATS, FighterStat,
-  FightStat, getSkillScaledStat, getWeaponScaledStat, WeaponType
+  FightStat, getSkillScaledStat, getWeaponScaledStat, WeaponType,
 } from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 import { DetailedFighter } from './generateFight.js';
@@ -13,7 +13,9 @@ export const getFighterStat = (
 ) => {
   // Special case for dexterity as it only exists on weapons
   if (stat === 'dexterity') {
-    if (onlyStat === 'fighter') return 0;
+    if (onlyStat === 'fighter') {
+      return 0;
+    }
 
     if (fighter.activeWeapon) {
       const weaponStat = getWeaponScaledStat(chaos, fighter.activeWeapon, stat);
@@ -46,11 +48,15 @@ export const getFighterStat = (
       total += getWeaponScaledStat(chaos, fighter.activeWeapon, stat, 2);
     } else if (stat !== FightStat.CRITICAL_DAMAGE && stat !== FightStat.CRITICAL_CHANCE) {
       // Ignore crit stats are they are already handled in getFighters
-      total += fighter.type === 'brute'
-        ? BASE_FIGHTER_STATS[stat]
-        : fighter.type === 'boss'
-          ? fighter[stat]
-          : 0;
+      let baseStat = 0;
+
+      if (fighter.type === 'brute') {
+        baseStat = BASE_FIGHTER_STATS[stat];
+      } else if (fighter.type === 'boss') {
+        baseStat = fighter[stat];
+      }
+
+      total += baseStat;
     }
   }
 

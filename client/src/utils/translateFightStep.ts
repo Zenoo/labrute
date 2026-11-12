@@ -1,16 +1,17 @@
 import type { TFunction } from 'react-i18next';
 import type { FightStep, Fighter } from '@labrute/core';
 import {
-  SkillById, StepType, WeaponById
+  SkillById, StepType, WeaponById,
 } from '@labrute/core';
 import type { BossName, PetName } from '@labrute/prisma';
 
 const getFighterName = (
   fighters: Fighter[],
   fighterId: number,
-  t: TFunction
+  t: TFunction,
 ) => {
   const fighter = fighters.find((f) => f.index === fighterId);
+
   if (!fighter) {
     return '';
   }
@@ -25,7 +26,7 @@ const getFighterName = (
 export const translateFightStep = (
   fighters: Fighter[],
   step: FightStep,
-  t: TFunction
+  t: TFunction,
 ) => {
   switch (step.a) {
     case StepType.Saboteur:
@@ -42,7 +43,7 @@ export const translateFightStep = (
       });
     case StepType.Trash:
       return t('fight.step.trash', {
-        brute: getFighterName(fighters, step.b, t)
+        brute: getFighterName(fighters, step.b, t),
       });
     case StepType.Steal:
       return t('fight.step.steal', {
@@ -68,12 +69,14 @@ export const translateFightStep = (
       return t('fight.step.survive', {
         brute: getFighterName(fighters, step.b, t),
       });
+
     case StepType.Hit: {
       const data = {
         fighter: getFighterName(fighters, step.f, t),
         damage: step.d,
         target: getFighterName(fighters, step.t, t),
       };
+
       let text = '';
 
       if (typeof step.w !== 'undefined') {
@@ -94,6 +97,7 @@ export const translateFightStep = (
 
       return text;
     }
+
     case StepType.Hammer:
       return t('fight.step.hammer', {
         brute: getFighterName(fighters, step.f, t),
@@ -114,6 +118,7 @@ export const translateFightStep = (
           weapon: t(WeaponById[step.w]),
         });
       }
+
       return '';
     case StepType.Poison:
       return t('fight.step.poison', {
@@ -145,6 +150,7 @@ export const translateFightStep = (
         brute: getFighterName(fighters, step.b, t),
         name: t(WeaponById[step.w]),
       });
+
     case StepType.AttemptHit: {
       let text = t('fight.step.attemptHit', {
         fighter: getFighterName(fighters, step.f, t),
@@ -162,6 +168,7 @@ export const translateFightStep = (
 
       return text;
     }
+
     case StepType.Block:
       return t('fight.step.block', {
         fighter: getFighterName(fighters, step.f, t),

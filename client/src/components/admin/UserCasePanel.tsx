@@ -26,12 +26,19 @@ export const UserCasePanel = ({ userId }: { userId: string }) => {
     setFailed(false);
 
     Server.User.multipleAccounts('all', cursor, userId).then((result) => {
-      if (active) setData(result);
+      if (active) {
+        setData(result);
+      }
     }).catch((error) => {
-      if (active) { setFailed(true); catchError(Alert)(error); }
+      if (active) {
+        setFailed(true);
+        catchError(Alert)(error);
+      }
     });
 
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [Server.User, Alert, cursor, userId, refresh]);
 
   return (
@@ -70,7 +77,10 @@ export const UserCasePanel = ({ userId }: { userId: string }) => {
             onClick={() => setPages((values) => values.slice(0, -1))}>Previous cases</Button>
           <Button disabled={!data?.nextCursor} onClick={() => {
             const next = data?.nextCursor;
-            if (next) setPages((values) => [...values, next]);
+
+            if (next) {
+              setPages((values) => [...values, next]);
+            }
           }}>Next cases</Button>
         </Stack>
       </Stack>

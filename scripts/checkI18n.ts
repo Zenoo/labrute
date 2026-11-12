@@ -2,6 +2,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import ts from 'typescript';
 
 type Usage = {
   filePath: string;
@@ -44,9 +45,11 @@ const TARGET_LANGUAGE = 'en';
 
 const CODE_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx']);
 const DEFAULT_CLIENT_NS = 'common';
+
 const KNOWN_CLIENT_USAGE_PATTERNS = [
   'common.event.started',
 ];
+
 const CONTEXT_SUFFIXES = new Set([
   'zero', 'one', 'two', 'few', 'many', 'other',
   'male', 'female', 'plural',
@@ -103,6 +106,7 @@ const escapeRegex = (value: string): string => value.replace(/[.*+?^${}()|[\]\\]
 
 const keyPatternToRegex = (pattern: string): RegExp => {
   const escaped = escapeRegex(pattern).replace(/\\\*/g, '[^.]+');
+
   return new RegExp(`^${escaped}$`);
 };
 
@@ -114,7 +118,9 @@ const normalizeTemplate = (raw: string): string => (
 );
 
 const parseLiteral = (literalWithQuotes: string | undefined): string | null => {
-  if (!literalWithQuotes || literalWithQuotes.length < 2) return null;
+  if (!literalWithQuotes || literalWithQuotes.length < 2) {
+    return null;
+  }
 
   const quote = literalWithQuotes[0];
   const body = literalWithQuotes.slice(1, -1);
@@ -152,7 +158,9 @@ const extractVariableCallKeys = (
 ): string[] => {
   const names = [...functionNames].map(escapeRegex).join('|');
 
-  if (!names || variables.size === 0) return [];
+  if (!names || variables.size === 0) {
+    return [];
+  }
 
   const pattern = new RegExp(
     `\\b(?:${names})\\s*\\(\\s*([A-Za-z_$][\\w$]*)\\b`,
@@ -164,9 +172,13 @@ const extractVariableCallKeys = (
 
   while ((match = pattern.exec(content)) !== null) {
     const varName = match[1];
-    if (!varName) continue;
+
+    if (!varName) {
+      continue;
+    }
 
     const key = variables.get(varName);
+
     if (key) {
       out.push(key);
     }
@@ -178,12 +190,14 @@ const extractVariableCallKeys = (
 const extractCallLiterals = (content: string, functionNames: Set<string>): string[] => {
   const names = [...functionNames].map(escapeRegex).join('|');
 
-  if (!names) return [];
+  if (!names) {
+    return [];
+  }
 
   const pattern = new RegExp(
     `\\b(?:${names})\\s*\\(\\s*(`
     + '`(?:\\\\`|[^`])*`'
-    + `|"(?:\\\\"|[^"])*"|'(?:\\\\'|[^'])*')`,
+    + '|"(?:\\\\"|[^"])*"|\'(?:\\\\\'|[^\'])*\')',
     'g',
   );
 
@@ -192,7 +206,10 @@ const extractCallLiterals = (content: string, functionNames: Set<string>): strin
 
   while ((match = pattern.exec(content)) !== null) {
     const parsed = parseLiteral(match[1]);
-    if (parsed) out.push(parsed);
+
+    if (parsed) {
+      out.push(parsed);
+    }
   }
 
   return out;
@@ -201,7 +218,9 @@ const extractCallLiterals = (content: string, functionNames: Set<string>): strin
 const extractNonLiteralCallMarkers = (content: string, functionNames: Set<string>): string[] => {
   const names = [...functionNames].map(escapeRegex).join('|');
 
-  if (!names) return [];
+  if (!names) {
+    return [];
+  }
 
   // Capture first-argument identifiers/member access (e.g. t(skill.name), t(key), t(WeaponById[id])).
   // Literal calls are handled by extractCallLiterals; this parser is for dynamic-only markers.
@@ -215,6 +234,7 @@ const extractNonLiteralCallMarkers = (content: string, functionNames: Set<string
 
   while ((match = pattern.exec(content)) !== null) {
     const marker = match[1];
+
     if (marker) {
       out.push(marker);
     }
@@ -228,12 +248,16 @@ const extractI18nKeyAttrs = (content: string): string[] => {
     'i18nKey\\s*=\\s*(?:\\{\\s*)?(`(?:\\\\`|[^`])*`|"(?:\\\\"|[^"])*"|\'(?:\\\\\'|[^\'])*\')(?:\\s*\\})?',
     'g',
   );
+
   const out: string[] = [];
   let match: RegExpExecArray | null = null;
 
   while ((match = pattern.exec(content)) !== null) {
     const parsed = parseLiteral(match[1]);
-    if (parsed) out.push(parsed);
+
+    if (parsed) {
+      out.push(parsed);
+    }
   }
 
   return out;
@@ -241,32 +265,52 @@ const extractI18nKeyAttrs = (content: string): string[] => {
 
 const extractClientNamespaces = (content: string): Map<string, string> => {
   const map = new Map<string, string>();
-  const pattern = /\{([^}]*\bt\b[^}]*)\}\s*=\s*useTranslation\(\s*([`"'])([^`"']+)\2\s*\)/g;
-  let match: RegExpExecArray | null = null;
 
-  while ((match = pattern.exec(content)) !== null) {
-    const destructured = match[1] ?? '';
-    const ns = match[3];
+  const source = ts.createSourceFile(
+    'source.tsx', content, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX,
+  );
 
-    if (!ns) {
-      continue;
+  // Parse hook bindings structurally: namespace arrays, aliases, options, and multiline calls
+  // cannot be reliably separated by the old single-string regular expression.
+  const visit = (node: ts.Node): void => {
+    if (ts.isVariableDeclaration(node) && node.initializer
+      && ts.isCallExpression(node.initializer)
+      && ts.isIdentifier(node.initializer.expression)
+      && node.initializer.expression.text === 'useTranslation') {
+      const argument = node.initializer.arguments[0];
+
+      const firstNamespace = argument && ts.isArrayLiteralExpression(argument)
+        ? argument.elements[0] : argument;
+
+      // React-i18next binds unqualified calls to the first namespace, with common as fallback.
+      const namespace = firstNamespace && ts.isStringLiteralLike(firstNamespace)
+        ? firstNamespace.text : DEFAULT_CLIENT_NS;
+
+      if (ts.isObjectBindingPattern(node.name)) {
+        for (const element of node.name.elements) {
+          if (!ts.isIdentifier(element.name)) {
+            continue;
+          }
+
+          const property = element.propertyName ?? element.name;
+
+          if (ts.isIdentifier(property) && property.text === 't') {
+            map.set(element.name.text, namespace);
+          }
+        }
+      } else if (ts.isArrayBindingPattern(node.name)) {
+        const first = node.name.elements[0];
+
+        if (first && ts.isBindingElement(first) && ts.isIdentifier(first.name)) {
+          map.set(first.name.text, namespace);
+        }
+      }
     }
 
-    const aliasPattern = /\bt\s*:\s*([A-Za-z_$][\w$]*)/g;
-    let aliasMatch: RegExpExecArray | null = null;
-    let sawAlias = false;
+    ts.forEachChild(node, visit);
+  };
 
-    while ((aliasMatch = aliasPattern.exec(destructured)) !== null) {
-      const alias = aliasMatch[1];
-      if (!alias) continue;
-      map.set(alias, ns);
-      sawAlias = true;
-    }
-
-    if (!sawAlias && /\bt\b/.test(destructured)) {
-      map.set('t', ns);
-    }
-  }
+  visit(source);
 
   if (!map.has('t')) {
     map.set('t', DEFAULT_CLIENT_NS);
@@ -278,6 +322,7 @@ const extractClientNamespaces = (content: string): Map<string, string> => {
 const toClientQualifiedKey = (rawKey: string, namespace: string): string => {
   if (rawKey.includes(':')) {
     const [ns, ...rest] = rawKey.split(':');
+
     return `${ns}.${rest.join(':')}`;
   }
 
@@ -302,7 +347,11 @@ const collectClientLocaleFiles = (): LocaleFile[] => {
       const namespace = path.basename(filePath, '.json');
       const flat = flattenObject(readJson(filePath));
       const namespaced = flat.map((k) => `${namespace}.${k}`);
-      locales.push({ filePath, keys: new Set(namespaced) });
+
+      locales.push({
+        filePath,
+        keys: new Set(namespaced),
+      });
     }
   }
 
@@ -313,13 +362,18 @@ const collectServerLocaleFiles = (): LocaleFile[] => {
   const locales: LocaleFile[] = [];
 
   const files = [path.join(SERVER_LOCALES, `${TARGET_LANGUAGE}.json`)];
+
   for (const filePath of files) {
     if (!fs.existsSync(filePath)) {
       continue;
     }
 
     const flat = flattenObject(readJson(filePath));
-    locales.push({ filePath, keys: new Set(flat) });
+
+    locales.push({
+      filePath,
+      keys: new Set(flat),
+    });
   }
 
   return locales;
@@ -331,7 +385,11 @@ const dedupeUsages = (usages: Usage[]): Usage[] => {
 
   for (const usage of usages) {
     const id = `${usage.filePath}::${usage.key}`;
-    if (seen.has(id)) continue;
+
+    if (seen.has(id)) {
+      continue;
+    }
+
     seen.add(id);
     out.push(usage);
   }
@@ -343,6 +401,7 @@ const collectClientUsages = (): Usage[] => {
   const usages: Usage[] = [];
 
   const files = walkFiles(CLIENT_SRC, (f) => CODE_EXTENSIONS.has(path.extname(f)));
+
   for (const filePath of files) {
     const raw = fs.readFileSync(filePath, 'utf8');
     const content = stripComments(raw);
@@ -354,26 +413,46 @@ const collectClientUsages = (): Usage[] => {
       const literals = extractCallLiterals(content, new Set([fnName]));
       const nonLiteralMarkers = extractNonLiteralCallMarkers(content, new Set([fnName]));
       const variableKeys = extractVariableCallKeys(content, new Set([fnName]), templateVariables);
+
       for (const key of [...literals, ...variableKeys]) {
         const qualified = toClientQualifiedKey(key, ns);
-        usages.push({ filePath, key: qualified, isDynamic: qualified.includes('*') });
+
+        usages.push({
+          filePath,
+          key: qualified,
+          isDynamic: qualified.includes('*'),
+        });
       }
 
       // If we have non-literal keys for this namespace, consider namespace keys potentially used.
       if (nonLiteralMarkers.length > 0) {
-        usages.push({ filePath, key: `${ns}.*`, isDynamic: true });
+        usages.push({
+          filePath,
+          key: `${ns}.*`,
+          isDynamic: true,
+        });
 
         if (ns !== DEFAULT_CLIENT_NS) {
-          usages.push({ filePath, key: `${DEFAULT_CLIENT_NS}.*`, isDynamic: true });
+          usages.push({
+            filePath,
+            key: `${DEFAULT_CLIENT_NS}.*`,
+            isDynamic: true,
+          });
         }
       }
     }
 
     const i18nKeys = extractI18nKeyAttrs(content);
+
     for (const key of i18nKeys) {
       if (key.includes(':')) {
         const qualified = toClientQualifiedKey(key, DEFAULT_CLIENT_NS);
-        usages.push({ filePath, key: qualified, isDynamic: qualified.includes('*') });
+
+        usages.push({
+          filePath,
+          key: qualified,
+          isDynamic: qualified.includes('*'),
+        });
         continue;
       }
 
@@ -382,9 +461,15 @@ const collectClientUsages = (): Usage[] => {
       const candidateNamespaces = fileNamespaces.size > 0
         ? fileNamespaces
         : new Set<string>([DEFAULT_CLIENT_NS]);
+
       for (const ns of candidateNamespaces) {
         const qualified = toClientQualifiedKey(key, ns);
-        usages.push({ filePath, key: qualified, isDynamic: qualified.includes('*') });
+
+        usages.push({
+          filePath,
+          key: qualified,
+          isDynamic: qualified.includes('*'),
+        });
       }
     }
   }
@@ -410,13 +495,23 @@ const collectServerUsages = (): Usage[] => {
 
     // Server commonly uses translate(...); support direct t/tc/_ usages as well.
     const literals = extractCallLiterals(content, new Set(['translate', 't', 'tc', '_']));
+
     for (const key of literals) {
-      usages.push({ filePath, key, isDynamic: key.includes('*') });
+      usages.push({
+        filePath,
+        key,
+        isDynamic: key.includes('*'),
+      });
     }
 
     const i18nKeys = extractI18nKeyAttrs(content);
+
     for (const key of i18nKeys) {
-      usages.push({ filePath, key, isDynamic: key.includes('*') });
+      usages.push({
+        filePath,
+        key,
+        isDynamic: key.includes('*'),
+      });
     }
   }
 
@@ -427,11 +522,13 @@ const matches = (pattern: string, key: string): boolean => keyPatternToRegex(pat
 
 const stripContextSuffix = (key: string): string => {
   const lastUnderscore = key.lastIndexOf('_');
+
   if (lastUnderscore === -1) {
     return key;
   }
 
   const suffix = key.slice(lastUnderscore + 1);
+
   if (!CONTEXT_SUFFIXES.has(suffix)) {
     return key;
   }
@@ -445,6 +542,7 @@ const usageMatchesLocaleKey = (usagePattern: string, localeKey: string): boolean
   }
 
   const strippedLocaleKey = stripContextSuffix(localeKey);
+
   if (strippedLocaleKey !== localeKey && matches(usagePattern, strippedLocaleKey)) {
     return true;
   }
@@ -463,9 +561,11 @@ const isUsedByAny = (
 
   if (useCommonFallback && !usage.key.startsWith('common.')) {
     const firstDotIndex = usage.key.indexOf('.');
+
     if (firstDotIndex > 0) {
       const keyWithoutNamespace = usage.key.slice(firstDotIndex + 1);
       const commonFallbackKey = `common.${keyWithoutNamespace}`;
+
       return usageMatchesLocaleKey(commonFallbackKey, key);
     }
   }
@@ -486,6 +586,7 @@ const hasAnyMatchingKey = (
 
   if (useCommonFallback && !usage.key.startsWith('common.')) {
     const firstDotIndex = usage.key.indexOf('.');
+
     if (firstDotIndex > 0) {
       const keyWithoutNamespace = usage.key.slice(firstDotIndex + 1);
       const commonFallbackKey = `common.${keyWithoutNamespace}`;
@@ -503,6 +604,7 @@ const hasAnyMatchingKey = (
 
 const buildReport = (name: 'client' | 'server', localeFiles: LocaleFile[], usages: Usage[]): Report => {
   const allLocaleKeys = new Set<string>();
+
   for (const locale of localeFiles) {
     for (const key of locale.keys) {
       allLocaleKeys.add(key);
@@ -512,6 +614,7 @@ const buildReport = (name: 'client' | 'server', localeFiles: LocaleFile[], usage
   const missingUsages = usages.filter(
     (usage) => !hasAnyMatchingKey(usage, allLocaleKeys, name === 'client'),
   );
+
   const missingBySourceMap = new Map<string, { static: Set<string>; dynamic: Set<string> }>();
 
   for (const usage of missingUsages) {
@@ -570,8 +673,12 @@ const printSection = (title: string): void => {
 };
 
 const printList = (label: string, values: string[]): void => {
-  if (!values.length) return;
+  if (!values.length) {
+    return;
+  }
+
   process.stdout.write(`${label} (${values.length})\n`);
+
   for (const value of values) {
     process.stdout.write(`  - ${value}\n`);
   }
@@ -582,7 +689,10 @@ const printReport = (report: Report): void => {
 
   for (const source of report.missingBySource) {
     const hasMissing = source.missingStatic.length || source.missingDynamic.length;
-    if (!hasMissing) continue;
+
+    if (!hasMissing) {
+      continue;
+    }
 
     process.stdout.write(`\nSource: ${path.relative(ROOT, source.filePath)}\n`);
     printList('Missing static', source.missingStatic);
@@ -591,7 +701,10 @@ const printReport = (report: Report): void => {
 
   for (const locale of report.byLocale) {
     const hasIssues = locale.unused.length;
-    if (!hasIssues) continue;
+
+    if (!hasIssues) {
+      continue;
+    }
 
     process.stdout.write(`\nLocale: ${path.relative(ROOT, locale.filePath)}\n`);
     printList('Unused', locale.unused);

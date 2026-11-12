@@ -10,7 +10,10 @@ const EVENT = 'Log';
  */
 export const PARENT_PORT: LogHandler = {
   emit(record: Readonly<LogRecord>): void {
-    parentPort?.postMessage({ event: EVENT, record });
+    parentPort?.postMessage({
+      event: EVENT,
+      record,
+    });
   },
   flush(): Promise<void> {
     // Nothing to do
@@ -32,17 +35,23 @@ export function forwardWorkerLog(target: LogHandler): (message: unknown) => bool
     if (typeof message !== 'object' || message === null) {
       return false;
     }
+
     const event: unknown = Reflect.get(message, 'event');
+
     if (event !== 'Log') {
       return false;
     }
+
     const record: unknown = Reflect.get(message, 'record');
+
     if (typeof record !== 'object' || record === null) {
       return false;
     }
+
     // We could do a deeper type validation, but at this point was assume that
     // it's a valid log record.
     target.emit(record as LogRecord);
+
     return true;
   };
 }

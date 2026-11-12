@@ -1,11 +1,11 @@
 import { BruteColor, BruteForRender } from '@labrute/core';
 import {
-  Box, BoxProps, useTheme
+  Box, BoxProps, useTheme,
 } from '@mui/material';
 import React, { forwardRef, useEffect } from 'react';
 import { useRenderer } from '../../../hooks/useRenderer';
 import {
-  PORTRAIT_HEIGHT, PORTRAIT_WIDTH, PortraitFrame, portraitLayout
+  PORTRAIT_HEIGHT, PORTRAIT_WIDTH, PortraitFrame, portraitLayout,
 } from '../../../utils/portraitLayout';
 
 interface BruteRenderProps extends BoxProps {
@@ -38,10 +38,15 @@ export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
   }>();
 
   useEffect(() => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     renderer.onRender(brute.id, (src, frame) => {
-      setPortrait({ src, frame });
+      setPortrait({
+        src,
+        frame,
+      });
     }, { skipCache });
 
     renderer.render({
@@ -54,7 +59,9 @@ export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
     });
   }, [brute, renderer, skipCache, highlightColorName]);
 
-  if (!brute || !portrait) return null;
+  if (!brute || !portrait) {
+    return null;
+  }
 
   return (
     <Box
@@ -77,7 +84,10 @@ export const BruteRender = forwardRef<HTMLDivElement, BruteRenderProps>(({
         sx={{
           position: 'absolute',
           ...portraitLayout(portrait.frame ?? {
-            x: 0, y: 0, width: PORTRAIT_WIDTH, height: PORTRAIT_HEIGHT,
+            x: 0,
+            y: 0,
+            width: PORTRAIT_WIDTH,
+            height: PORTRAIT_HEIGHT,
           }, looking),
           transform: looking === 'right' ? 'scaleX(-1)' : undefined,
           maxWidth: 'none',

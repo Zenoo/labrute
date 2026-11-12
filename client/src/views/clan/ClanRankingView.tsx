@@ -1,7 +1,7 @@
 import { ClanListResponse, ClanSort } from '@labrute/core';
 import {
   Box, Grid, Paper, Table, TableBody, TableCell,
-  TableHead, TableRow, Tooltip, useMediaQuery, useTheme
+  TableHead, TableRow, Tooltip, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -51,10 +51,12 @@ export const ClanRankingView = () => {
 
     if (search) {
       const debounceTimeout = setTimeout(fetchClans, 1000);
+
       return () => clearTimeout(debounceTimeout);
     }
 
     fetchClans();
+
     return () => { };
   }, [Alert, Server.Clan, page, search, sort]);
 
@@ -70,7 +72,10 @@ export const ClanRankingView = () => {
   };
 
   const changeSort = (newSort: ClanSort) => () => {
-    if (sort === newSort) return;
+    if (sort === newSort) {
+      return;
+    }
+
     setClans(null);
     setSort(newSort);
   };
@@ -82,7 +87,10 @@ export const ClanRankingView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('clansRanking')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {brute && (
           <>
             <Box sx={{
@@ -112,7 +120,12 @@ export const ClanRankingView = () => {
             <Grid container spacing={1} sx={{ mt: 2 }}>
               <Grid item xs={12} md={3} />
               <Grid item xs={12} md={6} zIndex={1}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 1 }}>
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  my: 1,
+                }}>
                   <Text bold color="text.primary" smallCaps>{t('searchByName')}</Text>
                   <StyledInput
                     onChange={changeSearch}
@@ -145,16 +158,30 @@ export const ClanRankingView = () => {
                       <TableCell>{t('clan')}</TableCell>
                       <TableCell>{t('master')}</TableCell>
                       <TableCell>{t('members')}</TableCell>
-                      <TableCell onClick={changeSort(ClanSort.elo)} sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                      <TableCell onClick={changeSort(ClanSort.elo)} sx={{
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                      }}>
                         {t('elo')}
                         {sort === ClanSort.elo && (
-                          <Box component="img" src="/images/clan/sort.webp" sx={{ width: 9, verticalAlign: 'middle', ml: 0.5 }} />
+                          <Box component="img" src="/images/clan/sort.webp" sx={{
+                            width: 9,
+                            verticalAlign: 'middle',
+                            ml: 0.5,
+                          }} />
                         )}
                       </TableCell>
-                      <TableCell align="right" onClick={changeSort(ClanSort.points)} sx={{ cursor: 'pointer', whiteSpace: 'nowrap' }}>
+                      <TableCell align="right" onClick={changeSort(ClanSort.points)} sx={{
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                      }}>
                         {t('points')}
                         {sort === ClanSort.points && (
-                          <Box component="img" src="/images/clan/sort.webp" sx={{ width: 9, verticalAlign: 'middle', ml: 0.5 }} />
+                          <Box component="img" src="/images/clan/sort.webp" sx={{
+                            width: 9,
+                            verticalAlign: 'middle',
+                            ml: 0.5,
+                          }} />
                         )}
                       </TableCell>
                     </TableRow>
@@ -168,7 +195,11 @@ export const ClanRankingView = () => {
                         <TableCell>
                           {clan.participateInClanWar && (
                             <Tooltip title={t('clanWarsEnabled')}>
-                              <Box component="img" src="/images/clan/war.webp" sx={{ width: 12, verticalAlign: 'text-bottom', mr: 0.5 }} />
+                              <Box component="img" src="/images/clan/war.webp" sx={{
+                                width: 12,
+                                verticalAlign: 'text-bottom',
+                                mr: 0.5,
+                              }} />
                             </Tooltip>
                           )}
                           <Link to={`/${bruteName || ''}/clan/${clan.id}`} title={clan.name}>
@@ -190,7 +221,11 @@ export const ClanRankingView = () => {
                     )}
                   </TableBody>
                 </Table>
-                <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 1 }}>
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  mt: 1,
+                }}>
                   {page > 1 && (
                     <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous')}</FantasyButton>
                   )}
@@ -200,7 +235,10 @@ export const ClanRankingView = () => {
                 </Box>
               </Grid>
               {!isMd && (
-                <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center' }}>
+                <Grid item xs={12} md={3} sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}>
                   <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
                 </Grid>
               )}

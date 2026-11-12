@@ -1,12 +1,12 @@
 import {
-  DestinyBranch, pets, skills, weapons
+  DestinyBranch, pets, skills, weapons,
 } from '@labrute/core';
 import {
-  BruteStat, PetName, SkillName, WeaponName
+  BruteStat, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import { QuestionMark } from '@mui/icons-material';
 import {
-  Box, Paper, SxProps, useTheme
+  Box, Paper, SxProps, useTheme,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -101,7 +101,13 @@ export const DestinyView = () => {
   const { data: tree } = useStateAsync(null, Server.Brute.getDestiny, bruteName || '');
 
   const getStartingBrutePerks = () => {
-    if (!brute) return { skills: {}, weapons: {}, pets: {} };
+    if (!brute) {
+      return {
+        skills: {},
+        weapons: {},
+        pets: {},
+      };
+    }
 
     const skillPerks: Partial<Record<SkillName, number>> = {};
     const weaponPerks: Partial<Record<WeaponName, number>> = {};
@@ -110,18 +116,26 @@ export const DestinyView = () => {
     for (const s of brute.ascendedSkills) {
       skillPerks[s] = (skillPerks[s] ?? 0) + 1;
     }
+
     for (const w of brute.ascendedWeapons) {
       weaponPerks[w] = (weaponPerks[w] ?? 0) + 1;
     }
+
     for (const p of brute.ascendedPets) {
       petPerks[p] = (petPerks[p] ?? 0) + 1;
     }
 
-    return { skills: skillPerks, weapons: weaponPerks, pets: petPerks };
+    return {
+      skills: skillPerks,
+      weapons: weaponPerks,
+      pets: petPerks,
+    };
   };
 
   const renderBranch = (branch: DestinyBranch | null, _currentBrute: Pick<NonNullable<typeof brute>, 'skills' | 'weapons' | 'pets'>) => {
-    if (!brute) return null;
+    if (!brute) {
+      return null;
+    }
 
     // Create a new brute object with updated perks for the current branch, to prevent mutating the original brute's perks when rendering different branches
     const currentBrute = structuredClone(_currentBrute);
@@ -132,6 +146,7 @@ export const DestinyView = () => {
     if (branch?.type === 'skill' && branch.skill) {
       tier = currentBrute.skills[branch.skill] ?? 0;
       perkUpgrade = tier > 0;
+
       if (!currentBrute.skills[branch.skill]) {
         currentBrute.skills[branch.skill] = 1;
       } else {
@@ -140,6 +155,7 @@ export const DestinyView = () => {
     } else if (branch?.type === 'weapon' && branch.weapon) {
       tier = currentBrute.weapons[branch.weapon] ?? 0;
       perkUpgrade = tier > 0;
+
       if (!currentBrute.weapons[branch.weapon]) {
         currentBrute.weapons[branch.weapon] = 1;
       } else {
@@ -148,12 +164,61 @@ export const DestinyView = () => {
     } else if (branch?.type === 'pet' && branch.pet) {
       tier = currentBrute.pets[branch.pet] ?? 0;
       perkUpgrade = tier > 0;
+
       if (!currentBrute.pets[branch.pet]) {
         currentBrute.pets[branch.pet] = 1;
       } else {
         currentBrute.pets[branch.pet] = tier + 1;
       }
     }
+
+    const renderDestinyBonus = () => {
+      if (!branch) {
+        return null;
+      }
+
+      if (branch.type === 'skill') {
+        return (
+          <SkillTooltip
+            skill={branch.skill && skills[branch.skill]}
+            tier={tier + 1}
+          >
+            <Text h6 bold smallCaps>{t(branch.skill as SkillName)}</Text>
+          </SkillTooltip>
+        );
+      }
+
+      if (branch.type === 'weapon') {
+        return (
+          <WeaponTooltip weapon={branch.weapon && weapons[branch.weapon]} tier={tier + 1}>
+            <Text h6 bold smallCaps>{t(branch.weapon as WeaponName)}</Text>
+          </WeaponTooltip>
+        );
+      }
+
+      if (branch.type === 'pet') {
+        return (
+          <PetTooltip
+            pet={branch.pet && pets[branch.pet]}
+            tier={tier + 1}
+          >
+            <Text h6 bold smallCaps>{t(branch.pet as PetName)}</Text>
+          </PetTooltip>
+        );
+      }
+
+      if (!branch.stat2) {
+        return <Text h6 bold smallCaps>{t(branch.stat1 as BruteStat)}</Text>;
+      }
+
+      return (
+        <Text h6 bold smallCaps>
+          {t(branch.stat1 as BruteStat)}
+          {' / '}
+          {t(branch.stat2)}
+        </Text>
+      );
+    };
 
     return (
       <Box
@@ -196,36 +261,13 @@ export const DestinyView = () => {
 
                 {/* CHOICE CONTENT */}
                 {/* Single value */}
-                {(branch.type === 'skill' ? (
-                  <SkillTooltip
-                    skill={branch.skill && skills[branch.skill]}
-                    tier={tier + 1}
-                  >
-                    <Text h6 bold smallCaps>{t(branch.skill as SkillName)}</Text>
-                  </SkillTooltip>
-                ) : branch.type === 'weapon' ? (
-                  <WeaponTooltip weapon={branch.weapon && weapons[branch.weapon]} tier={tier + 1}>
-                    <Text h6 bold smallCaps>{t(branch.weapon as WeaponName)}</Text>
-                  </WeaponTooltip>
-                ) : branch.type === 'pet' ? (
-                  <PetTooltip
-                    pet={branch.pet && pets[branch.pet]}
-                    tier={tier + 1}
-                  >
-                    <Text h6 bold smallCaps>{t(branch.pet as PetName)}</Text>
-                  </PetTooltip>
-                ) : !branch.stat2 ? (
-                  <Text h6 bold smallCaps>{t(branch.stat1 as BruteStat)}</Text>
-                ) : (
-                  <Text h6 bold smallCaps>
-                    {t(branch.stat1 as BruteStat)}
-                    {' / '}
-                    {t(branch.stat2)}
-                  </Text>
-                ))}
+                {(renderDestinyBonus())}
               </>
             ) : (
-              <QuestionMark sx={{ pt: 2, fontSize: '50px' }} />
+              <QuestionMark sx={{
+                pt: 2,
+                fontSize: '50px',
+              }} />
             )}
           </BoxBg>
         </Box>
@@ -250,7 +292,7 @@ export const DestinyView = () => {
         '& .react-transform-wrapper': {
           maxWidth: 1,
           maxHeight: 600,
-        }
+        },
       }}
       >
         {tree && (

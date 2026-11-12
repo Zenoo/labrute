@@ -1,7 +1,8 @@
 export const weightedRandom = <T extends { odds: number }, >(
-  items: T[]
+  items: T[],
 ) => {
   const firstItem = items[0];
+
   if (!firstItem) {
     throw new Error('No items');
   }
@@ -11,6 +12,7 @@ export const weightedRandom = <T extends { odds: number }, >(
 
   let i = 0;
   const weights: number[] = [];
+
   for (i = 0; i < items.length; i++) {
     weights[i] = ((items[i]?.odds || 0) / totalOdds) + (weights[i - 1] || 0);
   }

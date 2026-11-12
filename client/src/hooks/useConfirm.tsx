@@ -1,8 +1,8 @@
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@mui/material';
 import React, {
-  useCallback, useContext, useMemo, useState
+  useCallback, useContext, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledInput } from '../components/StyledInput';
@@ -23,11 +23,12 @@ const ConfirmContext = React.createContext<ConfirmContextInterface>({
   },
   close: () => {
     console.error('ConfirmContext.close() not implemented');
-  }
+  },
 });
 
 export const useConfirm = () => {
   const context = useContext(ConfirmContext);
+
   return context;
 };
 
@@ -47,24 +48,34 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
   const { t } = useTranslation();
 
   const [open, setOpen] = useState(false);
+
   const [params, setParams] = useState<ConfirmParams>({
     title: '',
-    content: ''
+    content: '',
   });
+
   const [input, setInput] = useState('');
 
   // Accept action
   const accept = useCallback(() => {
-    if (params.inputName && !input) return;
+    if (params.inputName && !input) {
+      return;
+    }
 
     setOpen(false);
-    if (params.onAccept) params.onAccept(input);
+
+    if (params.onAccept) {
+      params.onAccept(input);
+    }
   }, [params, input]);
 
   // Cancel action
   const cancel = useCallback(() => {
     setOpen(false);
-    if (params.onCancel) params.onCancel();
+
+    if (params.onCancel) {
+      params.onCancel();
+    }
   }, [params]);
 
   // Open dialog
@@ -93,7 +104,7 @@ export const ConfirmProvider = ({ children }: ConfirmProviderProps) => {
 
   const methods = useMemo(() => ({
     open: handleOpen,
-    close: handleClose
+    close: handleClose,
   }), [handleClose, handleOpen]);
 
   return (

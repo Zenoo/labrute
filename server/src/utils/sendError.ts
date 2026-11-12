@@ -30,6 +30,7 @@ export const sendError = (res: Response, error: unknown) => {
   if (!(error instanceof Error)) {
     throw error;
   }
+
   const expectedStatus = expectedStatuses.find(([ErrorType]) => error instanceof ErrorType)?.[1];
 
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -109,6 +110,7 @@ export const sendError = (res: Response, error: unknown) => {
       case 'P2025':
         res.status(ErrorCodeStatus.NotFound).send(error.message);
         break;
+
       default: {
         res.send(`Wrong data format: ${error.code}`);
         break;

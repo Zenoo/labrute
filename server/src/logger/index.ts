@@ -40,14 +40,18 @@ const LEVEL_WIDTH = 5;
 // Format a log record into a string
 export function formatLogRecord(record: Readonly<LogRecord>, shortTime: boolean): string {
   let time: string;
+
   if (shortTime) {
     const hours = record.time.getUTCHours().toString();
     const minutes = record.time.getUTCMinutes().toString();
+
     time = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
   } else {
     time = record.time.toISOString();
   }
+
   const level = (LogLevel[record.level] ?? '').padEnd(LEVEL_WIDTH, ' ');
+
   return `${time} ${level} ${record.message}`;
 }
 

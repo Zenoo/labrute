@@ -1,5 +1,5 @@
 import type {
-  NextFunction, Request, Response
+  NextFunction, Request, Response,
 } from 'express';
 import { ServerState } from '../ServerState.js';
 
@@ -8,6 +8,7 @@ export const readyCheck = (req: Request, res: Response, next: NextFunction) => {
 
   if (req.path !== '/api/is-ready' && !isReady) {
     res.status(999).send('Server is not ready');
+
     return;
   }
 

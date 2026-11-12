@@ -1,6 +1,6 @@
 import { adjustColor } from '@labrute/core';
 import {
-  Box, BoxProps, useTheme
+  Box, BoxProps, useTheme,
 } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router';
@@ -39,7 +39,9 @@ const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
   const colorDarker = adjustColor(COLOR, -60);
 
   const handleClick = (e: React.MouseEvent) => {
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
 
     if (onClick) {
       onClick(e);
@@ -99,7 +101,7 @@ const FantasyButton = React.forwardRef<HTMLDivElement, FantasyButtonProps>(({
             top: -6,
           },
         },
-        ...sx
+        ...sx,
       }}
       {...rest}
     >

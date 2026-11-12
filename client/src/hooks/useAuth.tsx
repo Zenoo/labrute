@@ -1,10 +1,10 @@
 import {
   CalculatedBrute, getCalculatedBrute, Modifiers,
-  refreshChaosSeeds, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version
+  refreshChaosSeeds, TOKEN_COOKIE, USER_COOKIE, UserWithBrutesBodyColor, Version,
 } from '@labrute/core';
 import { Event } from '@labrute/prisma';
 import React, {
-  useCallback, useContext, useEffect, useMemo, useState
+  useCallback, useContext, useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { deleteCookie } from '../utils/cookies';
@@ -78,15 +78,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // Store fingerprint to be used in the fetch request
   useEffect(() => {
-    if (!fingerprint.id) return;
+    if (!fingerprint.id) {
+      return;
+    }
+
     setFingerprint(fingerprint.id);
   }, [fingerprint.id]);
 
   const signin = useCallback(() => {
-    if (authing || user) return;
+    if (authing || user) {
+      return;
+    }
 
     // Prevent OAuth loop
     const url = new URL(window.location.href);
+
     if (url.pathname === '/oauth/callback') {
       return;
     }
@@ -96,15 +102,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (isError(fingerprint.error, 403)) {
         Alert.open('error', t('fingerprintError'));
       }
+
       deleteCookie(USER_COOKIE);
       deleteCookie(TOKEN_COOKIE);
+
       return;
     }
 
     setAuthing(true);
 
     Server.User.authenticate({
-      eventId: fingerprint.eventId
+      eventId: fingerprint.eventId,
     }).then((response) => {
       setModifiers(response.modifiers);
       refreshChaosSeeds(response.modifiers);
@@ -119,6 +127,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         deleteCookie(USER_COOKIE);
         deleteCookie(TOKEN_COOKIE);
         setAuthing(false);
+
         return;
       }
 
@@ -159,7 +168,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setCurrentEvent,
     signin,
     signout,
-    updateData
+    updateData,
   }), [authing, currentEvent, modifiers, signin, signout, updateData, user]);
 
   return (

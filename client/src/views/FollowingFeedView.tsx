@@ -1,9 +1,9 @@
 import {
-  LogGetForUserFeedResponse, skills, weapons
+  LogGetForUserFeedResponse, skills, weapons,
 } from '@labrute/core';
 import { LogType } from '@labrute/prisma';
 import {
-  Box, List, ListItem, ListItemIcon, ListItemText, Paper, Stack, Tooltip
+  Box, List, ListItem, ListItemIcon, ListItemText, Paper, Stack, Tooltip,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
@@ -34,13 +34,15 @@ export const FollowingFeedView = () => {
 
   // Load logs
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     Server.Log.getForUserFeed(page).then((data) => {
       // Add new logs
       setLogs((prev) => prev.concat(
         // Filter out logs already in the list (solves possible desync if log created between requests)
-        data.logs.filter((log) => !prev.find((prevLog) => prevLog.id === log.id))
+        data.logs.filter((log) => !prev.find((prevLog) => prevLog.id === log.id)),
       ));
 
       // Set followed brutes
@@ -56,7 +58,10 @@ export const FollowingFeedView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('followingFeed')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {user && (
           <Stack spacing={2}>
             <Box sx={{
@@ -85,23 +90,69 @@ export const FollowingFeedView = () => {
             </Box>
             {/* Report list */}
             <List dense>
-              {logs.map((log) => (
-                <ListItem
-                  key={log.id}
-                >
-                  <ListItemIcon>
-                    <LogImage log={log} sx={{ width: 25 }} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={(
-                      <Link to={`/${log.currentBrute?.name}/cell`}>
-                        <Text body2>
-                          {t(`log.${log.type}`, {
-                            brute: log.currentBrute?.name,
-                            value: log.type === LogType.lvl ? t(`lvl_${log.level}`) : log.level,
-                          })}
+              {logs.map((log) => {
+                const renderDestinyChoice = () => {
+                  if (log.destinyChoice?.type === 'skill') {
+                    return (
+                      <SkillTooltip
+                        skill={log.destinyChoice?.skill && skills[log.destinyChoice?.skill]}
+                      >
+                        <Text component="span" body2>
+                          {t(log.destinyChoice?.skill ?? '')}
                         </Text>
-                        {log.type === LogType.up && (
+                      </SkillTooltip>
+                    );
+                  }
+
+                  if (log.destinyChoice?.type === 'weapon') {
+                    return (
+                      <WeaponTooltip
+                        weapon={log.destinyChoice?.weapon
+                                  && weapons[log.destinyChoice?.weapon]}
+                      >
+                        <Text component="span" body2>
+                          {t(log.destinyChoice?.weapon ?? '')}
+                        </Text>
+                      </WeaponTooltip>
+                    );
+                  }
+
+                  if (log.destinyChoice?.type === 'pet') {
+                    return <Text component="span" body2>{t(log.destinyChoice?.pet ?? '')}</Text>;
+                  }
+
+                  if (!log.destinyChoice?.stat2) {
+                    return (
+                      <Text component="span" body2>
+                        {t(log.destinyChoice?.stat1 ?? '')}
+                      </Text>
+                    );
+                  }
+
+                  return (
+                    <Text component="span" body2>
+                      {t(log.destinyChoice?.stat1 ?? '')} / {t(log.destinyChoice?.stat2)}
+                    </Text>
+                  );
+                };
+
+                return (
+                  <ListItem
+                    key={log.id}
+                  >
+                    <ListItemIcon>
+                      <LogImage log={log} sx={{ width: 25 }} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={(
+                        <Link to={`/${log.currentBrute?.name}/cell`}>
+                          <Text body2>
+                            {t(`log.${log.type}`, {
+                              brute: log.currentBrute?.name,
+                              value: log.type === LogType.lvl ? t(`lvl_${log.level}`) : log.level,
+                            })}
+                          </Text>
+                          {log.type === LogType.up && (
                           <Text body2>
                             {/* +3 Skill */}
                             {log.destinyChoice?.type === 'stats' && !log.destinyChoice?.stat2 && `+${log.destinyChoice?.stat1Value || ''} ${t('in')} `}
@@ -113,42 +164,16 @@ export const FollowingFeedView = () => {
                             {log.destinyChoice?.type === 'skill' && `${t('newSkill')} : `}
                             {/* New pet */}
                             {log.destinyChoice?.type === 'pet' && `${t('newPet')} : `}
-                            {(log.destinyChoice?.type === 'skill' ? (
-                              <SkillTooltip
-                                skill={log.destinyChoice?.skill && skills[log.destinyChoice?.skill]}
-                              >
-                                <Text component="span" body2>
-                                  {t(log.destinyChoice?.skill ?? '')}
-                                </Text>
-                              </SkillTooltip>
-                            ) : log.destinyChoice?.type === 'weapon' ? (
-                              <WeaponTooltip
-                                weapon={log.destinyChoice?.weapon
-                                  && weapons[log.destinyChoice?.weapon]}
-                              >
-                                <Text component="span" body2>
-                                  {t(log.destinyChoice?.weapon ?? '')}
-                                </Text>
-                              </WeaponTooltip>
-                            ) : log.destinyChoice?.type === 'pet' ? (
-                              <Text component="span" body2>{t(log.destinyChoice?.pet ?? '')}</Text>
-                            ) : !log.destinyChoice?.stat2 ? (
-                              <Text component="span" body2>
-                                {t(log.destinyChoice?.stat1 ?? '')}
-                              </Text>
-                            ) : (
-                              <Text component="span" body2>
-                                {t(log.destinyChoice?.stat1 ?? '')} / {t(log.destinyChoice?.stat2)}
-                              </Text>
-                            ))}
+                            {(renderDestinyChoice())}
                           </Text>
-                        )}
-                      </Link>
-                    )}
-                    secondary={dayjs.utc(log.date).fromNow()}
-                  />
-                </ListItem>
-              ))}
+                          )}
+                        </Link>
+                      )}
+                      secondary={dayjs.utc(log.date).fromNow()}
+                    />
+                  </ListItem>
+                );
+              })}
             </List>
           </Stack>
         )}
@@ -157,7 +182,10 @@ export const FollowingFeedView = () => {
         color="success"
         onClick={() => setPage((prev) => prev + 1)}
         disabled={lastPage}
-        sx={{ mx: 'auto', mt: 3 }}
+        sx={{
+          mx: 'auto',
+          mt: 3,
+        }}
       >
         {t('showMore')}
       </FantasyButton>

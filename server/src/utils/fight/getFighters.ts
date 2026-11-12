@@ -15,7 +15,7 @@ import {
   skills,
   Tiered,
   Weapon,
-  weapons
+  weapons,
 } from '@labrute/core';
 import { Boss } from '@labrute/core/src/brute/bosses.js';
 import {
@@ -42,7 +42,9 @@ const handleSkills = (
       const stat = unsafeStat as FightStat;
 
       // Ignore conditional modifiers
-      if (modifier.details || (typeof modifier.weaponType !== 'undefined')) continue;
+      if (modifier.details || (typeof modifier.weaponType !== 'undefined')) {
+        continue;
+      }
 
       // Ignore some stats handled elsewhere
       if (stat === FightStat.DEXTERITY
@@ -50,7 +52,9 @@ const handleSkills = (
         || stat === FightStat.HP
         || stat === FightStat.STRENGTH
         || stat === FightStat.AGILITY
-        || stat === FightStat.SPEED) continue;
+        || stat === FightStat.SPEED) {
+        continue;
+      }
 
       if (modifier.flat) {
         const flat = getScaledStat({
@@ -61,12 +65,14 @@ const handleSkills = (
           value: modifier.flat[skill.tier - 1] ?? 0,
           precision: 2,
         });
+
         if (stat === FightStat.INITIATIVE) {
           fighter.initiative -= flat / 100;
         } else {
           fighter[stat] += flat;
         }
       }
+
       if (modifier.percent) {
         fighter[stat] += getScaledStat({
           chaos,
@@ -124,6 +130,7 @@ const handleSkills = (
       case SkillName.fastMetabolism:
         fighter.fastMetabolism = 0;
         break;
+
       case SkillName.fierceBrute: {
         // Add one fierceBrute use every 30 strength
         skill.uses = skill.uses?.map(
@@ -131,6 +138,7 @@ const handleSkills = (
         ) as [number, number, number];
         break;
       }
+
       default:
     }
   });
@@ -140,9 +148,9 @@ const getTempo = (speed: number) => 0.10 + (20 / Math.max(1, 10 + (speed * 1.5))
 
 const getReloadableSkills = (s: Partial<Record<SkillName, Tiered<Skill>>>) => {
   return Object.fromEntries(
-    Object.entries(s).filter(([_, skill]) => skill.canReload)
+    Object.entries(s).filter(([_, skill]) => skill.canReload),
   );
-}
+};
 
 type GetFightersParams = {
   team1: Team,
@@ -162,6 +170,7 @@ export const getFighters = ({
   let spawnedPets = 0;
   const fighters: DetailedFighter[] = [];
   let positiveIndex = 0;
+
   [team1, team2].forEach((team, teamIndex) => {
     const { brutes } = team;
 
@@ -178,8 +187,10 @@ export const getFighters = ({
           brute.hpValue = getBruteHP(brute);
         }
       }
+
       // Skills
       const tieredSkills: Partial<Record<SkillName, Tiered<Skill>>> = {};
+
       for (const [skillName, tier] of entries(brute.skills)) {
         tieredSkills[skillName] = {
           ...structuredClone(skills[skillName]),
@@ -189,6 +200,7 @@ export const getFighters = ({
 
       // Weapons
       const tieredWeapons: Partial<Record<WeaponName, Tiered<Weapon>>> = {};
+
       for (const [weaponName, tier] of entries(brute.weapons)) {
         tieredWeapons[weaponName] = {
           ...structuredClone(weapons[weaponName]),
@@ -198,6 +210,7 @@ export const getFighters = ({
 
       // Brute stats
       positiveIndex++;
+
       const fighter: DetailedFighter = {
         id: brute.id,
         eventId: brute.eventId ?? undefined,
@@ -345,6 +358,7 @@ export const getFighters = ({
       const arrivesAt = randomBetween(1, 500) / 100;
       // Skills
       const tieredSkills: Partial<Record<SkillName, Tiered<Skill>>> = {};
+
       for (const [skillName, tier] of entries(backup.skills)) {
         tieredSkills[skillName] = {
           ...structuredClone(skills[skillName]),
@@ -354,6 +368,7 @@ export const getFighters = ({
 
       // Weapons
       const tieredWeapons: Partial<Record<WeaponName, Tiered<Weapon>>> = {};
+
       for (const [weaponName, tier] of entries(backup.weapons)) {
         tieredWeapons[weaponName] = {
           ...structuredClone(weapons[weaponName]),
@@ -362,6 +377,7 @@ export const getFighters = ({
       }
 
       spawnedPets++;
+
       const backupFighter: DetailedFighter = {
         id: `${-spawnedPets}`,
         index: -spawnedPets,

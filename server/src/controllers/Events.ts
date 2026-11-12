@@ -17,6 +17,7 @@ export const Events = {
   ) => {
     try {
       const { page } = req.query;
+
       if (!page || Number.isNaN(+page)) {
         throw new ExpectedError(translate('invalidParameters'));
       }
@@ -52,7 +53,10 @@ export const Events = {
       // Get brute
       const brute = await traced('events.get.findBrute', () => prisma.brute.findFirst({
         where: { id: req.params.bruteId },
-        select: { id: true, eventId: true },
+        select: {
+          id: true,
+          eventId: true,
+        },
       }));
 
       if (!brute) {
@@ -86,6 +90,7 @@ export const Events = {
 
       // Get brute fights
       const eventTournament = event.tournament;
+
       const fights = (brute.eventId === event.id && eventTournament)
         ? await traced('events.get.findFights', () => prisma.fight.findMany({
           where: {
@@ -200,8 +205,18 @@ export const Events = {
                 select: {
                   id: true,
                   fighters: true,
-                  brute1: { select: { id: true, name: true } },
-                  brute2: { select: { id: true, name: true } },
+                  brute1: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
+                  brute2: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
                 },
               },
             },

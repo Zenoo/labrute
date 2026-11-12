@@ -19,6 +19,7 @@ const lockCase = async (tx: Prisma.TransactionClient, id: string) => {
     SELECT id, signal, "browserId", fingerprint, ip, "ruleVersion", revision, status, threshold, "detectedAt", "appealCode"
     FROM "MultipleAccountCase" WHERE id = ${id} FOR UPDATE
   `;
+
   return row;
 };
 
@@ -56,7 +57,9 @@ const prepare = async (
 
   const row = await lockCase(tx, id);
 
-  if (!row || !supported(row)) return;
+  if (!row || !supported(row)) {
+    return;
+  }
 
   // Freeze a qualified cohort once. Successful bans must not shrink the rule count mid-batch.
   await tx.$executeRaw`
@@ -81,15 +84,24 @@ const execute = async (
 
   const row = await lockCase(tx, caseId);
 
-  if (!row) return;
+  if (!row) {
+    return;
+  }
 
   await lockAccountSanction(tx, userId);
 
   const job = await tx.multipleAccountCaseAction.findUnique({
-    where: { caseId_userId: { caseId, userId } },
+    where: {
+      caseId_userId: {
+        caseId,
+        userId,
+      },
+    },
   });
 
-  if (!job || !['pending', 'failed'].includes(job.status)) return;
+  if (!job || !['pending', 'failed'].includes(job.status)) {
+    return;
+  }
 
   const now = clock();
   let reason = 'Stopped by a case review';
@@ -112,16 +124,19 @@ const execute = async (
       const skipped = await tx.multipleAccountCaseAction.updateMany({
         where: {
           caseId,
-          status: { in: ['pending', 'failed'] }
+          status: { in: ['pending', 'failed'] },
         },
         data: {
           status: 'skipped',
           reason: 'Current eligible cohort no longer exceeds the automatic threshold',
-          updatedAt: now
-        }
+          updatedAt: now,
+        },
       });
 
-      return { banned: 0, skipped: skipped.count };
+      return {
+        banned: 0,
+        skipped: skipped.count,
+      };
     }
 
     // Serialize with profile edits/OAuth and manual account sanctions before checking eligibility.
@@ -146,11 +161,24 @@ const execute = async (
   }
 
   await tx.multipleAccountCaseAction.update({
-    where: { caseId_userId: { caseId, userId } },
-    data: { status, reason, updatedAt: now, attempts: { increment: 1 } }
+    where: {
+      caseId_userId: {
+        caseId,
+        userId,
+      },
+    },
+    data: {
+      status,
+      reason,
+      updatedAt: now,
+      attempts: { increment: 1 },
+    },
   });
 
-  return { banned: status === 'banned' ? 1 : 0, skipped: status === 'skipped' ? 1 : 0 };
+  return {
+    banned: status === 'banned' ? 1 : 0,
+    skipped: status === 'skipped' ? 1 : 0,
+  };
 }, { timeout: 30000 });
 
 const recordFailure = async (
@@ -165,13 +193,16 @@ const recordFailure = async (
     // Another worker may already have committed success, or an admin may have cancelled the job.
     await tx.multipleAccountCaseAction.updateMany({
       where: {
-        caseId, userId,
-        status: { in: ['pending', 'failed'] }
-      }, data: {
+        caseId,
+        userId,
+        status: { in: ['pending', 'failed'] },
+      },
+      data: {
         status: 'failed',
-        reason: `Ban transaction failed (${code}); retry pending`, updatedAt: now,
-        attempts: { increment: 1 }
-      }
+        reason: `Ban transaction failed (${code}); retry pending`,
+        updatedAt: now,
+        attempts: { increment: 1 },
+      },
     });
   });
 
@@ -181,7 +212,11 @@ const recordFailure = async (
 const processCase = async (
   prisma: PrismaClient, id: string, logger: { error: (message: string) => void }, clock: () => Date,
 ) => {
-  const result = { banned: 0, skipped: 0, failed: 0 };
+  const result = {
+    banned: 0,
+    skipped: 0,
+    failed: 0,
+  };
 
   await prepare(prisma, id, clock());
 
@@ -191,12 +226,17 @@ const processCase = async (
     const jobs = await prisma.multipleAccountCaseAction.findMany({
       where: {
         caseId: id,
-        status: { in: ['pending', 'failed'] }, ...(cursor ? { userId: { gt: cursor } } : {})
+        status: { in: ['pending', 'failed'] },
+        ...(cursor ? { userId: { gt: cursor } } : {}),
       },
-      select: { userId: true }, orderBy: { userId: 'asc' }, take: 100
+      select: { userId: true },
+      orderBy: { userId: 'asc' },
+      take: 100,
     });
 
-    if (!jobs.length) break;
+    if (!jobs.length) {
+      break;
+    }
 
     for (const job of jobs) {
       try {
@@ -208,16 +248,19 @@ const processCase = async (
               result.banned += action.banned;
               result.skipped += action.skipped;
             }
+
             break;
-          }
-          catch (error) {
+          } catch (error) {
             if (attempt >= 2 || !(error instanceof Prisma.PrismaClientKnownRequestError)
-              || error.code !== 'P2034') throw error;
+              || error.code !== 'P2034') {
+              throw error;
+            }
           }
         }
       } catch (error) {
         result.failed++;
         const code = await recordFailure(prisma, id, job.userId, error, clock());
+
         logger.error(`Automatic case ${id}, account ${job.userId}: ${code}; retry pending`);
       }
     }
@@ -228,25 +271,33 @@ const processCase = async (
   await prisma.$transaction(async (tx) => {
     const row = await lockCase(tx, id);
 
-    if (!row || !supported(row)) return;
+    if (!row || !supported(row)) {
+      return;
+    }
 
     const counts = await tx.multipleAccountCaseAction.groupBy({
-      by: ['status'], where: { caseId: id },
-      _count: { _all: true }
+      by: ['status'],
+      where: { caseId: id },
+      _count: { _all: true },
     });
 
     const totals = new Map(counts.map((entry) => [entry.status, entry._count._all]));
 
-    if (totals.has('pending') || totals.has('failed')) return;
+    if (totals.has('pending') || totals.has('failed')) {
+      return;
+    }
 
     const outcome = `${totals.get('banned') ?? 0} banned, ${totals.get('skipped') ?? 0} skipped.`;
     const explanation = counts.length ? '' : ' Current eligible cohort no longer exceeds threshold.';
 
     await tx.multipleAccountCase.update({
-      where: { id }, data: {
-        status: 'processed', revision: { increment: 1 }, automaticAt: clock(),
+      where: { id },
+      data: {
+        status: 'processed',
+        revision: { increment: 1 },
+        automaticAt: clock(),
         automaticNote: `Policy v${POLICY_VERSION}: ${outcome}${explanation}`,
-      }
+      },
     });
   });
 
@@ -261,18 +312,29 @@ export const enforceMultipleAccountCases = async (
 ) => {
   let cursor: string | undefined;
   let processed = 0;
-  const totals = { banned: 0, skipped: 0, failed: 0 };
+
+  const totals = {
+    banned: 0,
+    skipped: 0,
+    failed: 0,
+  };
 
   while (true) {
     const cases = await prisma.multipleAccountCase.findMany({
       where: {
-        status: 'open', revision: 1,
-        ruleVersion: 1, ...(cursor ? { id: { gt: cursor } } : {})
-      }, select: { id: true },
-      orderBy: { id: 'asc' }, take: 25
+        status: 'open',
+        revision: 1,
+        ruleVersion: 1,
+        ...(cursor ? { id: { gt: cursor } } : {}),
+      },
+      select: { id: true },
+      orderBy: { id: 'asc' },
+      take: 25,
     });
 
-    if (!cases.length) break;
+    if (!cases.length) {
+      break;
+    }
 
     let next = 0;
 
@@ -282,6 +344,7 @@ export const enforceMultipleAccountCases = async (
 
         if (row) {
           const result = await processCase(prisma, row.id, logger, clock);
+
           totals.banned += result.banned;
           totals.skipped += result.skipped;
           totals.failed += result.failed;
@@ -292,7 +355,9 @@ export const enforceMultipleAccountCases = async (
 
     const failed = outcomes.find((outcome) => outcome.status === 'rejected');
 
-    if (failed?.status === 'rejected') throw failed.reason;
+    if (failed?.status === 'rejected') {
+      throw failed.reason;
+    }
 
     cursor = cases[cases.length - 1]?.id;
   }

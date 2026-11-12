@@ -4,7 +4,7 @@ import 'dayjs/locale/fr';
 import 'dayjs/locale/pt';
 import 'dayjs/locale/ru';
 import React, {
-  useContext, useEffect, useMemo, useState
+  useContext, useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DEFAULT_LANGUAGE } from '@labrute/core';
@@ -27,6 +27,7 @@ const LanguageContext = React.createContext<LanguageContextInterface>({
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
+
   return context;
 };
 
@@ -56,7 +57,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
 
   const methods = useMemo(() => ({
     language,
-    setLanguage
+    setLanguage,
   }), [language, setLanguage]);
 
   return (

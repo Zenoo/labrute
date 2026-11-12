@@ -1,24 +1,24 @@
 import {
-  getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest
+  getFightsLeft, getGoldNeededForNewBrute, UserUpdateSettingsRequest,
 } from '@labrute/core';
 import {
   Add, AdminPanelSettings, DarkMode, Event,
   Info, LightMode, Logout, Menu, MilitaryTech,
   MoreHoriz, MusicNote, NewReleases, Person, PersonSearch, Policy, RssFeed,
-  Speed, SportsKabaddi, Tune
+  Speed, SportsKabaddi, Tune,
 } from '@mui/icons-material';
 import {
   Badge, Box, Button, Drawer, GlobalStyles,
   IconButton, List, ListItem, ListItemIcon,
   ListItemText, ListSubheader, Alert as MuiAlert,
-  Switch, ThemeProvider, Tooltip, useMediaQuery, useTheme
+  Switch, ThemeProvider, Tooltip, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useCallback, useContext, useEffect, useState
+  useCallback, useContext, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Outlet, Link as RouterLink, useNavigate
+  Outlet, Link as RouterLink, useNavigate,
 } from 'react-router';
 import { ActionButton } from '../components/ActionButton';
 import { BruteRender } from '../components/Brute/Body/BruteRender';
@@ -38,18 +38,24 @@ import { LanguageSwitch } from '../components/LanguageSwitch';
 
 export const Main = () => {
   const theme = useTheme();
-  const { authing, user, signout, updateData, currentEvent } = useAuth();
+
+  const {
+    authing, user, signout, updateData, currentEvent,
+  } = useAuth();
+
   const Alert = useAlert();
   const { t } = useTranslation();
   const colorMode = useContext(ColorModeContext);
   const navigate = useNavigate();
   const { brute } = useBrute();
   const smallScreen = useMediaQuery('(max-width: 935px)');
+
   // Load fingerprint data as early as possible
   useFingerprint();
   const Server = useServer();
 
   const [open, setOpen] = useState(false);
+
   const [settings, setSettings] = useState<UserUpdateSettingsRequest>({
     fightSpeed: 2,
     backgroundMusic: true,
@@ -62,7 +68,9 @@ export const Main = () => {
 
   // Sync settings with user
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     setSettings({
       fightSpeed: user.fightSpeed,
@@ -81,6 +89,7 @@ export const Main = () => {
   const oauth = useCallback(async () => {
     try {
       const { url } = await Fetch<{ url: string }>('/api/oauth/redirect');
+
       window.location.href = url;
     } catch (error) {
       catchError(Alert, error);
@@ -95,6 +104,7 @@ export const Main = () => {
     } catch (error) {
       catchError(Alert, error);
     }
+
     signout();
     toggleDrawer(false)();
   }, [Alert, Server.User, signout, t]);
@@ -104,7 +114,9 @@ export const Main = () => {
     let processedPath = path;
 
     if (path.includes('{bruteName}')) {
-      if (!brute && !user?.brutes[0]) return;
+      if (!brute && !user?.brutes[0]) {
+        return;
+      }
 
       processedPath = path.replace('{bruteName}', brute?.name ?? user?.brutes[0]?.name ?? '');
     }
@@ -158,6 +170,50 @@ export const Main = () => {
     }
   };
 
+  const renderAccountButton = () => {
+    if (user) {
+      return (
+        <Badge
+          badgeContent={user.notifications.length}
+          color="success"
+          componentsProps={{
+            badge: { style: { marginTop: 4 } },
+          }}
+        >
+          <Button
+            onClick={toggleDrawer(true)}
+            endIcon={<Person />}
+            variant="outlined"
+            size="small"
+            color="info"
+          >
+            {user.name.length > 10 ? `${user.name.slice(0, 10)}…` : user.name}
+          </Button>
+        </Badge>
+      );
+    }
+
+    if (authing) {
+      return null;
+    }
+
+    return (
+      <Button
+        onClick={oauth}
+        color="success"
+        variant="contained"
+        size="small"
+        sx={{
+          px: 1,
+          py: 0.25,
+          minWidth: 'auto',
+        }}
+      >
+        {t('login')}
+      </Button>
+    );
+  };
+
   return (
     <>
       {/* TOPBAR */}
@@ -178,7 +234,7 @@ export const Main = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 1,
-          overflow: 'hidden'
+          overflow: 'hidden',
         }}
       >
         <Box sx={{
@@ -233,7 +289,11 @@ export const Main = () => {
             </IconButton>
           )}
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+        }}>
           {!smallScreen && (
             <BruteSearch />
           )}
@@ -251,46 +311,14 @@ export const Main = () => {
                   minWidth: 'auto',
                   '& .MuiButton-endIcon': {
                     ml: 0.5,
-                  }
+                  },
                 }}
               >
                 {user.gold}
               </Button>
             </Tooltip>
           )}
-          {user ? (
-            <Badge
-              badgeContent={user.notifications.length}
-              color="success"
-              componentsProps={{
-                badge: { style: { marginTop: 4 } },
-              }}
-            >
-              <Button
-                onClick={toggleDrawer(true)}
-                endIcon={<Person />}
-                variant="outlined"
-                size="small"
-                color="info"
-              >
-                {user.name.length > 10 ? `${user.name.slice(0, 10)}…` : user.name}
-              </Button>
-            </Badge>
-          ) : authing ? null : (
-            <Button
-              onClick={oauth}
-              color="success"
-              variant="contained"
-              size="small"
-              sx={{
-                px: 1,
-                py: 0.25,
-                minWidth: 'auto',
-              }}
-            >
-              {t('login')}
-            </Button>
-          )}
+          {renderAccountButton()}
         </Box>
       </Box>
       {/* USER DRAWER */}
@@ -304,7 +332,7 @@ export const Main = () => {
             bgcolor: theme.palette.topbar.background,
             color: theme.palette.topbar.color,
             backgroundImage: 'none',
-          }
+          },
         }}
         anchor="right"
       >
@@ -322,7 +350,7 @@ export const Main = () => {
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
-                  bgcolor: theme.palette.topbar.contrastLight
+                  bgcolor: theme.palette.topbar.contrastLight,
                 }}
               >
                 <IconButton
@@ -471,7 +499,7 @@ export const Main = () => {
                     mb: 1,
                     '& .MuiAlert-action': {
                       alignItems: 'center',
-                    }
+                    },
                   }}
                 >
                   <Text>{t(notification.message)}</Text>
@@ -481,7 +509,10 @@ export const Main = () => {
               )}
               <List
                 dense
-                subheader={<ListSubheader sx={{ lineHeight: 'inherit', py: 1 }}>{t('settings')}</ListSubheader>}
+                subheader={<ListSubheader sx={{
+                  lineHeight: 'inherit',
+                  py: 1,
+                }}>{t('settings')}</ListSubheader>}
               >
                 <ListItem>
                   <ListItemIcon>
@@ -567,17 +598,17 @@ export const Main = () => {
         height: 1,
         m: '0 auto',
         width: 930,
-        maxWidth: 1
+        maxWidth: 1,
       }}
       >
         <GlobalStyles styles={{
           html: {
-            height: '100%'
+            height: '100%',
           },
           body: {
             margin: 0,
             height: '100%',
-            fontFamily: 'arial,sans-serif'
+            fontFamily: 'arial,sans-serif',
           },
           '#root': {
             minHeight: '100%',

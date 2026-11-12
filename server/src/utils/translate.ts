@@ -5,4 +5,7 @@ export const translate = (
   key: string,
   user?: Pick<User, 'lang'> | null,
   options?: Record<string, unknown>,
-) => t(key, { lng: user?.lang, ...options });
+) => t(key, {
+  lng: user?.lang,
+  ...options,
+});

@@ -14,18 +14,24 @@ const getMainDomain = () => {
 export const getCookie = (name: string) => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
+
+  if (parts.length === 2) {
+    return parts.pop()?.split(';').shift();
+  }
+
   return null;
 };
 
 export const setCookie = (name: string, value: string, days: number) => {
   const mainDomain = getMainDomain();
   const domainAttr = mainDomain ? `; domain=${mainDomain}` : '';
+
   document.cookie = `${name}=${value}; path=/${domainAttr}; max-age=${days * 24 * 60 * 60}`;
 };
 
 export const deleteCookie = (name: string) => {
   const mainDomain = getMainDomain();
   const domainAttr = mainDomain ? `; domain=${mainDomain}` : '';
+
   document.cookie = `${name}=; path=/${domainAttr}; max-age=0`;
 };

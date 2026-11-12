@@ -1,9 +1,9 @@
 import { FightGetResponse } from '@labrute/core';
 import {
-  Box, Link, Tooltip, useMediaQuery, useTheme
+  Box, Link, Tooltip, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useEffect, useMemo, useState
+  useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -34,10 +34,14 @@ export const FightView = () => {
   // Fetch fight and brutes
   useEffect(() => {
     let isSubscribed = true;
-    const cleanup = () => { isSubscribed = false; };
+
+    const cleanup = () => {
+      isSubscribed = false;
+    };
 
     if (!fightId) {
       navigate('/');
+
       return cleanup;
     }
 
@@ -54,13 +58,13 @@ export const FightView = () => {
   const ads = useMemo(() => {
     const firstAd = getRandomAd(language);
     const secondAd = getRandomAd(language, firstAd.name);
+
     return [firstAd, secondAd];
   }, [language]);
 
   if (smallScreen) {
     return (
       <FightMobileView
-        pageTitle={bruteName ? `${bruteName} ${t('fight')}` : t('fight')}
         headerUrl={bruteName ? `/${bruteName}/cell` : '/'}
         ads={ads}
         fight={fight}
@@ -79,22 +83,39 @@ export const FightView = () => {
       >
         <Box display="flex">
           {/* ADVERTS */}
-          <Box sx={{ width: 236, mt: 5 }}>
-            <Text color="text.primary" center typo="GameFont" upperCase sx={{ ml: 2, fontSize: 10 }}>{t('fight.discoverGames')}</Text>
+          <Box sx={{
+            width: 236,
+            mt: 5,
+          }}>
+            <Text color="text.primary" center typo="GameFont" upperCase sx={{
+              ml: 2,
+              fontSize: 10,
+            }}>{t('fight.discoverGames')}</Text>
             {ads.map((ad) => (
               <Tooltip title={t(`${ad.name}.desc`)} key={ad.name}>
-                <Link href={ad.url} target="_blank" sx={{ width: 200, display: 'inline-block' }}>
+                <Link href={ad.url} target="_blank" sx={{
+                  width: 200,
+                  display: 'inline-block',
+                }}>
                   <Box
                     component="img"
                     src={`/images/redirects/${ad.illustration}`}
-                    sx={{ width: 1, border: 2, borderColor: 'common.white', ml: 3 }}
+                    sx={{
+                      width: 1,
+                      border: 2,
+                      borderColor: 'common.white',
+                      ml: 3,
+                    }}
                   />
                 </Link>
               </Tooltip>
             ))}
           </Box>
           {/* FIGHT */}
-          <Box sx={{ ml: 5, alignSelf: 'center' }}>
+          <Box sx={{
+            ml: 5,
+            alignSelf: 'center',
+          }}>
             <FightComponent fight={fight} />
           </Box>
         </Box>

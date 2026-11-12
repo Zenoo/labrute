@@ -17,10 +17,19 @@ export const ActivityStatus = ({
   const lastSeen = dayjs.utc(user.lastSeen);
   const now = dayjs.utc();
 
+  const daysSinceLastSeen = lastSeen.diff(now, 'days');
+  let activityColor: SvgIconOwnProps['color'] = 'error';
+
+  if (daysSinceLastSeen > -3) {
+    activityColor = 'success';
+  } else if (daysSinceLastSeen > -7) {
+    activityColor = 'warning';
+  }
+
   return (
     <Tooltip title={t('lastSeen', { date: lastSeen.fromNow() })}>
       <Circle
-        color={lastSeen.diff(now, 'days') > -3 ? 'success' : lastSeen?.diff(now, 'days') > -7 ? 'warning' : 'error'}
+        color={activityColor}
         {...rest}
       />
     </Tooltip>

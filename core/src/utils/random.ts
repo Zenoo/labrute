@@ -6,6 +6,7 @@ export const seedToRandom = (seed: string, cache = true): number => {
   if (cache) {
     // Check cache first
     const cached = seedCache.get(seed);
+
     if (cached !== undefined) {
       return cached;
     }
@@ -19,13 +20,13 @@ export const seedToRandom = (seed: string, cache = true): number => {
     const char = seed.charCodeAt(i); // Get ASCII/Unicode value (e.g., 'a' = 97)
 
     // Hash algorithm (djb2-inspired)
-    // eslint-disable-next-line no-bitwise
+
     hash = ((hash << 5) - hash) + char;
     //      └─────┬─────┘
     //       hash * 32 - hash = hash * 31
     // This multiplies the current hash by 31 and adds the character code
 
-    // eslint-disable-next-line no-bitwise
+
     hash &= hash; // Convert to 32-bit integer (removes any overflow bits)
   }
 
@@ -41,6 +42,7 @@ export const seedToRandom = (seed: string, cache = true): number => {
     // Simple LRU: remove oldest entry if cache is full
     if (seedCache.size > MAX_CACHE_SIZE) {
       const firstKey = seedCache.keys().next().value;
+
       if (firstKey) {
         seedCache.delete(firstKey);
       }
@@ -54,8 +56,13 @@ export const seedToRandom = (seed: string, cache = true): number => {
  * INTEGERS ONLY
  */
 export const randomBetween = (min: number, max: number, seed?: string, cache = true) => {
-  if (min > max) return 0;
-  if (min === max) return min;
+  if (min > max) {
+    return 0;
+  }
+
+  if (min === max) {
+    return min;
+  }
 
   const random = seed ? seedToRandom(seed, cache) : Math.random();
 
@@ -64,6 +71,7 @@ export const randomBetween = (min: number, max: number, seed?: string, cache = t
 
 export const randomItem = <T>(items: T[] | Map<unknown, T>): T => {
   const size = items instanceof Map ? items.size : items.length;
+
   if (size === 0) {
     throw new Error('No items');
   }
@@ -74,6 +82,7 @@ export const randomItem = <T>(items: T[] | Map<unknown, T>): T => {
     if (!item) {
       throw new Error('No item');
     }
+
     return item;
   }
 
@@ -81,18 +90,23 @@ export const randomItem = <T>(items: T[] | Map<unknown, T>): T => {
 
   if (items instanceof Map) {
     let i = 0;
+
     for (const value of items.values()) {
       if (i === index) {
         return value;
       }
+
       i++;
     }
+
     throw new Error('No item'); // Should never reach here
   }
 
   const item = items[index];
+
   if (!item) {
     throw new Error('No item');
   }
+
   return item;
 };

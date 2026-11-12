@@ -1,8 +1,8 @@
 import {
-  entries, ExtraTieredSkillData, FightStat, NO_SKILL_TOSS, PERKS_TOTAL_ODDS, Skill, SkillModifiers
+  entries, ExtraTieredSkillData, FightStat, NO_SKILL_TOSS, PERKS_TOTAL_ODDS, Skill, SkillModifiers,
 } from '@labrute/core';
 import {
-  Box, Divider, Tooltip, TooltipProps
+  Box, Divider, Tooltip, TooltipProps,
 } from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -17,8 +17,13 @@ import { getSkillTieredStatProps, getExtraTieredSkillStatProps } from '../../uti
 
 // Describe sabotage + Distinguish regen from bandage
 const statName = (stat: FightStat) => {
-  if (stat === 'sabotage') return 'sabotageStat';
-  if (stat === 'regeneration') return 'regenerationStat';
+  if (stat === 'sabotage') {
+    return 'sabotageStat';
+  }
+
+  if (stat === 'regeneration') {
+    return 'regenerationStat';
+  }
 
   return stat;
 };
@@ -51,18 +56,35 @@ export const SkillTooltip = ({
           <SkillIcon
             skill={skill.name}
             tier={tier}
-            sx={{ width: 68, float: 'left', marginRight: 1 }}
+            sx={{
+              width: 68,
+              float: 'left',
+              marginRight: 1,
+            }}
           />
-          <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
+          <Box sx={{
+            display: 'flex',
+            gap: 0.5,
+            alignItems: 'center',
+          }}>
             <Text bold h5>{t(skill.name)}</Text>
-            {ascended && <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />}
+            {ascended && <Box component="img" sx={{
+              width: 16,
+              height: 16,
+            }} src="/images/ear.gif" />}
           </Box>
           <Divider />
-          <Text sx={{ mt: 1.5, fontSize: 12 }}>{t(`${skill.name}.desc`)}</Text>
+          <Text sx={{
+            mt: 1.5,
+            fontSize: 12,
+          }}>{t(`${skill.name}.desc`)}</Text>
           {entries(SkillModifiers[skill.name]).map(([stat, modifier]) => (
             <Fragment key={stat}>
               {!!modifier.flat && (
-                <Text bold subtitle2 sx={{ color: StatColor[stat], lineHeight: 1 }}>
+                <Text bold subtitle2 sx={{
+                  color: StatColor[stat],
+                  lineHeight: 1,
+                }}>
                   <TieredStat
                     {...getSkillTieredStatProps({
                       chaos,
@@ -75,14 +97,22 @@ export const SkillTooltip = ({
                     minus={modifier.flat[0] < 0}
                     plus={modifier.flat[0] > 0}
                   />
-                  <Box component="img" sx={{ width: 11, height: 11, mx: 0.5, verticalAlign: 'middle' }} src={`/images/stats/${stat}.webp`} />
+                  <Box component="img" sx={{
+                    width: 11,
+                    height: 11,
+                    mx: 0.5,
+                    verticalAlign: 'middle',
+                  }} src={`/images/stats/${stat}.webp`} />
                   {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                   {(typeof modifier.weaponType !== 'undefined') && ` (${modifier.weaponType ? t('weaponType', { type: modifier.weaponType }) : t('noWeaponType')})`}
                   {modifier.details && ` ${t(modifier.details)}`}
                 </Text>
               )}
               {!!modifier.percent && (
-                <Text bold subtitle2 sx={{ color: StatColor[stat], lineHeight: 1.2 }}>
+                <Text bold subtitle2 sx={{
+                  color: StatColor[stat],
+                  lineHeight: 1.2,
+                }}>
                   <TieredStat
                     {...getSkillTieredStatProps({
                       chaos,
@@ -96,7 +126,12 @@ export const SkillTooltip = ({
                     plus={modifier.percent[0] > 0}
                   />
                   %
-                  <Box component="img" sx={{ width: 11, height: 11, mx: 0.5, verticalAlign: 'middle' }} src={`/images/stats/${stat}.webp`} />
+                  <Box component="img" sx={{
+                    width: 11,
+                    height: 11,
+                    mx: 0.5,
+                    verticalAlign: 'middle',
+                  }} src={`/images/stats/${stat}.webp`} />
                   {modifier.opponent ? t(`opponent-${stat}`) : t(statName(stat))}
                   {(typeof modifier.weaponType !== 'undefined') && ` (${modifier.weaponType ? t('weaponType', { type: modifier.weaponType }) : t('noWeaponType')})`}
                   {modifier.details && ` ${t(modifier.details)}`}
@@ -111,7 +146,10 @@ export const SkillTooltip = ({
                 components={{
                   uses: skill.uses ? <TieredStat values={skill.uses} tier={tier} /> : <span />,
                   stats: ExtraTieredSkillData[skill.name]
-                    ? <TieredStat {...getExtraTieredSkillStatProps({ skill: skill.name, tier })} />
+                    ? <TieredStat {...getExtraTieredSkillStatProps({
+                      skill: skill.name,
+                      tier,
+                    })} />
                     : <span />,
                 }}
               />
@@ -119,11 +157,18 @@ export const SkillTooltip = ({
           )}
           {/* NOT RELOADABLE */}
           {skill.uses && !skill.canReload && (
-            <Text bold sx={{ fontSize: 12, color: 'warning.main' }}>{t('skill.notReloadable')}</Text>
+            <Text bold sx={{
+              fontSize: 12,
+              color: 'warning.main',
+            }}>{t('skill.notReloadable')}</Text>
           )}
           {/* USAGE RATE */}
           {skill.toss && (
-            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12, lineHeight: 1 }}>
+            <Text subtitle1 sx={{
+              opacity: 0.7,
+              fontSize: 12,
+              lineHeight: 1,
+            }}>
               {t('usageRate')}:
               {' '}
               <TieredStat
@@ -140,7 +185,10 @@ export const SkillTooltip = ({
             gap: 1,
           }}
           >
-            <Text subtitle1 sx={{ opacity: 0.7, fontSize: 12 }}>{t('odds')}: {((skill.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%</Text>
+            <Text subtitle1 sx={{
+              opacity: 0.7,
+              fontSize: 12,
+            }}>{t('odds')}: {((skill.odds / PERKS_TOTAL_ODDS) * 100).toFixed(2)}%</Text>
             {tier > 1 && (
               <Box>
                 {Array.from({ length: tier - 1 }).map((_, index) => (
@@ -151,10 +199,22 @@ export const SkillTooltip = ({
             )}
           </Box>
           {ascended && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, m: 0, p: 0, lineHeight: 1 }}>{t('perk.ascended.skill')} {t('perk.ascended.desc')}</Text>
+            <Text caption sx={{
+              display: 'block',
+              opacity: 0.7,
+              m: 0,
+              p: 0,
+              lineHeight: 1,
+            }}>{t('perk.ascended.skill')} {t('perk.ascended.desc')}</Text>
           )}
           {random && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, m: 0, p: 0, lineHeight: 1 }}>{t('perk.random.skill')} {t('perk.random.desc')}</Text>
+            <Text caption sx={{
+              display: 'block',
+              opacity: 0.7,
+              m: 0,
+              p: 0,
+              lineHeight: 1,
+            }}>{t('perk.random.skill')} {t('perk.random.desc')}</Text>
           )}
         </>
       ) : ''}

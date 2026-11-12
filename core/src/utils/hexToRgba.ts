@@ -6,6 +6,7 @@ export const hexToRgba = (hex: string, alpha?: number) => {
   if (alpha) {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
+
   return `rgb(${r}, ${g}, ${b})`;
 };
 

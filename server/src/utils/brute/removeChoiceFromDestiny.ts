@@ -20,7 +20,10 @@ export const removeChoiceFromDestiny = async (
     pet?: PetName
   },
 ) => {
-  const { weapon, skill, pet } = ascended || {};
+  const {
+    weapon, skill, pet,
+  } = ascended || {};
+
   const isWeapon = weapon && Object.values(WeaponName).includes(weapon as WeaponName);
   const isSkill = skill && Object.values(SkillName).includes(skill as SkillName);
   const isPet = pet && Object.values(PetName).includes(pet as PetName);
@@ -41,6 +44,7 @@ export const removeChoiceFromDestiny = async (
 
   let destinyChoiceType: DestinyChoiceType;
   let originalDestinyChoiceType: 'originalWeapon' | 'originalSkill' | 'originalPet';
+
   if (isWeapon) {
     destinyChoiceType = DestinyChoiceType.weapon;
     originalDestinyChoiceType = 'originalWeapon';
@@ -51,6 +55,7 @@ export const removeChoiceFromDestiny = async (
     if (!isPet) {
       throw new Error('Invalid destiny choice type');
     }
+
     destinyChoiceType = DestinyChoiceType.pet;
     originalDestinyChoiceType = 'originalPet';
   }
@@ -100,9 +105,16 @@ export const removeChoiceFromDestiny = async (
 
   // Adapt for HP
   const firstStatValue = firstStat === BruteStat.hp ? statValue * 6 : statValue;
-  const secondStatValue = secondStat === BruteStat.hp && statValue === 1
-    ? 6
-    : statValue === 1 ? 1 : null;
+
+  let secondStatValue;
+
+  if (secondStat === BruteStat.hp && statValue === 1) {
+    secondStatValue = 6;
+  } else if (statValue === 1) {
+    secondStatValue = 1;
+  } else {
+    secondStatValue = null;
+  }
 
   await traced('removeChoiceFromDestiny.updateDestinyChoice', () => prisma.destinyChoice.update({
     where: { id: choiceToReplace.id },

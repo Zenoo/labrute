@@ -1,12 +1,12 @@
 import {
-  BrutesGetPupilsResponse, DOJO_UNLOCKS, Fighter, randomBetween
+  BrutesGetPupilsResponse, DOJO_UNLOCKS, Fighter, randomBetween,
 } from '@labrute/core';
 import {
   Box,
-  Grid, Paper, Stack, Tooltip, useTheme
+  Grid, Paper, Stack, Tooltip, useTheme,
 } from '@mui/material';
 import React, {
-  useEffect, useRef, useState
+  useEffect, useRef, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Page } from '../components/Page';
@@ -20,7 +20,7 @@ import {
   Application, Graphics, Sprite, RenderTexture, Container,
   Spritesheet,
   Assets,
-  Color
+  Color,
 } from 'pixi.js';
 import { AnimationFighter } from '../utils/fight/utils/findFighter';
 import { FighterHolder } from '../utils/fight/FighterHolder';
@@ -44,7 +44,9 @@ export const DojoView = () => {
 
   // Fetch pupils
   useEffect(() => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     Server.Brute.getPupils(brute.name).then((data) => {
       setPupils(data);
@@ -84,11 +86,13 @@ export const DojoView = () => {
         await waitNextFrame();
         const now = performance.now();
         const frameMs = now - previous;
+
         previous = now;
         frames += 1;
 
         if (frameMs <= targetMs) {
           smoothFrames += 1;
+
           if (smoothFrames >= requiredSmoothFrames) {
             return;
           }
@@ -112,6 +116,7 @@ export const DojoView = () => {
       if (appDestroyed) {
         return;
       }
+
       appDestroyed = true;
 
       gsap.killTweensOf('*');
@@ -129,7 +134,7 @@ export const DojoView = () => {
               texture: false,
               textureSource: false,
               context: true,
-            }
+            },
           );
         } catch (error) {
           console.error('Error destroying dojo app', error);
@@ -141,6 +146,7 @@ export const DojoView = () => {
       if (mountedCanvas && container.current?.contains(mountedCanvas)) {
         container.current.removeChild(mountedCanvas);
       }
+
       mountedCanvas = null;
     };
 
@@ -159,6 +165,7 @@ export const DojoView = () => {
 
       if (shouldAbort()) {
         destroyApp();
+
         return undefined;
       }
 
@@ -168,10 +175,11 @@ export const DojoView = () => {
 
       app.ticker.speed = 0.5;
 
-      const spritesheet = await Assets.load('/images/game/dojo.json') as Spritesheet
+      const spritesheet = await Assets.load('/images/game/dojo.json') as Spritesheet;
 
       if (shouldAbort()) {
         destroyApp();
+
         return undefined;
       }
 
@@ -180,7 +188,8 @@ export const DojoView = () => {
       app.stage.sortableChildren = true;
 
       // Add background
-      const background = new Sprite(spritesheet.textures[`background.jpg`]);
+      const background = new Sprite(spritesheet.textures['background.jpg']);
+
       background.zIndex = -1;
 
       // Fill screen
@@ -192,7 +201,11 @@ export const DojoView = () => {
       // Add 2px border
       const border = new Graphics()
         .rect(0, 0, app.screen.width, app.screen.height)
-        .stroke({ color: new Color(theme.palette.secondary.main), width: 2 });
+        .stroke({
+          color: new Color(theme.palette.secondary.main),
+          width: 2,
+        });
+
       border.zIndex = 10002;
       app.stage?.addChild(border);
 
@@ -200,35 +213,40 @@ export const DojoView = () => {
 
       // Right beam
       if (pupils.length > DOJO_UNLOCKS[0] - 1) {
-        const rightBeam = new Sprite(spritesheet.textures[`beam-right.png`]);
+        const rightBeam = new Sprite(spritesheet.textures['beam-right.png']);
+
         rightBeam.zIndex = 200;
         app.stage.addChild(rightBeam);
       }
 
       // Left beam
       if (pupils.length > DOJO_UNLOCKS[1] - 1) {
-        const leftBeam = new Sprite(spritesheet.textures[`beam-left.png`]);
+        const leftBeam = new Sprite(spritesheet.textures['beam-left.png']);
+
         leftBeam.zIndex = 200;
         app.stage.addChild(leftBeam);
       }
 
       // Temple 1
       if (pupils.length > DOJO_UNLOCKS[2] - 1) {
-        const temple1 = new Sprite(spritesheet.textures[`temple-1.png`]);
+        const temple1 = new Sprite(spritesheet.textures['temple-1.png']);
+
         temple1.zIndex = 10;
         app.stage.addChild(temple1);
       }
 
       // Temple 2
       if (pupils.length > DOJO_UNLOCKS[3] - 1) {
-        const temple2 = new Sprite(spritesheet.textures[`temple-2.png`]);
+        const temple2 = new Sprite(spritesheet.textures['temple-2.png']);
+
         temple2.zIndex = 10;
         app.stage.addChild(temple2);
       }
 
       // Temple 3
       if (pupils.length > DOJO_UNLOCKS[4] - 1) {
-        const temple3 = new Sprite(spritesheet.textures[`temple-3.png`]);
+        const temple3 = new Sprite(spritesheet.textures['temple-3.png']);
+
         temple3.zIndex = 5;
         app.stage.addChild(temple3);
       }
@@ -243,13 +261,15 @@ export const DojoView = () => {
 
       // Tent
       if (pupils.length > DOJO_UNLOCKS[6] - 1) {
-        const tent = new Sprite(spritesheet.textures[`tent.png`]);
+        const tent = new Sprite(spritesheet.textures['tent.png']);
+
         tent.zIndex = 220;
         app.stage.addChild(tent);
       }
 
       // Master + 9 first pupils
       const firstRenders = [brute, ...pupils.slice(0, 9)];
+
       for (let i = 0; i < firstRenders.length; i += 1) {
         const currentBrute = firstRenders[i];
 
@@ -305,6 +325,7 @@ export const DojoView = () => {
         } else {
           const row = Math.floor((i - 1) / 3);
           const column = (i - 1) % 3;
+
           animationFighter.animation.container.x = 280 + column * 80 - (row - 1) * 15;
           animationFighter.animation.container.y = 290 - row * 30;
           animationFighter.animation.container.zIndex = animationFighter.animation.container.y;
@@ -314,6 +335,7 @@ export const DojoView = () => {
 
         // Animation (train > train2)
         const ready = await waitForHolderLoaded(animationFighter.animation);
+
         if (!ready) {
           animationFighter.animation.destroy();
           continue;
@@ -332,12 +354,14 @@ export const DojoView = () => {
         animationFighter.animation.container.cursor = 'pointer';
         animationFighter.animation.container.on('pointerover', () => {
           setTooltipName(currentBrute.name);
+
           if (app.canvas.style) {
             app.canvas.style.cursor = 'pointer';
           }
         });
         animationFighter.animation.container.on('pointerout', () => {
           setTooltipName(null);
+
           if (app.canvas.style) {
             app.canvas.style.cursor = 'default';
           }
@@ -354,12 +378,14 @@ export const DojoView = () => {
 
       // Add remaining pupils one by one to avoid blocking the main thread / causing renderer crashes.
       const remainingPupils = pupils.slice(10);
+
       for (const pupil of remainingPupils) {
         if (shouldAbort()) {
           break;
         }
 
         await waitForFrameHeadroom();
+
         if (shouldAbort()) {
           break;
         }
@@ -390,6 +416,7 @@ export const DojoView = () => {
         const tempFH = new FighterHolder(app, fighter, speedRef);
 
         const tempReady = await waitForHolderLoaded(tempFH);
+
         if (!tempReady) {
           tempFH.destroy();
           continue;
@@ -402,6 +429,7 @@ export const DojoView = () => {
         // Position and scaling
         const px = fighter.team === 'R' ? randomBetween(270, 500) : randomBetween(0, 230);
         const py = randomBetween(100, 180);
+
         tempFH.container.x = px;
         tempFH.container.y = py;
 
@@ -409,6 +437,7 @@ export const DojoView = () => {
         // Capture scale values before destroying
         const scaleX = (tempFH.container.scale.x) * scale;
         const scaleY = scale;
+
         tempFH.container.scale.y = scale;
         tempFH.container.scale.x = scaleX;
 
@@ -417,6 +446,7 @@ export const DojoView = () => {
 
         // Wait one frame to ensure resources are ready, then capture texture
         await waitNextFrame();
+
         if (shouldAbort()) {
           tempFH.destroy();
           break;
@@ -426,6 +456,7 @@ export const DojoView = () => {
           // Render into a dedicated RenderTexture so the resulting texture
           // isn't invalidated by shared caches or later texture clearing.
           const bounds = tempFH.container.getLocalBounds();
+
           const rt = RenderTexture.create({
             width: Math.max(1, Math.ceil(bounds.width)),
             height: Math.max(1, Math.ceil(bounds.height)),
@@ -434,6 +465,7 @@ export const DojoView = () => {
 
           // Wrap the container so we can render its local bounds into the RT
           const wrapper = new Container();
+
           wrapper.addChild(tempFH.container);
           // Offset so content aligns to RT origin
           tempFH.container.x = -bounds.x;
@@ -445,6 +477,7 @@ export const DojoView = () => {
           });
 
           const sprite = new Sprite(rt);
+
           sprite.x = px;
           sprite.y = py;
           sprite.zIndex = sprite.y;
@@ -467,6 +500,7 @@ export const DojoView = () => {
         tempFH.destroy();
       }
     };
+
     setup().catch((err) => {
       if (!disposed) {
         console.error('Error setting up dojo view', err);
@@ -475,9 +509,11 @@ export const DojoView = () => {
 
     return () => {
       disposed = true;
+
       if (rafId) {
         cancelAnimationFrame(rafId);
       }
+
       destroyApp();
     };
   }, [t, theme, pupils, brute, navigate]);
@@ -494,7 +530,10 @@ export const DojoView = () => {
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('pupils', { name: brute.name })}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={8}>
             <Stack spacing={1} sx={{ alignItems: 'center' }}>
@@ -508,7 +547,7 @@ export const DojoView = () => {
                     maxWidth: 505,
                     '& canvas': {
                       maxWidth: '100%',
-                    }
+                    },
                   }}
                 />
               </Tooltip>

@@ -53,14 +53,14 @@ import {
   BrutesRemoveBannedWordRequest,
   BrutesAddBannedWordRequest,
   BrutesGetPupilsResponse,
-  BruteResetResponse
+  BruteResetResponse,
 } from '@labrute/core';
 import {
   Brute, DestinyChoiceSide, DestinyChoiceType, EventStatus, Gender,
   InventoryItemType, LogType, PetName, Prisma, PrismaClient, SkillName, TournamentType,
   User,
   UserLogType,
-  WeaponName
+  WeaponName,
 } from '@labrute/prisma';
 import dayjs from 'dayjs';
 import type { Request, Response } from 'express';
@@ -82,7 +82,7 @@ import { increaseAchievement } from './Achievements.js';
 import { traced } from '../utils/trace.js';
 import { deleteBrutes } from '../utils/user/deleteUserBrutes.js';
 import {
-  adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator
+  adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
 import { generateBot } from '../utils/brute/generateBot.js';
 import { increaseLevelUpStats } from '../utils/stats/updateStats.js';
@@ -104,15 +104,23 @@ const getTop15AndTotalForRank = async (prisma: PrismaClient, rank: number) => {
 
   // Check if already cached today
   const cached = rankCache.get(rank);
+
   if (cached && cached.updatedAt === today) {
     return cached;
   }
 
-  const rankOrEvent = rank === -1
-    ? { eventId: { not: null } }
-    : rank === BruteRankings[0]
-      ? { eventId: null, ranking: rank }
-      : { ranking: rank };
+  let rankOrEvent: Prisma.BruteWhereInput;
+
+  if (rank === -1) {
+    rankOrEvent = { eventId: { not: null } };
+  } else if (rank === BruteRankings[0]) {
+    rankOrEvent = {
+      eventId: null,
+      ranking: rank,
+    };
+  } else {
+    rankOrEvent = { ranking: rank };
+  }
 
   const where = {
     ...rankOrEvent,
@@ -157,6 +165,7 @@ const getTop15AndTotalForRank = async (prisma: PrismaClient, rank: number) => {
     total,
     updatedAt: today,
   };
+
   rankCache.set(rank, result);
 
   LOGGER.log(`Top 15 brutes and total (${total}) cached for rank ${rank} on ${today}`);
@@ -395,6 +404,7 @@ export const Brutes = {
       if (typeof banned?.[0]?.count !== 'bigint') {
         throw new Error('Error while checking banned words');
       }
+
       if (banned[0].count > 0) {
         throw new LimitError(translate('nameContainsBannedWord', authed));
       }
@@ -420,7 +430,10 @@ export const Brutes = {
           bruteLimit: true,
           brutes: {
             where: { deletedAt: null },
-            select: { id: true, eventId: true },
+            select: {
+              id: true,
+              eventId: true,
+            },
           },
         },
       }));
@@ -436,6 +449,7 @@ export const Brutes = {
 
       // No creation for started events
       const { eventId } = req.body;
+
       if (eventId) {
         if (!isUuid(eventId)) {
           throw new InvalidAPIUseError(authed, translate('invalidParameters', authed));
@@ -461,6 +475,7 @@ export const Brutes = {
       // Refuse if user has too many brutes and not enough gold
       if (user.brutes.length >= user.bruteLimit) {
         const gold = getGoldNeededForNewBrute(user);
+
         if (user.gold < gold) {
           throw new LimitError(translate('bruteLimitReached', authed, { gold }));
         } else {
@@ -485,6 +500,7 @@ export const Brutes = {
       }
 
       const masterName = req.body.master;
+
       const master = masterName ? await traced('brutes.create.findMaster', () => prisma.brute.findFirst({
         where: {
           name: ilike(masterName),
@@ -533,11 +549,15 @@ export const Brutes = {
       }));
 
       // Get first bonus type
-      const firstBonusType = brute.skills.length
-        ? DestinyChoiceType.skill
-        : brute.weapons.length
-          ? DestinyChoiceType.weapon
-          : DestinyChoiceType.pet;
+      let firstBonusType: DestinyChoiceType;
+
+      if (brute.skills.length) {
+        firstBonusType = DestinyChoiceType.skill;
+      } else if (brute.weapons.length) {
+        firstBonusType = DestinyChoiceType.weapon;
+      } else {
+        firstBonusType = DestinyChoiceType.pet;
+      }
 
       // Store first bonus
       const destinyChoice = await traced('brutes.create.createDestinyChoice', () => prisma.destinyChoice.create({
@@ -576,7 +596,11 @@ export const Brutes = {
       // Update achievements
       await checkLevelUpAchievements(prisma, brute, destinyChoice);
 
-      res.send({ brute, goldLost, newLimit });
+      res.send({
+        brute,
+        goldLost,
+        newLimit,
+      });
     } catch (error) {
       sendError(res, error);
     }
@@ -624,6 +648,7 @@ export const Brutes = {
           path: { equals: firstChoicePath },
         },
       }));
+
       let secondDestinyChoice = await traced('brutes.getLevelUpChoices.findSecondDestinyChoice', () => prisma.destinyChoice.findFirst({
         where: {
           bruteId: brute.id,
@@ -642,6 +667,7 @@ export const Brutes = {
             brute: { connect: { id: brute.id } },
           },
         }));
+
         firstDestinyChoice = newFirstDestinyChoice;
 
         const newSecondDestinyChoice = await traced('brutes.getLevelUpChoices.createSecondDestinyChoice', () => prisma.destinyChoice.create({
@@ -651,6 +677,7 @@ export const Brutes = {
             brute: { connect: { id: brute.id } },
           },
         }));
+
         secondDestinyChoice = newSecondDestinyChoice;
       }
 
@@ -710,6 +737,7 @@ export const Brutes = {
 
       // Check event max level
       const { eventId } = brute;
+
       if (eventId) {
         const event = await traced('brutes.levelUp.findEvent', () => prisma.event.findFirst({
           where: { id: eventId },
@@ -744,7 +772,7 @@ export const Brutes = {
       }));
 
       const destinyChoice = destinyChoices.find(
-        (dc) => dc.path[dc.path.length - 1] === req.body.choice
+        (dc) => dc.path[dc.path.length - 1] === req.body.choice,
       );
 
       if (!destinyChoice) {
@@ -755,6 +783,7 @@ export const Brutes = {
       const bruteSkills = getTieredSkills(brute, {});
       const bruteWeapons = getTieredWeapons(brute, {});
       const brutePets = getTieredPets(brute);
+
       if ((destinyChoice.type === 'skill' && destinyChoice.skill && (bruteSkills[destinyChoice.skill] ?? 0) >= 3)
         || (destinyChoice.type === 'weapon' && destinyChoice.weapon && (bruteWeapons[destinyChoice.weapon] ?? 0) >= 3)
         || (destinyChoice.type === 'pet' && destinyChoice.pet && (brutePets[destinyChoice.pet] ?? 0) >= pets[destinyChoice.pet].hp.length)) {
@@ -876,6 +905,7 @@ export const Brutes = {
       }));
 
       const { masterId } = updatedBrute;
+
       if (masterId) {
         // Add log to master
         await traced('brutes.levelUp.createMasterLog', () => prisma.log.create({
@@ -948,7 +978,7 @@ export const Brutes = {
             },
             orderBy: {
               name: 'asc',
-            }
+            },
           },
         },
       }));
@@ -1035,6 +1065,7 @@ export const Brutes = {
 
       // Add Gold to user
       const gold = getBruteGoldValue(brute);
+
       await traced('brutes.sacrifice.addGold', () => prisma.user.update({
         where: { id: authed.id },
         data: {
@@ -1051,6 +1082,7 @@ export const Brutes = {
 
       // Decrease master's pupils count
       const { masterId } = brute;
+
       if (masterId) {
         await traced('brutes.sacrifice.decreasePupilsCount', () => prisma.brute.update({
           where: { id: masterId },
@@ -1204,7 +1236,11 @@ export const Brutes = {
 
       // The top 15 are displayed separately; never repeat them in nearby rows.
       if (position <= 15) {
-        res.send({ nearbyBrutes: [], position });
+        res.send({
+          nearbyBrutes: [],
+          position,
+        });
+
         return;
       }
 
@@ -1247,7 +1283,7 @@ export const Brutes = {
 
       res.send({
         nearbyBrutes: nearbyBrutes.filter((b): b is NonNullable<typeof b> => Boolean(b)),
-        position
+        position,
       });
     } catch (error) {
       sendError(res, error);
@@ -1278,7 +1314,7 @@ export const Brutes = {
             select: {
               position: true,
             },
-          }
+          },
         },
       }));
 
@@ -1287,6 +1323,7 @@ export const Brutes = {
         res.send({
           ranking: 0,
         });
+
         return;
       }
 
@@ -1309,7 +1346,10 @@ export const Brutes = {
       }
 
       const brute = await traced('brutes.exists.findBrute', () => prisma.brute.findFirst({
-        where: { name: ilike(name), deletedAt: null },
+        where: {
+          name: ilike(name),
+          deletedAt: null,
+        },
         select: { name: true },
       }));
 
@@ -1317,6 +1357,7 @@ export const Brutes = {
         res.send({
           exists: false,
         });
+
         return;
       }
 
@@ -1452,7 +1493,11 @@ export const Brutes = {
         throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
-      const { data: { weapon, skill, pet } } = req.body;
+      const {
+        data: {
+          weapon, skill, pet,
+        },
+      } = req.body;
 
       if (!name) {
         throw new InvalidAPIUseError(authed, translate('missingName', authed));
@@ -1469,6 +1514,7 @@ export const Brutes = {
       const isWeapon = Object.values(WeaponName).includes(weapon as WeaponName);
       const isSkill = Object.values(SkillName).includes(skill as SkillName);
       const isPet = Object.values(PetName).includes(pet as PetName);
+
       if (!isWeapon && !isSkill && !isPet) {
         throw new Error('Wrong choice type');
       }
@@ -1516,11 +1562,13 @@ export const Brutes = {
           throw new MissingElementError(translate('bruteMissingWeapon', authed));
         }
       }
+
       if (isSkill) {
         if (!userBrute.skills.includes(skill as SkillName)) {
           throw new MissingElementError(translate('bruteMissingSkill', authed));
         }
       }
+
       if (isPet) {
         if (!userBrute.pets.includes(pet as PetName)) {
           throw new MissingElementError(translate('bruteMissingPet', authed));
@@ -1529,6 +1577,7 @@ export const Brutes = {
         if (pet === PetName.dog2 && !userBrute.ascendedPets.includes(PetName.dog1)) {
           throw new MissingElementError(translate('bruteMissingPet', authed));
         }
+
         if (pet === PetName.dog3 && !userBrute.ascendedPets.includes(PetName.dog2)) {
           throw new MissingElementError(translate('bruteMissingPet', authed));
         }
@@ -1538,7 +1587,11 @@ export const Brutes = {
         prisma,
         brute: userBrute,
         free: true,
-        ascended: { weapon, skill, pet },
+        ascended: {
+          weapon,
+          skill,
+          pet,
+        },
       });
 
       // Achievement
@@ -1583,7 +1636,10 @@ export const Brutes = {
       }
 
       const brute = await traced('brutes.getDestiny.findBrute', () => prisma.brute.findFirst({
-        where: { name: ilike(name), deletedAt: null },
+        where: {
+          name: ilike(name),
+          deletedAt: null,
+        },
       }));
 
       if (!brute) {
@@ -1672,7 +1728,10 @@ export const Brutes = {
       }
 
       const brute = await traced('brutes.getFightsLeft.findBrute', () => prisma.brute.findFirst({
-        where: { name: ilike(name), deletedAt: null },
+        where: {
+          name: ilike(name),
+          deletedAt: null,
+        },
         select: {
           id: true,
           fightsLeft: true,
@@ -1689,7 +1748,10 @@ export const Brutes = {
       // Get current modifiers
       const modifiers = await ServerState.getModifiers(prisma);
 
-      const fightsLeft = getFightsLeft({ ...brute, skills: getTieredSkills(brute, modifiers) });
+      const fightsLeft = getFightsLeft({
+        ...brute,
+        skills: getTieredSkills(brute, modifiers),
+      });
 
       res.send({
         fightsLeft,
@@ -1758,7 +1820,10 @@ export const Brutes = {
             not: null,
           },
         },
-        select: { name: true, id: true },
+        select: {
+          name: true,
+          id: true,
+        },
       }));
 
       if (!brute) {
@@ -1859,6 +1924,7 @@ export const Brutes = {
 
       // Abort if limit reached
       const favoritesCount = user.brutes.filter((b) => b.favorite).length;
+
       if (!brute.favorite && favoritesCount >= MAX_FAVORITE_BRUTES) {
         throw new LimitError(translate('favoriteLimitReached', authed));
       }
@@ -1952,8 +2018,8 @@ export const Brutes = {
             select: {
               bodyPart: true,
               colors: true,
-            }
-          }
+            },
+          },
         },
       }));
 
@@ -2048,7 +2114,12 @@ export const Brutes = {
           id: true,
           gender: true,
           colors: true,
-          unlockedColors: { select: { bodyPart: true, colors: true } }
+          unlockedColors: {
+            select: {
+              bodyPart: true,
+              colors: true,
+            },
+          },
         },
       }));
 
@@ -2164,6 +2235,7 @@ export const Brutes = {
       if (typeof banned?.[0]?.count !== 'bigint') {
         throw new Error('Error while checking banned words');
       }
+
       if (banned[0].count > 0) {
         throw new ForbiddenError(translate('nameContainsBannedWord', authed));
       }
@@ -2367,6 +2439,7 @@ export const Brutes = {
 
       if (!brute) {
         res.send({ id: null });
+
         return;
       }
 
@@ -2478,7 +2551,7 @@ export const Brutes = {
             select: {
               id: true,
             },
-          }
+          },
         },
       }));
 
@@ -2593,9 +2666,9 @@ export const Brutes = {
               { level: 'desc' },
               { xp: 'desc' },
               { name: 'asc' },
-            ]
+            ],
           },
-        }
+        },
       }));
 
       if (!brute) {
@@ -2606,5 +2679,5 @@ export const Brutes = {
     } catch (error) {
       sendError(res, error);
     }
-  }
+  },
 };

@@ -50,40 +50,61 @@ const Text = forwardRef<HTMLElement, TextProps>(({
   center = false,
   sx,
   ...rest
-}, ref) => (
-  <Typography
-    variant={
-      h1 ? 'h1'
-        : h2 ? 'h2'
-          : h3 ? 'h3'
-            : h4 ? 'h4'
-              : h5 ? 'h5'
-                : h6 ? 'h6'
-                  : subtitle1 ? 'subtitle1'
-                    : subtitle2 ? 'subtitle2'
-                      : body1 ? 'body1'
-                        : body2 ? 'body2'
-                          : caption ? 'caption'
-                            : button ? 'button'
-                              : overline ? 'overline'
-                                : inherit ? 'inherit'
-                                  : 'body1'
-    }
-    fontWeight={bold ? '600' : undefined}
-    sx={{
-      fontVariant: smallCaps ? 'small-caps' : undefined,
-      textTransform: upperCase ? 'uppercase' : undefined,
-      typography: typo,
-      textAlign: center ? 'center' : undefined,
-      fontStyle: italic ? 'italic' : undefined,
-      ...sx,
-    }}
-    {...rest}
-    ref={ref}
-  >
-    {children}
-  </Typography>
-));
+}, ref) => {
+  // Preserve the first enabled variant without allocating a lookup table on every text render.
+  let variant: TypographyProps['variant'];
+
+  if (h1) {
+    variant = 'h1';
+  } else if (h2) {
+    variant = 'h2';
+  } else if (h3) {
+    variant = 'h3';
+  } else if (h4) {
+    variant = 'h4';
+  } else if (h5) {
+    variant = 'h5';
+  } else if (h6) {
+    variant = 'h6';
+  } else if (subtitle1) {
+    variant = 'subtitle1';
+  } else if (subtitle2) {
+    variant = 'subtitle2';
+  } else if (body1) {
+    variant = 'body1';
+  } else if (body2) {
+    variant = 'body2';
+  } else if (caption) {
+    variant = 'caption';
+  } else if (button) {
+    variant = 'button';
+  } else if (overline) {
+    variant = 'overline';
+  } else if (inherit) {
+    variant = 'inherit';
+  } else {
+    variant = 'body1';
+  }
+
+  return (
+    <Typography
+      variant={variant}
+      fontWeight={bold ? '600' : undefined}
+      sx={{
+        fontVariant: smallCaps ? 'small-caps' : undefined,
+        textTransform: upperCase ? 'uppercase' : undefined,
+        typography: typo,
+        textAlign: center ? 'center' : undefined,
+        fontStyle: italic ? 'italic' : undefined,
+        ...sx,
+      }}
+      {...rest}
+      ref={ref}
+    >
+      {children}
+    </Typography>
+  );
+});
 
 Text.displayName = 'Text';
 

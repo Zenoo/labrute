@@ -8,7 +8,7 @@ import {
   LANGUAGE_HEADER,
 } from '@labrute/core';
 import type {
-  NextFunction, Request, Response
+  NextFunction, Request, Response,
 } from 'express';
 import { sendError } from '../sendError.js';
 import { translate } from '../translate.js';
@@ -63,6 +63,7 @@ export const securityCheck = (req: Request, res: Response, next: NextFunction) =
   if (!browserId) {
     return sendError(res, new ForbiddenError('Missing or invalid browser ID. Reload the page to refresh it.'));
   }
+
   req.security.browserId = browserId;
 
   const fingerprint = req.headers[FINGERPRINT_HEADER];

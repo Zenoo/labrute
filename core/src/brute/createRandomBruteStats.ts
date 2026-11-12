@@ -1,5 +1,5 @@
 import {
-  DestinyChoice, DestinyChoiceType, PetName, SkillName, WeaponName
+  DestinyChoice, DestinyChoiceType, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import { BruteRankings } from '../constants.js';
 import { applySkillModifiers } from './applySkillModifiers.js';
@@ -43,7 +43,10 @@ export const createRandomBruteStats = (
   // Predefined perk
   if (perkType) {
     if (perkName) {
-      perk = { type: perkType, name: perkName as PetName | SkillName | WeaponName };
+      perk = {
+        type: perkType,
+        name: perkName as PetName | SkillName | WeaponName,
+      };
 
       if (perkType === DestinyChoiceType.pet) {
         brute.pets[perkName as PetName] = 1;
@@ -56,6 +59,7 @@ export const createRandomBruteStats = (
       if (stats.stat1 && stats.stat1Value) {
         brute[`${stats.stat1}Stat`] += stats.stat1Value;
       }
+
       if (stats.stat2 && stats.stat2Value) {
         brute[`${stats.stat2}Stat`] += stats.stat2Value;
       }
@@ -72,10 +76,12 @@ export const createRandomBruteStats = (
     if (perk.type === DestinyChoiceType.pet) {
       brute.pets[perk.name as PetName] = 1;
     }
+
     // Skill
     if (perk.type === DestinyChoiceType.skill) {
       brute.skills[perk.name as SkillName] = 1;
     }
+
     // Weapon
     if (perk.type === DestinyChoiceType.weapon) {
       brute.weapons[perk.name as WeaponName] = 1;

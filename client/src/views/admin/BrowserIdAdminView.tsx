@@ -1,5 +1,5 @@
 import {
-  Paper, Stack, TextField
+  Paper, Stack, TextField,
 } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,9 +21,14 @@ export const BrowserIdAdminView = () => {
   const [reason, setReason] = React.useState('');
 
   const unbanBrowser = useCallback(() => {
-    if (!browserId || !reason.trim()) return;
+    if (!browserId || !reason.trim()) {
+      return;
+    }
 
-    Server.User.unbanBrowser({ browserId, reason })
+    Server.User.unbanBrowser({
+      browserId,
+      reason,
+    })
       .then(() => {
         Alert.open('success', 'Browser unbanned successfully');
       })
@@ -31,9 +36,14 @@ export const BrowserIdAdminView = () => {
   }, [Alert, Server.User, browserId, reason]);
 
   const banBrowser = useCallback(() => {
-    if (!browserId || !reason.trim()) return;
+    if (!browserId || !reason.trim()) {
+      return;
+    }
 
-    Server.User.banBrowser({ browserId, reason })
+    Server.User.banBrowser({
+      browserId,
+      reason,
+    })
       .then(() => {
         Alert.open('success', 'Browser banned successfully');
       })
@@ -45,7 +55,10 @@ export const BrowserIdAdminView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {user && (
           <Stack spacing={2}>
             <TextField

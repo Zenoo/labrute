@@ -1,12 +1,12 @@
 import {
   CalculatedBrute, FightStat, MAX_FAVORITE_BRUTES, getFightsLeft,
-  getXPNeeded
+  getXPNeeded,
 } from '@labrute/core';
 import {
-  Check, CrisisAlert, Stars
+  Check, CrisisAlert, Stars,
 } from '@mui/icons-material';
 import {
-  Box, Paper, Tooltip, useTheme
+  Box, Paper, Tooltip, useTheme,
 } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,14 +47,19 @@ export const HallView = () => {
   const toggleFavorite = useCallback((brute: CalculatedBrute) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     const wasFavorite = brute.favorite;
 
     if (!wasFavorite) {
       // Abort if limit reached
       const favoriteBrutes = user.brutes.filter((b) => b.favorite);
-      if (favoriteBrutes.length >= MAX_FAVORITE_BRUTES) return;
+
+      if (favoriteBrutes.length >= MAX_FAVORITE_BRUTES) {
+        return;
+      }
     }
 
     Server.Brute.favorite(brute.name).then(() => {
@@ -62,10 +67,19 @@ export const HallView = () => {
       updateData((data) => (data ? ({
         ...data,
         brutes: data.brutes.map((b) => (b.name === brute.name ? {
-          ...b, favorite: !wasFavorite,
-        } : b)).sort((a, b) => (a.favorite === b.favorite
-          ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          : a.favorite ? -1 : 1)),
+          ...b,
+          favorite: !wasFavorite,
+        } : b)).sort((a, b) => {
+          if (a.favorite === b.favorite) {
+            return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+          }
+
+          if (a.favorite) {
+            return -1;
+          }
+
+          return 1;
+        }),
       }) : null));
     }).catch(catchError(Alert));
   }, [Alert, Server.Brute, updateData, user]);
@@ -100,6 +114,7 @@ export const HallView = () => {
         {user && user.brutes.map((brute) => {
           const bruteFightsLeft = getFightsLeft(brute);
           const xpNeededForNextLevel = getXPNeeded(brute.level + 1);
+
           const limitedXP = Math.min(
             brute.xp,
             xpNeededForNextLevel,
@@ -195,7 +210,11 @@ export const HallView = () => {
                     />
                   )}
                 </Text>
-                <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: 115,
+                }}>
                   <Box sx={{
                     display: 'flex',
                     height: 1,
@@ -206,7 +225,11 @@ export const HallView = () => {
                   }}>
                     {/* LEVEL BAR */}
                     <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
-                      <Box sx={{ bgcolor: 'divider', p: '2px', width: 40 }}>
+                      <Box sx={{
+                        bgcolor: 'divider',
+                        p: '2px',
+                        width: 40,
+                      }}>
                         <Box sx={{
                           bgcolor: 'level',
                           height: 3,

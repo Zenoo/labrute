@@ -1,10 +1,10 @@
 import { BruteGetInventoryResponse } from '@labrute/core';
 import { InventoryItemType } from '@labrute/prisma';
 import {
-  Box, Grid, Paper, useMediaQuery, useTheme
+  Box, Grid, Paper, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -40,7 +40,9 @@ export const InventoryView = () => {
 
   // Fetch inventory
   useEffect(() => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     Server.Brute.getInventory(brute.name).then((data) => {
       setInventory(data);
@@ -48,7 +50,9 @@ export const InventoryView = () => {
   }, [brute, Alert, Server.Brute]);
 
   const triggerItem = useCallback((item: BruteGetInventoryResponse[number]) => () => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     switch (item.type) {
       case InventoryItemType.visualReset: {
@@ -56,21 +60,25 @@ export const InventoryView = () => {
         navigate(`/${brute.name}/reset-visuals`);
         break;
       }
+
       case InventoryItemType.customizationToken: {
         // Unlock color
         navigate(`/${brute.name}/unlock-color`);
         break;
       }
+
       case InventoryItemType.nameChange: {
         // Change name
         navigate(`/${brute.name}/change-name`);
         break;
       }
+
       case InventoryItemType.favoriteFight: {
         // Favorite fight
         Alert.open('info', t('item.favoriteFight.desc'));
         break;
       }
+
       default: {
         Alert.open('info', t('itemNotImplemented'));
         break;
@@ -90,18 +98,33 @@ export const InventoryView = () => {
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('inventory')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {owner && (
           <Grid container spacing={1}>
             <Grid item xs={12} md={4}>
               <Text h4 bold color="secondary" center>{brute.name}</Text>
               <BruteLevelAndXP
                 brute={brute}
-                textProps={{ h3: false, h5: true, color: 'primary.text', center: true }}
-                sx={{ mb: 1, width: 120, mx: 'auto' }}
+                textProps={{
+                  h3: false,
+                  h5: true,
+                  color: 'primary.text',
+                  center: true,
+                }}
+                sx={{
+                  mb: 1,
+                  width: 120,
+                  mx: 'auto',
+                }}
               />
               <BruteBodyAndStats brute={brute} isMd={isMd} />
-              <Box sx={{ textAlign: 'center', mt: 1 }}>
+              <Box sx={{
+                textAlign: 'center',
+                mt: 1,
+              }}>
                 <Link to={`/${brute.name}/cell`}>
                   <Text bold>{t('backToCell')}</Text>
                 </Link>

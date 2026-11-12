@@ -1,10 +1,10 @@
 import {
-  CssBaseline, StyledEngineProvider, ThemeProvider
+  CssBaseline, StyledEngineProvider, ThemeProvider,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, {
-  Suspense, useMemo, useState
+  Suspense, useMemo, useState,
 } from 'react';
 import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import { useRoutes } from 'react-router';
@@ -28,9 +28,11 @@ import { ServerProvider } from './hooks/useServer';
 export const App = () => {
   useAnalytics();
   const routing = useRoutes(routes);
+
   const [mode, setMode] = useState<'light' | 'dark'>(
-    (localStorage.getItem(LS_KEY_THEME) === 'dark') ? 'dark' : 'light'
+    (localStorage.getItem(LS_KEY_THEME) === 'dark') ? 'dark' : 'light',
   );
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {

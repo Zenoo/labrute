@@ -1,8 +1,8 @@
 import {
-  Box, Grid, Paper, useMediaQuery, useTheme
+  Box, Grid, Paper, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CellPets } from '../components/Cell/CellPets';
@@ -17,7 +17,7 @@ import { BruteLevelAndXP } from '../components/Brute/BruteLevelAndXP';
 import { BruteBodyAndStats } from '../components/Brute/BruteBodyAndStats';
 import { FantasyButton } from '../components/FantasyButton';
 import {
-  PetName, SkillName, WeaponName
+  PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import { useConfirm } from '../hooks/useConfirm';
 import { useAlert } from '../hooks/useAlert';
@@ -47,6 +47,7 @@ export const AscendView = () => {
 
     if (!brute) {
       navigate('/');
+
       return;
     }
 
@@ -65,6 +66,7 @@ export const AscendView = () => {
     if (brute?.ascendedWeapons.includes(weapon)) {
       return;
     }
+
     setSelectedPerk(weapon);
     setSelectedPerkType('weapon');
   };
@@ -73,6 +75,7 @@ export const AscendView = () => {
     if (brute?.ascendedSkills.includes(skill)) {
       return;
     }
+
     setSelectedPerk(skill);
     setSelectedPerkType('skill');
   };
@@ -81,6 +84,7 @@ export const AscendView = () => {
     if (brute?.ascendedPets.includes(pet)) {
       return;
     }
+
     setSelectedPerk(pet);
     setSelectedPerkType('pet');
   };
@@ -94,15 +98,19 @@ export const AscendView = () => {
       if (!selectedPerk) {
         return '';
       }
+
       if (selectedPerk === 'dog1') {
         return t('ascendWith.firstDog');
       }
+
       if (selectedPerk === 'dog2') {
         return t('ascendWith.secondDog');
       }
+
       if (selectedPerk === 'dog3') {
         return t('ascendWith.thirdDog');
       }
+
       return t(selectedPerk);
     };
 
@@ -110,22 +118,29 @@ export const AscendView = () => {
       if (!selectedPerkType) {
         return '';
       }
+
       return t(`perkType.${selectedPerkType}`);
     };
 
     if (!selectedPerk || !selectedPerkType) {
       return '';
     }
+
     if (selectedPerk === 'dog1' || selectedPerk === 'dog2' || selectedPerk === 'dog3') {
       return t('youWillAscendWithDog', { one_or_a_second_pet_dog: getSelectedPerkLabel() });
     }
-    return t('youWillAscendWith', { perkName: getSelectedPerkLabel(), perkType: getSelectedPerkTypeLabel() });
+
+    return t('youWillAscendWith', {
+      perkName: getSelectedPerkLabel(),
+      perkType: getSelectedPerkTypeLabel(),
+    });
   }, [selectedPerk, selectedPerkType, t]);
 
   const ascend = useCallback(() => {
     if (!brute) {
       return;
     }
+
     if (!selectedPerkType || !selectedPerk) {
       return;
     }
@@ -155,7 +170,10 @@ export const AscendView = () => {
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('ascension')}</Text>
         <Text bold color="secondary">{t('youAreAboutToAscend')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Grid container>
           {isMd && (
             <>
@@ -170,11 +188,23 @@ export const AscendView = () => {
             <Text h4 bold color="secondary" center>{brute.name}</Text>
             <BruteLevelAndXP
               brute={brute}
-              textProps={{ h3: false, h5: true, color: 'primary.text', center: true }}
-              sx={{ mb: 1, width: 120, mx: 'auto' }}
+              textProps={{
+                h3: false,
+                h5: true,
+                color: 'primary.text',
+                center: true,
+              }}
+              sx={{
+                mb: 1,
+                width: 120,
+                mx: 'auto',
+              }}
             />
             <BruteBodyAndStats brute={brute} isMd={isMd} centered />
-            <Box sx={{ textAlign: 'center', mt: 1 }}>
+            <Box sx={{
+              textAlign: 'center',
+              mt: 1,
+            }}>
               <Link to={`/${brute.name}/cell`}>
                 <Text bold>{t('backToCell')}</Text>
               </Link>
@@ -183,9 +213,16 @@ export const AscendView = () => {
           {isMd && (
             <Grid item xs={12} md={1} sx={{ height: 10 }} />
           )}
-          <Grid item xs={12} md={4.6} sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <Grid item xs={12} md={4.6} sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+          }}>
             <Grid container spacing={1} sx={{ justifyContent: 'center' }}>
-              <Box sx={{ width: 315, marginLeft: 1 }}>
+              <Box sx={{
+                width: 315,
+                marginLeft: 1,
+              }}>
                 {/* WEAPONS */}
                 <CellWeapons selectCallback={onWeaponClick} hoverSelectAscend selectedWeapon={(selectedPerkType === 'weapon' && selectedPerk as WeaponName | null) || null} />
                 {/* SKILLS */}
@@ -195,7 +232,12 @@ export const AscendView = () => {
               </Box>
             </Grid>
             {/* Show currently selected type and perk */}
-            <Box sx={{ display: 'flex', width: 315, justifyContent: 'center', mt: 1 }}>
+            <Box sx={{
+              display: 'flex',
+              width: 315,
+              justifyContent: 'center',
+              mt: 1,
+            }}>
               {selectedPerk && selectedPerkType && (
                 <Text bold>{getAscendWithLabel()}</Text>
               )}
@@ -203,7 +245,14 @@ export const AscendView = () => {
                 <Text bold>{t('youMustSelectToAscend')}</Text>
               )}
             </Box>
-            <Box sx={{ width: 315, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
+            <Box sx={{
+              width: 315,
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              mt: 1,
+            }}>
               <FantasyButton color="warning" onClick={ascend} sx={{ mb: 1 }} disabled={!selectedPerk || !selectedPerkType}>
                 {t('ascend')}
               </FantasyButton>

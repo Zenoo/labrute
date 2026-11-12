@@ -1,4 +1,4 @@
-/* eslint-disable max-len, no-bitwise */
+/* eslint-disable max-len */
 
 import { CSRF_HEADER, PREDICTABLE_HEADERS_PREFIX } from '../constants.js';
 import { randomBetween, seedToRandom } from './random.js';
@@ -12,14 +12,17 @@ export const getPredictableHeaders = (csrfToken: string) => {
   const numHeaders = randomBetween(1, 7, `numHeaders-${headerSeed}`);
 
   const headers: Record<string, string> = {};
+
   for (let i = 0; i < numHeaders; i++) {
     const nameSeed = `header-name-${i}-${headerSeed}`;
     const valueSeed = `header-value-${i}-${headerSeed}`;
     const nameHash = Math.floor(seedToRandom(nameSeed) * 1e6).toString(36);
     const headerName = `${PREDICTABLE_HEADERS_PREFIX}${nameHash}`;
     const valueHash = Math.floor(seedToRandom(valueSeed) * 1e12).toString(36);
+
     headers[headerName] = valueHash;
   }
+
   return headers;
 };
 

@@ -68,13 +68,20 @@ export const routes: RouteObject[] = [
     path: '/',
     element: <Main />,
     children: [
-      { path: '', element: <HomeView />, id: 'home' },
+      {
+        path: '',
+        element: <HomeView />,
+        id: 'home',
+      },
       {
         path: 'oauth/callback',
         element: <HomeView />,
         handle: { shouldIndex: false },
       },
-      { path: 'achievements/rankings', element: <AchievementRankingView /> },
+      {
+        path: 'achievements/rankings',
+        element: <AchievementRankingView />,
+      },
       {
         path: 'unknown-brute',
         element: <BruteNotFoundView />,
@@ -85,71 +92,209 @@ export const routes: RouteObject[] = [
         element: <GeneratingView />,
         handle: { shouldIndex: false },
       },
-      { path: 'hall', element: <HallView />, handle: { shouldIndex: false } },
-      { path: 'patch-notes', element: <PatchNotesView /> },
-      { path: 'wiki', element: <WikiView /> },
-      { path: 'terms', element: <TermsView /> },
-      { path: 'fight/:fightId', element: <FightView />, id: 'fight' },
+      {
+        path: 'hall',
+        element: <HallView />,
+        handle: { shouldIndex: false },
+      },
+      {
+        path: 'patch-notes',
+        element: <PatchNotesView />,
+      },
+      {
+        path: 'wiki',
+        element: <WikiView />,
+      },
+      {
+        path: 'terms',
+        element: <TermsView />,
+      },
+      {
+        path: 'fight/:fightId',
+        element: <FightView />,
+        id: 'fight',
+      },
       {
         path: 'user/:userId',
         children: [
-          { path: '', element: <UserView />, id: 'user' },
-          { path: 'stats', element: <StatsView />, id: 'user-stats' },
+          {
+            path: '',
+            element: <UserView />,
+            id: 'user',
+          },
+          {
+            path: 'stats',
+            element: <StatsView />,
+            id: 'user-stats',
+          },
           {
             path: 'feed',
             element: <FollowingFeedView />,
             handle: { shouldIndex: false },
           },
-          { path: 'transfer-brute', element: <TransferBruteView />, handle: { shouldIndex: false } },
-        ]
+          {
+            path: 'transfer-brute',
+            element: <TransferBruteView />,
+            handle: { shouldIndex: false },
+          },
+        ],
       },
       {
         path: ':bruteName',
         element: <ProvideBrute />,
         children: [
-          { path: 'cell', element: <CellView /> },
-          { path: 'level-up', element: <LevelUpView />, handle: { shouldIndex: false } },
-          { path: 'arena', element: <ArenaView />, handle: { shouldIndex: false } },
-          { path: 'inventory', element: <InventoryView />, handle: { shouldIndex: false } },
-          { path: 'versus/:opponentName', element: <VersusView />, handle: { shouldIndex: false }, id: 'versus' },
-          { path: 'fight/:fightId', element: <FightView />, id: 'fight' },
-          { path: 'tournament/global/:date', element: <GlobalTournamentView />, id: 'tournament' },
-          { path: 'tournament/:date', element: <TournamentView />, id: 'tournament' },
-          { path: 'ranking/:rank', element: <RankingView />, id: 'ranking/rank' },
-          { path: 'destiny', element: <DestinyView /> },
-          { path: 'ascend', element: <AscendView />, handle: { shouldIndex: false } },
-          { path: 'tournaments', element: <TournamentHistoryView /> },
-          { path: 'achievements', element: <AchievementsView /> },
-          { path: 'reset-visuals', element: <ResetVisualsView />, handle: { shouldIndex: false } },
-          { path: 'unlock-color', element: <UnlockColorView />, handle: { shouldIndex: false } },
-          { path: 'change-name', element: <NameChangeView />, handle: { shouldIndex: false } },
-          { path: 'dojo', element: <DojoView /> },
+          {
+            path: 'cell',
+            element: <CellView />,
+          },
+          {
+            path: 'level-up',
+            element: <LevelUpView />,
+            handle: { shouldIndex: false },
+          },
+          {
+            path: 'arena',
+            element: <ArenaView />,
+            handle: { shouldIndex: false },
+          },
+          {
+            path: 'inventory',
+            element: <InventoryView />,
+            handle: { shouldIndex: false },
+          },
+          {
+            path: 'versus/:opponentName',
+            element: <VersusView />,
+            handle: { shouldIndex: false },
+            id: 'versus',
+          },
+          {
+            path: 'fight/:fightId',
+            element: <FightView />,
+            id: 'fight',
+          },
+          {
+            path: 'tournament/global/:date',
+            element: <GlobalTournamentView />,
+            id: 'tournament',
+          },
+          {
+            path: 'tournament/:date',
+            element: <TournamentView />,
+            id: 'tournament',
+          },
+          {
+            path: 'ranking/:rank',
+            element: <RankingView />,
+            id: 'ranking/rank',
+          },
+          {
+            path: 'destiny',
+            element: <DestinyView />,
+          },
+          {
+            path: 'ascend',
+            element: <AscendView />,
+            handle: { shouldIndex: false },
+          },
+          {
+            path: 'tournaments',
+            element: <TournamentHistoryView />,
+          },
+          {
+            path: 'achievements',
+            element: <AchievementsView />,
+          },
+          {
+            path: 'reset-visuals',
+            element: <ResetVisualsView />,
+            handle: { shouldIndex: false },
+          },
+          {
+            path: 'unlock-color',
+            element: <UnlockColorView />,
+            handle: { shouldIndex: false },
+          },
+          {
+            path: 'change-name',
+            element: <NameChangeView />,
+            handle: { shouldIndex: false },
+          },
+          {
+            path: 'dojo',
+            element: <DojoView />,
+          },
           {
             path: 'clan',
             children: [
-              { path: 'ranking', element: <ClanRankingView />, id: 'clan-ranking' },
-              { path: 'create', element: <ClanCreateView />, handle: { shouldIndex: false }, id: 'clan-create' },
+              {
+                path: 'ranking',
+                element: <ClanRankingView />,
+                id: 'clan-ranking',
+              },
+              {
+                path: 'create',
+                element: <ClanCreateView />,
+                handle: { shouldIndex: false },
+                id: 'clan-create',
+              },
               {
                 path: ':id',
                 children: [
-                  { path: '', element: <ClanView />, id: 'clan' },
-                  { path: 'forum', element: <ClanForumView />, handle: { shouldIndex: false }, id: 'clan-forum' },
-                  { path: 'thread/:tid', element: <ClanThreadView />, handle: { shouldIndex: false }, id: 'clan-thread' },
-                  { path: 'post/:tid', element: <ClanPostView />, handle: { shouldIndex: false }, id: 'clan-post' },
-                  { path: 'post/:tid/edit', element: <ClanPostView />, handle: { shouldIndex: false }, id: 'clan-post-edit' },
+                  {
+                    path: '',
+                    element: <ClanView />,
+                    id: 'clan',
+                  },
+                  {
+                    path: 'forum',
+                    element: <ClanForumView />,
+                    handle: { shouldIndex: false },
+                    id: 'clan-forum',
+                  },
+                  {
+                    path: 'thread/:tid',
+                    element: <ClanThreadView />,
+                    handle: { shouldIndex: false },
+                    id: 'clan-thread',
+                  },
+                  {
+                    path: 'post/:tid',
+                    element: <ClanPostView />,
+                    handle: { shouldIndex: false },
+                    id: 'clan-post',
+                  },
+                  {
+                    path: 'post/:tid/edit',
+                    element: <ClanPostView />,
+                    handle: { shouldIndex: false },
+                    id: 'clan-post-edit',
+                  },
                   {
                     path: 'war',
                     children: [
-                      { path: 'history', element: <ClanWarHistoryView />, id: 'clan-war-history' },
+                      {
+                        path: 'history',
+                        element: <ClanWarHistoryView />,
+                        id: 'clan-war-history',
+                      },
                       {
                         path: ':warId',
                         children: [
-                          { path: '', element: <ClanWarView />, id: 'clan-war' },
-                          { path: 'fight/:fightId', element: <ClanWarFightView />, id: 'clan-war-fight' },
+                          {
+                            path: '',
+                            element: <ClanWarView />,
+                            id: 'clan-war',
+                          },
+                          {
+                            path: 'fight/:fightId',
+                            element: <ClanWarFightView />,
+                            id: 'clan-war-fight',
+                          },
                         ],
                       },
                     ],
-                  }
+                  },
                 ],
               },
             ],
@@ -157,51 +302,183 @@ export const routes: RouteObject[] = [
           {
             path: 'event',
             children: [
-              { path: 'current', element: <CurrentEventsView />, id: 'current-events' },
-              { path: 'history', element: <EventHistoryView />, id: 'event-history' },
+              {
+                path: 'current',
+                element: <CurrentEventsView />,
+                id: 'current-events',
+              },
+              {
+                path: 'history',
+                element: <EventHistoryView />,
+                id: 'event-history',
+              },
               {
                 path: ':id',
                 children: [
-                  { path: '', element: <EventView />, id: 'event' },
-                  { path: 'round/:round', element: <EventRoundView />, id: 'event-round' },
-                ]
+                  {
+                    path: '',
+                    element: <EventView />,
+                    id: 'event',
+                  },
+                  {
+                    path: 'round/:round',
+                    element: <EventRoundView />,
+                    id: 'event-round',
+                  },
+                ],
               },
             ],
           },
           // Redirect :name to :name/cell
-          { path: '', element: <Navigate to="cell" /> },
+          {
+            path: '',
+            element: <Navigate to="cell" />,
+          },
         ],
       },
       {
         path: 'admin-panel',
         element: <AdminLayout />,
         children: [
-          { path: '', element: <AdminView />, handle: { shouldIndex: false, title: 'Admin' } },
-          { path: 'user/:id?', element: <UserAdminView />, handle: { shouldIndex: false, title: 'User Admin' } },
-          { path: 'report', element: <ReportAdminView />, handle: { shouldIndex: false, title: 'Report' } },
-          { path: 'config', element: <ConfigAdminView />, handle: { shouldIndex: false, title: 'Config' } },
-          { path: 'banned-users', element: <BannedUsersView />, handle: { shouldIndex: false, title: 'Banned Users' } },
-          { path: 'known-fingerprints', element: <KnownFingerprintsView />, handle: { shouldIndex: false, title: 'Known Fingerprints' } },
-          { path: 'multiple-accounts', element: <MultipleAccountsView />, handle: { shouldIndex: false, title: 'Multiple Accounts' } },
-          { path: 'brute/:bruteName?', element: <BruteAdminView />, handle: { shouldIndex: false, title: 'Brute Admin' } },
-          { path: 'clan/:clanId', element: <ClanAdminView />, handle: { shouldIndex: false, title: 'Clan Admin' } },
-          { path: 'user/logs/:userId?', element: <UserLogView />, handle: { shouldIndex: false, title: 'User Logs' } },
-          { path: 'shared-browser', element: <SharedBrowserView />, handle: { shouldIndex: false, title: 'Shared Browser' } },
-          { path: 'fingerprint', element: <FingerprintAdminView />, handle: { shouldIndex: false, title: 'Fingerprint Admin' } },
-          { path: 'browser-id', element: <BrowserIdAdminView />, handle: { shouldIndex: false, title: 'Browser ID Admin' } },
-          { path: 'banned-words', element: <BannedWordsAdminView />, handle: { shouldIndex: false, title: 'Banned Words' } },
-          { path: 'fight-replay', element: <FightReplayAdminView />, handle: { shouldIndex: false, title: 'Fight Replay' } }
+          {
+            path: '',
+            element: <AdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Admin',
+            },
+          },
+          {
+            path: 'user/:id?',
+            element: <UserAdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'User Admin',
+            },
+          },
+          {
+            path: 'report',
+            element: <ReportAdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Report',
+            },
+          },
+          {
+            path: 'config',
+            element: <ConfigAdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Config',
+            },
+          },
+          {
+            path: 'banned-users',
+            element: <BannedUsersView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Banned Users',
+            },
+          },
+          {
+            path: 'known-fingerprints',
+            element: <KnownFingerprintsView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Known Fingerprints',
+            },
+          },
+          {
+            path: 'multiple-accounts',
+            element: <MultipleAccountsView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Multiple Accounts',
+            },
+          },
+          {
+            path: 'brute/:bruteName?',
+            element: <BruteAdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Brute Admin',
+            },
+          },
+          {
+            path: 'clan/:clanId',
+            element: <ClanAdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Clan Admin',
+            },
+          },
+          {
+            path: 'user/logs/:userId?',
+            element: <UserLogView />,
+            handle: {
+              shouldIndex: false,
+              title: 'User Logs',
+            },
+          },
+          {
+            path: 'shared-browser',
+            element: <SharedBrowserView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Shared Browser',
+            },
+          },
+          {
+            path: 'fingerprint',
+            element: <FingerprintAdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Fingerprint Admin',
+            },
+          },
+          {
+            path: 'browser-id',
+            element: <BrowserIdAdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Browser ID Admin',
+            },
+          },
+          {
+            path: 'banned-words',
+            element: <BannedWordsAdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Banned Words',
+            },
+          },
+          {
+            path: 'fight-replay',
+            element: <FightReplayAdminView />,
+            handle: {
+              shouldIndex: false,
+              title: 'Fight Replay',
+            },
+          },
         ],
       },
       {
         path: 'moderator-panel',
         element: <ModeratorLayout />,
         children: [
-          { path: 'report', element: <ReportAdminView />, handle: { shouldIndex: false }, id: 'report' },
+          {
+            path: 'report',
+            element: <ReportAdminView />,
+            handle: { shouldIndex: false },
+            id: 'report',
+          },
         ],
       },
       // 404
-      { path: '*', element: <NotFoundView /> },
+      {
+        path: '*',
+        element: <NotFoundView />,
+      },
     ],
   },
 ];

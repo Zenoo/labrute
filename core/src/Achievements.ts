@@ -589,16 +589,22 @@ export const updateAchievement = (
   count: number,
   bruteId: string,
 ) => {
-  if (bruteId === '') return;
+  if (bruteId === '') {
+    return;
+  }
 
   const current = store[bruteId];
 
-  if (!current) return;
+  if (!current) {
+    return;
+  }
 
   const previousCount = current.achievements[name] || 0;
 
   // Limit to one per fight for some achievements
-  if (previousCount > 0 && AchievementData[name].onePerFight) return;
+  if (previousCount > 0 && AchievementData[name].onePerFight) {
+    return;
+  }
 
   current.achievements[name] = previousCount + count;
 };

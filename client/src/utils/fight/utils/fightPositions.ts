@@ -1,5 +1,5 @@
 import {
-  randomItem, SkillId, weapons, WeaponType
+  randomItem, SkillId, weapons, WeaponType,
 } from '@labrute/core';
 import { AnimationFighter } from './findFighter';
 
@@ -37,9 +37,15 @@ const getRandomPosition = (
       .filter((animationFighter) => {
         // Remove animationFighter not positioned yet
         if (animationFighter.animation.container.y < minYPosition
-          || animationFighter.animation.container.y > maxYPosition) return false;
+          || animationFighter.animation.container.y > maxYPosition) {
+          return false;
+        }
+
         // Add self, for more natural movements
-        if (animationFighter === fighter) return true;
+        if (animationFighter === fighter) {
+          return true;
+        }
+
         // Get fighters in the target side of the map
         return (fighter.team === 'L')
           ? animationFighter.animation.container.x < 250
@@ -66,9 +72,17 @@ const getRandomPosition = (
   // Loop throught fighters Y
   for (let i = 1; i < sortedPositions.length; i++) {
     const gap = (sortedPositions[i] ?? 0) - (sortedPositions[i - 1] ?? 0);
-    const gapPosition = { start: sortedPositions[i - 1] ?? 0, end: sortedPositions[i] ?? 0 };
+
+    const gapPosition = {
+      start: sortedPositions[i - 1] ?? 0,
+      end: sortedPositions[i] ?? 0,
+    };
+
     // Add to lerge enough gap list
-    if (gap > comfortYMargin * 2) comfortableGapPositions.push(gapPosition);
+    if (gap > comfortYMargin * 2) {
+      comfortableGapPositions.push(gapPosition);
+    }
+
     // Update largest gap
     if (gap > largestGap) {
       largestGap = gap;
@@ -94,6 +108,7 @@ const getRandomPosition = (
   // Chose an y within the chosen gap
   // Candidate interval length
   const comfortSpace = chosenGapPositions.end - chosenGapPositions.start - comfortYMargin * 2;
+
   // If not enough space, just go in the middle of the gap
   if (comfortSpace <= 0) {
     resultPosition.y = (chosenGapPositions.start + chosenGapPositions.end) / 2;
@@ -113,9 +128,14 @@ const getRandomPosition = (
   // If chosen y is too close to the edges, stick it to the edge
   // This way space is optimized for crowded fights
   if (resultPosition.y <= minYPosition + comfortYMargin
-    && chosenGapPositions.start === minYPosition) resultPosition.y = minYPosition + 1;
+    && chosenGapPositions.start === minYPosition) {
+    resultPosition.y = minYPosition + 1;
+  }
+
   if (resultPosition.y >= maxYPosition - comfortYMargin
-    && chosenGapPositions.end === maxYPosition) resultPosition.y = maxYPosition - 1;
+    && chosenGapPositions.end === maxYPosition) {
+    resultPosition.y = maxYPosition - 1;
+  }
 
   // X positioning
   // Random x position from 0 to 1
@@ -123,17 +143,25 @@ const getRandomPosition = (
 
   // Adjust x position to get more natural looking movements
   const possibleWeapon = fighter.animation.weapon ? weapons[fighter.animation.weapon] : undefined;
+
   // If fighter has a weapon
   if (possibleWeapon) {
     // A bit further if long range
-    if (possibleWeapon.types.includes(WeaponType.LONG)) randomXPositionFactor -= 0.25;
+    if (possibleWeapon.types.includes(WeaponType.LONG)) {
+      randomXPositionFactor -= 0.25;
+    }
+
     // Further if thrown weapon
-    if (possibleWeapon.types.includes(WeaponType.THROWN)) randomXPositionFactor -= 0.5;
+    if (possibleWeapon.types.includes(WeaponType.THROWN)) {
+      randomXPositionFactor -= 0.5;
+    }
+
     // Confidence boost if heavy weapon and bodybuilder
     if (possibleWeapon.types.includes(WeaponType.HEAVY)
       && fighter.skills[SkillId.bodybuilder]) {
       randomXPositionFactor += 0.15;
     }
+
     // Confidence boost if sharp weapon and weaponMaster
     if (possibleWeapon.types.includes(WeaponType.SHARP)
       && fighter.skills[SkillId.weaponsMaster]) {
@@ -181,6 +209,7 @@ const getMultipleRandomPosition = (
   for (const fighter of multipleFighters) {
     positions.push(getRandomPosition(fighters, fighter, positions));
   }
+
   return positions;
 };
 

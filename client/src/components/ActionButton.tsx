@@ -1,5 +1,5 @@
 import {
-  Badge, Box, BoxProps, SvgIconTypeMap, useTheme
+  Badge, Box, BoxProps, SvgIconTypeMap, useTheme,
 } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router';
@@ -30,7 +30,10 @@ const ActionButton = React.forwardRef<HTMLDivElement, ActionButtonProps>(({
 }, ref) => {
   const theme = useTheme();
 
-  const linkProps = to ? { component: Link, to } : {};
+  const linkProps = to ? {
+    component: Link,
+    to,
+  } : {};
 
   return (
     <Box
@@ -53,9 +56,9 @@ const ActionButton = React.forwardRef<HTMLDivElement, ActionButtonProps>(({
           boxShadow: `0 0 8px ${theme.palette.topbar.contrastShadow}`,
           '& svg': {
             color: theme.palette.topbar.colorLight,
-          }
+          },
         },
-        ...sx
+        ...sx,
       }}
       {...rest}
     >

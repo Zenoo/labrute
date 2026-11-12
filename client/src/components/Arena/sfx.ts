@@ -16,6 +16,6 @@ type AudioSpriteData = {
 
 export const sfx: AudioSpriteData = {
   resources: sfxJson.resources.map((source: string) => `/sfx/${source}`),
-  spritemap: sfxJson.spritemap
+  spritemap: sfxJson.spritemap,
 
 };

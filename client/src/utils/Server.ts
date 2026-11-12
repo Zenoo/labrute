@@ -44,11 +44,11 @@ import {
   UsersUnbanRequest,
   UserTransferBruteRequest, UserUpdateSettingsRequest,
   UserStatsGetRequest,
-  UserGiveItemRequest
+  UserGiveItemRequest,
 } from '@labrute/core';
 import {
   Brute, BruteReportReason, BruteReportStatus, Clan,
-  DestinyChoiceSide, Gender, InventoryItemType, Lang, PetName, Prisma, SkillName, WeaponName
+  DestinyChoiceSide, Gender, InventoryItemType, Lang, PetName, Prisma, SkillName, WeaponName,
 } from '@labrute/prisma';
 import { Fetch } from './Fetch';
 import { GetResult } from '@fingerprintjs/fingerprintjs';
@@ -72,16 +72,19 @@ export const Server = {
     getProfile: (id: string) => Fetch<UserGetProfileResponse>(`/api/user/${id}/profile`),
     getStats: <TRequest extends UserStatsGetRequest>(params: TRequest) => Fetch<UserStatsGetResponse<TRequest>>('/api/user/stats', params, 'POST'),
     getDinoRpgRewards: () => Fetch<never>('/api/user/get-dinorpg-reward', {}, 'PATCH'),
-    ban: (data: UsersBanRequest) => Fetch<never>(`/api/user/ban`, data, 'PATCH'),
-    unban: (data: UsersUnbanRequest) => Fetch<never>(`/api/user/unban`, data, 'PATCH'),
+    ban: (data: UsersBanRequest) => Fetch<never>('/api/user/ban', data, 'PATCH'),
+    unban: (data: UsersUnbanRequest) => Fetch<never>('/api/user/unban', data, 'PATCH'),
     banlist: () => Fetch<UserBannedListResponse>('/api/user/banlist'),
     multipleAccounts: (
       status: MultipleAccountCaseStatus, cursor?: string, userId?: string,
     ) => Fetch<
       UserMultipleAccountsListResponse
     >(
-      '/api/user/multiple-accounts', { status, ...(cursor ? { cursor } : {}),
-        ...(userId ? { userId } : {}) },
+      '/api/user/multiple-accounts', {
+        status,
+        ...(cursor ? { cursor } : {}),
+        ...(userId ? { userId } : {}),
+      },
     ),
     multipleAccountCase: (id: string, offset = 0) => Fetch<MultipleAccountCaseDetailResponse>(
       `/api/user/multiple-accounts/${id}`, { offset: String(offset) },
@@ -152,11 +155,17 @@ export const Server = {
     restore: (id: string) => Fetch<never>(`/api/brute/${id}/restore`, {}, 'PUT'),
     favorite: (name: string) => Fetch<never>(`/api/brute/${name}/favorite`, {}, 'PATCH'),
     reset: (name: string) => Fetch<ServerHookBrute>(`/api/brute/${name}/reset`, {}, 'PATCH'),
-    resetVisuals: (name: string, body: string, colors: string) => Fetch<never>(`/api/brute/${name}/reset-visuals`, { body, colors }, 'PATCH'),
+    resetVisuals: (name: string, body: string, colors: string) => Fetch<never>(`/api/brute/${name}/reset-visuals`, {
+      body,
+      colors,
+    }, 'PATCH'),
     unlockColor: (name: string, params: BruteUnlockColorRequest) => Fetch<BruteUnlockColorResponse>(`/api/brute/${name}/unlock-color`, params, 'PATCH'),
     changeName: (name: string, newName: string) => Fetch<never>(`/api/brute/${name}/change-name/${newName}`, {}, 'PATCH'),
     getInventory: (name: string) => Fetch<BruteGetInventoryResponse>(`/api/brute/${name}/inventory`),
-    giveItem: (id: string, item: InventoryItemType) => Fetch<never>('/api/brute/item', { id, item }, 'PUT'),
+    giveItem: (id: string, item: InventoryItemType) => Fetch<never>('/api/brute/item', {
+      id,
+      item,
+    }, 'PUT'),
     getClanIdAsMaster: (name: string) => Fetch<BrutesGetClanIdAsMasterResponse>(`/api/brute/${name}/master-clan-id`),
     updateEventRoundWatched: (name: string, fight: string) => Fetch<BruteUpdateEventRoundWatchedResponse>(`/api/brute/${name}/update-event-round-watched/${fight}`, {}, 'PUT'),
     delete: (data: BruteDeleteRequest) => Fetch<never>(`/api/brute/id/${data.id}`, {}, 'DELETE'),
@@ -171,7 +180,10 @@ export const Server = {
   },
   Fight: {
     get: (id: string) => Fetch<FightGetResponse>(`/api/fight/${id}`),
-    create: (brute1: string, brute2: string) => Fetch<FightCreateResponse>('/api/fight', { brute1, brute2 }, 'PATCH'),
+    create: (brute1: string, brute2: string) => Fetch<FightCreateResponse>('/api/fight', {
+      brute1,
+      brute2,
+    }, 'PATCH'),
     toggleFavorite: (id: string) => Fetch<never>(`/api/fight/${id}/toggle-favorite`, {}, 'PATCH'),
   },
   Tournament: {
@@ -207,7 +219,13 @@ export const Server = {
     addBannedWord: (word: string) => Fetch<never>(`/api/report/banned-word/${word}`, {}, 'PUT'),
   },
   Clan: {
-    list: ({ page, search, sort }: { page: number, search: string, sort: ClanSort }) => Fetch<ClanListResponse>('/api/clan/list', { page, search, sort }),
+    list: ({
+      page, search, sort,
+    }: { page: number, search: string, sort: ClanSort }) => Fetch<ClanListResponse>('/api/clan/list', {
+      page,
+      search,
+      sort,
+    }),
     create: (brute: string, name: string) => Fetch<ClanCreateResponse>(`/api/brute/${brute}/clan/create`, { name }, 'PUT'),
     get: (id: string) => Fetch<ClanGetResponse>(`/api/clan/${id}`),
     request: (brute: string, id: string) => Fetch<never>(`/api/brute/${brute}/clan/${id}/request`, {}, 'PUT'),
@@ -223,7 +241,10 @@ export const Server = {
       id: string,
       title: string,
       content: string,
-    ) => Fetch<ClanGetThreadsResponse>(`/api/brute/${brute}/clan/${id}/thread/create`, { title, content }, 'PUT'),
+    ) => Fetch<ClanGetThreadsResponse>(`/api/brute/${brute}/clan/${id}/thread/create`, {
+      title,
+      content,
+    }, 'PUT'),
     updateThread: (
       brute: string,
       id: string,
@@ -231,7 +252,11 @@ export const Server = {
       content: string,
       threadId: string,
       postId: string,
-    ) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}`, { title, content, postId }, 'PATCH'),
+    ) => Fetch<never>(`/api/brute/${brute}/clan/${id}/thread/${threadId}`, {
+      title,
+      content,
+      postId,
+    }, 'PATCH'),
     createPost: (
       brute: string,
       id: string,
@@ -262,8 +287,14 @@ export const Server = {
     }, 'PUT'),
     get: (clan: string, war: string) => Fetch<ClanWarGetResponse>(`/api/clan/${clan}/war/${war}`),
     getHistory: (clan: string) => Fetch<ClanWarGetHistoryResponse>(`/api/clan/${clan}/war/history`),
-    getAvailableFighters: (clan: string, war: string) => Fetch<ClanWarGetAvailableFightersResponse>('/api/clan/war/fighters', { clan, war }, 'POST'),
-    getUsedFighters: (clan: string, war: string) => Fetch<ClanWarGetUsedFightersResponse>('/api/clan/war/fighters/used', { clan, war }, 'POST'),
+    getAvailableFighters: (clan: string, war: string) => Fetch<ClanWarGetAvailableFightersResponse>('/api/clan/war/fighters', {
+      clan,
+      war,
+    }, 'POST'),
+    getUsedFighters: (clan: string, war: string) => Fetch<ClanWarGetUsedFightersResponse>('/api/clan/war/fighters/used', {
+      clan,
+      war,
+    }, 'POST'),
     toggleFighter: (
       clan: string,
       war: string,
@@ -275,8 +306,16 @@ export const Server = {
       fighter,
       add: add ? 'true' : 'false',
     }, 'PATCH'),
-    cancel: (brute: string, clan: string, war: string) => Fetch<never>('/api/clan/war', { brute, clan, war }, 'DELETE'),
-    accept: (brute: string, clan: string, war: string) => Fetch<never>('/api/clan/war/accept', { brute, clan, war }, 'PATCH'),
+    cancel: (brute: string, clan: string, war: string) => Fetch<never>('/api/clan/war', {
+      brute,
+      clan,
+      war,
+    }, 'DELETE'),
+    accept: (brute: string, clan: string, war: string) => Fetch<never>('/api/clan/war/accept', {
+      brute,
+      clan,
+      war,
+    }, 'PATCH'),
     getFight: (warId: string, fightId: string) => Fetch<FightGetResponse>(`/api/clan/war/${warId}/fight/${fightId}`),
   },
   Event: {
@@ -292,7 +331,10 @@ export const Server = {
   },
   Config: {
     list: () => Fetch<ConfigsListResponse>('/api/config/list'),
-    set: (key: string, value: string) => Fetch<ConfigsSetResponse>('/api/config/set', { key, value } as ConfigsSetRequest, 'PUT'),
+    set: (key: string, value: string) => Fetch<ConfigsSetResponse>('/api/config/set', {
+      key,
+      value,
+    } as ConfigsSetRequest, 'PUT'),
     decrypt: (value: string) => Fetch<ConfigsDecryptResponse>('/api/config/decrypt', { value } as ConfigsDecryptRequest, 'POST'),
     delete: (key: string) => Fetch<never>('/api/config', { key }, 'DELETE'),
   },

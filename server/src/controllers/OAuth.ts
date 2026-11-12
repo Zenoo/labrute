@@ -70,6 +70,7 @@ export class OAuth {
     res.header('Access-Control-Allow-Origin', '*');
 
     let oauthUserId: string | undefined;
+
     try {
       if (!req.body?.code || typeof req.body.code !== 'string') {
         throw new ExpectedError('Invalid code');
@@ -79,7 +80,9 @@ export class OAuth {
       const { fingerprint } = verifyFingerprintEvent(req.body.eventId, req);
       const browserId = getBrowserId(req);
 
-      if (!browserId) throw new ForbiddenError('Missing or invalid browser ID. Reload the page.');
+      if (!browserId) {
+        throw new ForbiddenError('Missing or invalid browser ID. Reload the page.');
+      }
 
       try {
         checkPredictableHeaders(req.headers);
@@ -96,6 +99,7 @@ export class OAuth {
       if (self.type !== AuthType.AccessToken) {
         throw new Error('Invalid auth type');
       }
+
       oauthUserId = self.user.id;
       trace.getActiveSpan()?.addEvent('getAuthSelf', { 'user.id': self.user.id });
 
@@ -114,8 +118,14 @@ export class OAuth {
       const restrictions = await traced('oauth.token.getIdentifierRestrictions', () => getIdentifierRestrictions(
         this.#prisma, self.user.id, browserId, fingerprint,
       ));
-      if (restrictions.browserRestricted) throw new ForbiddenError(translate('banned', null));
-      if (restrictions.fingerprintRestricted) throw new ForbiddenError(translate('fingerprintBanned', null));
+
+      if (restrictions.browserRestricted) {
+        throw new ForbiddenError(translate('banned', null));
+      }
+
+      if (restrictions.fingerprintRestricted) {
+        throw new ForbiddenError(translate('fingerprintBanned', null));
+      }
 
       // Update or store user
       const { user: etwinUser } = self;
@@ -123,7 +133,10 @@ export class OAuth {
 
       try {
         user = await traced('oauth.token.upsertUser', () => this.#prisma.user.upsert({
-          where: { id: etwinUser.id, bannedAt: null },
+          where: {
+            id: etwinUser.id,
+            bannedAt: null,
+          },
           update: {
             connexionToken: token.accessToken,
             name: etwinUser.displayName.current.value,
@@ -163,7 +176,10 @@ export class OAuth {
             case 'P2002': {
               // Upsert race condition, update the user
               user = await traced('oauth.token.updateUser', () => this.#prisma.user.update({
-                where: { id: etwinUser.id, bannedAt: null },
+                where: {
+                  id: etwinUser.id,
+                  bannedAt: null,
+                },
                 data: {
                   connexionToken: token.accessToken,
                   name: etwinUser.displayName.current.value,
@@ -186,6 +202,7 @@ export class OAuth {
               }));
               break;
             }
+
             default: {
               throw error;
             }
@@ -229,16 +246,26 @@ export class OAuth {
       if (oauthUserId && error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
         const rejected = await this.#prisma.user.findUnique({
           where: { id: oauthUserId },
-          select: { id: true, bannedAt: true, banReason: true, lang: true, banAppealCode: true },
+          select: {
+            id: true,
+            bannedAt: true,
+            banReason: true,
+            lang: true,
+            banAppealCode: true,
+          },
         });
+
         if (rejected?.bannedAt) {
           const message = rejected.banReason === 'account_deleted'
             ? translate('deletedAccount', rejected)
             : bannedAccountMessage(rejected);
+
           sendError(res, new ForbiddenError(message));
+
           return;
         }
       }
+
       if (error instanceof GetAccessTokenError) {
         switch (error?.eternaltwin?.code) {
           case ErrorCode.OauthCodeTimeError:

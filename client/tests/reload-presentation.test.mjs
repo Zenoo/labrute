@@ -28,6 +28,7 @@ test('reload artwork exists for each skill tier', async () => {
       path.join(clientRoot, 'public', 'images', 'skills', `tier-${tier}`, 'reload.svg'),
       'utf8',
     );
+
     assert.match(svg, /<svg\b[^>]*\bviewBox="[^"]+"/);
     assert.match(svg, /<(?:path|polygon|rect|circle|ellipse)\b/);
     assert.match(svg.trim(), /<\/svg>$/);

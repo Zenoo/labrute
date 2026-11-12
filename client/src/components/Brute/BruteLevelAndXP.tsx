@@ -1,7 +1,7 @@
 import { getXPNeeded } from '@labrute/core';
 import { Brute } from '@labrute/prisma';
 import {
-  Box, BoxProps, Tooltip
+  Box, BoxProps, Tooltip,
 } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,7 @@ export const BruteLevelAndXP = ({
   const navigate = useNavigate();
 
   const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.level + 1), [brute.level]);
+
   const limitedXP = useMemo(() => Math.min(
     brute.xp,
     xpNeededForNextLevel,
@@ -39,7 +40,11 @@ export const BruteLevelAndXP = ({
             <Box
               component="img"
               src="/images/event.webp"
-              sx={{ width: 18, mr: 1, cursor: 'pointer' }}
+              sx={{
+                width: 18,
+                mr: 1,
+                cursor: 'pointer',
+              }}
               onClick={goToEvent}
             />
           </Tooltip>
@@ -48,7 +53,11 @@ export const BruteLevelAndXP = ({
       </Text>
       {/* LEVEL BAR */}
       <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
-        <Box sx={{ bgcolor: 'divider', p: '2px', width: 120 }}>
+        <Box sx={{
+          bgcolor: 'divider',
+          p: '2px',
+          width: 120,
+        }}>
           <Box sx={{
             bgcolor: 'level',
             height: 3,

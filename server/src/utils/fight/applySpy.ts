@@ -12,7 +12,9 @@ export const applySpy = (
   brute: DetailedFighter,
   opponent: DetailedFighter,
 ) => {
-  if (!brute.skills[SkillName.spy]) return;
+  if (!brute.skills[SkillName.spy]) {
+    return;
+  }
 
   const opponentWeaponNames = Object.keys(opponent.weapons) as WeaponName[];
   const bruteWeaponNames = Object.keys(brute.weapons) as WeaponName[];
@@ -24,6 +26,7 @@ export const applySpy = (
   // First pass: shared weapons (both fighters have the same weapon type)
   for (const name of bruteWeaponNames) {
     const opponentWeapon = opponent.weapons[name];
+
     if (opponentWeapon) {
       // Skip if protected by weaponsMaster
       if (opponent.skills[SkillName.weaponsMaster] &&
@@ -33,7 +36,7 @@ export const applySpy = (
 
       swapPairs.push({
         bruteWeapon: brute.weapons[name] as FightWeapon,
-        opponentWeapon
+        opponentWeapon,
       });
       processedNames.add(name);
     }
@@ -41,22 +44,30 @@ export const applySpy = (
 
   // Second pass: unique weapon combinations
   const uniqueBruteNames = bruteWeaponNames.filter(name => !processedNames.has(name));
+
   const uniqueOpponentNames = opponentWeaponNames.filter(name => {
-    if (processedNames.has(name)) return false;
+    if (processedNames.has(name)) {
+      return false;
+    }
+
     const weapon = opponent.weapons[name];
+
     // Filter out protected weapons
     return !(opponent.skills[SkillName.weaponsMaster] && weapon?.types.includes(WeaponType.SHARP));
   });
 
   const uniquePairCount = Math.min(uniqueBruteNames.length, uniqueOpponentNames.length);
+
   for (let i = 0; i < uniquePairCount; i++) {
     swapPairs.push({
       bruteWeapon: brute.weapons[uniqueBruteNames[i] as WeaponName] as FightWeapon,
-      opponentWeapon: opponent.weapons[uniqueOpponentNames[i] as WeaponName] as FightWeapon
+      opponentWeapon: opponent.weapons[uniqueOpponentNames[i] as WeaponName] as FightWeapon,
     });
   }
 
-  if (swapPairs.length === 0) return;
+  if (swapPairs.length === 0) {
+    return;
+  }
 
   // Single shuffle operation
   const shuffledPairs = shuffle(swapPairs);

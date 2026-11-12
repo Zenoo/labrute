@@ -14,19 +14,23 @@ const golden = {
   rewind: 'ac816d3c17c957cddf189bf75e9f70b8a62bb46118fb1b060df0c97749d961cb',
   reload: 'ed4dcf3ef1da5c4860fbe047106e8010fc097bcdb7344bd0f16313883025790a',
 };
+
 const digest = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 
 for (const scenario of fightScenarios) {
   test(`${scenario.name}: 30 seeded fights retain deterministic outcomes`, () => {
     const outcomes = [];
+
     for (let seed = 1; seed <= 30; seed++) {
       const result = runScenario(scenario, seed);
+
       assert.ok(result.fight.loser && result.turns < 2000, 'seeded fight finishes');
       assert.ok(result.fight.fighters.every((fighter) => Number.isFinite(fighter.hp)
         && Number.isFinite(fighter.initiative)), 'combat values remain finite');
       assert.equal(digest(result), digest(runScenario(scenario, seed)), 'same seed replays identically');
       outcomes.push(digest(result));
     }
+
     assert.equal(digest(outcomes), golden[scenario.name]);
   });
 }

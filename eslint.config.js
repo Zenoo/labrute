@@ -34,19 +34,6 @@ export default [
     rules: {
       // TypeScript rules
       'no-undef': 'off', // TypeScript handles this
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          args: 'all',
-          argsIgnorePattern: '^_',
-          caughtErrors: 'all',
-          caughtErrorsIgnorePattern: '^_',
-          destructuredArrayIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-        },
-      ],
       'no-use-before-define': 'off',
       '@typescript-eslint/no-use-before-define': ['error'],
       '@typescript-eslint/no-shadow': ['error'],
@@ -98,6 +85,20 @@ export default [
     },
     // All workspaces inherit the same mechanical readability rules.
     rules: {
+      // Intentional unused bindings use the same underscore convention in source and JS tests.
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
       curly: ['error', 'all'],
       'brace-style': ['error', '1tbs', { allowSingleLine: false }],
       'max-statements-per-line': ['error', { max: 1 }],
@@ -132,13 +133,18 @@ export default [
         'error',
         {
           blankLine: 'always',
-          prev: '*',
-          next: 'return',
+          prev: 'import',
+          next: '*',
+        },
+        {
+          blankLine: 'any',
+          prev: 'import',
+          next: 'import',
         },
         {
           blankLine: 'always',
           prev: '*',
-          next: 'block-like',
+          next: ['block-like', 'return'],
         },
         {
           blankLine: 'always',
@@ -147,13 +153,18 @@ export default [
         },
         {
           blankLine: 'always',
-          prev: 'import',
+          prev: ['const', 'let'],
           next: '*',
         },
         {
           blankLine: 'any',
-          prev: 'import',
-          next: 'import',
+          prev: ['singleline-const', 'singleline-let'],
+          next: ['singleline-const', 'singleline-let'],
+        },
+        {
+          blankLine: 'always',
+          prev: '*',
+          next: ['multiline-const', 'multiline-let'],
         },
       ],
       // Core indent cannot handle some JSX trees; React's rules format those in the client.

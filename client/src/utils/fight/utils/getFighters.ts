@@ -1,6 +1,6 @@
 import {
-  Fighter, WeaponId, SkillId
-} from "@labrute/core";
+  Fighter, WeaponId, SkillId,
+} from '@labrute/core';
 
 export const getFighters = (json: string) => {
   const fighters = JSON.parse(json) as Fighter[];
@@ -12,6 +12,7 @@ export const getFighters = (json: string) => {
       fighter.weapons = (fighter.weapons as WeaponId[])
         .reduce<Partial<Record<WeaponId, number>>>((acc, weapon) => {
           acc[weapon] = (acc[weapon] ?? 0) + 1;
+
           return acc;
         }, {});
     }
@@ -21,6 +22,7 @@ export const getFighters = (json: string) => {
       fighter.skills = (fighter.skills as SkillId[])
         .reduce<Partial<Record<SkillId, number>>>((acc, skill) => {
           acc[skill] = (acc[skill] ?? 0) + 1;
+
           return acc;
         }, {});
     }

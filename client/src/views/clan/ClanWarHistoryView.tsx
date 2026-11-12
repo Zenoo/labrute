@@ -1,7 +1,7 @@
 import { ClanWarGetHistoryResponse } from '@labrute/core';
 import { ClanWarType } from '@labrute/prisma';
 import {
-  Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip
+  Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -25,7 +25,9 @@ export const ClanWarHistoryView = () => {
 
   // Fetch clan war
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      return;
+    }
 
     Server.ClanWar.getHistory(id)
       .then(setWars)
@@ -79,6 +81,30 @@ export const ClanWarHistoryView = () => {
                 ? war.attackerEloChange
                 : war.defenderEloChange;
 
+              const getAttackerResultColor = () => {
+                if (war.winnerId) {
+                  if (war.winnerId === war.attackerId) {
+                    return 'success.main';
+                  }
+
+                  return 'error.main';
+                }
+
+                return undefined;
+              };
+
+              const getDefenderResultColor = () => {
+                if (war.winnerId) {
+                  if (war.winnerId === war.defenderId) {
+                    return 'success.main';
+                  }
+
+                  return 'error.main';
+                }
+
+                return undefined;
+              };
+
               return (
                 <TableRow
                   key={war.id}
@@ -87,7 +113,10 @@ export const ClanWarHistoryView = () => {
                     {dayjs.utc(war.date).format('DD/MM/YYYY')}
                     {war.type === ClanWarType.friendly && (
                       <Tooltip title={t('clanWar.friendly')}>
-                        <Box component="img" src="/images/clan/friendly.webp" sx={{ width: 8, ml: 0.5 }} />
+                        <Box component="img" src="/images/clan/friendly.webp" sx={{
+                          width: 8,
+                          ml: 0.5,
+                        }} />
                       </Tooltip>
                     )}
                   </TableCell>
@@ -96,11 +125,7 @@ export const ClanWarHistoryView = () => {
                       <Text
                         bold
                         sx={{
-                          color: war.winnerId
-                            ? war.winnerId === war.attackerId
-                              ? 'success.main'
-                              : 'error.main'
-                            : undefined,
+                          color: getAttackerResultColor(),
                         }}
                       >
                         {war.attacker?.name}
@@ -112,11 +137,7 @@ export const ClanWarHistoryView = () => {
                       <Text
                         bold
                         sx={{
-                          color: war.winnerId
-                            ? war.winnerId === war.defenderId
-                              ? 'success.main'
-                              : 'error.main'
-                            : undefined,
+                          color: getDefenderResultColor(),
                         }}
                       >
                         {war.defender?.name}
@@ -134,7 +155,7 @@ export const ClanWarHistoryView = () => {
                     <Text
                       bold
                       sx={{
-                        color: eloChange < 0 ? 'error.main' : 'success.main'
+                        color: eloChange < 0 ? 'error.main' : 'success.main',
                       }}
                     >
                       {eloChange > 0 ? '+' : ''}{eloChange}

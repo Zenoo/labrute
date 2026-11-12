@@ -85,6 +85,7 @@ export const Fights = {
       if (!req.body.brute1 || !req.body.brute2) {
         throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
+
       if (typeof req.body.brute1 !== 'string' || typeof req.body.brute2 !== 'string') {
         throw new InvalidAPIUseError(user, translate('invalidParameters', user));
       }
@@ -102,6 +103,7 @@ export const Fights = {
           },
         },
       }));
+
       if (!baseBrute1) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
@@ -112,6 +114,7 @@ export const Fights = {
           deletedAt: null,
         },
       }));
+
       if (!baseBrute2) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
@@ -167,6 +170,7 @@ export const Fights = {
             backups: !brute1.eventId,
             achievements: arenaFight,
           });
+
           generatedFight = newGeneratedFight.data;
         } catch (error) {
           if (!(error instanceof Error)) {
@@ -203,19 +207,27 @@ export const Fights = {
       // (+0 otherwise)
       const levelDifference = brute1.level - brute2.level;
       const brute1Won = isWinner(brute1, generatedFight);
-      const xpGained = arenaFight
-        ? brute1Won
-          ? brute1.eventId
-            ? brute1.level >= (event?.maxLevel ?? 999)
-              ? 0
-              : getXPNeeded(brute1.level + 1)
-            : levelDifference > 10 ? 0 : levelDifference > 2 ? 1 : 2
-          : brute1.eventId
-            ? brute1.level >= (event?.maxLevel ?? 999)
-              ? 0
-              : Math.ceil(getXPNeeded(brute1.level + 1) / 2)
-            : levelDifference > 10 ? 0 : 1
-        : 0;
+
+      let xpGained = 0;
+
+      if (arenaFight) {
+        if (brute1.eventId) {
+          // Event rewards stop at the level cap; losses award half a level, rounded up.
+          if (brute1.level >= (event?.maxLevel ?? 999)) {
+            xpGained = 0;
+          } else if (brute1Won) {
+            xpGained = getXPNeeded(brute1.level + 1);
+          } else {
+            xpGained = Math.ceil(getXPNeeded(brute1.level + 1) / 2);
+          }
+        } else if (levelDifference > 10) {
+          xpGained = 0;
+        } else if (brute1Won) {
+          xpGained = levelDifference > 2 ? 1 : 2;
+        } else {
+          xpGained = 1;
+        }
+      }
 
       // Update brute XP, victories and losses if arena fight
       if (arenaFight) {
@@ -233,7 +245,15 @@ export const Fights = {
           prisma,
           user,
           brute: brute1,
-          stats: brute1Won ? { fights: 1, wins: 1, xpGained } : { fights: 1, losses: 1, xpGained },
+          stats: brute1Won ? {
+            fights: 1,
+            wins: 1,
+            xpGained,
+          } : {
+            fights: 1,
+            losses: 1,
+            xpGained,
+          },
         });
       }
 
@@ -292,8 +312,8 @@ export const Fights = {
         id: fightId,
         xpWon: arenaFight ? xpGained : 0,
         fightsLeft: arenaFight ? fightsLeft - 1 : fightsLeft,
-        victories: arenaFight ? brute1Won ? 1 : 0 : 0,
-        losses: arenaFight ? !brute1Won ? 1 : 0 : 0,
+        victories: arenaFight && brute1Won ? 1 : 0,
+        losses: arenaFight && !brute1Won ? 1 : 0,
       });
     } catch (error) {
       sendError(res, error);
@@ -340,7 +360,7 @@ export const Fights = {
             },
             favoriteCount: {
               decrement: 1,
-            }
+            },
           },
           select: { id: true },
         }));
@@ -371,7 +391,10 @@ export const Fights = {
             type: InventoryItemType.favoriteFight,
             userId: user.id,
           },
-          select: { id: true, count: true },
+          select: {
+            id: true,
+            count: true,
+          },
         }));
 
         if (!favoriteFightItem || favoriteFightItem.count <= 0) {

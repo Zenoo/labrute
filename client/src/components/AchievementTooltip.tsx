@@ -1,7 +1,7 @@
 import { AchievementData } from '@labrute/core';
 import { Achievement, AchievementName } from '@labrute/prisma';
 import {
-  Tooltip, TooltipProps, useTheme
+  Tooltip, TooltipProps, useTheme,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -40,7 +40,10 @@ export const AchievementTooltip = ({
           >
             {t(AchievementData[achievementName].rarety)}
           </Text>
-          <Text sx={{ fontStyle: 'italic', color: 'achievements.common.main' }}>{t(`achievement:${achievementName}.description`)}</Text>
+          <Text sx={{
+            fontStyle: 'italic',
+            color: 'achievements.common.main',
+          }}>{t(`achievement:${achievementName}.description`)}</Text>
           {AchievementData[achievementName].onePerFight && (
             <Text subtitle2 sx={{ color: 'achievements.common.main' }}>
               {t('maxPerFight')}:{' '}
@@ -62,7 +65,7 @@ export const AchievementTooltip = ({
             color: 'secondary.contrastText',
             border: 1,
             borderColor: 'primary.main',
-          }
+          },
         },
         popper: { sx: { width: 250 } },
       }}

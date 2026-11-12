@@ -1,5 +1,7 @@
 import { EventListResponse } from '@labrute/core';
-import { Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme,
+} from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -103,7 +105,11 @@ export const EventHistoryView = () => {
                 )}
               </TableBody>
             </Table>
-            <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 1 }}>
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              mt: 1,
+            }}>
               {page > 1 && (
                 <FantasyButton color="primary" onClick={changePage(-1)}>{t('previous')}</FantasyButton>
               )}
@@ -113,7 +119,10 @@ export const EventHistoryView = () => {
             </Box>
           </Grid>
           {!isMd && (
-            <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Grid item xs={12} md={3} sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}>
               <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
             </Grid>
           )}

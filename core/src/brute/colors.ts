@@ -1,4 +1,4 @@
-import { BruteColor } from "../index.js";
+import { BruteColor } from '../index.js';
 
 type ColorsType = {
   male: {

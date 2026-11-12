@@ -12,7 +12,7 @@
     "compile": "tsc -b tsconfig.build.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "pnpm compile && pnpm --recursive --workspace-concurrency=1 --no-bail --filter @labrute/server --filter @labrute/client test",
+    "test": "node scripts/test.mjs",
     "front": "pnpm --filter client start",
     "back": "pnpm --filter server start:watch",
     "eternaltwin": "eternaltwin",
@@ -45,7 +45,8 @@
     "sitemap:generate": "pnx ts-node ./scripts/generateSitemap.ts",
     "core:export": "pnx ts-node ./scripts/generateCoreExports.ts",
     "skills:generate": "pnx ts-node ./scripts/generateSkillComponents.ts",
-    "i18n:check": "pnx ts-node ./scripts/checkI18n.ts",
+    "i18n:check": "node --loader ts-node/esm ./scripts/checkI18n.ts",
+    "test:i18n": "node --test scripts/tests/checkI18n.test.mjs",
     "test:fight-clock": "pnpm --filter @labrute/client exec node --experimental-transform-types --test tests/fight-clock.test.mjs",
     "test:fight-reload": "pnpm --filter @labrute/server exec node --test tests/fight-reload.test.mjs"
   },

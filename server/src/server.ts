@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  CSRF_COOKIE_NAME, CSRF_TOKEN_MAX_AGE, Version
+  CSRF_COOKIE_NAME, CSRF_TOKEN_MAX_AGE, Version,
 } from '@labrute/core';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
@@ -67,6 +67,7 @@ export function main(cx: ServerContext) {
     if (err && err.name === 'ForbiddenError' && err.message === 'invalid csrf token') {
       return res.status(403).json({ message: 'Invalid CSRF token' });
     }
+
     return next(err);
   };
 

@@ -3,22 +3,32 @@ import type { Request } from 'express';
 import { isIP } from 'node:net';
 
 export const normalizeIp = (value: unknown): string | null => {
-  if (typeof value !== 'string') return null;
+  if (typeof value !== 'string') {
+    return null;
+  }
 
   const ip = value.trim();
 
-  if (!ip || ip.length > 45 || ip.includes('%')) return null;
+  if (!ip || ip.length > 45 || ip.includes('%')) {
+    return null;
+  }
 
   const family = isIP(ip);
 
-  if (!family) return null;
+  if (!family) {
+    return null;
+  }
 
-  if (family === 4) return ip;
+  if (family === 4) {
+    return ip;
+  }
 
   const canonical = new URL(`http://[${ip}]/`).hostname.slice(1, -1);
   const mapped = /^::ffff:([a-f0-9]+):([a-f0-9]+)$/.exec(canonical);
 
-  if (!mapped) return canonical;
+  if (!mapped) {
+    return canonical;
+  }
 
   const high = parseInt(mapped[1] ?? '', 16);
   const low = parseInt(mapped[2] ?? '', 16);
@@ -27,7 +37,9 @@ export const normalizeIp = (value: unknown): string | null => {
 };
 
 const firstHeaderIp = (value: unknown) => {
-  if (typeof value !== 'string') return null;
+  if (typeof value !== 'string') {
+    return null;
+  }
 
   const separator = value.indexOf(',');
 
@@ -40,7 +52,9 @@ const clientIps = new WeakMap<IpRequest, string | null>();
 export const getClientIp = (request: IpRequest): string | null => {
   const cached = clientIps.get(request);
 
-  if (cached !== undefined) return cached;
+  if (cached !== undefined) {
+    return cached;
+  }
 
   // Preserve the deployed header precedence. Normalization does not authenticate these headers;
   // changing proxy trust requires confirming the provider's forwarding and origin-access contract.

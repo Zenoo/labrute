@@ -10,12 +10,12 @@ export const LAST_RELEASE: Release = {
   version: '2.100.2',
   date: '2026-11-02',
   features: [
-    'I managed to match the brutes\' appearance with the old Flash version as closely as possible. You should be able to find armors that were previously unavailable, and have colors matching the original game. Some of the existing brutes will also have updated visuals to match the original game.'
+    'I managed to match the brutes\' appearance with the old Flash version as closely as possible. You should be able to find armors that were previously unavailable, and have colors matching the original game. Some of the existing brutes will also have updated visuals to match the original game.',
   ],
   fixes: [
     'Female eyes are now properly colored',
     'Brute portraits are now aligned and the same size as every other brute',
-    'Counter chances are now capped at 90%'
+    'Counter chances are now capped at 90%',
   ],
   attachments: ['brute-visual-fidelity.gif'],
 };
@@ -36,7 +36,7 @@ export const releases: Release[] = [
       'A lot of reload fixes',
       'Favorite fights are now kept forever instead of being deleted after 30 days',
       'Pluralized translations now work correctly for languages handling them differently (looking at you, Russian)',
-      'Pio pio was visually bugged after the last round of fight optimizations, this has now been fixed'
+      'Pio pio was visually bugged after the last round of fight optimizations, this has now been fixed',
     ],
     attachments: ['improve-blurriness.png', 'dogs-blurriness.png'],
   },
@@ -64,7 +64,7 @@ export const releases: Release[] = [
       'Missing tourmanement registrations are now displayed in the hall',
       'A loader is now displayed when switching brute pages, to prevent stale data from being shown while loading',
       'Added an icon to bot brutes and an explanation tooltip for them',
-      'Optimized SEO'
+      'Optimized SEO',
     ],
     attachments: ['stats.png', 'scrubber.gif', 'reload.gif'],
   },
@@ -74,7 +74,7 @@ export const releases: Release[] = [
     features: [
       'The 3 dogs now have their own visuals and stats. You still need to unlock them one after the other',
       'Perk icons are displayed in level up choices',
-      'Ascensions count toward clan points'
+      'Ascensions count toward clan points',
     ],
     fixes: [
       'Huge performance improvements for the fight engine, fights should be much faster now',
@@ -87,7 +87,7 @@ export const releases: Release[] = [
       'Bot brute will be generated when a brute doesn\'t have any opponents available',
       'Tweaked the arena/tournament display to avoid spoiling fight results in some edge cases',
       'Resetting a brute doesn\'t trigger a blank page anymore',
-      'Max damage achievement calculation shouldn\'t give extreme values anymore (old values still remain)'
+      'Max damage achievement calculation shouldn\'t give extreme values anymore (old values still remain)',
     ],
     attachments: ['dogs.png'],
   },
@@ -106,7 +106,7 @@ export const releases: Release[] = [
       'All inventory items now have their own custom icons',
       'A lot of fixes/tweaks regarding multiple account detection/handling',
       'Banned/deleted users are now permanently deleted 30 days after',
-      'Achievement conditions now ignore tiered perks'
+      'Achievement conditions now ignore tiered perks',
     ],
     attachments: ['dojo.png', 'tos.png'],
   },
@@ -125,7 +125,7 @@ export const releases: Release[] = [
       'Multiple account players are now banned automatically daily',
       'Negative speeds are now handled correctly, instead of giving near infinite speed',
       'Brutes with equal level and XP are now ranked by their name, instead of randomly',
-      'Perk unlocks/upgrades are now correctly displayed in the destiny view'
+      'Perk unlocks/upgrades are now correctly displayed in the destiny view',
     ],
     attachments: ['customizationToken.png', 'unlockColor.png'],
   },
@@ -138,7 +138,7 @@ export const releases: Release[] = [
       'You can now create and customize clan roles, and assign them to your clan members. Clan roles can have different permissions, such as managing the clan, managing wars, etc.',
       'Brutes have gotten a much needed visual rework, with higher resolution display, and a smoother look, much closer to the original game.',
       'Three new skills have been added: `Mimic`, `Sticky Hands` and `Deity`. Go experiment with them and let me know what you think!',
-      'Skills are now displayed in fights'
+      'Skills are now displayed in fights',
     ],
     fixes: [
       'The project is now licensed under the Polyform NC 1.0.0 license, which means that you can\'t use the code for commercial purposes. This is to prevent companies and crypto bros from taking the code and making a profit out of it without giving anything back to the community.',
@@ -156,7 +156,7 @@ export const releases: Release[] = [
       'Unlimited global tournaments are now accessible from the tournament history page',
       'Finally fixed the pets misplaced limbs !',
       'Perk unlock limitations now only apply for the first time you unlock the perk, meaning that T2 and T3 will be easier to achieve. For example, Even if you have 3 boosters, getting one of those T2 won\'t be nearly impossible anymore',
-      'You can now see the brutes XP in the Hall and on user pages'
+      'You can now see the brutes XP in the Hall and on user pages',
     ],
     attachments: ['high-res-brute.png', 'skills-in-fights.png'],
   },
@@ -173,7 +173,7 @@ export const releases: Release[] = [
       'Many fixes related to tiered perks',
       'Prevent infinite fights with high deflection chances and low damage',
       'Chaos day now only happens the first day of the month',
-      'Report button hidden for your own brutes'
+      'Report button hidden for your own brutes',
     ],
   },
   {
@@ -194,7 +194,7 @@ export const releases: Release[] = [
       'End-of-fight poison damage greatly increased to prevent infinite fights',
       'Skill boosters applied correctly on ascension',
       'Initiative taken into account when choosing which brute\'s spy activates first',
-      'Use correct stat perk instead of a random one when ascending with your first perk'
+      'Use correct stat perk instead of a random one when ascending with your first perk',
     ],
     attachments: ['tiers.png', 'chaos.png'],
   },
@@ -248,7 +248,7 @@ export const releases: Release[] = [
       'Deleted brutes are now removed from your followed brutes',
       'Deleted brutes are now removed from clan war fighters',
       'Fighter names under clan war fights are now clickable',
-      'Challenging the clan boss now generates a fight log in your cell'
+      'Challenging the clan boss now generates a fight log in your cell',
     ],
     attachments: ['searchbar.png', 'eventPage.png'],
   },
@@ -369,7 +369,7 @@ export const releases: Release[] = [
       'The Focus daily modifier now correctly prevents backup brutes from being targeted',
       'New untrap animation',
       'Event brutes now show the event icon instead of the ranking icon',
-      'Gold doesn\'t visually decrease anymore when using a free reset'
+      'Gold doesn\'t visually decrease anymore when using a free reset',
     ],
     attachments: [],
   },
@@ -381,7 +381,7 @@ export const releases: Release[] = [
       'Used fighters are now displayed on the clan war page',
       'Fighters are now displayed below clan war fights',
       'Clans can be ordered by points or elo on the clan ranking page',
-      'The PioPio has been reworked, it now gives 50% Evasion and 50% Disarm. Thrown weapons that have a disarm bonus can now disarm.'
+      'The PioPio has been reworked, it now gives 50% Evasion and 50% Disarm. Thrown weapons that have a disarm bonus can now disarm.',
     ],
     fixes: [
       'Clan wars now store the correct winner for each fight',
@@ -453,7 +453,7 @@ export const releases: Release[] = [
     ],
     fixes: [
       'User achievements now include achievements from deleted brutes',
-      '`Vampirism` got tired of listing the decimals of PI, and is now rounded'
+      '`Vampirism` got tired of listing the decimals of PI, and is now rounded',
     ],
     attachments: ['clan-declare-war.png', 'clan-war-preview.png', 'clan-war-page.png'],
   },
@@ -492,7 +492,7 @@ export const releases: Release[] = [
       'A new skill has been added: `Repulse`',
       'Clan brutes can now be reordered',
       'New admin panel to manage user bans and monitor multi-accounts',
-      'Defeating a clan boss increases the clan points by 1000'
+      'Defeating a clan boss increases the clan points by 1000',
     ],
     fixes: [
       'The armor stat now works as a percentage, reducing the damage taken by that percentage',
@@ -544,7 +544,7 @@ export const releases: Release[] = [
     date: '2024-06-11',
     features: [
       'We were getting close to the database limit on the amount of fights, so the whole storing system was changed. The previous fights and logs have been purged, the tournament history will not be accurate for tournaments up to this date.',
-      'You can now pause the modifier notification by clicking on it.'
+      'You can now pause the modifier notification by clicking on it.',
     ],
     fixes: [
       'The frying pan can now deflect projectiles',
@@ -553,5 +553,5 @@ export const releases: Release[] = [
       'The missing piopio texture has been fixed',
       'Vampirism doesn\'t work on bosses anymore',
     ],
-  }
+  },
 ];

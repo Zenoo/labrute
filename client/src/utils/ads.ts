@@ -112,6 +112,7 @@ const getAd = (adName: AdName, language: Lang) => {
   // If no illustration for this language, use the first non-empty array
   if (illustrations.length === 0) {
     const firstNonEmptyArray = Object.values(ad.illustrations).find((array) => array.length > 0);
+
     if (firstNonEmptyArray) {
       illustrations = firstNonEmptyArray;
     }
@@ -137,12 +138,14 @@ export const getRandomAd = (language: Lang, exclude?: AdName) => {
   // Ignore ads with no illustration
   const adNames = (Object.keys(ads) as AdName[]).filter((adName) => {
     const ad = ads[adName];
+
     return Object.values(ad.illustrations).some((array) => array.length > 0);
   });
 
   // Exclude ad if needed
   if (exclude) {
     const index = adNames.indexOf(exclude);
+
     if (index > -1) {
       adNames.splice(index, 1);
     }

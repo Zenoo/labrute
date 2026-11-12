@@ -11,6 +11,7 @@ import { translate } from './translate.js';
 const DEFAULT_TIMEOUT = 5000;
 // Maximum accepted length for the embed title
 const MAX_EMBED_TITLE_LENGTH = 256;
+
 // Maximum accepted length for the main message content
 export const MAX_CONTENT_LENGTH = 2000;
 // Ellipsis character, used to indicate truncated content
@@ -18,6 +19,7 @@ const ELLIPSIS = '…';
 const SEND_MESSAGE_PREFIX = '```\n';
 const SEND_MESSAGE_SUFFIX = '\n```';
 const SEND_MESSAGE_SUFFIX_TRUNCATED = `\n${ELLIPSIS}\n\`\`\``;
+
 // Maximum length of a `sendMessage` input to avoid truncation
 export const SEND_MESSAGE_SAFE_LENGTH = MAX_CONTENT_LENGTH
   - SEND_MESSAGE_PREFIX.length
@@ -32,7 +34,9 @@ function formatEmbedTitle(title: string) {
   if (title.length <= MAX_EMBED_TITLE_LENGTH) {
     return title;
   }
+
   const shortTitle = title.substring(0, MAX_EMBED_TITLE_LENGTH - ELLIPSIS.length);
+
   return shortTitle + ELLIPSIS;
 }
 
@@ -67,11 +71,13 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
   sendRelease(release) {
     // eslint-disable-next-line no-console
     console.log(`Release: ${release.version}`);
+
     return Promise.resolve();
   },
   sendMessage(message) {
     // eslint-disable-next-line no-console
     console.log(message);
+
     return Promise.resolve();
   },
   updateKnownIssues() {
@@ -80,6 +86,7 @@ export const NOOP_DISCORD_CLIENT: DiscordClient = {
   logObject(obj, message) {
     // eslint-disable-next-line no-console
     console.log(message || 'Logged object:', JSON.stringify(obj, null, 2));
+
     return Promise.resolve();
   },
   invalidAPIUse(res: Response, userId?: string) {
@@ -211,6 +218,7 @@ export class NetworkDiscordClient implements DiscordClient {
   public sendError(error: Error, res?: Response) {
     if (!this.#logClient) {
       console.error(error);
+
       return;
     }
 
@@ -229,11 +237,23 @@ ${error.stack}
     if (res) {
       embed.addFields(
         // Request method
-        { name: 'Method', value: res.req.method, inline: true },
+        {
+          name: 'Method',
+          value: res.req.method,
+          inline: true,
+        },
         // Response status code
-        { name: 'Status code', value: (res.statusCode || 0).toString(), inline: true },
+        {
+          name: 'Status code',
+          value: (res.statusCode || 0).toString(),
+          inline: true,
+        },
         // Response status message
-        { name: 'Status', value: res.statusMessage || '', inline: true },
+        {
+          name: 'Status',
+          value: res.statusMessage || '',
+          inline: true,
+        },
       );
 
       // Request params
@@ -355,6 +375,7 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
     const messages = [];
 
     let currentMessage = '';
+
     for (const part of parts) {
       if (currentMessage.length + part.length > MAX_CONTENT_LENGTH) {
         messages.push(currentMessage);
@@ -376,7 +397,10 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
         }))
         : undefined;
 
-      await this.#releaseClient.send({ content: messages[i], files });
+      await this.#releaseClient.send({
+        content: messages[i],
+        files,
+      });
     }
   }
 
@@ -386,13 +410,17 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
     }
 
     let content = SEND_MESSAGE_PREFIX + message + SEND_MESSAGE_SUFFIX;
+
     if (content.length > MAX_CONTENT_LENGTH) {
       const shortLen = MAX_CONTENT_LENGTH
         - SEND_MESSAGE_PREFIX.length
         - SEND_MESSAGE_SUFFIX_TRUNCATED.length;
+
       const short = message.substring(0, shortLen);
+
       content = SEND_MESSAGE_PREFIX + short + SEND_MESSAGE_SUFFIX_TRUNCATED;
     }
+
     await this.#logClient.send({ content });
   }
 
@@ -403,20 +431,27 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
     if (!this.#logClient) {
       return;
     }
+
     let content = '';
+
     if (message) {
       content += `${message}\n`;
     }
+
     content += JSON.stringify(obj, null, 2);
     // Wrap in code block for readability
     content = SEND_MESSAGE_PREFIX + content + SEND_MESSAGE_SUFFIX;
+
     if (content.length > MAX_CONTENT_LENGTH) {
       const shortLen = MAX_CONTENT_LENGTH
         - SEND_MESSAGE_PREFIX.length
         - SEND_MESSAGE_SUFFIX_TRUNCATED.length;
+
       const short = (message ? `${message}\n` : '') + JSON.stringify(obj, null, 2).substring(0, shortLen);
+
       content = SEND_MESSAGE_PREFIX + short + SEND_MESSAGE_SUFFIX_TRUNCATED;
     }
+
     await this.#logClient.send({ content });
   }
 
@@ -456,8 +491,16 @@ ${release.fixes.map((fix) => `- ${fix}`).join('\n')}
 
     // Request method and URL
     embed.addFields(
-      { name: 'Method', value: res.req.method, inline: true },
-      { name: 'URL', value: res.req.url, inline: true },
+      {
+        name: 'Method',
+        value: res.req.method,
+        inline: true,
+      },
+      {
+        name: 'URL',
+        value: res.req.url,
+        inline: true,
+      },
     );
 
     // Request params

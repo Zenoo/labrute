@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useState,
 } from 'react';
 
 /* GETTER PARAMS MUST BE MEMOIZED */
@@ -24,11 +24,15 @@ export const useStateAsync = <State, Params>(
     }).catch((error) => {
       console.error(error);
     });
-    return () => { isSubscribed = false; };
+
+    return () => {
+      isSubscribed = false;
+    };
   }, [getter, getterParams]);
 
   const reload = useCallback(() => {
     let isSubscribed = true;
+
     getter(getterParams).then((data) => {
       if (isSubscribed) {
         setState(data);
@@ -36,7 +40,10 @@ export const useStateAsync = <State, Params>(
     }).catch((error) => {
       console.error(error);
     });
-    return () => { isSubscribed = false; };
+
+    return () => {
+      isSubscribed = false;
+    };
   }, [getter, getterParams]);
 
   return {

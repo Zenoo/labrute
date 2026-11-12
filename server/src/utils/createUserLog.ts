@@ -1,5 +1,5 @@
 import {
-  Prisma, PrismaClient, UserLogType
+  Prisma, PrismaClient, UserLogType,
 } from '@labrute/prisma';
 import { DISCORD } from '../context.js';
 import { traced } from './trace.js';
@@ -28,6 +28,7 @@ export const createManyUserLogs = (
   });
 
   const goldWonLogs = data.filter((log) => log.type === UserLogType.GOLD_WIN);
+
   if (goldWonLogs.length > 0) {
     for (const log of goldWonLogs) {
       increaseStats({
@@ -39,6 +40,7 @@ export const createManyUserLogs = (
   }
 
   const goldLostLogs = data.filter((log) => log.type === UserLogType.GOLD_LOSS);
+
   if (goldLostLogs.length > 0) {
     for (const log of goldLostLogs) {
       increaseStats({

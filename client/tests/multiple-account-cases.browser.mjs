@@ -1,8 +1,12 @@
 import { createServer } from 'vite';
 import { spawn } from 'node:child_process';
-import { mkdtempSync, realpathSync, rmSync } from 'node:fs';
+import {
+  mkdtempSync, realpathSync, rmSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
-import { basename, dirname, join } from 'node:path';
+import {
+  basename, dirname, join,
+} from 'node:path';
 
 const data = `
 const time = '2026-11-11T12:00:00Z';
@@ -49,6 +53,7 @@ const fixture = window.__fixture = { requests: [], errors: [], reviews: [], User
 } };
 export default fixture;
 `;
+
 const entry = `
 import React from 'react';
 import {createRoot} from 'react-dom/client';
@@ -116,50 +121,109 @@ const assert = (condition, message) => {if(!condition) throw new Error(message);
 })().catch(error => {document.body.dataset.caseResult='failed';document.getElementById('result').textContent=error.stack;});
 `;
 
-const server = await createServer({ root: process.cwd(), configFile: false, appType: 'custom',
+const server = await createServer({
+  root: process.cwd(),
+  configFile: false,
+  appType: 'custom',
   optimizeDeps: { include: ['@labrute/prisma'] },
-  server: { host: '127.0.0.1', port: 0, hmr: false },
-  plugins: [{ name: 'case-fixture', enforce: 'pre',
+  server: {
+    host: '127.0.0.1',
+    port: 0,
+    hmr: false,
+  },
+  plugins: [{
+    name: 'case-fixture',
+    enforce: 'pre',
     resolveId(source, importer) {
-      if (source === 'virtual:case-data' || source === '/case-entry.jsx') return '\0' + source;
+      if (source === 'virtual:case-data' || source === '/case-entry.jsx') {
+        return '\0' + source;
+      }
+
       if (importer && /\/(?:views\/admin\/(?:MultipleAccountsView|UserAdminView)|components\/admin\/UserCasePanel)\.tsx$/.test(importer.replaceAll('\\', '/'))) {
-        if (source.endsWith('/hooks/useAuth')) return '\0case-auth';
-        if (source.endsWith('/hooks/useServer')) return '\0case-server';
-        if (source.endsWith('/hooks/useAlert')) return '\0case-alert';
-        if (source.endsWith('/components/Page')) return '\0case-page';
+        if (source.endsWith('/hooks/useAuth')) {
+          return '\0case-auth';
+        }
+
+        if (source.endsWith('/hooks/useServer')) {
+          return '\0case-server';
+        }
+
+        if (source.endsWith('/hooks/useAlert')) {
+          return '\0case-alert';
+        }
+
+        if (source.endsWith('/components/Page')) {
+          return '\0case-page';
+        }
       }
     },
     load(id) {
-      if (id === '\0virtual:case-data') return data;
-      if (id === '\0/case-entry.jsx') return entry;
-      if (id === '\0case-auth') return 'const user={admin:true}; export const useAuth=()=>({user});';
-      if (id === '\0case-server') return 'import data from "virtual:case-data"; export const useServer=()=>data;';
-      if (id === '\0case-alert') return 'import data from "virtual:case-data"; const alert={open:(...args)=>data.errors.push(args)}; export const useAlert=()=>alert;';
-      if (id === '\0case-page') return 'import React from "react"; export const Page=({children})=>React.createElement("main",{},children);';
+      if (id === '\0virtual:case-data') {
+        return data;
+      }
+
+      if (id === '\0/case-entry.jsx') {
+        return entry;
+      }
+
+      if (id === '\0case-auth') {
+        return 'const user={admin:true}; export const useAuth=()=>({user});';
+      }
+
+      if (id === '\0case-server') {
+        return 'import data from "virtual:case-data"; export const useServer=()=>data;';
+      }
+
+      if (id === '\0case-alert') {
+        return 'import data from "virtual:case-data"; const alert={open:(...args)=>data.errors.push(args)}; export const useAlert=()=>alert;';
+      }
+
+      if (id === '\0case-page') {
+        return 'import React from "react"; export const Page=({children})=>React.createElement("main",{},children);';
+      }
     },
-  }] });
+  }],
+});
+
 server.middlewares.use('/case-fixture', async (_req, res) => {
   res.setHeader('Content-Type', 'text/html');
   res.end(await server.transformIndexHtml('/case-fixture', '<!doctype html><html><body><div id="root"></div><pre id="result"></pre><script type="module" src="/case-entry.jsx"></script></body></html>'));
 });
 await server.listen();
 const browserDir = mkdtempSync(join(tmpdir(), 'labrute-case-browser-'));
+
 console.log('BROWSER_DIR=' + browserDir);
+
 try {
   const browser = spawn(process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe', [
     '--headless=new', '--disable-gpu', '--no-first-run', '--disable-extensions', '--disable-background-networking',
     '--user-data-dir=' + browserDir, '--dump-dom', '--virtual-time-budget=10000',
     'http://127.0.0.1:' + server.httpServer.address().port + '/case-fixture',
-  ], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+  ], {
+    windowsHide: true,
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+
   let html = '';
   let stderr = '';
-  browser.stdout.on('data', chunk => {html += chunk;});
-  browser.stderr.on('data', chunk => {stderr += chunk;});
+
+  browser.stdout.on('data', chunk => {
+    html += chunk;
+  });
+  browser.stderr.on('data', chunk => {
+    stderr += chunk;
+  });
   const timeout = setTimeout(() => browser.kill(), 45000);
-  await new Promise((resolve, reject) => {browser.on('exit', resolve);browser.on('error', reject);});
+
+  await new Promise((resolve, reject) => {
+    browser.on('exit', resolve);
+    browser.on('error', reject);
+  });
   clearTimeout(timeout);
   const result = html.match(/<pre id="result">([\s\S]*?)<\/pre>/)?.[1];
+
   console.log('BROWSER_RESULT=' + (result || 'missing result'));
+
   if (!html.includes('data-case-result="passed"')) {
     console.log(stderr.slice(-1500));
     process.exitCode = 1;
@@ -167,8 +231,17 @@ try {
 } finally {
   await server.close();
   const target = realpathSync(browserDir);
+
   if (dirname(target) !== realpathSync(tmpdir()) || !basename(target).startsWith('labrute-case-browser-')) {
-    throw new Error('Unexpected browser cleanup directory');
+    // Refuse deletion without replacing a failure already propagating from the browser test.
+    console.error('Unexpected browser cleanup directory:', target);
+    process.exitCode = 1;
+  } else {
+    rmSync(target, {
+      recursive: true,
+      force: true,
+      maxRetries: 10,
+      retryDelay: 100,
+    });
   }
-  rmSync(target, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 }

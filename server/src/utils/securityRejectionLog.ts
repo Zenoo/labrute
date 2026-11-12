@@ -16,13 +16,20 @@ export const logSecurityRejection = (
 ) => {
   const now = Date.now();
   const key = `${kind}:${userId}`;
-  if (pending >= MAX_PENDING || now < (cooldowns.get(key) ?? 0)) return;
+
+  if (pending >= MAX_PENDING || now < (cooldowns.get(key) ?? 0)) {
+    return;
+  }
 
   cooldowns.delete(key);
   cooldowns.set(key, now + INTERVAL_MS);
+
   if (cooldowns.size > MAX_ENTRIES) {
     const oldest = cooldowns.keys().next().value;
-    if (oldest !== undefined) cooldowns.delete(oldest);
+
+    if (oldest !== undefined) {
+      cooldowns.delete(oldest);
+    }
   }
 
   // Do not serialize full headers, URLs, fingerprint histories, or request objects.
@@ -35,12 +42,16 @@ export const logSecurityRejection = (
       .slice(0, 8)
       .map(([name, value]) => [name.slice(0, 100), String(value).slice(0, 128)])) : undefined,
   };
+
   pending++;
+
   try {
     void DISCORD().logObject(details, kind === 'headers-tampering'
       ? 'Headers tampering detected' : 'Unrecognized fingerprint detected')
       .catch(() => { /* Logging failures must not affect request handling. */ })
-      .finally(() => { pending--; });
+      .finally(() => {
+        pending--;
+      });
   } catch {
     pending--;
   }

@@ -19,11 +19,13 @@ export const createPlayableBrute = (
     agility: 3,
     speed: 3,
   };
+
   const firstPerk = perk?.type === 'pet' && ['dog2', 'dog3'].includes(perk.name)
     ? {
       type: perk.type,
       name: 'dog1',
     } : perk;
+
   let data = {
     ...getBruteToSave(createRandomBruteStats(startingStats, firstPerk?.type, firstPerk?.name)),
     id: '',
@@ -35,6 +37,7 @@ export const createPlayableBrute = (
     fightsLeft: FIGHTS_PER_DAY,
     lastFight: null as Date | null,
   };
+
   const path: DestinyChoiceSide[] = [];
   const choices: LevelUpChoice[] = [];
   // The level-one perk must also be present for destiny resets.
@@ -61,6 +64,7 @@ export const createPlayableBrute = (
     ...initial,
     path: [],
   });
+
   const retainedChoices: LevelUpChoice[] = [
     ...(retained?.ascendedSkills ?? []).map((skill) => ({
       type: 'skill' as const,
@@ -91,6 +95,7 @@ export const createPlayableBrute = (
 
     if (perk && next <= level) {
       const perkName = perk.type === 'pet' && perk.name === 'dog3' && next === 2 ? 'dog2' : perk.name;
+
       offered[0] = {
         type: perk.type,
         [perk.type]: perkName,
@@ -110,6 +115,7 @@ export const createPlayableBrute = (
 
     if (next <= level) {
       const side = (perk || Math.random() < 0.5) ? 0 : 1;
+
       data = {
         ...data,
         ...updateBruteData(data, offered[side]),

@@ -8,7 +8,7 @@ import {
   LimitError,
   MissingElementError,
 } from '@labrute/core';
-import { PrismaClient, } from '@labrute/prisma';
+import { PrismaClient } from '@labrute/prisma';
 import Cryptr from 'cryptr';
 import type { Request, Response } from 'express';
 import { GLOBAL } from '../context.js';
@@ -74,7 +74,10 @@ export const Configs = {
           value: encryptedValue,
           updatedAt: new Date(),
         },
-        create: { key, value: encryptedValue },
+        create: {
+          key,
+          value: encryptedValue,
+        },
       }));
 
       // Re-init global context

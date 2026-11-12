@@ -1,22 +1,22 @@
 import {
   AchievementData, BanReason, Fighter,
-  TitleRequirements, UserGetProfileResponse, formatLargeNumber, getCalculatedBrute, getFightsLeft
+  TitleRequirements, UserGetProfileResponse, formatLargeNumber, getCalculatedBrute, getFightsLeft,
 } from '@labrute/core';
 import {
-  Check, ManageSearch, Policy, QueryStats, QuestionMark
+  Check, ManageSearch, Policy, QueryStats, QuestionMark,
 } from '@mui/icons-material';
 import {
   Box, Grid, IconButton, List, ListItem,
   ListItemText, ListSubheader, MenuItem, Paper,
-  Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme
+  Select, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  useNavigate, useParams, Link as RouterLink
+  useNavigate, useParams, Link as RouterLink,
 } from 'react-router';
 import { AchievementHeader } from '../components/AchievementHeader';
 import { AchievementTooltip } from '../components/AchievementTooltip';
@@ -41,7 +41,11 @@ export const UserView = () => {
   const theme = useTheme();
   const { userId } = useParams();
   const Alert = useAlert();
-  const { modifiers, user: authedUser, updateData, signout } = useAuth();
+
+  const {
+    modifiers, user: authedUser, updateData, signout,
+  } = useAuth();
+
   const Confirm = useConfirm();
   const navigate = useNavigate();
   const Server = useServer();
@@ -57,12 +61,18 @@ export const UserView = () => {
 
     Server.User.getProfile(userId).then((profile) => {
       const brutes = profile.brutes.map((brute) => getCalculatedBrute(brute, modifiers));
-      setUser({ ...profile, brutes });
+
+      setUser({
+        ...profile,
+        brutes,
+      });
     }).catch(catchError(Alert));
   }, [Alert, Server.User, modifiers, userId]);
 
   const getDinoRpgReward = useCallback(() => {
-    if (!authedUser) return;
+    if (!authedUser) {
+      return;
+    }
 
     Server.User.getDinoRpgRewards().then(() => {
       Alert.open('success', t('dinoRpgRewardsSuccess'));
@@ -80,10 +90,15 @@ export const UserView = () => {
 
   // Ban user
   const banUser = useCallback(() => {
-    if (!user || !banReason) return;
+    if (!user || !banReason) {
+      return;
+    }
 
     Confirm.open(t('ban'), t('banConfirm'), () => {
-      Server.User.ban({ userId: user.id, reason: banReason }).then(() => {
+      Server.User.ban({
+        userId: user.id,
+        reason: banReason,
+      }).then(() => {
         Alert.open('success', t('banSuccess'));
       }).catch(catchError(Alert));
     });
@@ -91,8 +106,13 @@ export const UserView = () => {
 
   // Delete account
   const deleteAccount = useCallback(() => {
-    if (!user) return;
-    if (user.id !== authedUser?.id) return;
+    if (!user) {
+      return;
+    }
+
+    if (user.id !== authedUser?.id) {
+      return;
+    }
 
     Confirm.open(t('deleteAccount'), t('deleteAccountConfirm'), () => {
       Server.User.deleteAccount().then(() => {
@@ -111,7 +131,10 @@ export const UserView = () => {
         <>
           <Paper sx={{ mx: 4 }}>
             <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
-              <ActivityStatus user={user} sx={{ verticalAlign: 'middle', mr: 1 }} />
+              <ActivityStatus user={user} sx={{
+                verticalAlign: 'middle',
+                mr: 1,
+              }} />
               {t('userProfile', { user: user.name })}
               <Tooltip title={t('stats')}>
                 <IconButton
@@ -148,9 +171,15 @@ export const UserView = () => {
               )}
             </Text>
           </Paper>
-          <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+          <Paper sx={{
+            bgcolor: 'background.paperLight',
+            mt: -2,
+          }}>
             {authedUser?.admin && user.id !== authedUser.id && (
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}>
                 <Select
                   variant="standard"
                   value={banReason}
@@ -262,7 +291,10 @@ export const UserView = () => {
                         <List
                           key={achievement.name}
                           dense
-                          sx={{ width: 1, py: 0 }}
+                          sx={{
+                            width: 1,
+                            py: 0,
+                          }}
                           subheader={(
                             <AchievementTooltip achievement={achievement}>
                               <ListSubheader sx={{
@@ -304,7 +336,10 @@ export const UserView = () => {
                                     primary={(
                                       <>
                                         <span>{translation}</span>
-                                        <Box component="span" sx={{ ml: 0.5, color: 'text.secondary' }}>(x{titleCount})</Box>
+                                        <Box component="span" sx={{
+                                          ml: 0.5,
+                                          color: 'text.secondary',
+                                        }}>(x{titleCount})</Box>
                                       </>
                                     )}
                                   />
@@ -331,22 +366,34 @@ export const UserView = () => {
             {/* REWARDS */}
             {user.id === authedUser?.id && (
               <>
-                <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('externalRewards')}</Text>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Text bold center smallCaps h4 sx={{
+                  mt: 2,
+                  ml: 1,
+                }}>{t('externalRewards')}</Text>
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}>
                   <FantasyButton
                     onClick={getDinoRpgReward}
                     color="success"
                     disabled={dayjs.utc(authedUser.dinorpgDone).isSame(dayjs.utc(), 'day')}
                     sx={{ m: 1 }}
                   >
-                    <Check sx={{ verticalAlign: 'middle', mr: 1 }} />
+                    <Check sx={{
+                      verticalAlign: 'middle',
+                      mr: 1,
+                    }} />
                     {t('dinorpg')}
                   </FantasyButton>
                 </Box>
               </>
             )}
             {/* BRUTES */}
-            <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('brutes')}</Text>
+            <Text bold center smallCaps h4 sx={{
+              mt: 2,
+              ml: 1,
+            }}>{t('brutes')}</Text>
             <Box sx={{
               display: 'flex',
               justifyContent: 'center',
@@ -361,7 +408,10 @@ export const UserView = () => {
             {/* FAVORITE FIGHTS */}
             {user.id === authedUser?.id && !!user.favoriteFights.length && (
               <>
-                <Text bold center smallCaps h4 sx={{ mt: 2, ml: 1 }}>{t('favoriteFights')}</Text>
+                <Text bold center smallCaps h4 sx={{
+                  mt: 2,
+                  ml: 1,
+                }}>{t('favoriteFights')}</Text>
                 <Table sx={{
                   maxWidth: 1,
                   '& th': {
@@ -413,7 +463,11 @@ export const UserView = () => {
             )}
             {/* BRUTE TRANSFER */}
             {user.id !== authedUser?.id && (
-              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                mt: 2,
+              }}>
                 <FantasyButton
                   to={`/user/${user.id}/transfer-brute`}
                   color="warning"
@@ -425,7 +479,11 @@ export const UserView = () => {
             )}
             {/* ACCOUNT DELETION */}
             {user.id === authedUser?.id && (
-              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                mt: 2,
+              }}>
                 <FantasyButton
                   onClick={deleteAccount}
                   color="error"

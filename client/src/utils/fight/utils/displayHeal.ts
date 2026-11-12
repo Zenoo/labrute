@@ -17,9 +17,12 @@ export const displayHeal = (
   const healText = new Text({
     text: `+${amount}`,
     style: {
-      fontFamily: 'GameFont', fontSize: 20, fill: 0x00ff00,
-    }
+      fontFamily: 'GameFont',
+      fontSize: 20,
+      fill: 0x00ff00,
+    },
   });
+
   healText.anchor.set(0.5);
   healText.x = insideXBounds(fighter.animation.container.x);
   healText.y = fighter.animation.container.y - fighter.animation.container.height;

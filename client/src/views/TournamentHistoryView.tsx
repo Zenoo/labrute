@@ -1,6 +1,6 @@
 import { TournamentType } from '@labrute/prisma';
 import {
-  Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme
+  Box, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, useMediaQuery, useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -29,7 +29,10 @@ export const TournamentHistoryView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentHistory')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={3} />
           <Grid item xs={12} md={6}>
@@ -64,13 +67,26 @@ export const TournamentHistoryView = () => {
                   const tournamentDate = dayjs.utc(tournament.date);
                   const lastDigit = tournament.place % 10;
 
+                  const getTournamentLabel = () => {
+                    if (tournament.type === TournamentType.DAILY) {
+                      return t('dailyTournament');
+                    }
+
+                    if ((tournament.type === TournamentType.GLOBAL
+                                || tournament.type === TournamentType.UNLIMITED_GLOBAL)) {
+                      return t('globalTournament');
+                    }
+
+                    return tournament.type;
+                  };
+
                   return (
                     <TableRow
                       key={tournament.id}
                       sx={{
                         '& td': {
                           bgcolor: tournament.type === TournamentType.DAILY ? 'background.paper' : 'background.paperDark',
-                        }
+                        },
                       }}
                     >
                       <TableCell component="th" scope="row">
@@ -79,12 +95,7 @@ export const TournamentHistoryView = () => {
                       <TableCell align="right">
                         <Link to={`/${bruteName || ''}/tournament/${(tournament.type === TournamentType.GLOBAL || tournament.type === TournamentType.UNLIMITED_GLOBAL) ? 'global/' : ''}${dayjs.utc(tournament.date).format('YYYY-MM-DD')}`}>
                           <Text bold>
-                            {tournament.type === TournamentType.DAILY
-                              ? t('dailyTournament')
-                              : (tournament.type === TournamentType.GLOBAL
-                                || tournament.type === TournamentType.UNLIMITED_GLOBAL)
-                                ? t('globalTournament')
-                                : tournament.type}
+                            {getTournamentLabel()}
                           </Text>
                         </Link>
                       </TableCell>
@@ -108,7 +119,10 @@ export const TournamentHistoryView = () => {
             </Table>
           </Grid>
           {!isMd && (
-            <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Grid item xs={12} md={3} sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}>
               <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
             </Grid>
           )}

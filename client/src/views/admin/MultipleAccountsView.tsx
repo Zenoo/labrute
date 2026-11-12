@@ -15,12 +15,28 @@ import { catchError } from '../../utils/catchError';
 import { useNavigate, useSearchParams } from 'react-router';
 
 const decisions: { value: MultipleAccountReviewDecision; label: string }[] = [
-  { value: 'open', label: 'Open' },
-  { value: 'needs-action', label: 'Needs action' },
-  { value: 'dismissed', label: 'Dismissed' },
+  {
+    value: 'open',
+    label: 'Open',
+  },
+  {
+    value: 'needs-action',
+    label: 'Needs action',
+  },
+  {
+    value: 'dismissed',
+    label: 'Dismissed',
+  },
 ];
-const filters = [...decisions, { value: 'processed', label: 'Automatically processed' },
-{ value: 'all', label: 'All cases' }];
+
+const filters = [...decisions, {
+  value: 'processed',
+  label: 'Automatically processed',
+},
+{
+  value: 'all',
+  label: 'All cases',
+}];
 
 export const MultipleAccountsView = () => {
   const Alert = useAlert();
@@ -33,9 +49,12 @@ export const MultipleAccountsView = () => {
   const [appealCode, setAppealCode] = useState('');
   const [status, setStatus] = useState<MultipleAccountCaseStatus>(linkedCase ? 'all' : 'open');
   const [cursors, setCursors] = useState<(string | undefined)[]>([undefined]);
+
   const [list, setList] = useState<UserMultipleAccountsListResponse>({
-    cases: [], nextCursor: null,
+    cases: [],
+    nextCursor: null,
   });
+
   const [selected, setSelected] = useState<string | null>(null);
   const [offsets, setOffsets] = useState([0]);
   const [detail, setDetail] = useState<MultipleAccountCaseDetailResponse | null>(null);
@@ -61,7 +80,10 @@ export const MultipleAccountsView = () => {
 
   useEffect(() => {
     if (!admin?.admin) {
-      setList({ cases: [], nextCursor: null });
+      setList({
+        cases: [],
+        nextCursor: null,
+      });
       setSelected(null);
 
       return undefined;
@@ -71,24 +93,41 @@ export const MultipleAccountsView = () => {
 
     setLoading(true);
     setListFailed(false);
-    setList({ cases: [], nextCursor: null });
+    setList({
+      cases: [],
+      nextCursor: null,
+    });
 
     Server.User.multipleAccounts(status, cursor).then((data) => {
-      if (active) setList(data);
+      if (active) {
+        setList(data);
+      }
     }).catch((error) => {
-      if (active) { setListFailed(true); catchError(Alert)(error); }
+      if (active) {
+        setListFailed(true);
+        catchError(Alert)(error);
+      }
     })
-      .finally(() => { if (active) setLoading(false); });
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
 
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [admin?.admin, Server.User, Alert, status, cursor, refresh]);
 
   useEffect(() => {
     setDetail(null);
 
-    if (!admin?.admin || !selected) return undefined;
+    if (!admin?.admin || !selected) {
+      return undefined;
+    }
 
     let active = true;
+
     setDetailLoading(true);
 
     Server.User.multipleAccountCase(selected, offset).then((data) => {
@@ -97,20 +136,34 @@ export const MultipleAccountsView = () => {
         setDecision(decisions.some((item) => item.value === data.case.status)
           ? data.case.status as MultipleAccountReviewDecision : 'open');
       }
-    }).catch((error) => { if (active) catchError(Alert)(error); })
-      .finally(() => { if (active) setDetailLoading(false); });
+    }).catch((error) => {
+      if (active) {
+        catchError(Alert)(error);
+      }
+    })
+      .finally(() => {
+        if (active) {
+          setDetailLoading(false);
+        }
+      });
 
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [admin?.admin, selected, offset, refresh, Server.User, Alert]);
 
   const review = async () => {
-    if (!admin?.admin || !selected || !detail || saving || !reason.trim()) return;
+    if (!admin?.admin || !selected || !detail || saving || !reason.trim()) {
+      return;
+    }
 
     setSaving(true);
 
     try {
       await Server.User.reviewMultipleAccountCase(detail.case.id, {
-        revision: detail.case.revision, decision, reason,
+        revision: detail.case.revision,
+        decision,
+        reason,
       });
       setReason('');
     } catch (error) {
@@ -123,7 +176,10 @@ export const MultipleAccountsView = () => {
 
   return (
     <Page headerUrl="/">
-      <Paper sx={{ mx: 4, p: 2 }}>
+      <Paper sx={{
+        mx: 4,
+        p: 2,
+      }}>
         <Stack spacing={2}>
           <Typography variant="h4">Multiple-account review cases</Typography>
           <Stack component="form" direction="row" spacing={1} onSubmit={(event) => {
@@ -134,11 +190,13 @@ export const MultipleAccountsView = () => {
 
             if (account) {
               navigate(`/admin-panel/user/${account[1]?.toLowerCase()}`);
+
               return;
             }
 
             if (!/^MC-[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(code)) {
               Alert.open('error', 'Enter the complete MC- or USER- appeal code.');
+
               return;
             }
 
@@ -176,7 +234,11 @@ export const MultipleAccountsView = () => {
           {list.cases.map((item) => (
             <Button key={item.id} variant={selected === item.id ? 'contained' : 'outlined'}
               disabled={saving}
-              onClick={() => { setSelected(item.id); setOffsets([0]); setReason(''); }}>
+              onClick={() => {
+                setSelected(item.id);
+                setOffsets([0]);
+                setReason('');
+              }}>
               {item.signal} - {item.accountCount} accounts
               {' - '}{new Date(item.detectedAt).toLocaleString()}
             </Button>
@@ -202,7 +264,10 @@ export const MultipleAccountsView = () => {
               </Button>
               <Button disabled={saving || detail.nextAccountOffset === null} onClick={() => {
                 const nextOffset = detail.nextAccountOffset;
-                if (nextOffset !== null) setOffsets((values) => [...values, nextOffset]);
+
+                if (nextOffset !== null) {
+                  setOffsets((values) => [...values, nextOffset]);
+                }
               }}>Next accounts</Button>
             </Stack>
             <TextField select label="Review decision" value={decision} disabled={saving}

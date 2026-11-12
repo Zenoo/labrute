@@ -1,6 +1,6 @@
 import { BruteDeletionReason } from '@labrute/core';
 import {
-  Brute, Clan, Prisma
+  Brute, Clan, Prisma,
 } from '@labrute/prisma';
 import { updateClanPoints } from '../clan/updateClanPoints.js';
 import { traced } from '../trace.js';
@@ -16,6 +16,7 @@ export const deleteBrutes = async (
   if (brutes.length > 0) {
     // Remove brutes from clan fighters
     const joinedBruteIds = Prisma.join(brutes.map((b) => Prisma.sql`${b.id}::uuid`));
+
     await traced('deleteUserBrutes.removeClanWarAttackerFighters', () => prisma.$executeRaw`DELETE FROM "_ClanWarAttackerFighters" WHERE "A" = ANY(ARRAY[${joinedBruteIds}]);`);
     await traced('deleteUserBrutes.removeClanWarDefenderFighters', () => prisma.$executeRaw`DELETE FROM "_ClanWarDefenderFighters" WHERE "A" = ANY(ARRAY[${joinedBruteIds}]);`);
   }
@@ -27,7 +28,10 @@ export const deleteBrutes = async (
     }
 
     await traced('deleteUserBrutes.updateBrute', () => prisma.brute.update({
-      where: { id: brute.id, deletedAt: null },
+      where: {
+        id: brute.id,
+        deletedAt: null,
+      },
       data: {
         deletedAt: new Date(),
         deletionReason: reason,
@@ -48,6 +52,7 @@ export const deleteBrutes = async (
 
     // Handle clan ownership transfer if the brute is a clan master
     const bruteClanId = brute.masterOfClan?.id;
+
     if (bruteClanId) {
       // Try to transfer ownership to another brute in the clan
       const newMaster = await traced('deleteUserBrutes.findNewMaster', () => prisma.brute.findFirst({

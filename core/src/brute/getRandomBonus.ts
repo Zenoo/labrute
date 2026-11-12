@@ -1,15 +1,15 @@
 import {
-  Brute, DestinyChoiceType, PetName, SkillName, WeaponName
+  Brute, DestinyChoiceType, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import { keys, randomBetween } from '../utils/index.js';
 import { weightedRandom } from '../utils/weightedRandom.js';
 import { petList } from './pets.js';
 import { skillList, skills } from './skills.js';
 import {
-  MAX_LIMITED_WEAPONS, limitedWeapons, weaponList
+  MAX_LIMITED_WEAPONS, limitedWeapons, weaponList,
 } from './weapons.js';
 import {
-  getTieredPets, getTieredSkills, getTieredWeapons
+  getTieredPets, getTieredSkills, getTieredWeapons,
 } from './calculatedBrute.js';
 
 const preventSomeBonuses = (
@@ -27,6 +27,7 @@ const preventSomeBonuses = (
     // Highest tier reached
     if (tier >= 3) {
       preventPerk = true;
+
       return preventPerk;
     }
 
@@ -41,6 +42,7 @@ const preventSomeBonuses = (
         preventPerk = !brutePets[PetName.dog1]
           || !brutePets[PetName.dog2];
         break;
+
       case 'panther': {
         if (tier === 0) {
           // Allow for both panther and bear at a 1/1000 chance
@@ -52,6 +54,7 @@ const preventSomeBonuses = (
 
         break;
       }
+
       case 'bear': {
         if (tier === 0) {
           // Allow for both panther and bear at a 1/1000 chance
@@ -63,19 +66,26 @@ const preventSomeBonuses = (
 
         break;
       }
+
       default:
         break;
     }
   } else if (perkType === 'skill') {
-    const bruteSkills = getTieredSkills({ ...brute, id: '' }, {});
+    const bruteSkills = getTieredSkills({
+      ...brute,
+      id: '',
+    }, {});
+
     const selectedSkill = skills[perkName as SkillName];
     const tier = bruteSkills[perkName as SkillName] ?? 0;
     const hasMaxSkill = tier >= 3;
+
     if (hasMaxSkill) {
       preventPerk = true;
     } else if (selectedSkill?.type === 'booster') {
       // Decrease booster chances
       const boosters = skillList.filter((skill) => skill.type === 'booster');
+
       const gottenBoosters = keys(bruteSkills).filter(
         (skill) => boosters.find((booster) => booster.name === skill),
       );
@@ -118,7 +128,11 @@ const preventSomeBonuses = (
     }
   } else {
     // Limit some weapons
-    const bruteWeapons = getTieredWeapons({ ...brute, id: '' }, {});
+    const bruteWeapons = getTieredWeapons({
+      ...brute,
+      id: '',
+    }, {});
+
     const gottenLimitedWeapons = keys(bruteWeapons).filter(
       (weapon) => limitedWeapons.includes(weapon),
     );
@@ -135,6 +149,19 @@ const preventSomeBonuses = (
   return preventPerk;
 };
 
+// Roll only the selected catalog so rerolls consume the same random sequence.
+const getRandomPerkName = (perkType: string) => {
+  if (perkType === 'pet') {
+    return weightedRandom(petList).name;
+  }
+
+  if (perkType === 'skill') {
+    return weightedRandom(skillList).name;
+  }
+
+  return weightedRandom(weaponList).name;
+};
+
 export const getRandomBonus = (
   brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>,
   rerollUntilFound = false,
@@ -147,9 +174,18 @@ export const getRandomBonus = (
   const enabledPets = petList.filter((pet) => !disabledPets.includes(pet.name));
 
   const enabledPerksOdds = [
-    { name: 'pet', odds: enabledPets.reduce((acc, pet) => acc + pet.odds, 0) },
-    { name: 'skill', odds: enabledSkills.reduce((acc, skill) => acc + skill.odds, 0) },
-    { name: 'weapon', odds: enabledWeapons.reduce((acc, weapon) => acc + weapon.odds, 0) },
+    {
+      name: 'pet',
+      odds: enabledPets.reduce((acc, pet) => acc + pet.odds, 0),
+    },
+    {
+      name: 'skill',
+      odds: enabledSkills.reduce((acc, skill) => acc + skill.odds, 0),
+    },
+    {
+      name: 'weapon',
+      odds: enabledWeapons.reduce((acc, weapon) => acc + weapon.odds, 0),
+    },
   ];
 
   let perkName: null | PetName | SkillName | WeaponName = null;
@@ -159,11 +195,7 @@ export const getRandomBonus = (
   perkType = weightedRandom(enabledPerksOdds).name;
 
   // Perk name ?
-  perkName = perkType === 'pet'
-    ? weightedRandom(petList).name
-    : perkType === 'skill'
-      ? weightedRandom(skillList).name
-      : weightedRandom(weaponList).name;
+  perkName = getRandomPerkName(perkType);
 
   // Prevent some perks
   let found = !preventSomeBonuses(brute, perkType, perkName);
@@ -173,11 +205,7 @@ export const getRandomBonus = (
     perkType = weightedRandom(enabledPerksOdds).name;
 
     // Reroll perk name
-    perkName = perkType === 'pet'
-      ? weightedRandom(petList).name
-      : perkType === 'skill'
-        ? weightedRandom(skillList).name
-        : weightedRandom(weaponList).name;
+    perkName = getRandomPerkName(perkType);
 
     // Prevent some perks
     found = !preventSomeBonuses(brute, perkType, perkName);

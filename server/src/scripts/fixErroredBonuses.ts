@@ -2,6 +2,7 @@ import { GLOBAL, ServerContext } from '../context.js';
 
 async function main(cx: ServerContext) {
   cx.logger.debug('fixErroredBonuses start');
+
   // Get all brutes with dog2 or dog3 and without dog1
   const brutes = await cx.prisma.brute.findMany({
     where: {

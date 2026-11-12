@@ -1,7 +1,7 @@
 import { isNameValid } from '@labrute/core';
 import { Search } from '@mui/icons-material';
 import {
-  IconButton, InputAdornment, OutlinedInput, Tooltip, useTheme
+  IconButton, InputAdornment, OutlinedInput, Tooltip, useTheme,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,9 +18,13 @@ export const BruteSearch = () => {
 
   // Search brute name
   const searchBrute = () => {
-    if (!search) return;
+    if (!search) {
+      return;
+    }
+
     if (!isNameValid(search)) {
       Alert.open('error', t('invalidName'));
+
       return;
     }
 
@@ -46,7 +50,7 @@ export const BruteSearch = () => {
         },
         '.MuiOutlinedInput-notchedOutline': {
           borderColor: theme.palette.topbar.divider,
-        }
+        },
       }}
       endAdornment={(
         <Tooltip title={t('searchBrute')}>
@@ -58,7 +62,7 @@ export const BruteSearch = () => {
                 color: theme.palette.topbar.contrast,
                 '&:hover': {
                   color: theme.palette.topbar.contrastLight,
-                }
+                },
               }}
               edge="end"
             >

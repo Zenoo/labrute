@@ -1,5 +1,5 @@
 import {
-  Box, TextField, TextFieldProps, useTheme
+  Box, TextField, TextFieldProps, useTheme,
 } from '@mui/material';
 import React from 'react';
 
@@ -15,7 +15,7 @@ export const StyledInput = ({ sx, ...rest }: TextFieldProps) => {
         position: 'relative',
         textAlign: 'center',
         width: 204,
-        ...sx
+        ...sx,
       }}
     >
       <Box
@@ -28,7 +28,7 @@ export const StyledInput = ({ sx, ...rest }: TextFieldProps) => {
           zIndex: 1,
           filter: 'drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.2))',
           width: 204,
-          height: 50
+          height: 50,
         }}
       />
       <TextField
@@ -39,7 +39,7 @@ export const StyledInput = ({ sx, ...rest }: TextFieldProps) => {
           zIndex: 2,
           color: 'secondary.main',
           '& .MuiOutlinedInput-notchedOutline': {
-            border: 'none'
+            border: 'none',
           },
           '& .MuiInputBase-input': {
             fontWeight: 'bold',
@@ -47,7 +47,7 @@ export const StyledInput = ({ sx, ...rest }: TextFieldProps) => {
           '& .MuiFormLabel-root': {
             textTransform: 'uppercase',
           },
-          ...sx
+          ...sx,
         }}
         {...rest}
       />

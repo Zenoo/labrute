@@ -1,10 +1,10 @@
 import { keys, pad } from '@labrute/core';
 import {
-  Box, BoxProps, Link, Paper, Tooltip, useTheme
+  Box, BoxProps, Link, Paper, Tooltip, useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, {
-  useEffect, useMemo, useState
+  useEffect, useMemo, useState,
 } from 'react';
 import _Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
@@ -35,12 +35,15 @@ export const Header = ({
 
   // Randomized left art
   const leftArt = useMemo(() => Math.floor(Math.random() * (11 - 1 + 1) + 1), []);
+
   // Randomized right art (must be different from left art)
   const rightArt = useMemo(() => {
     let art = Math.floor(Math.random() * (11 - 1 + 1) + 1);
+
     while (art === leftArt) {
       art = Math.floor(Math.random() * (11 - 1 + 1) + 1);
     }
+
     return art;
   }, [leftArt]);
 
@@ -51,6 +54,7 @@ export const Header = ({
     const interval = setInterval(() => {
       setTime(dayjs.utc());
     }, 60000);
+
     return () => clearInterval(interval);
   }, []);
 
@@ -59,9 +63,12 @@ export const Header = ({
     setMarqueePaused((prev) => {
       if (prev) {
         localStorage.removeItem(LS_KEY_MARQUEE_PAUSED);
+
         return false;
       }
+
       localStorage.setItem(LS_KEY_MARQUEE_PAUSED, time.format('YYYY-MM-DD'));
+
       return true;
     });
   };
@@ -108,12 +115,19 @@ export const Header = ({
       />
       <Tooltip title={t('serverTime')}>
         <Text center bold color="secondary">
-          <Box component="img" src="/images/time.webp" sx={{ width: 11, mr: 0.5 }} />
+          <Box component="img" src="/images/time.webp" sx={{
+            width: 11,
+            mr: 0.5,
+          }} />
           {time.format('HH:mm')}
         </Text>
       </Tooltip>
       {!!modifierKeys.length && (
-        <Paper sx={{ mx: 1, p: 0, cursor: 'pointer' }} onClick={pauseMarquee}>
+        <Paper sx={{
+          mx: 1,
+          p: 0,
+          cursor: 'pointer',
+        }} onClick={pauseMarquee}>
           <Marquee
             pauseOnHover
             play={!marqueePaused}

@@ -1,8 +1,8 @@
 import {
-  Autocomplete, Chip, Paper, Stack, TextField
+  Autocomplete, Chip, Paper, Stack, TextField,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useRef, useState
+  useCallback, useEffect, useRef, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../../components/FantasyButton';
@@ -28,18 +28,31 @@ export const SharedBrowserView = () => {
   const requestVersion = useRef(0);
 
   const updateData = useCallback(() => {
-    if (selectedBrowser.current !== browserId) return;
+    if (selectedBrowser.current !== browserId) {
+      return;
+    }
+
     const version = ++requestVersion.current;
+
     setLoading(true);
     Server.User.getSharedBrowser(browserId).then((data) => {
-      if (requestVersion.current !== version) return;
-      const { users, description: desc, history: actions } = data;
+      if (requestVersion.current !== version) {
+        return;
+      }
+
+      const {
+        users, description: desc, history: actions,
+      } = data;
+
       setUserIds(users.map((user) => user.id));
       setDescription(desc ?? '');
       setHistory(actions);
       setLoading(false);
     }).catch((error) => {
-      if (requestVersion.current !== version) return;
+      if (requestVersion.current !== version) {
+        return;
+      }
+
       setUserIds([]);
       setDescription('');
       setHistory([]);
@@ -50,7 +63,9 @@ export const SharedBrowserView = () => {
 
   // Fetch data when browserId changes
   useEffect(() => {
-    if (browserId.length !== 36 || !isUuid(browserId)) return undefined;
+    if (browserId.length !== 36 || !isUuid(browserId)) {
+      return undefined;
+    }
 
     const timeout = setTimeout(() => {
       updateData();
@@ -61,6 +76,7 @@ export const SharedBrowserView = () => {
 
   const changeBrowserId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim().toLowerCase();
+
     selectedBrowser.current = value;
     requestVersion.current++;
     setBrowserId(value);
@@ -72,8 +88,13 @@ export const SharedBrowserView = () => {
 
   // Save shared browser
   const saveSharedBrowser = useCallback(() => {
-    if (!browserId) return;
-    if (!description.trim()) return;
+    if (!browserId) {
+      return;
+    }
+
+    if (!description.trim()) {
+      return;
+    }
 
     Server.User.editSharedBrowser({
       id: browserId,
@@ -87,7 +108,9 @@ export const SharedBrowserView = () => {
 
   // Delete shared browser
   const deleteSharedBrowser = useCallback(() => {
-    if (!browserId) return;
+    if (!browserId) {
+      return;
+    }
 
     Server.User.deleteSharedBrowser(browserId).then(() => {
       Alert.open('success', 'Shared browser deleted');
@@ -100,7 +123,10 @@ export const SharedBrowserView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Stack spacing={2}>
           <Text bold h3 smallCaps color="secondary">Shared Browser</Text>
           <TextField
@@ -122,6 +148,7 @@ export const SharedBrowserView = () => {
                 renderTags={(value: readonly string[], getTagProps) => value.map(
                   (option: string, index: number) => {
                     const { key, ...tagProps } = getTagProps({ index });
+
                     return (
                       <Chip variant="outlined" label={option} key={key} {...tagProps} />
                     );

@@ -1,5 +1,5 @@
 import {
-  Box, Grid, List, ListItem, ListItemText, Paper, useTheme
+  Box, Grid, List, ListItem, ListItemText, Paper, useTheme,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -32,12 +32,12 @@ export const TermsView = () => {
       updateData({
         ...user,
         termsAccepted: true,
-      })
+      });
       navigate('/');
     } catch (error) {
       catchError(Alert, error);
     }
-  }
+  };
 
   return (
     <Page
@@ -53,12 +53,21 @@ export const TermsView = () => {
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Grid container spacing={1} sx={{ textAlign: 'center' }}>
-          <Grid item xs={6} md={3} order={{ xs: 2, md: 1 }}>
+          <Grid item xs={6} md={3} order={{
+            xs: 2,
+            md: 1,
+          }}>
             <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
           </Grid>
-          <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+          <Grid item xs={12} md={6} order={{
+            xs: 1,
+            md: 2,
+          }}>
             <LanguageSwitch sx={{ mb: 1 }} />
             <Text>{t('description')}</Text>
             <List dense>

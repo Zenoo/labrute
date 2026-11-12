@@ -1,8 +1,8 @@
 import {
-  InventoryItemType, Log, LogType
+  InventoryItemType, Log, LogType,
 } from '@labrute/prisma';
 import {
-  Box, Paper, PaperProps, Tooltip, useTheme
+  Box, Paper, PaperProps, Tooltip, useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -22,9 +22,63 @@ const negativeLogs: LogType[] = [LogType.lose, LogType.tournament, LogType.bossF
 const combatLogs: LogType[] = [LogType.lose, LogType.win, LogType.bossFight];
 const childLogs: LogType[] = [LogType.child, LogType.childup];
 
-export const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
+export const CellLog = ({
+  log, sx, ...rest
+}: CellLogProps) => {
   const { t } = useTranslation();
   const theme = useTheme();
+
+  const getProgressionMessage = () => {
+    if (log.type === LogType.lvl) {
+      return t('log.lvl', {
+        brute: log.currentBrute.name,
+        value: t(`lvl_${log.level}`),
+      });
+    }
+
+    if (log.type === LogType.up) {
+      return t('log.up', {
+        brute: log.currentBrute.name,
+        value: log.level ?? 0,
+      });
+    }
+
+    if (log.type === LogType.ascend) {
+      return t(log.level && log.level > 1 ? 'log.ascends' : 'log.ascend', {
+        brute: log.currentBrute.name,
+        value: log.level ?? 0,
+      });
+    }
+
+    if (log.type === LogType.tournament) {
+      return t('log.tournament', { date: dayjs.utc(log.date).format('DD/MM/YY') });
+    }
+
+    return t(`log.${log.type}`, { value: log.brute });
+  };
+
+  const getRewardMessage = () => {
+    if (log.xp) {
+      if (log.gold) {
+        return t('log.xpAndGold', {
+          xp: log.xp,
+          gold: log.gold,
+        });
+      }
+
+      return t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp });
+    }
+
+    if (log.type === LogType.bossDefeat) {
+      return t('log.itemAndGold', {
+        count: 1,
+        item: t(`inventory:item.${InventoryItemType.bossTicket}`),
+        gold: log.gold,
+      });
+    }
+
+    return t('log.gold', { gold: log.gold });
+  };
 
   return (
     <Paper
@@ -70,7 +124,7 @@ export const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
               <Trans
                 i18nKey="bruteCell"
                 components={{
-                  name: <BruteName brute={{ name: log.brute ?? '' }} />
+                  name: <BruteName brute={{ name: log.brute ?? '' }} />,
                 }}
               />)}>
               <Link
@@ -98,15 +152,7 @@ export const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
             </Tooltip>
           ) : (
             <Text bold color={negativeLogs.includes(log.type) ? 'error.main' : 'success.main'} sx={{ lineHeight: '13px' }}>
-              {log.type === LogType.lvl
-                ? t('log.lvl', { brute: log.currentBrute.name, value: t(`lvl_${log.level}`) })
-                : log.type === LogType.up
-                  ? t('log.up', { brute: log.currentBrute.name, value: log.level ?? 0 })
-                  : log.type === LogType.ascend
-                    ? t(log.level && log.level > 1 ? 'log.ascends' : 'log.ascend', { brute: log.currentBrute.name, value: log.level ?? 0 })
-                    : log.type === LogType.tournament
-                      ? t('log.tournament', { date: dayjs.utc(log.date).format('DD/MM/YY') })
-                      : t(`log.${log.type}`, { value: log.brute })}
+              {getProgressionMessage()}
             </Text>
           )}
         {(!!log.xp || !!log.gold) && (
@@ -116,13 +162,7 @@ export const CellLog = ({ log, sx, ...rest }: CellLogProps) => {
               fontSize: 10,
             }}
           >
-            {log.xp
-              ? log.gold
-                ? t('log.xpAndGold', { xp: log.xp, gold: log.gold })
-                : t(log.xp === 1 ? 'log.xp' : 'log.xps', { xp: log.xp })
-              : log.type === LogType.bossDefeat
-                ? t('log.itemAndGold', { count: 1, item: t(`inventory:item.${InventoryItemType.bossTicket}`), gold: log.gold })
-                : t('log.gold', { gold: log.gold })}
+            {getRewardMessage()}
           </Text>
         )}
       </Box>

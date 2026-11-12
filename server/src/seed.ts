@@ -29,6 +29,7 @@ async function main(cx: ServerContext) {
   // Generate random names
   cx.logger.log(`DB only contains ${count} generated brutes, regenerating ${ARENA_OPPONENTS_COUNT * 100}...`);
   const nicks: string[] = [];
+
   for (let i = 0; i < ARENA_OPPONENTS_COUNT * 100; i++) {
     let generatedName;
 

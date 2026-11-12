@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  useContext, useEffect, useMemo, useState,
+} from 'react';
 import { LS_KEY_CSRF_TOKEN } from '../utils/constants';
 import { fetchCsrfToken } from '../utils/Fetch';
 
@@ -29,6 +31,7 @@ export const CsrfProvider = ({ children }: CsrfProviderProps) => {
     if (existingToken) {
       // Token exists, use it
       setCsrfToken(existingToken);
+
       return;
     }
 

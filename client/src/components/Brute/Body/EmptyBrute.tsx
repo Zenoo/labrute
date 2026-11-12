@@ -1,5 +1,5 @@
 import {
-  Box, BoxProps, useTheme
+  Box, BoxProps, useTheme,
 } from '@mui/material';
 import React from 'react';
 
@@ -14,7 +14,7 @@ export const EmptyBrute = ({ sx, ...props }: BoxProps) => {
       sx={{
         width: 65,
         height: 140,
-        ...sx
+        ...sx,
       }}
       {...props}
     />

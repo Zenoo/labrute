@@ -1,9 +1,9 @@
 import {
   BARE_HANDS_DAMAGE, BASE_FIGHTER_STATS, getWeaponScaledStat,
-  NO_WEAPON_TOSS, PERKS_TOTAL_ODDS, TieredNumberKeysOf, Weapon, WeaponTypeColor
+  NO_WEAPON_TOSS, PERKS_TOTAL_ODDS, TieredNumberKeysOf, Weapon, WeaponTypeColor,
 } from '@labrute/core';
 import {
-  Box, Tooltip, TooltipProps, useTheme
+  Box, Tooltip, TooltipProps, useTheme,
 } from '@mui/material';
 import React, { Fragment, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,7 @@ import { FightModifier } from '@labrute/prisma';
 import { TieredStat } from '../TieredStat';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
+
 const textProps = {
   fontSize: 12,
   lineHeight: 1.2,
@@ -56,18 +57,34 @@ export const WeaponTooltip = ({
     labelFirst: boolean,
     tierFormatter?: (tier: number) => number,
   ) => {
-    if (!bareHands && !weapon?.[stat][0]) return null;
+    if (!bareHands && !weapon?.[stat][0]) {
+      return null;
+    }
 
-    const label = stat === 'tempo' ? 'hitSpeed' : stat === 'toss' ? 'drawChance' : stat;
+    let label;
+
+    if (stat === 'tempo') {
+      label = 'hitSpeed';
+    } else if (stat === 'toss') {
+      label = 'drawChance';
+    } else {
+      label = stat;
+    }
+
     const color = stat === 'tempo' || stat === 'toss' ? { opacity: 0.7 } : { color: StatColor[stat] };
 
     const formatter = tierFormatter ?? ((currentTier: number) => {
       // Those stats will always use a formatter
-      if (stat === 'damage' || stat === 'toss') return 0;
+      if (stat === 'damage' || stat === 'toss') {
+        return 0;
+      }
 
       return Math.round(
         (tieredWeapon
-          ? getWeaponScaledStat(chaos, { ...tieredWeapon, tier: currentTier }, stat, 2)
+          ? getWeaponScaledStat(chaos, {
+            ...tieredWeapon,
+            tier: currentTier,
+          }, stat, 2)
           : BASE_FIGHTER_STATS[stat]) * 100,
       );
     });
@@ -78,7 +95,11 @@ export const WeaponTooltip = ({
           display: 'flex',
           alignItems: 'center',
         }}>
-          <Box component="img" sx={{ width: 11, height: 11, mr: 0.5 }} src={`/images/stats/${label}.webp`} />
+          <Box component="img" sx={{
+            width: 11,
+            height: 11,
+            mr: 0.5,
+          }} src={`/images/stats/${label}.webp`} />
           <Text {...textProps}>
             {t(label)}:
             {' '}
@@ -98,11 +119,19 @@ export const WeaponTooltip = ({
     }
 
     // These stats will always be paired with labelFirst
-    if (stat === 'tempo' || stat === 'toss' || stat === 'damage') return null;
+    if (stat === 'tempo' || stat === 'toss' || stat === 'damage') {
+      return null;
+    }
 
     return (
-      <Text bold sx={{ color: StatColor[stat], textShadow }} {...textProps}>
-        <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center' }}>
+      <Text bold sx={{
+        color: StatColor[stat],
+        textShadow,
+      }} {...textProps}>
+        <Box component="span" sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
+        }}>
           {tieredWeapon ? (
             <>
               {(tieredWeapon[stat][tieredWeapon.tier - 1] ?? 0) > 0 ? '+' : '-'}
@@ -119,7 +148,11 @@ export const WeaponTooltip = ({
             </>
           )}
           {percent && <Box component="span">%</Box>}
-          <Box component="img" sx={{ width: 11, height: 11, mx: 0.5 }} src={`/images/stats/${label}.webp`} />
+          <Box component="img" sx={{
+            width: 11,
+            height: 11,
+            mx: 0.5,
+          }} src={`/images/stats/${label}.webp`} />
           <Box component="span">{t(label)}</Box>
         </Box>
       </Text>
@@ -131,7 +164,10 @@ export const WeaponTooltip = ({
       {...rest}
       title={(weapon || bareHands) ? (
         <>
-          <Box sx={{ textAlign: 'center', my: 0.5 }}>
+          <Box sx={{
+            textAlign: 'center',
+            my: 0.5,
+          }}>
             {tier > 1 && (
               <Box>
                 {Array.from({ length: tier - 1 }).map((_, index) => (
@@ -140,16 +176,27 @@ export const WeaponTooltip = ({
               </Box>
             )}
             {/* NAME */}
-            <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center', justifyContent: 'center' }}>
+            <Box sx={{
+              display: 'flex',
+              gap: 0.5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
               <Text bold h5>{weapon ? t(weapon.name) : t('bareHands')}</Text>
-              {ascended && <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />}
+              {ascended && <Box component="img" sx={{
+                width: 16,
+                height: 16,
+              }} src="/images/ear.gif" />}
             </Box>
             {/* ILLUSTRATION */}
             {weapon && (
               <Box
                 component="img"
                 src={`/images/weapons/${weapon.name}.png`}
-                sx={{ display: 'inline-block', filter: 'drop-shadow(2px 2px 2px #000)' }}
+                sx={{
+                  display: 'inline-block',
+                  filter: 'drop-shadow(2px 2px 2px #000)',
+                }}
               />
             )}
           </Box>
@@ -179,8 +226,15 @@ export const WeaponTooltip = ({
           )}
           {/* ODDS */}
           {weapon && (
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box component="img" sx={{ width: 11, height: 11, mr: 0.5 }} src="/images/stats/odds.webp" />
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+              <Box component="img" sx={{
+                width: 11,
+                height: 11,
+                mr: 0.5,
+              }} src="/images/stats/odds.webp" />
               <Text {...textProps}>
                 {t('odds')}:
                 {' '}
@@ -193,16 +247,35 @@ export const WeaponTooltip = ({
           {/* HIT SPEED */}
           {statLine('tempo', true, true, (currentTier) => Math.round(
             (BASE_FIGHTER_STATS.tempo
-              / (tieredWeapon ? getWeaponScaledStat(chaos, { ...tieredWeapon, tier: currentTier }, 'tempo', 2) : BASE_FIGHTER_STATS.tempo)) * 100,
+              / (tieredWeapon ? getWeaponScaledStat(chaos, {
+                ...tieredWeapon,
+                tier: currentTier,
+              }, 'tempo', 2) : BASE_FIGHTER_STATS.tempo)) * 100,
           ))}
           {/* DAMAGE */}
-          {statLine('damage', false, true, (currentTier) => (tieredWeapon ? getWeaponScaledStat(chaos, { ...tieredWeapon, tier: currentTier }, 'damage') : BARE_HANDS_DAMAGE))}
+          {statLine('damage', false, true, (currentTier) => (tieredWeapon ? getWeaponScaledStat(chaos, {
+            ...tieredWeapon,
+            tier: currentTier,
+          }, 'damage') : BARE_HANDS_DAMAGE))}
           {/* DRAW CHANCE */}
-          {tieredWeapon && statLine('toss', true, true, (currentTier) => Math.round((getWeaponScaledStat(chaos, { ...tieredWeapon, tier: currentTier }, 'toss') / (NO_WEAPON_TOSS + getWeaponScaledStat(chaos, { ...tieredWeapon, tier: currentTier }, 'toss'))) * 100))}
+          {tieredWeapon && statLine('toss', true, true, (currentTier) => Math.round((getWeaponScaledStat(chaos, {
+            ...tieredWeapon,
+            tier: currentTier,
+          }, 'toss') / (NO_WEAPON_TOSS + getWeaponScaledStat(chaos, {
+            ...tieredWeapon,
+            tier: currentTier,
+          }, 'toss'))) * 100))}
           {/* REACH */}
           {tieredWeapon && (
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box component="img" sx={{ width: 11, height: 11, mr: 0.5 }} src="/images/stats/reach.webp" />
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+              <Box component="img" sx={{
+                width: 11,
+                height: 11,
+                mr: 0.5,
+              }} src="/images/stats/reach.webp" />
               <Text {...textProps}>
                 {t('reach')}:
                 {' '}
@@ -223,10 +296,20 @@ export const WeaponTooltip = ({
           {statLine('combo', true, false)}
           {statLine('deflect', true, false)}
           {ascended && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.ascended.weapon')} {t('perk.ascended.desc')}</Text>
+            <Text caption sx={{
+              display: 'block',
+              opacity: 0.7,
+              pt: 1,
+              lineHeight: 1,
+            }}>{t('perk.ascended.weapon')} {t('perk.ascended.desc')}</Text>
           )}
           {random && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.random.weapon')} {t('perk.random.desc')}</Text>
+            <Text caption sx={{
+              display: 'block',
+              opacity: 0.7,
+              pt: 1,
+              lineHeight: 1,
+            }}>{t('perk.random.weapon')} {t('perk.random.desc')}</Text>
           )}
         </>
       ) : ''}
@@ -234,7 +317,7 @@ export const WeaponTooltip = ({
         tooltip: {
           sx: {
             minHeight: 68,
-          }
+          },
         },
         popper: { sx: { width: 250 } },
       }}

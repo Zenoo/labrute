@@ -1,7 +1,7 @@
 import { ServerReadyResponse } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type {
-  Express, Request, Response
+  Express, Request, Response,
 } from 'express';
 import { Config } from './config.js';
 import { Achievements } from './controllers/Achievements.js';
@@ -39,6 +39,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
 
   // OAuth
   const oauth = new OAuth(config, prisma);
+
   app.get('/api/oauth/redirect', oauth.redirect.bind(oauth));
   app.post('/api/oauth/token', oauth.token.bind(oauth));
 

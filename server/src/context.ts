@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { PrismaClient } from '@labrute/prisma';
 import { isMainThread } from 'node:worker_threads';
 import {
-  Config, emptyConfig, loadConfig
+  Config, emptyConfig, loadConfig,
 } from './config.js';
 import { CONSOLE } from './logger/console.js';
 import { DiscordLogHandler } from './logger/discord.js';
@@ -82,10 +82,12 @@ export class ServerContext {
     });
 
     let logger: Logger;
+
     if (isMainThread) {
       const discordLogHandler = new DiscordLogHandler(discord, (e: Error) => {
         fallbackLogger.error(e);
       });
+
       logger = new Logger([CONSOLE, discordLogHandler]);
     } else {
       logger = fallbackLogger;
@@ -105,6 +107,7 @@ export class ServerContext {
   public async close() {
     const logger = this.logger.close();
     const prisma = this.prisma.$disconnect();
+
     await Promise.allSettled([logger, prisma]);
   }
 

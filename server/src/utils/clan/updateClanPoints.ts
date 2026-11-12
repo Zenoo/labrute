@@ -14,10 +14,13 @@ export const updateClanPoints = async (
       ? getBruteGoldValueFromLevel(previousBrute.level)
       + getBruteGoldValueFromRanking(previousBrute.ranking, previousBrute.ascensions) * 2
       : 0);
+
     const newPoints = getBruteGoldValueFromLevel(brute.level)
       + getBruteGoldValueFromRanking(brute.ranking, brute.ascensions) * 2;
 
-    if (previousPoints === newPoints) return;
+    if (previousPoints === newPoints) {
+      return;
+    }
 
     await traced('updateClanPoints.add.updateClan', () => prisma.clan.update({
       where: {

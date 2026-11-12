@@ -1,7 +1,7 @@
 import { UserLogsListResponse } from '@labrute/core';
 import { UserLogType } from '@labrute/prisma';
 import {
-  Autocomplete, Chip, Paper, Stack, TextField
+  Autocomplete, Chip, Paper, Stack, TextField,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import dayjs from 'dayjs';
@@ -27,6 +27,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     case UserLogType.DISCONNECT: {
       return (
         <>
@@ -34,6 +35,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     case UserLogType.GOLD_WIN: {
       return (
         <>
@@ -41,6 +43,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     case UserLogType.GOLD_LOSS: {
       return (
         <>
@@ -48,6 +51,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     case UserLogType.CREATE_BRUTE: {
       return (
         <>
@@ -55,6 +59,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     case UserLogType.RENAME_BRUTE: {
       return (
         <>
@@ -62,6 +67,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     case UserLogType.SACRIFICE_BRUTE: {
       return (
         <>
@@ -69,6 +75,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     case UserLogType.BANNED: {
       return (
         <>
@@ -76,6 +83,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     case UserLogType.TRANSFER_BRUTE: {
       return (
         <>
@@ -83,6 +91,7 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     case UserLogType.RECEIVE_BRUTE: {
       return (
         <>
@@ -90,8 +99,10 @@ const renderLog = (log: UserLogsListResponse[number]) => {
         </>
       );
     }
+
     default: {
       console.error('Unknown log type', log);
+
       return null;
     }
   }
@@ -121,12 +132,16 @@ export const UserLogView = () => {
     if (!userIds.length) {
       setLogs([]);
       setPage(1);
+
       return () => { };
     }
 
     const timeout = setTimeout(() => {
       setLoading(true);
-      Server.UserLog.list({ userIds, page }).then((l) => {
+      Server.UserLog.list({
+        userIds,
+        page,
+      }).then((l) => {
         setLogs((prev) => [...prev, ...l]);
       }).catch(catchError(Alert)).finally(() => {
         setLoading(false);
@@ -141,7 +156,10 @@ export const UserLogView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {user && (
           <Stack spacing={2}>
             <Text bold h3 smallCaps color="secondary">User logs</Text>
@@ -157,6 +175,7 @@ export const UserLogView = () => {
               renderTags={(value: readonly string[], getTagProps) => value.map(
                 (option: string, index: number) => {
                   const { key, ...tagProps } = getTagProps({ index });
+
                   return (
                     <Chip variant="outlined" label={option} key={key} {...tagProps} />
                   );
@@ -180,7 +199,10 @@ export const UserLogView = () => {
                   </Text>
                 ))}
                 {/* Load more */}
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}>
                   <FantasyButton
                     color="success"
                     onClick={() => setPage((p) => p + 1)}

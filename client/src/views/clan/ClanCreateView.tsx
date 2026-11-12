@@ -1,5 +1,5 @@
 import {
-  Box, Button, Grid, Paper, useMediaQuery, useTheme
+  Box, Button, Grid, Paper, useMediaQuery, useTheme,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -31,10 +31,13 @@ export const ClanCreateView = () => {
   };
 
   const createClan = () => {
-    if (!name || !bruteName) return;
+    if (!name || !bruteName) {
+      return;
+    }
 
     if (name.length < 3 || name.length > 50) {
       Alert.open('warning', t('clanNameLength'));
+
       return;
     }
 
@@ -45,12 +48,20 @@ export const ClanCreateView = () => {
       updateData((data) => (data ? ({
         ...data,
         brutes: data.brutes.map((brute) => (brute.name === bruteName
-          ? { ...brute, clan, clanId: clan.id }
+          ? {
+            ...brute,
+            clan,
+            clanId: clan.id,
+          }
           : brute
         )),
       }) : null));
 
-      updateBrute((b) => (b ? { ...b, clan, clanId: clan.id } : null));
+      updateBrute((b) => (b ? {
+        ...b,
+        clan,
+        clanId: clan.id,
+      } : null));
       navigate(`/${bruteName}/cell`);
     }).catch(catchError(Alert));
   };
@@ -60,7 +71,10 @@ export const ClanCreateView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('createAClan')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Grid container spacing={1}>
           {!isMd && (
             <Grid item xs={12} md={3}>

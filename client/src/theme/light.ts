@@ -16,7 +16,7 @@ const border = {
   shadow: '#bc7b4a',
   outer: '#725254',
   main: '#f6ee90',
-  inner: '#dec37f'
+  inner: '#dec37f',
 };
 
 const initial = defaultTheme({

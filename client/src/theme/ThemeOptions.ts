@@ -170,7 +170,7 @@ type ThemeGeneratorOptions = {
 };
 
 export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
-  border
+  border,
 }) => ({
   palette: {
     transition: { // Custom
@@ -254,9 +254,9 @@ export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
             padding: 16,
             margin: 16,
             border: 'none',
-          }
-        }
-      ]
+          },
+        },
+      ],
     },
     MuiButtonBase: {
       defaultProps: {
@@ -287,12 +287,12 @@ export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
               '&>div': {
                 boxShadow: 'none',
                 '&>div': {
-                  transform: 'translate3d(0px, 0px, 0px)'
-                }
-              }
-            }
-          }
-        }
+                  transform: 'translate3d(0px, 0px, 0px)',
+                },
+              },
+            },
+          },
+        },
       ],
     },
     MuiTooltip: {
@@ -321,26 +321,26 @@ export const defaultTheme: (option: ThemeGeneratorOptions) => ThemeOptions = ({
       styleOverrides: {
         root: ({ theme }) => theme.unstable_sx({
           boxShadow: 1,
-        })
-      }
+        }),
+      },
     },
     MuiMenu: {
       defaultProps: {
         slotProps: {
           paper: {
             variant: 'elevation',
-          }
-        }
-      }
+          },
+        },
+      },
     },
     MuiMenuItem: {
       styleOverrides: {
         root: ({ theme }) => theme.unstable_sx({
           '&.Mui-selected': {
-            bgcolor: 'background.paperDark'
-          }
-        })
-      }
+            bgcolor: 'background.paperDark',
+          },
+        }),
+      },
     },
   },
 });

@@ -598,16 +598,28 @@ export const SkillModifiers: Record<
   Partial<Record<FightStat, SkillModifier>>
 > = {
   [SkillName.herculeanStrength]: {
-    [FightStat.STRENGTH]: { flat: [3, 5, 7], percent: [0.5, 0.6, 0.7] },
+    [FightStat.STRENGTH]: {
+      flat: [3, 5, 7],
+      percent: [0.5, 0.6, 0.7],
+    },
   },
   [SkillName.felineAgility]: {
-    [FightStat.AGILITY]: { flat: [3, 5, 7], percent: [0.5, 0.6, 0.7] },
+    [FightStat.AGILITY]: {
+      flat: [3, 5, 7],
+      percent: [0.5, 0.6, 0.7],
+    },
   },
   [SkillName.lightningBolt]: {
-    [FightStat.SPEED]: { flat: [3, 5, 7], percent: [0.5, 0.6, 0.7] },
+    [FightStat.SPEED]: {
+      flat: [3, 5, 7],
+      percent: [0.5, 0.6, 0.7],
+    },
   },
   [SkillName.vitality]: {
-    [FightStat.HP]: { flat: [18, 30, 42], percent: [0.5, 0.6, 0.7] },
+    [FightStat.HP]: {
+      flat: [18, 30, 42],
+      percent: [0.5, 0.6, 0.7],
+    },
   },
   [SkillName.immortality]: {
     [FightStat.HP]: { percent: [2.5, 3, 3.5] },
@@ -617,7 +629,10 @@ export const SkillModifiers: Record<
   },
   [SkillName.reconnaissance]: {
     [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
-    [FightStat.SPEED]: { flat: [5, 10, 15], percent: [1.5, 2, 2.5] },
+    [FightStat.SPEED]: {
+      flat: [5, 10, 15],
+      percent: [1.5, 2, 2.5],
+    },
     [FightStat.CRITICAL_DAMAGE]: { percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.deity]: {
@@ -632,10 +647,16 @@ export const SkillModifiers: Record<
     [FightStat.INITIATIVE]: { flat: [-200, -200, -200] },
   },
   [SkillName.weaponsMaster]: {
-    [FightStat.DAMAGE]: { percent: [0.5, 0.75, 1], weaponType: WeaponType.SHARP },
+    [FightStat.DAMAGE]: {
+      percent: [0.5, 0.75, 1],
+      weaponType: WeaponType.SHARP,
+    },
   },
   [SkillName.martialArts]: {
-    [FightStat.DAMAGE]: { percent: [1, 1.5, 2], weaponType: null },
+    [FightStat.DAMAGE]: {
+      percent: [1, 1.5, 2],
+      weaponType: null,
+    },
   },
   [SkillName.sixthSense]: {
     [FightStat.COUNTER]: { percent: [0.1, 0.15, 0.2] },
@@ -667,15 +688,27 @@ export const SkillModifiers: Record<
     [FightStat.DISARM]: { percent: [0.5, 0.6, 0.7] },
   },
   [SkillName.bodybuilder]: {
-    [FightStat.HIT_SPEED]: { percent: [0.4, 0.5, 0.6], weaponType: WeaponType.HEAVY },
-    [FightStat.DEXTERITY]: { percent: [0.1, 0.15, 0.2], weaponType: WeaponType.HEAVY },
+    [FightStat.HIT_SPEED]: {
+      percent: [0.4, 0.5, 0.6],
+      weaponType: WeaponType.HEAVY,
+    },
+    [FightStat.DEXTERITY]: {
+      percent: [0.1, 0.15, 0.2],
+      weaponType: WeaponType.HEAVY,
+    },
   },
   [SkillName.relentless]: {
     [FightStat.ACCURACY]: { percent: [0.3, 0.4, 0.5] },
   },
   [SkillName.survival]: {
-    [FightStat.BLOCK]: { percent: [0.2, 0.3, 0.4], details: 'atOneHp' },
-    [FightStat.EVASION]: { percent: [0.2, 0.3, 0.4], details: 'atOneHp' },
+    [FightStat.BLOCK]: {
+      percent: [0.2, 0.3, 0.4],
+      details: 'atOneHp',
+    },
+    [FightStat.EVASION]: {
+      percent: [0.2, 0.3, 0.4],
+      details: 'atOneHp',
+    },
   },
   [SkillName.leadSkeleton]: {
     [FightStat.ARMOR]: { percent: [0.15, 0.25, 0.35] },
@@ -696,7 +729,10 @@ export const SkillModifiers: Record<
   [SkillName.resistant]: {},
   [SkillName.counterAttack]: {
     [FightStat.BLOCK]: { percent: [0.1, 0.15, 0.2] },
-    [FightStat.REVERSAL]: { percent: [0.9, 0.95, 0.99], details: 'afterBlock' },
+    [FightStat.REVERSAL]: {
+      percent: [0.9, 0.95, 0.99],
+      details: 'afterBlock',
+    },
   },
   [SkillName.ironHead]: {},
   [SkillName.thief]: {},
@@ -719,7 +755,10 @@ export const SkillModifiers: Record<
   [SkillName.saboteur]: {},
   [SkillName.backup]: {},
   [SkillName.hideaway]: {
-    [FightStat.BLOCK]: { percent: [0.25, 0.3, 0.35], details: 'againstThrows' },
+    [FightStat.BLOCK]: {
+      percent: [0.25, 0.3, 0.35],
+      details: 'againstThrows',
+    },
   },
   [SkillName.monk]: {
     [FightStat.COUNTER]: { percent: [0.4, 0.45, 0.5] },
@@ -776,7 +815,15 @@ export const skillMap = (skillArray: (Skill | SkillName | SkillId)[]) => {
   const map = new Map<SkillName, number>();
 
   for (const skill of skillArray) {
-    const skillName = typeof skill === 'string' ? skill : typeof skill === 'number' ? SkillById[skill] : skill.name;
+    let skillName: SkillName;
+
+    if (typeof skill === 'string') {
+      skillName = skill;
+    } else if (typeof skill === 'number') {
+      skillName = SkillById[skill];
+    } else {
+      skillName = skill.name;
+    }
 
     map.set(skillName, (map.get(skillName) ?? 0) + 1);
   }

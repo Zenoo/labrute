@@ -1,6 +1,6 @@
 import type { MultipleAccountCaseDetailResponse } from '@labrute/core';
 import {
-  Alert, Box, List, ListItem, Stack, Typography
+  Alert, Box, List, ListItem, Stack, Typography,
 } from '@mui/material';
 import React from 'react';
 import { Link } from '../Link';

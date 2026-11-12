@@ -1,7 +1,7 @@
 import { DiscordClient, SEND_MESSAGE_SAFE_LENGTH } from '../utils/DiscordUtils.js';
 import { ASYNC_DISPOSE } from '../utils/dispose.js';
 import {
-  formatLogRecord, LogHandler, LogRecord
+  formatLogRecord, LogHandler, LogRecord,
 } from './index.js';
 
 /**
@@ -60,9 +60,11 @@ export class DiscordLogHandler implements LogHandler {
     if (this.#closed) {
       throw new Error('called `emit` on closed LogHandler');
     }
+
     this.#nextBatch.push(record);
     this.#ensureActive();
     const formatted = format(this.#nextBatch);
+
     if (formatted.length >= SEND_MESSAGE_SAFE_LENGTH) {
       this.flush().catch((e: Error) => {
         if (this.#errorHandler !== null) {
@@ -78,12 +80,16 @@ export class DiscordLogHandler implements LogHandler {
     if (this.#currentRequest !== null) {
       await this.#currentRequest;
     }
+
     this.#currentRequest = null;
+
     if (this.#nextBatch.length === 0) {
       return;
     }
+
     let recordCount = this.#nextBatch.length;
     const formatted = format(this.#nextBatch);
+
     if (!this.#closed && formatted.length > SEND_MESSAGE_SAFE_LENGTH && recordCount >= 2) {
       // This flush was most likely triggered by an `emit` detecting that we
       // filled the max content length. Try to send one message less in this
@@ -93,9 +99,12 @@ export class DiscordLogHandler implements LogHandler {
       // instead of this hack through Discord webhooks.
       recordCount -= 1;
     }
+
     const batch = this.#nextBatch.splice(0, recordCount);
     const req = this.#send(batch);
+
     this.#currentRequest = req;
+
     try {
       await req;
     } finally {
@@ -107,10 +116,12 @@ export class DiscordLogHandler implements LogHandler {
 
   public async close(): Promise<void> {
     this.#closed = true;
+
     if (this.#batchTimer !== null) {
       clearInterval(this.#batchTimer);
       this.#batchTimer = null;
     }
+
     await this.flush();
   }
 
@@ -118,6 +129,7 @@ export class DiscordLogHandler implements LogHandler {
     if (this.#closed || this.#batchTimer !== null) {
       return;
     }
+
     this.#batchTimer = setInterval(() => this.#onTick(), BATCH_TIMEOUT);
   }
 
@@ -135,6 +147,7 @@ export class DiscordLogHandler implements LogHandler {
 
   async #send(batch: readonly LogRecord[]) {
     const message = format(batch);
+
     try {
       await this.#client.sendMessage(message);
     } catch (e) {

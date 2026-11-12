@@ -1,8 +1,8 @@
 import {
-  Alert, AlertColor, Button, Snackbar
+  Alert, AlertColor, Button, Snackbar,
 } from '@mui/material';
 import React, {
-  useCallback, useContext, useMemo, useState
+  useCallback, useContext, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -27,6 +27,7 @@ const AlertContext = React.createContext<AlertContextInterface>({
 
 export const useAlert = () => {
   const context = useContext(AlertContext);
+
   return context;
 };
 

@@ -1,4 +1,6 @@
-import { Brute, FightModifier, SkillName } from '@labrute/prisma';
+import {
+  Brute, FightModifier, SkillName,
+} from '@labrute/prisma';
 import dayjs from 'dayjs';
 import { randomBetween } from '../utils/index.js';
 import { skillList } from './skills.js';

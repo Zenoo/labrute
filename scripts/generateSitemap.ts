@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -6,9 +7,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const routes = {
-  '/': { prio: 0.9, changefreq: 'monthly' },
-  '/patch-notes': { prio: 0.8, changefreq: 'monthly' },
-  '/wiki': { prio: 0.7, changefreq: 'monthly' },
+  '/': {
+    prio: 0.9,
+    changefreq: 'monthly',
+  },
+  '/patch-notes': {
+    prio: 0.8,
+    changefreq: 'monthly',
+  },
+  '/wiki': {
+    prio: 0.7,
+    changefreq: 'monthly',
+  },
 };
 
 // Generate sitemap
@@ -27,6 +37,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 </urlset>`;
 
 const sitemapPath = path.join(__dirname, '../client/public/sitemap.xml');
+
 fs.writeFileSync(sitemapPath, sitemap, 'utf8');
 
 console.log('Sitemap generated at', sitemapPath);

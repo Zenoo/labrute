@@ -35,7 +35,10 @@ export const Notifications = {
       const user = await auth(prisma, req);
 
       await traced('notifications.setRead.updateNotification', () => prisma.notification.update({
-        where: { id: req.params.id, userId: user.id },
+        where: {
+          id: req.params.id,
+          userId: user.id,
+        },
         data: { read: true },
       }));
 
@@ -54,7 +57,10 @@ export const Notifications = {
       const user = await auth(prisma, req);
 
       await traced('notifications.setAllRead.updateNotifications', () => prisma.notification.updateMany({
-        where: { userId: user.id, read: false },
+        where: {
+          userId: user.id,
+          read: false,
+        },
         data: { read: true },
       }));
 

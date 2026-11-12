@@ -1,5 +1,5 @@
 import {
-  Backdrop, Box, Checkbox, FormControl, InputLabel, MenuItem, Modal, Paper, Select
+  Backdrop, Box, Checkbox, FormControl, InputLabel, MenuItem, Modal, Paper, Select,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -51,6 +51,7 @@ export const RoleAssignmentModal: React.FC<RoleAssignmentModalProps> = ({
   const handleAssign = () => {
     if (selectedMembers.length === 0 || !role) {
       Alert.open('error', t('pleaseSelectMember'));
+
       return;
     }
 
@@ -64,13 +65,16 @@ export const RoleAssignmentModal: React.FC<RoleAssignmentModalProps> = ({
       })
       .catch(catchError(Alert));
   };
+
   const handleSelectionMembers = (selected: string[]) => (members
     .filter((m) => selected.includes(m.id))
     .map((m) => m.name)
     .join(', ') || t('selectMembers')
   );
 
-  if (!role) return null;
+  if (!role) {
+    return null;
+  }
 
   return (
     <Modal
@@ -129,7 +133,11 @@ export const RoleAssignmentModal: React.FC<RoleAssignmentModalProps> = ({
             </FormControl>
           )}
 
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
+          <Box sx={{
+            display: 'flex',
+            gap: 2,
+            justifyContent: 'flex-end',
+          }}>
             <FantasyButton color="secondary" onClick={onClose}>
               {t('cancel')}
             </FantasyButton>

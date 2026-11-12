@@ -1,5 +1,5 @@
 import {
-  Brute, BruteStat, PetName, Prisma, SkillName, WeaponName
+  Brute, BruteStat, PetName, Prisma, SkillName, WeaponName,
 } from '@labrute/prisma';
 import { randomBetween } from '../utils/index.js';
 import { getRandomBonus } from './getRandomBonus.js';
@@ -7,7 +7,7 @@ import { getRandomBonus } from './getRandomBonus.js';
 export type LevelUpChoice = Omit<Prisma.DestinyChoiceCreateInput, 'brute'>;
 
 export const getLevelUpChoices = (
-  brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>
+  brute: Pick<Brute, 'level' | 'pets' | 'skills' | 'weapons'>,
 ): [LevelUpChoice, LevelUpChoice] => {
   let preventPerk = false;
   let perkType = null;
@@ -74,6 +74,7 @@ export const getLevelUpChoices = (
     if (!perkType || !perkName) {
       throw new Error('No perk type or name');
     }
+
     firstChoice = {
       type: perkType,
       skill: perkType === 'skill' ? perkName as SkillName : undefined,

@@ -35,7 +35,7 @@ as part of documentation maintenance.
 | Purpose                        | Command                                         | Notes                                                     |
 | ------------------------------ | ----------------------------------------------- | --------------------------------------------------------- |
 | Compile shared/server projects | `pnpm compile`                                  | Builds Prisma/core/server references; excludes client     |
-| Run all tests                  | `pnpm test`                                     | Compiles shared/server, runs server/client and Chrome tests |
+| Full verification              | `pnpm test`                                     | Compile, client types, specs/browser/script tests, ESLint and i18n; compact summary with saved logs |
 | Check client TypeScript        | `pnpm --filter @labrute/client run compile`     | `tsc --build`; client uses `noEmit`                       |
 | Bundle client                  | `pnpm --filter @labrute/client run build`       | Vite output in `client/build`, including bundle stats     |
 | Client development server      | `pnpm --filter @labrute/client run start`       | Port 3000, opens browser                                  |
@@ -58,10 +58,28 @@ Tests use Node's built-in runner and `.mjs`, not Jest/Vitest. Many client tests 
 or load modules through Vite; read the target test imports before deciding prerequisites.
 Server fight tests import `server/lib` and compiled core, so compile first.
 
-Run `pnpm test` from the root with Node 24. It compiles core/server, discovers every
-`server/tests/*.test.mjs`, `client/tests/*.test.mjs` and `client/tests/*.browser.mjs`.
-After a successful compile, all suites run even when individual tests fail; the command exits nonzero
-if any suite fails. This includes the admin Chrome browser checks.
+Run `pnpm test` from the root with Node 24. [scripts/test.mjs](../../scripts/test.mjs) runs:
+
+1. Shared/server compilation and a separate client type-check.
+2. All executable `*.test.*`, `*.spec.*`, and `*.browser.*` files discovered recursively under
+   `server/tests`, `client/tests`, `core/tests` (when present), and `scripts/tests`.
+3. The ESLint CLI over the repository and the English missing/unused translation checker.
+
+It continues after failures and exits nonzero if any check fails or is blocked. Shared compilation is
+a prerequisite for client types and server/client/core tests, which are marked **BLOCKED** if it fails;
+script tests, lint, and i18n still run. An existing client type error does not prevent client tests.
+The root lint step uses the same `eslint .` command as `pnpm lint`; workspace-specific checks remain
+available through the focused workspace commands above.
+
+The terminal shows progress and a short result table, including passed/failed/skipped test counts,
+without streaming test/lint output. Ctrl+C stops the active check and marks remaining checks cancelled.
+Each run keeps combined stdout/stderr for every check and a linked Markdown summary under
+`test-results/<timestamp>-<pid>/`. Open the printed `summary.md` path in VS Code (Markdown preview
+has links to each log). `test-results/latest.txt` points to the newest report. The entire directory is
+gitignored; prior runs remain available, and deleting `test-results/` is safe when logs are no longer
+needed. Logs for blocked checks explain the failed prerequisite.
+
+This includes the admin Chrome browser checks and the i18n/runner regression tests.
 Client tests run serially because several create Vite servers. Benchmarks (`*.bench.mjs`) are separate.
 Chrome defaults to its standard Windows installation path; set `CHROME_PATH` on other installations.
 Database integration tests require `OBSERVATION_TEST_DATABASE_URL` pointing to a disposable loopback
@@ -69,6 +87,11 @@ PostgreSQL database named `observation_test` or `labrute_observation_test`; with
 explicitly skip. Never point this variable at a development or production database.
 Tests create/migrate isolated test schemas;
 the command does not start a database server or migrate an application's existing schema.
+The development-seed integration test has a separate destructive opt-in,
+`DEV_SEED_TEST_DATABASE_URL`; see the [seed integration test](../../server/tests/dev-seed.test.mjs).
+Without these opt-ins,
+database tests remain explicitly skipped in their detailed logs; a passing stage is not evidence
+that the skipped integration cases ran.
 Use `pnpm --filter @labrute/server test`, `pnpm --filter @labrute/client test:unit` or
 `pnpm --filter @labrute/client test:browser` to run a subset (compile first for server tests).
 
@@ -122,7 +145,7 @@ and preservation requirements; never assume enum conversion or table drops prese
 
 ## Exporters, translations, and assets
 
-Root generator scripts currently use `pnx ts-node`; inspect local runner support before invoking them.
+Most root generator scripts still use `pnx ts-node`; inspect local runner support before invoking them.
 The sources use ESM and some import `.js` paths. An explicit alternative is
 `node --loader ts-node/esm scripts/NAME.ts` from root, subject to the installed Node/ts-node combination.
 Do not fetch an unrelated executable simply to make `pnx` resolve.

@@ -72,13 +72,22 @@ export const banUserInTransaction = async (
   }));
 
   // User log
-  await traced('banUser.createUserLog', () => prisma.userLog.create({ data: { type: UserLogType.BANNED, userId } }));
+  await traced('banUser.createUserLog', () => prisma.userLog.create({
+    data: {
+      type: UserLogType.BANNED,
+      userId,
+    },
+  }));
 
   await traced('banUser.createSecurityAction', () => prisma.securityAction.create({
     data: {
-      subjectType: 'account', subjectId: userId, userId, action: 'ban',
-      actorId: authed?.id ?? null, reason: auditReason,
-    }
+      subjectType: 'account',
+      subjectId: userId,
+      userId,
+      action: 'ban',
+      actorId: authed?.id ?? null,
+      reason: auditReason,
+    },
   }));
 
   // Account sanctions never create browser or fingerprint restrictions.
@@ -93,7 +102,9 @@ export const banUser = async (
     tx, userId, reason, authed,
   ), { timeout: 30000 });
 
-  if (!changed) return;
+  if (!changed) {
+    return;
+  }
 
   if (authed) {
     LOGGER.log(`User ${userId} has been banned by ${authed.id}`);

@@ -1,7 +1,7 @@
 import { LAST_RELEASE, releases } from '@labrute/core';
 import { Circle } from '@mui/icons-material';
 import {
-  ImageList, ImageListItem, List, ListItem, ListItemIcon, ListItemText, Paper
+  ImageList, ImageListItem, List, ListItem, ListItemIcon, ListItemText, Paper,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
@@ -34,7 +34,10 @@ export const PatchNotesView = () => {
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('patchNotes')}</Text>
       </Paper>
       {displayedReleases.map((release) => (
-        <Paper key={release.version} sx={{ bgcolor: 'background.paperLight', my: 3 }}>
+        <Paper key={release.version} sx={{
+          bgcolor: 'background.paperLight',
+          my: 3,
+        }}>
           <Text h4 bold upperCase>v{release.version} <Text component="span" italic upperCase>{dayjs.utc(release.date).format('DD MMMM YYYY')}</Text></Text>
           {!!release.features.length && (
             <>
@@ -42,7 +45,10 @@ export const PatchNotesView = () => {
               <List dense sx={{ p: 0 }}>
                 {release.features.map((feature) => (
                   <ListItem key={feature} sx={{ py: 0 }}>
-                    <ListItemIcon sx={{ minWidth: 0, mr: 1 }}>
+                    <ListItemIcon sx={{
+                      minWidth: 0,
+                      mr: 1,
+                    }}>
                       <Circle sx={{ fontSize: '6px' }} />
                     </ListItemIcon>
                     <ListItemText primary={feature} />
@@ -57,7 +63,10 @@ export const PatchNotesView = () => {
               <List dense sx={{ p: 0 }}>
                 {release.fixes.map((fix) => (
                   <ListItem key={fix} sx={{ py: 0 }}>
-                    <ListItemIcon sx={{ minWidth: 0, mr: 1 }}>
+                    <ListItemIcon sx={{
+                      minWidth: 0,
+                      mr: 1,
+                    }}>
                       <Circle sx={{ fontSize: '6px' }} />
                     </ListItemIcon>
                     <ListItemText primary={fix} />
@@ -74,7 +83,7 @@ export const PatchNotesView = () => {
                   onClick={() => window.open(`/images/releases/${item}`)}
                   sx={{
                     cursor: 'pointer',
-                    boxShadow: 3
+                    boxShadow: 3,
                   }}
                 >
                   {item.endsWith('.mp4') ? (

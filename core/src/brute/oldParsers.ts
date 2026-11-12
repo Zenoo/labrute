@@ -11,19 +11,26 @@ export const OLD_getColor = (gender: Gender, part: BruteColor, color: number) =>
   const clothingParts = ['col2', 'col2a', 'col2b', 'col3', 'col3b', 'col4', 'col4a', 'col4b'];
   let colorArray: string[] = [];
 
-  if (skinParts.includes(part)) colorArray = colors[gender].skin;
-  else if (hairParts.includes(part)) colorArray = colors[gender].hair;
-  else if (clothingParts.includes(part)) colorArray = colors[gender].clothing;
+  if (skinParts.includes(part)) {
+    colorArray = colors[gender].skin;
+  } else if (hairParts.includes(part)) {
+    colorArray = colors[gender].hair;
+  } else if (clothingParts.includes(part)) {
+    colorArray = colors[gender].clothing;
+  }
 
   const normalColor = colorArray[color];
-  if (normalColor) return normalColor;
+
+  if (normalColor) {
+    return normalColor;
+  }
 
   return colors.special[99 - color] || '#ffffff';
 };
 
 export const OLD_readColorString = (
   gender: Gender,
-  colorsString: string
+  colorsString: string,
 ): Record<BruteColor, string> => ({
   col0: OLD_getColor(gender, 'col0', +colorsString.slice(0, 2)),
   col0a: OLD_getColor(gender, 'col0a', +colorsString.slice(2, 4)),

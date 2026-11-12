@@ -1,19 +1,19 @@
 import {
-  getBruteGoldValue, getCalculatedBrute, getResetCost
+  getBruteGoldValue, getCalculatedBrute, getResetCost,
 } from '@labrute/core';
 import { BruteReportReason } from '@labrute/prisma';
 import {
-  History, NavigateBefore, NavigateNext, Policy
+  History, NavigateBefore, NavigateNext, Policy,
 } from '@mui/icons-material';
 import {
-  Box, Fab, IconButton, Paper, Tooltip, useMediaQuery, useTheme
+  Box, Fab, IconButton, Paper, Tooltip, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useMemo
+  useCallback, useEffect, useMemo,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  useNavigate, useParams, Link as RouterLink
+  useNavigate, useParams, Link as RouterLink,
 } from 'react-router';
 import { BoxBg } from '../components/BoxBg';
 import { CellClan } from '../components/Cell/CellClan';
@@ -47,17 +47,27 @@ export const CellView = () => {
   const smallScreen = useMediaQuery('(max-width: 938px)');
   const { language } = useLanguage();
   const navigate = useNavigate();
-  const { brute, updateBrute, owner } = useBrute();
+
+  const {
+    brute, updateBrute, owner,
+  } = useBrute();
+
   const Confirm = useConfirm();
   const Alert = useAlert();
-  const { modifiers, user, updateData } = useAuth();
+
+  const {
+    modifiers, user, updateData,
+  } = useAuth();
+
   const { palette: { mode } } = useTheme();
   const Server = useServer();
   const { data: logs } = useStateAsync([], Server.Log.list, bruteName || '');
 
   // Sacrifice brute
   const confirmSacrifice = useCallback(() => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     Confirm.open(t('sacrifice'), t('sacrificeConfirm', { gold: getBruteGoldValue(brute) }), () => {
       Server.Brute.sacrifice(brute.name).then(({ gold }) => {
@@ -75,16 +85,25 @@ export const CellView = () => {
   }, [Alert, Confirm, Server.Brute, brute, navigate, t, updateData]);
 
   const switchBrute = useCallback((side: number) => {
-    if (!user || !brute || !user.brutes || !owner) return;
+    if (!user || !brute || !user.brutes || !owner) {
+      return;
+    }
 
     const currentBruteIndex = user.brutes.findIndex((bruteTemp) => bruteTemp.id === brute.id);
-    if (currentBruteIndex < 0) return;
+
+    if (currentBruteIndex < 0) {
+      return;
+    }
 
     let newBrute = user.brutes[(currentBruteIndex + side) % user.brutes.length];
+
     if (currentBruteIndex === 0 && side === -1) {
       newBrute = user.brutes[user.brutes.length - 1];
     }
-    if (!newBrute) return;
+
+    if (!newBrute) {
+      return;
+    }
 
     Confirm.close();
 
@@ -93,7 +112,9 @@ export const CellView = () => {
 
   // Reset brute
   const confirmReset = useCallback(() => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     Confirm.open(t('reset'), t(brute.eventId ? 'resetEventConfirm' : 'resetConfirm', { gold: getResetCost(brute) }), () => {
       Server.Brute.reset(brute.name).then((newBrute) => {
@@ -103,7 +124,9 @@ export const CellView = () => {
 
         // Update user data
         updateData((data) => {
-          if (!data) return null;
+          if (!data) {
+            return null;
+          }
 
           return {
             ...data,
@@ -125,7 +148,9 @@ export const CellView = () => {
 
   // Report brute
   const confirmReport = useCallback(() => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     Confirm.open(t('reportName'), t('reportConfirm', { brute: brute.name }), () => {
       Server.BruteReport.send(brute.name, BruteReportReason.name).then(() => {
@@ -140,10 +165,12 @@ export const CellView = () => {
       if (event.key === 'ArrowLeft') {
         switchBrute(-1);
       }
+
       if (event.key === 'ArrowRight') {
         switchBrute(1);
       }
     };
+
     document.addEventListener('keydown', handleKey);
 
     return () => {
@@ -153,7 +180,10 @@ export const CellView = () => {
 
   // Handle swipe
   useEffect(() => {
-    if (!owner) return () => { };
+    if (!owner) {
+      return () => { };
+    }
+
     let touchstartX = 0;
     let touchstartY = 0;
     let touchendX = 0;
@@ -162,10 +192,15 @@ export const CellView = () => {
     const checkSwipe = () => {
       const deltaX = touchendX - touchstartX;
       const deltaY = touchendY - touchstartY;
-      if (Math.abs(deltaY) > Math.abs(deltaX)) return; // Ignore swipe if Y is more important than X
+
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        return;
+      } // Ignore swipe if Y is more important than X
+
       if (deltaX > 120) {
         switchBrute(-1);
       }
+
       if (deltaX < -120) {
         switchBrute(1);
       }
@@ -205,10 +240,15 @@ export const CellView = () => {
           zIndex: 100,
         }}
       >
-        <NavigateBefore sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
+        <NavigateBefore sx={{
+          color: 'secondary.main',
+          cursor: 'pointer',
+          m: 'auto',
+        }} />
       </Fab>
     </Tooltip>
   );
+
   const nextBruteArrow = owner && (
     <Tooltip title={t('nextBrute')}>
       <Fab
@@ -223,7 +263,11 @@ export const CellView = () => {
           zIndex: 100,
         }}
       >
-        <NavigateNext sx={{ color: 'secondary.main', cursor: 'pointer', m: 'auto' }} />
+        <NavigateNext sx={{
+          color: 'secondary.main',
+          cursor: 'pointer',
+          m: 'auto',
+        }} />
       </Fab>
     </Tooltip>
   );
@@ -292,7 +336,10 @@ export const CellView = () => {
         }}
         >
           <Box display="flex">
-            <Box sx={{ display: 'flex', flexGrow: 1 }}>
+            <Box sx={{
+              display: 'flex',
+              flexGrow: 1,
+            }}>
               <Box sx={{ width: 315 }}>
                 <Text bold center sx={{ mb: 0.5 }}>
                   {/* INVENTORY */}
@@ -363,30 +410,54 @@ export const CellView = () => {
                 }}
               >
                 <Tooltip title={t(`${ad.name}.desc`)}>
-                  <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
+                  <Link to={ad.url} target="_blank" sx={{
+                    width: 200,
+                    mx: 4,
+                    display: 'inline-block',
+                  }}>
                     <Box
                       component="img"
                       src={`/images/redirects/${ad.illustration}`}
-                      sx={{ ml: 1, mt: 3.5 }}
+                      sx={{
+                        ml: 1,
+                        mt: 3.5,
+                      }}
                     />
                   </Link>
                 </Tooltip>
               </BoxBg>
               {/* LOGS */}
-              <Box sx={{ ml: 2, mt: 1 }}>
+              <Box sx={{
+                ml: 2,
+                mt: 1,
+              }}>
                 {logs.map((log) => <CellLog key={log.id} log={log} />)}
               </Box>
               {!brute.eventId && (
-                <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
+                <Box sx={{
+                  display: 'flex',
+                  ml: 2,
+                  justifyContent: 'center',
+                }}>
                   <FantasyButton color="secondary" to={`/${brute.name}/tournaments`} sx={{ m: 1 }}>
-                    <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+                    <History sx={{
+                      verticalAlign: 'middle',
+                      mr: 1,
+                    }} />
                     {t('tournaments')}
                   </FantasyButton>
                 </Box>
               )}
-              <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
+              <Box sx={{
+                display: 'flex',
+                ml: 2,
+                justifyContent: 'center',
+              }}>
                 <FantasyButton color="primary" to={`/${brute.name}/event/history`} sx={{ m: 1 }}>
-                  <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+                  <History sx={{
+                    verticalAlign: 'middle',
+                    mr: 1,
+                  }} />
                   {t('eventHistory')}
                 </FantasyButton>
               </Box>
@@ -396,13 +467,20 @@ export const CellView = () => {
                   subtitle2
                   center
                   onClick={confirmReport}
-                  sx={{ cursor: 'pointer', ml: 2 }}
+                  sx={{
+                    cursor: 'pointer',
+                    ml: 2,
+                  }}
                 >
                   {t('report')}
                 </Text>
               )}
               {user?.admin && (
-                <Box sx={{ display: 'flex', ml: 2, justifyContent: 'center' }}>
+                <Box sx={{
+                  display: 'flex',
+                  ml: 2,
+                  justifyContent: 'center',
+                }}>
                   <Tooltip title={t('adminPanel')}>
                     <IconButton
                       component={RouterLink}

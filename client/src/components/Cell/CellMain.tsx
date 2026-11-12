@@ -1,9 +1,9 @@
 import {
-  BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded
+  BruteRanking, getFightsLeft, getMaxFightsPerDay, getWinsNeededToRankUp, getXPNeeded,
 } from '@labrute/core';
 import { Lang } from '@labrute/prisma';
 import {
-  AlertTitle, Box, BoxProps, Alert as MuiAlert, Stack, Tooltip
+  AlertTitle, Box, BoxProps, Alert as MuiAlert, Stack, Tooltip,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
@@ -42,7 +42,11 @@ export const CellMain = ({
   const Confirm = useConfirm();
   const Alert = useAlert();
   const { brute, owner } = useBrute();
-  const { user, authing, currentEvent } = useAuth();
+
+  const {
+    user, authing, currentEvent,
+  } = useAuth();
+
   const Server = useServer();
 
   const xpNeededForNextLevel = useMemo(
@@ -57,7 +61,9 @@ export const CellMain = ({
 
   // Rank up
   const rankUp = useCallback(() => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     Confirm.open(t('rankUp'), t('rankUpConfirm'), async () => {
       try {
@@ -74,11 +80,62 @@ export const CellMain = ({
   const login = useCallback(async () => {
     try {
       const { url } = await Fetch<{ url: string }>('/api/oauth/redirect');
+
       window.location.href = url;
     } catch (error) {
       catchError(Alert, error);
     }
   }, [Alert]);
+
+  const renderArenaAction = () => {
+    if (!brute) {
+      return null;
+    }
+
+    if ((brute.xp < xpNeededForNextLevel
+        || (brute.eventId && brute.level >= (currentEvent?.maxLevel ?? 999)))) {
+      if (fightsLeft > 0) {
+        return (
+          <Stack spacing={1} sx={{
+            alignItems: 'center',
+            mt: 1,
+          }}>
+            <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
+            <Link to={`/${brute.name}/arena`}>
+              <StyledButton
+                sx={{
+                  height: 72,
+                  width: 218,
+                }}
+                image={`/images/${language}/cell/arena.webp`}
+                imageHover={`/images/${language}/cell/arena-hover.webp`}
+                shadow={false}
+                contrast={false}
+              />
+            </Link>
+            <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
+          </Stack>
+        );
+      }
+
+      return (
+        <Box sx={{ textAlign: 'center' }}>
+          <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
+          <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute) })}</Text>
+        </Box>
+      );
+    }
+
+    if ((!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999))) {
+      return (
+        <FantasyButton color="success" to={`/${brute.name}/level-up`}>
+          {t('levelUp')}
+        </FantasyButton>
+      );
+    }
+
+    return null;
+  };
 
   return brute && (
     <Box {...rest}>
@@ -97,15 +154,33 @@ export const CellMain = ({
         <BruteLevelAndXP brute={brute} sx={{ pl: 1 }} />
         {/* RANKING */}
         {!brute.eventId && (
-          <Box sx={{ width: 140, display: 'flex', flexDirection: 'row' }}>
-            <Box component="img" sx={{ width: 40, height: 40 }} src={`/images/rankings/lvl_${brute.ranking}.webp`} />
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <Box sx={{
+            width: 140,
+            display: 'flex',
+            flexDirection: 'row',
+          }}>
+            <Box component="img" sx={{
+              width: 40,
+              height: 40,
+            }} src={`/images/rankings/lvl_${brute.ranking}.webp`} />
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
               <Text bold color="secondary" sx={{ pl: 0.5 }}>{t(`lvl_${brute.ranking as BruteRanking}`)}</Text>
               {brute.ascensions > 0 && (
                 <Tooltip title={t('ascensions')}>
-                  <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}>
+                  <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    marginLeft: 'auto',
+                  }}>
                     <Text bold color="secondary" sx={{ pl: 0.5 }}>{`x${brute.ascensions}`}</Text>
-                    <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />
+                    <Box component="img" sx={{
+                      width: 16,
+                      height: 16,
+                    }} src="/images/ear.gif" />
                   </Box>
                 </Tooltip>
               )}
@@ -120,11 +195,14 @@ export const CellMain = ({
         && (
           <Tooltip title={t(
             brute.ranking === 0 ? 'tournamentVictoriesUntilAscend' : 'tournamentVictoriesUntilRankUp',
-            { value: getWinsNeededToRankUp(brute) }
+            { value: getWinsNeededToRankUp(brute) },
           )}
           >
             <Box textAlign="center">
-              <Box component="img" src={`/images/${brute && brute.ranking === 0 ? 'ascend' : 'ranking'}.png`} alt="Tournament victories until rank up" sx={{ width: 22, mr: 1 }} />
+              <Box component="img" src={`/images/${brute && brute.ranking === 0 ? 'ascend' : 'ranking'}.png`} alt="Tournament victories until rank up" sx={{
+                width: 22,
+                mr: 1,
+              }} />
               {new Array(getWinsNeededToRankUp(brute)).fill(0).map((_, i) => (
                 <Box
 
@@ -174,39 +252,7 @@ export const CellMain = ({
           {t('connect')}
         </FantasyButton>
       )}
-      {owner && ((brute.xp < xpNeededForNextLevel
-        || (brute.eventId && brute.level >= (currentEvent?.maxLevel ?? 999)))
-        ? fightsLeft > 0
-          ? (
-            <Stack spacing={1} sx={{ alignItems: 'center', mt: 1 }}>
-              <Text bold sx={{ pl: 1 }}>{t('callToFight')}</Text>
-              <Link to={`/${brute.name}/arena`}>
-                <StyledButton
-                  sx={{
-                    height: 72,
-                    width: 218,
-                  }}
-                  image={`/images/${language}/cell/arena.webp`}
-                  imageHover={`/images/${language}/cell/arena-hover.webp`}
-                  shadow={false}
-                  contrast={false}
-                />
-              </Link>
-              <Text bold color="error">{fightsLeft > 1 ? t('fightsLeft', { value: fightsLeft }) : t('fightLeft')}</Text>
-            </Stack>
-          )
-          : (
-            <Box sx={{ textAlign: 'center' }}>
-              <Text bold color="error">{t('bruteIsResting', { brute: brute.name })}</Text>
-              <Text color="error">{t('newFightsTomorrow', { amount: getMaxFightsPerDay(brute) })}</Text>
-            </Box>
-          )
-        : (!brute.eventId || brute.level < (currentEvent?.maxLevel ?? 999)) ? (
-          <FantasyButton color="success" to={`/${brute.name}/level-up`}>
-            {t('levelUp')}
-          </FantasyButton>
-        )
-          : null)}
+      {owner && (renderArenaAction())}
       {/* TOURNAMENT */}
       {!smallScreen && !brute.eventId && (
         <CellTournament

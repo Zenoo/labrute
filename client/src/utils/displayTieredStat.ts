@@ -1,4 +1,6 @@
-import { ExtraTieredSkillData, FightStat, getScaledStat, Pet, TieredNumberKeysOf, Weapon } from '@labrute/core';
+import {
+  ExtraTieredSkillData, FightStat, getScaledStat, Pet, TieredNumberKeysOf, Weapon,
+} from '@labrute/core';
 import { SkillName } from '@labrute/prisma';
 import { TieredStatProps } from '../components/TieredStat';
 
@@ -6,7 +8,7 @@ import { TieredStatProps } from '../components/TieredStat';
 const displayTieredStatHTML = <T>(
   values: T[],
   tier: number,
-  formatter: (value: T, index: number) => string | number
+  formatter: (value: T, index: number) => string | number,
 ): string | number | undefined => {
   if (values.every((v) => v === values[0])) {
     const firstValue = values[0];
@@ -43,14 +45,14 @@ export const displaySkillTieredStat = ({
     skill,
     type,
     stat,
-    value: Math.abs(value ?? 0)
+    value: Math.abs(value ?? 0),
   }) : (getScaledStat({
     chaos,
     skill,
     type,
     stat,
     value: Math.abs(value ?? 0),
-    precision: 2
+    precision: 2,
   }) * 100).toFixed(0));
 
   return displayTieredStatHTML(values, tier, (value) => getValue(value));
@@ -71,7 +73,7 @@ export const displayTieredWeaponStat = ({
 }: DisplayTieredWeaponStatParams) => displayTieredStatHTML(
   weapon[stat],
   tier,
-  (_, index) => formatter(index + 1)
+  (_, index) => formatter(index + 1),
 );
 
 type DisplayTieredPetStatParams = {
@@ -89,7 +91,7 @@ export const displayTieredPetStat = ({
 }: DisplayTieredPetStatParams) => displayTieredStatHTML(
   pet[stat],
   tier,
-  (_, index) => formatter(index + 1)
+  (_, index) => formatter(index + 1),
 );
 
 type DisplayExtraTieredSkillStatParams = {
@@ -121,7 +123,9 @@ type DisplayTieredSkillUsesParams = {
 };
 
 export const displayTieredSkillUses = ({ uses, tier }: DisplayTieredSkillUsesParams) => {
-  if (!uses) return undefined;
+  if (!uses) {
+    return undefined;
+  }
 
   return displayTieredStatHTML(uses, tier, (value) => value);
 };
@@ -141,14 +145,14 @@ export const getSkillTieredStatProps = ({
     skill,
     type,
     stat,
-    value: Math.abs(value ?? 0)
+    value: Math.abs(value ?? 0),
   }) : (getScaledStat({
     chaos,
     skill,
     type,
     stat,
     value: Math.abs(value ?? 0),
-    precision: 2
+    precision: 2,
   }) * 100).toFixed(0));
 
   return {

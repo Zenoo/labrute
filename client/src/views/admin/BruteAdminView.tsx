@@ -1,16 +1,17 @@
 import {
-  BruteGetForAdminResponse, entries, getTieredPets, getTieredSkills, getTieredWeapons
+  BruteGetForAdminResponse, entries, getTieredPets, getTieredSkills, getTieredWeapons,
 } from '@labrute/core';
 import {
-  DestinyChoiceSide, Gender, InventoryItemType, PetName, SkillName, WeaponName
+  DestinyChoiceSide, Gender, InventoryItemType, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import {
-  Box, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField
+  Box, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem,
+  Paper, Select, TextField,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -63,7 +64,9 @@ export const BruteAdminView = () => {
 
   // Fetch brute on brute identifier change or includeDeleted change
   useEffect(() => {
-    if (!bruteIdentifier) return undefined;
+    if (!bruteIdentifier) {
+      return undefined;
+    }
 
     const timeout = setTimeout(() => {
       updateBrute();
@@ -78,8 +81,13 @@ export const BruteAdminView = () => {
 
   // Save brute
   const saveBrute = useCallback(() => {
-    if (!brute) return;
-    if (!bruteIdentifier) return;
+    if (!brute) {
+      return;
+    }
+
+    if (!bruteIdentifier) {
+      return;
+    }
 
     const bruteData = {
       ...brute,
@@ -101,7 +109,9 @@ export const BruteAdminView = () => {
 
   // Give item
   const giveItem = useCallback(() => {
-    if (!brute || !item) return;
+    if (!brute || !item) {
+      return;
+    }
 
     Server.Brute.giveItem(brute.id, item).then(() => {
       Alert.open('success', 'Item given');
@@ -110,7 +120,9 @@ export const BruteAdminView = () => {
 
   // Delete brute
   const deleteBrute = useCallback(() => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     Server.Brute.delete({ id: brute.id }).then(() => {
       Alert.open('success', 'Brute deleted');
@@ -121,7 +133,9 @@ export const BruteAdminView = () => {
 
   // Restore brute
   const restoreBrute = useCallback(() => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     Server.Brute.restore(brute.id).then(() => {
       Alert.open('success', 'Brute restored');
@@ -134,7 +148,10 @@ export const BruteAdminView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Text bold h3 smallCaps color="secondary">Brute</Text>
         <StyledInput
           onChange={changeBruteName}
@@ -150,10 +167,22 @@ export const BruteAdminView = () => {
           label="Include deleted"
         />
         {duplicates.length > 0 && (
-          <Box sx={{ bgcolor: 'warning.main', color: 'warning.contrastText', p: 2, borderRadius: 1, mb: 2 }}>
+          <Box sx={{
+            bgcolor: 'warning.main',
+            color: 'warning.contrastText',
+            p: 2,
+            borderRadius: 1,
+            mb: 2,
+          }}>
             <Text bold>Duplicates:</Text>
             {duplicates.map((dup) => (
-              <Box key={dup.id} sx={{ border: '1px solid', borderColor: 'warning.dark', borderRadius: 1, p: 1, mt: 1 }}>
+              <Box key={dup.id} sx={{
+                border: '1px solid',
+                borderColor: 'warning.dark',
+                borderRadius: 1,
+                p: 1,
+                mt: 1,
+              }}>
                 <Text>
                   {dup.name} (
                   <Link to={`/admin-panel/brute/${dup.id}`}>{dup.id}</Link>

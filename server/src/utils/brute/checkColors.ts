@@ -1,8 +1,8 @@
 import {
-  BruteColor, ExpectedError, colors
+  BruteColor, ExpectedError, colors,
 } from '@labrute/core';
 import {
-  Brute, UnlockedColors, User
+  Brute, UnlockedColors, User,
 } from '@labrute/prisma';
 import { translate } from '../translate.js';
 import { LOGGER } from '../../context.js';
@@ -12,9 +12,11 @@ const isValid = (
   brute: Pick<Brute, 'gender'> & {
     unlockedColors: Pick<UnlockedColors, 'bodyPart' | 'colors'>[];
   },
-  colorName: BruteColor
+  colorName: BruteColor,
 ) => {
-  if (typeof value !== 'string') return false;
+  if (typeof value !== 'string') {
+    return false;
+  }
 
   let allowedColors: string[] = [];
 
@@ -47,6 +49,7 @@ const isValid = (
 
   // Add unlocked colors for the specific body part
   const unlockedForPart = brute.unlockedColors.find(uc => uc.bodyPart === colorName);
+
   if (unlockedForPart) {
     allowedColors = allowedColors.concat(unlockedForPart.colors);
   }
@@ -59,7 +62,7 @@ export const checkColors = (
   brute: Pick<Brute, 'gender'> & {
     unlockedColors: Pick<UnlockedColors, 'bodyPart' | 'colors'>[];
   },
-  colorString: string
+  colorString: string,
 ) => {
   // Split colors every 6 characters
   const [col0, col0a, col0c, col1, col1a, col1b, col1c, col1d,

@@ -1,10 +1,10 @@
 import {
-  Fighter, isWinner, TournamentsGetDailyResponse
+  Fighter, isWinner, TournamentsGetDailyResponse,
 } from '@labrute/core';
 import { Gender } from '@labrute/prisma';
 import { Close } from '@mui/icons-material';
 import {
-  Box, Paper, useMediaQuery, useTheme
+  Box, Paper, useMediaQuery, useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
@@ -15,7 +15,7 @@ import { BruteTooltip } from '../components/Brute/BruteTooltip';
 import { FantasyButton } from '../components/FantasyButton';
 import { Page } from '../components/Page';
 import {
-  StyledButtonHeight, StyledButtonWidth, StyledButton
+  StyledButtonHeight, StyledButtonWidth, StyledButton,
 } from '../components/StyledButton';
 import { Text } from '../components/Text';
 import { useAuth } from '../hooks/useAuth';
@@ -24,17 +24,41 @@ import { useStateAsync } from '../hooks/useStateAsync';
 import { TournamentMobileView } from './mobile/TournamentMobileView';
 import { useServer } from '../hooks/useServer';
 
-const scale = (base: number, round: number) => ((round === 0 || round === 10)
-  ? base * 0.5
-  : (round === 1 || round === 9)
-    ? base * 0.6
-    : (round === 2 || round === 8)
-      ? base * 0.6
-      : (round === 3 || round === 7)
-        ? base * 0.6
-        : (round === 4 || round === 6)
-          ? base * 0.8
-          : base);
+// Shared pixel offsets keep desktop tournament columns aligned in both fighter presentations.
+const columnMargins: Partial<Record<number, string>> = {
+  2: '-60px',
+  3: '-80px',
+  4: '-130px',
+  5: '-110px',
+  6: '-130px',
+  7: '-110px',
+  8: '-80px',
+  9: '-60px',
+};
+
+const scale = (base: number, round: number) => {
+  if ((round === 0 || round === 10)) {
+    return base * 0.5;
+  }
+
+  if ((round === 1 || round === 9)) {
+    return base * 0.6;
+  }
+
+  if ((round === 2 || round === 8)) {
+    return base * 0.6;
+  }
+
+  if ((round === 3 || round === 7)) {
+    return base * 0.6;
+  }
+
+  if ((round === 4 || round === 6)) {
+    return base * 0.8;
+  }
+
+  return base;
+};
 
 const fighterToBrute = (fighter: Fighter) => ({
   id: fighter.id,
@@ -59,14 +83,29 @@ export const TournamentView = () => {
   const { palette: { mode } } = useTheme();
   const Server = useServer();
 
-  const tournamentProps = useMemo(() => ({ name: bruteName || '', date: date || '' }), [bruteName, date]);
+  const tournamentProps = useMemo(() => ({
+    name: bruteName || '',
+    date: date || '',
+  }), [bruteName, date]);
+
   const { data: tournament } = useStateAsync(null, Server.Tournament.getDaily, tournamentProps);
 
   const stepWatched = useMemo(() => {
-    if (!tournament?.date) return 0;
-    if (!dayjs.utc(tournament.date).isSame(dayjs.utc(), 'day')) return 6;
-    if (!brute?.currentTournamentDate) return 0;
-    if (!dayjs.utc(brute.currentTournamentDate).isSame(dayjs.utc(), 'day')) return 0;
+    if (!tournament?.date) {
+      return 0;
+    }
+
+    if (!dayjs.utc(tournament.date).isSame(dayjs.utc(), 'day')) {
+      return 6;
+    }
+
+    if (!brute?.currentTournamentDate) {
+      return 0;
+    }
+
+    if (!dayjs.utc(brute.currentTournamentDate).isSame(dayjs.utc(), 'day')) {
+      return 0;
+    }
 
     return brute?.currentTournamentStepWatched || 0;
   }, [brute, tournament]);
@@ -88,49 +127,53 @@ export const TournamentView = () => {
   // Wait 1s before displaying the tournament
   React.useEffect(() => {
     const timeout = setTimeout(() => setDisplay(true), 1000);
+
     return () => clearTimeout(timeout);
   }, []);
 
   const rounds = useMemo(() => {
-    if (!tournament) return [];
+    if (!tournament) {
+      return [];
+    }
+
     const result: typeof tournament.fights[] = [];
 
     // First round
     result[0] = tournament.fights.filter((fight) => fight.tournamentStep <= 16);
     result[10] = tournament.fights.filter(
-      (fight) => fight.tournamentStep > 16 && fight.tournamentStep <= 32
+      (fight) => fight.tournamentStep > 16 && fight.tournamentStep <= 32,
     );
 
     // Second round
     result[1] = tournament.fights.filter(
-      (fight) => fight.tournamentStep > 32 && fight.tournamentStep <= 40
+      (fight) => fight.tournamentStep > 32 && fight.tournamentStep <= 40,
     );
     result[9] = tournament.fights.filter(
-      (fight) => fight.tournamentStep > 40 && fight.tournamentStep <= 48
+      (fight) => fight.tournamentStep > 40 && fight.tournamentStep <= 48,
     );
 
     // Third round
     result[2] = tournament.fights.filter(
-      (fight) => fight.tournamentStep > 48 && fight.tournamentStep <= 52
+      (fight) => fight.tournamentStep > 48 && fight.tournamentStep <= 52,
     );
     result[8] = tournament.fights.filter(
-      (fight) => fight.tournamentStep > 52 && fight.tournamentStep <= 56
+      (fight) => fight.tournamentStep > 52 && fight.tournamentStep <= 56,
     );
 
     // Fourth round
     result[3] = tournament.fights.filter(
-      (fight) => fight.tournamentStep > 56 && fight.tournamentStep <= 58
+      (fight) => fight.tournamentStep > 56 && fight.tournamentStep <= 58,
     );
     result[7] = tournament.fights.filter(
-      (fight) => fight.tournamentStep > 58 && fight.tournamentStep <= 60
+      (fight) => fight.tournamentStep > 58 && fight.tournamentStep <= 60,
     );
 
     // Fifth round
     result[4] = tournament.fights.filter(
-      (fight) => fight.tournamentStep > 60 && fight.tournamentStep <= 61
+      (fight) => fight.tournamentStep > 60 && fight.tournamentStep <= 61,
     );
     result[6] = tournament.fights.filter(
-      (fight) => fight.tournamentStep > 61 && fight.tournamentStep <= 62
+      (fight) => fight.tournamentStep > 61 && fight.tournamentStep <= 62,
     );
 
     // Sixth round
@@ -143,12 +186,24 @@ export const TournamentView = () => {
   }, [tournament]);
 
   const goToFight = useCallback((fight: TournamentsGetDailyResponse['fights'][number], newStep: number) => () => {
-    if (!brute || !fight.brute1) return;
+    if (!brute || !fight.brute1) {
+      return;
+    }
+
     navigate(`/${fight.brute1.name}/fight/${fight.id}`);
-    if (!ownsBrute) return;
-    if (fight.brute1?.id !== brute.id && fight.brute2?.id !== brute.id) return;
+
+    if (!ownsBrute) {
+      return;
+    }
+
+    if (fight.brute1?.id !== brute.id && fight.brute2?.id !== brute.id) {
+      return;
+    }
+
     if (brute.currentTournamentDate && dayjs.utc(brute.currentTournamentDate).isSame(dayjs.utc(), 'day')) {
-      if (newStep <= (brute.currentTournamentStepWatched || 0)) return;
+      if (newStep <= (brute.currentTournamentStepWatched || 0)) {
+        return;
+      }
     }
 
     // Update watched step
@@ -162,7 +217,9 @@ export const TournamentView = () => {
   }, [Server.Tournament, brute, bruteName, navigate, ownsBrute, updateBrute]);
 
   const setWatched = useCallback(async () => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     await Server.Tournament.setDailyWatched(brute.name);
 
@@ -198,18 +255,27 @@ export const TournamentView = () => {
         >
           <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('tournamentOf')} {dayjs.utc(tournament.date).format('DD MMMM YYYY')}</Text>
         </Paper>
-        <Paper sx={{ position: 'relative', bgcolor: 'background.paperLight', mt: -2 }}>
+        <Paper sx={{
+          position: 'relative',
+          bgcolor: 'background.paperLight',
+          mt: -2,
+        }}>
           {ownsBrute && stepWatched < 6 && (
             <FantasyButton onClick={setWatched} color="success">
               {t('setAsWatched')}
             </FantasyButton>
           )}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}>
             {display && (!authing && brute) && rounds.map((round, index) => {
               const roundNumber = index < 6 ? index : 10 - index;
+
               const shouldDisplay = ownsBrute
                 ? stepWatched >= roundNumber
                 : true;
+
               const shouldDisplayResult = ownsBrute
                 ? stepWatched - 1 >= roundNumber
                 : true;
@@ -223,23 +289,7 @@ export const TournamentView = () => {
                       flexDirection: 'column',
                       justifyContent: index === 5 ? 'start' : 'space-around',
                       width: scale(StyledButtonWidth, index),
-                      ml: index === 2
-                        ? '-60px'
-                        : index === 3
-                          ? '-80px'
-                          : index === 4
-                            ? '-130px'
-                            : index === 5
-                              ? '-110px'
-                              : index === 6
-                                ? '-110px'
-                                : index === 7
-                                  ? '-130px'
-                                  : index === 8
-                                    ? '-80px'
-                                    : index === 9
-                                      ? '-60px'
-                                      : '0px',
+                      ml: columnMargins[index] ?? '0px',
                     }}
                   />
                 );
@@ -252,29 +302,14 @@ export const TournamentView = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: index === 5 ? 'start' : 'space-around',
-                    ml: index === 2
-                      ? '-60px'
-                      : index === 3
-                        ? '-80px'
-                        : index === 4
-                          ? '-130px'
-                          : index === 5
-                            ? '-110px'
-                            : index === 6
-                              ? '-110px'
-                              : index === 7
-                                ? '-130px'
-                                : index === 8
-                                  ? '-80px'
-                                  : index === 9
-                                    ? '-60px'
-                                    : '0px',
+                    ml: columnMargins[index] ?? '0px',
                   }}
                 >
                   {round.map((fight) => {
                     const fighters = JSON.parse(fight.fighters) as Fighter[];
                     const brute1 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'L');
                     const brute2 = fighters.find((fighter) => !fighter.master && fighter.type === 'brute' && fighter.team === 'R');
+
                     return (
                       // Fight button
                       <StyledButton

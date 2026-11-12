@@ -16,7 +16,10 @@ export const NotFoundView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Box sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -27,7 +30,10 @@ export const NotFoundView = () => {
             {t('subtitle')}
           </Text>
           <FantasyButton color="secondary" to="/">
-            <Home sx={{ verticalAlign: 'middle', mr: 1 }} />
+            <Home sx={{
+              verticalAlign: 'middle',
+              mr: 1,
+            }} />
             {t('home')}
           </FantasyButton>
         </Box>

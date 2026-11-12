@@ -1,8 +1,8 @@
 import {
-  Brute, FightModifier, PetName, SkillName, WeaponName
+  Brute, FightModifier, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import {
-  CalculatedBrute, Modifiers, TieredPerks
+  CalculatedBrute, Modifiers, TieredPerks,
 } from '../types.js';
 import { getTempWeapon } from './getTempWeapon.js';
 import { getTempSkill } from './getTempSkill.js';
@@ -61,7 +61,7 @@ export const getTieredPets = (brute: Pick<Brute, 'pets'>) => {
  */
 export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'skills' | 'pets' | 'hpStat' | 'hpModifier' | 'hpValue' | 'strengthStat' | 'strengthModifier' | 'strengthValue' | 'agilityStat' | 'agilityModifier' | 'agilityValue' | 'speedStat' | 'speedModifier' | 'speedValue' | 'level'>>(
   brute: T,
-  modifiers: Modifiers
+  modifiers: Modifiers,
 ) => {
   const calculatedBrute: Omit<T, 'weapons' | 'skills' | 'pets'> & TieredPerks = {
     ...brute,
@@ -105,7 +105,7 @@ export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'ski
 
   // HP, Strength, Agility, Speed
   for (const stat of [
-    FightStat.HP, FightStat.STRENGTH, FightStat.AGILITY, FightStat.SPEED
+    FightStat.HP, FightStat.STRENGTH, FightStat.AGILITY, FightStat.SPEED,
   ] as const) {
     if (modifiers[FightModifier.chaos]) {
       for (const [skillName, tier] of skillsList) {
@@ -155,6 +155,7 @@ export const getCalculatedBrute = <T extends Pick<Brute, 'id' | 'weapons' | 'ski
 
   return calculatedBrute;
 };
+
 export const getWeaponsList = (brute: Pick<CalculatedBrute, 'weapons'>) => {
   const weapons: WeaponName[] = [];
 

@@ -1,25 +1,25 @@
 import {
   BruteRanking, BrutesGetClanIdAsMasterResponse,
   CalculatedBrute, ClanGetResponse, ClanGetRolesResponse,
-  ClanPermission, bosses, getCalculatedBrute, getFightsLeft, hasPermission
+  ClanPermission, bosses, getCalculatedBrute, getFightsLeft, hasPermission,
 } from '@labrute/core';
 import {
-  BossName, ClanWarStatus, ClanWarType
+  BossName, ClanWarStatus, ClanWarType,
 } from '@labrute/prisma';
 import {
-  HighlightOff, History, PlayCircleOutline, Policy
+  HighlightOff, History, PlayCircleOutline, Policy,
 } from '@mui/icons-material';
 import {
   Box, Button, ButtonGroup, Checkbox, FormControlLabel,
-  IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme
+  IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, {
-  useEffect, useMemo, useState
+  useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  useNavigate, useParams, Link as RouterLink
+  useNavigate, useParams, Link as RouterLink,
 } from 'react-router';
 import { ActivityStatus } from '../../components/ActivityStatus';
 import { BruteRender } from '../../components/Brute/Body/BruteRender';
@@ -50,10 +50,18 @@ export const ClanView = () => {
   const { t } = useTranslation('clan');
   const { bruteName, id } = useParams();
   const Alert = useAlert();
-  const { user, updateData, modifiers } = useAuth();
+
+  const {
+    user, updateData, modifiers,
+  } = useAuth();
+
   const navigate = useNavigate();
   const Confirm = useConfirm();
-  const { brute, updateBrute, owner } = useBrute();
+
+  const {
+    brute, updateBrute, owner,
+  } = useBrute();
+
   const { palette: { mode } } = useTheme();
   const Server = useServer();
 
@@ -69,9 +77,13 @@ export const ClanView = () => {
   const [assigningRole, setAssigningRole] = useState<{ id: string; name: string } | null>(null);
 
   const boss = useMemo(() => clan && bosses.find((b) => b.name === clan.boss), [clan]);
+
   const displayedBossName = useMemo(() => {
     // Normal day display
-    if (!dayjs.utc().isSame(dayjs.utc('04-01', 'MM-DD'), 'day')) return clan?.boss;
+    if (!dayjs.utc().isSame(dayjs.utc('04-01', 'MM-DD'), 'day')) {
+      return clan?.boss;
+    }
+
     // April Fools display
     switch (clan?.boss) {
       case BossName.EmberFang:
@@ -86,31 +98,48 @@ export const ClanView = () => {
   const clanWar = clan?.attacks[0] || clan?.defenses[0];
 
   const canManageRoles = useMemo(() => {
-    if (!clan || !brute) return false;
-    if (clan.masterId === brute.id) return true;
+    if (!clan || !brute) {
+      return false;
+    }
+
+    if (clan.masterId === brute.id) {
+      return true;
+    }
+
     const bruteMember = clan.brutes.find((b) => b.id === brute.id);
+
     return bruteMember?.clanRole?.permissions.includes(ClanPermission.canCreateRoles)
       || bruteMember?.clanRole?.permissions.includes(ClanPermission.canChangeRoles) || false;
   }, [clan, brute]);
 
   // Fetch clan
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      return;
+    }
 
     Server.Clan.get(id).then((data) => {
       const clanBrutes = data.brutes.map((b) => getCalculatedBrute(b, modifiers));
       const clanJoinRequests = data.joinRequests.map((b) => getCalculatedBrute(b, modifiers));
-      setClan({ ...data, brutes: clanBrutes, joinRequests: clanJoinRequests });
+
+      setClan({
+        ...data,
+        brutes: clanBrutes,
+        joinRequests: clanJoinRequests,
+      });
       setWarEnabled(data.participateInClanWar);
     }).catch(catchError(Alert));
   }, [id, Alert, modifiers, Server.Clan]);
 
   // Fetch brute master of clan id
   useEffect(() => {
-    if (!brute || !clan || !owner) return;
+    if (!brute || !clan || !owner) {
+      return;
+    }
 
     if (clan.masterId === brute.id) {
       setMasterOfClan(clan.id);
+
       return;
     }
 
@@ -126,7 +155,10 @@ export const ClanView = () => {
 
   useEffect(() => {
     setClan((prevClan) => {
-      if (!prevClan) return prevClan;
+      if (!prevClan) {
+        return prevClan;
+      }
+
       const clanBrutes = prevClan.brutes.sort((a, b) => {
         switch (sort) {
           case SortOption.Default:
@@ -134,6 +166,7 @@ export const ClanView = () => {
             if (a.id === prevClan.masterId) {
               return -1;
             }
+
             if (b.id === prevClan.masterId) {
               return 1;
             }
@@ -142,6 +175,7 @@ export const ClanView = () => {
             if (a.ranking === b.ranking) {
               return (b.level - a.level);
             }
+
             return a.ranking - b.ranking;
           case SortOption.Rank:
             return a.ranking - b.ranking;
@@ -149,22 +183,27 @@ export const ClanView = () => {
             return b.victories - a.victories;
           case SortOption.Level:
             return b.level - a.level;
+
           case SortOption.Damage: {
             const damageA = prevClan.bossDamages.find(
-              (damageBrute) => damageBrute.brute?.id === a.id
+              (damageBrute) => damageBrute.brute?.id === a.id,
             )?.damage ?? 0;
+
             const damageB = prevClan.bossDamages.find(
-              (damageBrute) => damageBrute.brute?.id === b.id
+              (damageBrute) => damageBrute.brute?.id === b.id,
             )?.damage ?? 0;
+
             return damageB - damageA;
           }
+
           default:
             return 0;
         }
       });
+
       return {
         ...prevClan,
-        brutes: clanBrutes
+        brutes: clanBrutes,
       };
     });
   }, [sort]);
@@ -173,7 +212,9 @@ export const ClanView = () => {
   const askToJoin = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!brute || !clan) return;
+    if (!brute || !clan) {
+      return;
+    }
 
     Confirm.open(t('joinAClan'), t('confirmJoin'), () => {
       Server.Clan.request(brute.name, clan.id).then(() => {
@@ -192,7 +233,9 @@ export const ClanView = () => {
   const cancelRequest = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!brute || !clan) return;
+    if (!brute || !clan) {
+      return;
+    }
 
     Confirm.open(t('cancelJoinRequest'), t('confirmCancelRequest'), () => {
       Server.Clan.cancelRequest(brute.name, clan.id).then(() => {
@@ -209,7 +252,9 @@ export const ClanView = () => {
 
   // Accept join request
   const acceptJoin = (requester: CalculatedClanGetResponse['joinRequests'][number]) => () => {
-    if (!user || !clan) return;
+    if (!user || !clan) {
+      return;
+    }
 
     Confirm.open(t('acceptJoinRequest'), t('confirmAcceptRequest'), () => {
       Server.Clan.accept(requester.name, clan.id).then(() => {
@@ -219,7 +264,10 @@ export const ClanView = () => {
         setClan((prevClan) => (prevClan ? ({
           ...prevClan,
           joinRequests: prevClan.joinRequests.filter((br) => br.id !== requester.id),
-          brutes: [...prevClan.brutes, { ...requester, clanRole: null }],
+          brutes: [...prevClan.brutes, {
+            ...requester,
+            clanRole: null,
+          }],
         }) : null));
 
         // Update user data if it's an own brute
@@ -227,7 +275,8 @@ export const ClanView = () => {
           updateData((data) => (data ? ({
             ...data,
             brutes: data.brutes.map((b) => (b.name === requester.name ? {
-              ...b, clanId: clan.id,
+              ...b,
+              clanId: clan.id,
             } : b)),
           }) : null));
         }
@@ -237,7 +286,9 @@ export const ClanView = () => {
 
   // Reject join request
   const rejectJoin = (requester: CalculatedBrute) => () => {
-    if (!clan) return;
+    if (!clan) {
+      return;
+    }
 
     Confirm.open(t('rejectJoinRequest'), t('confirmRejectRequest'), () => {
       Server.Clan.reject(requester.name, clan.id).then(() => {
@@ -256,7 +307,9 @@ export const ClanView = () => {
   const removeFromClan = (clanBrute: CalculatedBrute) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (!clan) return;
+    if (!clan) {
+      return;
+    }
 
     Confirm.open(t('removeFromClan'), t('confirmRemoveFromClan'), () => {
       Server.Clan.remove(clanBrute.name, clan.id).then(() => {
@@ -275,7 +328,9 @@ export const ClanView = () => {
   const setMaster = (clanBrute: CalculatedClanGetResponse['brutes'][number]) => (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (!clan) return;
+    if (!clan) {
+      return;
+    }
 
     Confirm.open(t('setNewMaster'), t('confirmSetNewMaster'), () => {
       Server.Clan.setMaster(clanBrute.name, clan.id).then(() => {
@@ -283,10 +338,13 @@ export const ClanView = () => {
 
         // Update clan
         setClan((prevClan) => {
-          if (!prevClan) return null;
+          if (!prevClan) {
+            return null;
+          }
 
           // Set new master as first in the list
           const newBrutes = prevClan.brutes.filter((br) => br.id !== clanBrute.id);
+
           newBrutes.unshift(clanBrute);
 
           return {
@@ -303,7 +361,9 @@ export const ClanView = () => {
   const leave = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!clan || !brute) return;
+    if (!clan || !brute) {
+      return;
+    }
 
     Confirm.open(t('leaveClan'), t('confirmLeaveClan'), () => {
       Server.Clan.leave(brute.name, clan.id).then(() => {
@@ -325,36 +385,47 @@ export const ClanView = () => {
           } : b)),
         }) : null));
 
-        updateBrute((b) => (b ? { ...b, clanId: null, clan: null } : null));
+        updateBrute((b) => (b ? {
+          ...b,
+          clanId: null,
+          clan: null,
+        } : null));
 
         // Redirect to cell
         navigate(`/${brute.name}/cell`);
       }).catch(catchError(Alert));
     });
   };
+
   const handleEditRole = (role: ClanGetRolesResponse[number] | null) => {
     setEditingRole(role);
     setRoleListOpen(false);
     setRoleModalOpen(true);
   };
+
   const handleAssignRole = (role: ClanGetRolesResponse[number]) => {
     setAssigningRole(role);
     setRoleListOpen(false);
     setRoleAssignmentOpen(true);
   };
+
   const handleOnClose = () => {
     setRoleAssignmentOpen(false);
     setAssigningRole(null);
   };
+
   // Challenge boss
   const challengeBoss = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!clan || !brute) return;
+    if (!clan || !brute) {
+      return;
+    }
 
     // Check if brute still has fights left
     if (getFightsLeft(brute) <= 0) {
       Alert.open('error', t('noFightsLeft'));
+
       return;
     }
 
@@ -370,7 +441,9 @@ export const ClanView = () => {
       }) : null));
 
       updateBrute((b) => {
-        if (!b) return null;
+        if (!b) {
+          return null;
+        }
 
         return {
           ...b,
@@ -404,13 +477,17 @@ export const ClanView = () => {
 
   // Go to clan war
   const goToClanWar = (clanId: string | undefined, warId: string) => () => {
-    if (!brute || !clanId) return;
+    if (!brute || !clanId) {
+      return;
+    }
 
     navigate(`/${brute.name}/clan/${clanId}/war/${warId}`);
   };
 
   const toggleWar = () => {
-    if (!clan) return;
+    if (!clan) {
+      return;
+    }
 
     Server.Clan.toggleWar(clan.id).then(() => {
       setWarEnabled((prev) => !prev);
@@ -419,7 +496,9 @@ export const ClanView = () => {
 
   // Declare friendly war
   const declareFriendlyWar = () => {
-    if (!brute || !clan || !masterOfClan) return;
+    if (!brute || !clan || !masterOfClan) {
+      return;
+    }
 
     Confirm.open(t('clanWar.friendly'), t('confirmFriendlyWar'), () => {
       Server.ClanWar.declareFriendlyWar(brute.id, masterOfClan, clan.id).then(() => {
@@ -430,14 +509,18 @@ export const ClanView = () => {
 
   // Cancel clan war
   const cancelClanWar = () => {
-    if (!brute || !clan || !clanWar) return;
+    if (!brute || !clan || !clanWar) {
+      return;
+    }
 
     Server.ClanWar.cancel(brute.id, clan.id, clanWar.id).then(() => {
       Alert.open('success', t('warCanceled'));
 
       // Update war status
       setClan((prevClan) => {
-        if (!prevClan) return null;
+        if (!prevClan) {
+          return null;
+        }
 
         return {
           ...prevClan,
@@ -450,14 +533,18 @@ export const ClanView = () => {
 
   // Accept clan war
   const acceptClanWar = () => {
-    if (!brute || !clan || !clanWar) return;
+    if (!brute || !clan || !clanWar) {
+      return;
+    }
 
     Server.ClanWar.accept(brute.id, clan.id, clanWar.id).then(() => {
       Alert.open('success', t('warAccepted'));
 
       // Update war status
       setClan((prevClan) => {
-        if (!prevClan) return null;
+        if (!prevClan) {
+          return null;
+        }
 
         const newClan = { ...prevClan };
         const attack = newClan.attacks[0];
@@ -473,6 +560,7 @@ export const ClanView = () => {
       });
     }).catch(catchError(Alert));
   };
+
   const onCloseRoleManagement = () => {
     setRoleModalOpen(false);
     setEditingRole(null);
@@ -496,7 +584,10 @@ export const ClanView = () => {
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>
           {warEnabled && (
             <Tooltip title={t('clanWarsEnabled')}>
-              <Box component="img" src="/images/clan/war.webp" sx={{ width: 20, mr: 1 }} />
+              <Box component="img" src="/images/clan/war.webp" sx={{
+                width: 20,
+                mr: 1,
+              }} />
             </Tooltip>
           )}
           {t('clan')} {clan.name}
@@ -514,7 +605,10 @@ export const ClanView = () => {
           )}
         </Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Box sx={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -579,7 +673,10 @@ export const ClanView = () => {
               {t('clanWar')}
               {clanWar.type === ClanWarType.friendly && (
                 <Tooltip title={t('clanWar.friendly')}>
-                  <Box component="img" src="/images/clan/friendly.webp" sx={{ width: 8, ml: 0.5 }} />
+                  <Box component="img" src="/images/clan/friendly.webp" sx={{
+                    width: 8,
+                    ml: 0.5,
+                  }} />
                 </Tooltip>
               )}
               {' '}
@@ -644,7 +741,10 @@ export const ClanView = () => {
                 </Box>
               </StyledButton>
               {/* VS */}
-              <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/versus/vs.webp`} sx={{ width: 100, maxWidth: 1 }} />
+              <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/versus/vs.webp`} sx={{
+                width: 100,
+                maxWidth: 1,
+              }} />
               {/* DEFENDER */}
               <StyledButton
                 image="/images/arena/brute-bg.webp"
@@ -705,7 +805,7 @@ export const ClanView = () => {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  mt: 1
+                  mt: 1,
                 }}
                 >
                   {/* CANCEL */}
@@ -727,7 +827,7 @@ export const ClanView = () => {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  mt: 1
+                  mt: 1,
                 }}
                 >
                   {/* ACCEPT */}
@@ -816,7 +916,7 @@ export const ClanView = () => {
                       </TableHead>
                       <TableBody>
                         {clan.bossDamages.filter(
-                          (damage) => damage.brute !== undefined
+                          (damage) => damage.brute !== undefined,
                         ).map((damages, index) => (
                           <TableRow key={damages.brute?.id}>
                             <TableCell component="th" scope="row">
@@ -837,7 +937,12 @@ export const ClanView = () => {
           </Box>
         )}
         {user && owner && brute?.clanId === clan.id && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1, gap: 1 }}>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            mt: 1,
+            gap: 1,
+          }}>
             <FantasyButton color="warning" onClick={challengeBoss}>{t('challengeBoss')}</FantasyButton>
             {canManageRoles && (
               <FantasyButton color="secondary" onClick={() => setRoleListOpen(true)}>
@@ -907,7 +1012,10 @@ export const ClanView = () => {
                 >
                   <Box display="flex" alignItems="center">
                     {clan.masterId === clanBrute.id && (
-                      <Box component="img" src="/images/clan/master.gif" sx={{ mr: 0.5, width: 7 }} />
+                      <Box component="img" src="/images/clan/master.gif" sx={{
+                        mr: 0.5,
+                        width: 7,
+                      }} />
                     )}
                     {/* Button to remove brute from clan */}
                     {hasPermission(brute, clan, ClanPermission.canRemoveMembers)
@@ -941,12 +1049,19 @@ export const ClanView = () => {
                 </Box>
                 <Text bold smallCaps color="text.primary">
                   {clanBrute.user && (
-                    <ActivityStatus user={clanBrute.user} sx={{ fontSize: 10, mr: 0.5 }} />
+                    <ActivityStatus user={clanBrute.user} sx={{
+                      fontSize: 10,
+                      mr: 0.5,
+                    }} />
                   )}
                   {t('level')}
                   <Text component="span" bold color="secondary"> {clanBrute.level}</Text>
                 </Text>
-                <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: 115,
+                }}>
                   <Box component="img" src={`/images/rankings/lvl_${clanBrute.ranking}.webp`} sx={{ mr: 1 }} />
                   <Text bold color="text.primary" sx={{ lineHeight: 1 }}>{t(`lvl_${clanBrute.ranking as BruteRanking}`)}</Text>
                 </Box>
@@ -970,7 +1085,7 @@ export const ClanView = () => {
         {/* JOIN REQUESTS */}
         {owner
           && hasPermission(brute, clan, [
-            ClanPermission.canAcceptJoinRequests, ClanPermission.canRejectJoinRequests
+            ClanPermission.canAcceptJoinRequests, ClanPermission.canRejectJoinRequests,
           ])
           && !!clan.joinRequests.length
           && (
@@ -1013,7 +1128,10 @@ export const ClanView = () => {
                         <Box component="img" src={`/images/rankings/lvl_${requester.ranking}.webp`} sx={{ width: 20 }} />
                       </TableCell>
                       <TableCell sx={{ overflow: 'hidden' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Box sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}>
                           <Box width={40} height={45} mx={1}>
                             <BruteRender
                               brute={requester}
@@ -1054,7 +1172,10 @@ export const ClanView = () => {
           to={`/${bruteName}/clan/${clan.id}/war/history`}
           sx={{ mt: 2 }}
         >
-          <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+          <History sx={{
+            verticalAlign: 'middle',
+            mr: 1,
+          }} />
           {t('clanWarHistory')}
         </FantasyButton>
         {!clan && (
@@ -1089,7 +1210,10 @@ export const ClanView = () => {
             onClose={handleOnClose}
             clanId={clan.id}
             role={assigningRole}
-            members={clan.brutes.map((b) => ({ id: b.id, name: b.name }))}
+            members={clan.brutes.map((b) => ({
+              id: b.id,
+              name: b.name,
+            }))}
             onAssigned={onAssignedModal}
           />
         </>

@@ -54,22 +54,28 @@ export const resetBrute = async ({
   rankUp,
   ascended,
 }: Props) => {
-  const { weapon, skill, pet } = ascended || {};
+  const {
+    weapon, skill, pet,
+  } = ascended || {};
+
   const ascendedWeapons = brute.ascendedWeapons || [];
   const ascendedSkills = brute.ascendedSkills || [];
   const ascendedPets = brute.ascendedPets || [];
 
   // Add new ascent to the corresponding ascended list
   let { ascensions } = brute;
+
   if (ascended !== undefined) {
     if (weapon && Object.values(WeaponName).includes(weapon)) {
       ascendedWeapons.push(weapon);
       ascensions++;
     }
+
     if (skill && Object.values(SkillName).includes(skill)) {
       ascendedSkills.push(skill);
       ascensions++;
     }
+
     if (pet && Object.values(PetName).includes(pet)) {
       ascendedPets.push(pet);
       ascensions++;
@@ -111,11 +117,15 @@ export const resetBrute = async ({
   // Get base stats
   let baseStats = await traced('resetBrute.findBaseStats', () => prisma.bruteStartingStats.findFirst({
     where: { bruteId: brute.id },
-    omit: { id: true, bruteId: true },
+    omit: {
+      id: true,
+      bruteId: true,
+    },
   }));
 
   if (!baseStats) {
     const newBaseStats = getRandomStartingStats();
+
     baseStats = newBaseStats;
 
     // Store starting stats
@@ -130,15 +140,21 @@ export const resetBrute = async ({
     }));
   }
 
+  let firstPerk;
+
+  if (firstBonus.type === DestinyChoiceType.pet) {
+    firstPerk = firstBonus.pet;
+  } else if (firstBonus.type === DestinyChoiceType.weapon) {
+    firstPerk = firstBonus.weapon;
+  } else {
+    firstPerk = firstBonus.skill;
+  }
+
   // Random stats
   const stats = createRandomBruteStats(
     baseStats,
     firstBonus.type,
-    firstBonus.type === DestinyChoiceType.pet
-      ? firstBonus.pet
-      : firstBonus.type === DestinyChoiceType.weapon
-        ? firstBonus.weapon
-        : firstBonus.skill,
+    firstPerk,
     firstBonus.type === DestinyChoiceType.stats
       ? firstBonus : undefined,
   );
@@ -149,11 +165,13 @@ export const resetBrute = async ({
       ? stats.weapons[weaponName] + 1
       : 1;
   }
+
   for (const skillName of ascendedSkills) {
     stats.skills[skillName] = stats.skills[skillName]
       ? stats.skills[skillName] + 1
       : 1;
   }
+
   for (const petName of ascendedPets) {
     stats.pets[petName] = stats.pets[petName]
       ? stats.pets[petName] + 1
@@ -162,9 +180,11 @@ export const resetBrute = async ({
 
   // Take into account the HP malus from ascended pets
   const tieredAscendedPets: Partial<Record<PetName, number>> = {};
+
   for (const petName of brute.ascendedPets) {
     tieredAscendedPets[petName] = stats.pets[petName];
   }
+
   for (const petName of keys(tieredAscendedPets)) {
     const petStats = pets[petName];
 
@@ -174,9 +194,11 @@ export const resetBrute = async ({
 
   // Apply ascended skill modifiers
   const tieredAscendedSkills: Partial<Record<SkillName, number>> = {};
+
   for (const skillName of brute.ascendedSkills) {
     tieredAscendedSkills[skillName] = stats.skills[skillName];
   }
+
   for (const [skillName, tier] of entries(tieredAscendedSkills)) {
     // No need to remove previous tier as we start from base stats
     applySkillModifiers(stats, skillName, tier, false);
@@ -308,6 +330,7 @@ export const resetBrute = async ({
       level: currentBrute.level,
       deletedAt: null,
     };
+
     const bruteIds = await traced('resetBrute.findBruteIds', () => prisma.brute.findMany({
       where: bruteSearch,
       select: { id: true },

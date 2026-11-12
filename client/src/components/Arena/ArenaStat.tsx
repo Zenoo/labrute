@@ -1,5 +1,5 @@
 import {
-  Box, BoxProps, Tooltip, useTheme
+  Box, BoxProps, Tooltip, useTheme,
 } from '@mui/material';
 import React from 'react';
 import { Text } from '../Text';
@@ -27,7 +27,10 @@ export const ArenaStat = ({
       height: 14,
     }}
     >
-      <Box component="img" src={`/images/stats/${stat}.webp`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
+      <Box component="img" src={`/images/stats/${stat}.webp`} sx={{
+        mr: 0.5,
+        width: 11,
+      }} alt={stat} />
       <Tooltip title={value}>
         <Box sx={{
           height: 8,
@@ -36,7 +39,7 @@ export const ArenaStat = ({
           width: 58,
           bgcolor: theme.palette.heat[
             Math.floor(value / 10)
-          ]
+          ],
         }}
         >
           <Box sx={{
@@ -48,13 +51,17 @@ export const ArenaStat = ({
             bgcolor: theme.palette.heat[
               Math.floor(value / 10) + 1
             ],
-            width: (value % 10) / 10
+            width: (value % 10) / 10,
           }}
           />
         </Box>
       </Tooltip>
       {!hideSkillText && (
-        <Text bold color="secondary" sx={{ fontSize: 11, ml: 0.5, color: StatColor[stat] }}>
+        <Text bold color="secondary" sx={{
+          fontSize: 11,
+          ml: 0.5,
+          color: StatColor[stat],
+        }}>
           {value}
         </Text>
       )}

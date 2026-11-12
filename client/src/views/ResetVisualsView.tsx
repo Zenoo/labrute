@@ -1,6 +1,6 @@
 import { getRandomBody, getRandomColors } from '@labrute/core';
 import {
-  Box, Paper, Tooltip
+  Box, Paper, Tooltip,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,22 +22,29 @@ export const ResetVisualsView = () => {
   const { t } = useTranslation('resetVisuals');
   const Alert = useAlert();
   const navigate = useNavigate();
-  const { brute, updateBrute, owner } = useBrute();
+
+  const {
+    brute, updateBrute, owner,
+  } = useBrute();
+
   const { updateData } = useAuth();
   const Confirm = useConfirm();
   const { resetCache } = useRenderer();
   const Server = useServer();
 
   const [body, setBody] = useState<string | null>(
-    null
+    null,
   );
+
   const [colors, setColors] = useState<string | null>(
-    null
+    null,
   );
 
   // Update visuals on brute load
   useEffect(() => {
-    if (!brute || body || colors) return;
+    if (!brute || body || colors) {
+      return;
+    }
 
     setBody(getRandomBody(brute.gender));
     setColors(getRandomColors(brute.gender));
@@ -45,7 +52,9 @@ export const ResetVisualsView = () => {
 
   // Change appearance
   const changeAppearance = () => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     setBody(getRandomBody(brute.gender));
     setColors(getRandomColors(brute.gender));
@@ -53,14 +62,18 @@ export const ResetVisualsView = () => {
 
   // Change colors
   const changeColors = () => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     setColors(getRandomColors(brute.gender));
   };
 
   // Reset visuals
   const resetVisuals = () => {
-    if (!brute || !body || !colors) return;
+    if (!brute || !body || !colors) {
+      return;
+    }
 
     Confirm.open(t('resetVisuals'), t('resetVisualsConfirm'), () => {
       // Update brute visuals
@@ -106,7 +119,10 @@ export const ResetVisualsView = () => {
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('resetVisuals')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {owner && (
           <>
             <Text bold center>{t('resetVisualsDescription')}</Text>

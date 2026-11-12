@@ -1,13 +1,13 @@
 import { BrutesGetForVersusResponse, getXPNeeded } from '@labrute/core';
 import {
-  Box, Grid, useMediaQuery, useTheme
+  Box, Grid, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useMemo
+  useCallback, useEffect, useMemo,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  useLocation, useNavigate, useParams
+  useLocation, useNavigate, useParams,
 } from 'react-router';
 import { BoxBg } from '../components/BoxBg';
 import { BruteRender } from '../components/Brute/Body/BruteRender';
@@ -28,7 +28,11 @@ export const VersusView = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const Alert = useAlert();
-  const { user, updateData, currentEvent } = useAuth();
+
+  const {
+    user, updateData, currentEvent,
+  } = useAuth();
+
   const { brute, updateBrute } = useBrute();
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const { palette: { mode } } = useTheme();
@@ -40,12 +44,14 @@ export const VersusView = () => {
   // Use passed opponent data from state if available, otherwise fetch
   const passedOpponent = (location.state as Record<string, unknown>)?.opponent as
     BrutesGetForVersusResponse | undefined;
+
   const [opponent, setOpponent] = React.useState(passedOpponent ?? null);
 
   // Fetch opponent data only if not passed via state
   useEffect(() => {
     if (!passedOpponent && opponentName) {
       let isSubscribed = true;
+
       Server.Brute.getForVersus(opponentName).then((data) => {
         if (isSubscribed) {
           setOpponent(data);
@@ -53,12 +59,16 @@ export const VersusView = () => {
       }).catch((error) => {
         catchError(Alert, error);
       });
-      return () => { isSubscribed = false; };
+
+      return () => {
+        isSubscribed = false;
+      };
     }
 
     if (passedOpponent) {
       setOpponent(passedOpponent);
     }
+
     return undefined;
   }, [Alert, Server.Brute, opponentName, passedOpponent]);
 
@@ -68,13 +78,19 @@ export const VersusView = () => {
   // Redirect if invalid params
   useEffect(() => {
     let isSubscribed = true;
-    const cleanup = () => { isSubscribed = false; };
+
+    const cleanup = () => {
+      isSubscribed = false;
+    };
+
     if (!brute || !opponent || !user) {
       return cleanup;
     }
+
     if (brute.userId !== user.id) {
       navigate(`/${brute.name}/cell`);
     }
+
     if (opponent.name === brute.name) {
       navigate(`/${brute.name}/arena`);
     }
@@ -153,7 +169,10 @@ export const VersusView = () => {
         }}
       >
         <Text h2 smallCaps bold color="text.primary">{t('dareChallenge', { value: opponent.name })}</Text>
-        <Grid container spacing={2} sx={{ mt: 4, mb: 5 }}>
+        <Grid container spacing={2} sx={{
+          mt: 4,
+          mb: 5,
+        }}>
           <Grid item xs={12} sm={4}>
             <Box width={100} height={270} mx="auto">
               <BruteRender
@@ -163,7 +182,12 @@ export const VersusView = () => {
             <Text h3 smallCaps bold color="text.primary">{brute.name}</Text>
             <Text h5 upperCase bold color="secondary">{t('level')} {brute.level}</Text>
           </Grid>
-          <Grid item xs={4} sx={{ display: { xs: 'none', sm: 'block' } }} />
+          <Grid item xs={4} sx={{
+            display: {
+              xs: 'none',
+              sm: 'block',
+            },
+          }} />
           <Grid item xs={12} sm={4}>
             <Box width={100} height={270} mx="auto">
               <BruteRender

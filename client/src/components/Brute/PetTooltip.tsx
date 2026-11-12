@@ -1,9 +1,9 @@
 import {
-  PERKS_TOTAL_ODDS, Pet, TieredNumberKeysOf, getPetScaledStat
+  PERKS_TOTAL_ODDS, Pet, TieredNumberKeysOf, getPetScaledStat,
 } from '@labrute/core';
 import { Brute, FightModifier } from '@labrute/prisma';
 import {
-  Box, Tooltip, TooltipProps, useTheme
+  Box, Tooltip, TooltipProps, useTheme,
 } from '@mui/material';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,7 @@ import { TierStar } from './TierStar';
 import { TieredStat } from '../TieredStat';
 
 const textShadowBase = '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
+
 const textProps = {
   fontSize: 12,
   lineHeight: 1.2,
@@ -44,8 +45,11 @@ export const PetTooltip = ({
   const chaos = useMemo(() => !!modifiers[FightModifier.chaos], [modifiers]);
 
   const textShadow = useMemo(() => (theme.palette.mode === 'dark' ? textShadowBase : undefined), [theme.palette.mode]);
+
   const tieredPet = useMemo(() => {
-    if (!pet) return null;
+    if (!pet) {
+      return null;
+    }
 
     return {
       ...pet,
@@ -61,7 +65,9 @@ export const PetTooltip = ({
     precision?: number,
     labelFirst?: boolean,
   ) => {
-    if (!brute || !tieredPet?.[stat][0]) return null;
+    if (!brute || !tieredPet?.[stat][0]) {
+      return null;
+    }
 
     const color = stat === 'hpMalus' ? StatColor.hp : StatColor[stat];
 
@@ -77,7 +83,10 @@ export const PetTooltip = ({
         <Text {...textProps}>
           {t(stat)}:
           {' '}
-          <Text component="span" bold sx={{ color, textShadow }} {...textProps}>
+          <Text component="span" bold sx={{
+            color,
+            textShadow,
+          }} {...textProps}>
             <TieredStat
               values={tieredPet[stat]}
               tier={tier}
@@ -90,7 +99,10 @@ export const PetTooltip = ({
     }
 
     return (
-      <Text bold sx={{ color, textShadow }} {...textProps}>
+      <Text bold sx={{
+        color,
+        textShadow,
+      }} {...textProps}>
         {(tieredPet[stat][tieredPet.tier - 1] ?? 0) > 0 ? '+' : '-'}
         <TieredStat
           values={tieredPet[stat]}
@@ -116,9 +128,17 @@ export const PetTooltip = ({
             </Box>
           )}
           {/* NAME */}
-          <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center', justifyContent: 'center' }}>
+          <Box sx={{
+            display: 'flex',
+            gap: 0.5,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
             <Text bold h5>{t(tieredPet.name)}</Text>
-            {ascended && <Box component="img" sx={{ width: 16, height: 16 }} src="/images/ear.gif" />}
+            {ascended && <Box component="img" sx={{
+              width: 16,
+              height: 16,
+            }} src="/images/ear.gif" />}
           </Box>
           {/* ODDS */}
           <Text {...textProps}>
@@ -141,10 +161,20 @@ export const PetTooltip = ({
           {statLine('block', true, 2)}
           {statLine('combo', true, 2)}
           {ascended && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.ascended.pet')} {t('perk.ascended.desc')}</Text>
+            <Text caption sx={{
+              display: 'block',
+              opacity: 0.7,
+              pt: 1,
+              lineHeight: 1,
+            }}>{t('perk.ascended.pet')} {t('perk.ascended.desc')}</Text>
           )}
           {random && (
-            <Text caption sx={{ display: 'block', opacity: 0.7, pt: 1, lineHeight: 1 }}>{t('perk.random.pet')} {t('perk.random.desc')}</Text>
+            <Text caption sx={{
+              display: 'block',
+              opacity: 0.7,
+              pt: 1,
+              lineHeight: 1,
+            }}>{t('perk.random.pet')} {t('perk.random.desc')}</Text>
           )}
         </>
       ) : ''}
@@ -152,7 +182,7 @@ export const PetTooltip = ({
         tooltip: {
           sx: {
             minHeight: 68,
-          }
+          },
         },
         popper: { sx: { width: 250 } },
       }}

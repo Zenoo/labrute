@@ -1,7 +1,7 @@
 import {
   InvalidAPIUseError, isUuid,
   UserLogsListRequest,
-  UserLogsListResponse
+  UserLogsListResponse,
 } from '@labrute/core';
 import { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';

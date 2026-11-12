@@ -28,14 +28,20 @@ export const TransferBruteView = () => {
   }, []);
 
   const transferBrute = useCallback(() => {
-    if (!user || !targetUserId || !selectedBrute) return;
+    if (!user || !targetUserId || !selectedBrute) {
+      return;
+    }
+
     if (targetUserId === user.id) {
       return;
     }
 
     Confirm.open(t('transferBrute'), t('confirmBruteTransfer', { bruteName: user.brutes.find((b) => b.id === selectedBrute)?.name }), async () => {
       try {
-        await Server.User.transferBrute({ bruteId: selectedBrute, targetUserId });
+        await Server.User.transferBrute({
+          bruteId: selectedBrute,
+          targetUserId,
+        });
         Alert.open('success', t('bruteTransferred'));
 
         updateData({
@@ -64,7 +70,10 @@ export const TransferBruteView = () => {
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('bruteTransfer')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Box sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -82,7 +91,11 @@ export const TransferBruteView = () => {
             />
           ))}
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          mt: 2,
+        }}>
           <FantasyButton
             onClick={transferBrute}
             color="warning"

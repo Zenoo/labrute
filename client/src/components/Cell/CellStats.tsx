@@ -1,5 +1,5 @@
 import {
-  Box, BoxProps, Tooltip
+  Box, BoxProps, Tooltip,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +22,10 @@ export const CellStats = ({
   return (
     <Box>
       <Box>
-        <Box component="img" src={`/images/stats/${stat}.webp`} sx={{ mr: 0.5, width: 11 }} alt={stat} />
+        <Box component="img" src={`/images/stats/${stat}.webp`} sx={{
+          mr: 0.5,
+          width: 11,
+        }} alt={stat} />
         <Text bold component="span" sx={{ color: StatColor[stat] }}>{t(stat)} : {value}</Text>
       </Box>
       <Tooltip title={t(`${stat}.desc`)}>
@@ -39,10 +42,15 @@ export const CellStats = ({
                 borderColor: 'divider',
                 bgcolor: (theme) => {
                   const statDividedByTen = Math.floor(value / 10);
-                  const { palette: { heat: {
-                    [statDividedByTen]: baseColor,
-                    [statDividedByTen + 1]: excessColor
-                  } } } = theme;
+
+                  const {
+                    palette: {
+                      heat: {
+                        [statDividedByTen]: baseColor,
+                        [statDividedByTen + 1]: excessColor,
+                      },
+                    },
+                  } = theme;
 
                   return value % 10 >= excess
                     ? excessColor ?? null

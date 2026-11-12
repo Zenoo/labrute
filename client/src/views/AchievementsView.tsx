@@ -1,9 +1,9 @@
 import {
-  AchievementData, AchievementsGetResponse, TitleRequirements, formatLargeNumber
+  AchievementData, AchievementsGetResponse, TitleRequirements, formatLargeNumber,
 } from '@labrute/core';
 import { QuestionMark } from '@mui/icons-material';
 import {
-  Box, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme
+  Box, Grid, List, ListItem, ListItemText, ListSubheader, Paper, Tooltip, useTheme,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -48,7 +48,10 @@ export const AchievementsView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('achievements')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <FantasyButton
           color="secondary"
           to="/achievements/rankings"
@@ -143,7 +146,10 @@ export const AchievementsView = () => {
                     <List
                       key={achievement.name}
                       dense
-                      sx={{ width: 1, py: 0 }}
+                      sx={{
+                        width: 1,
+                        py: 0,
+                      }}
                       subheader={(
                         <AchievementTooltip achievement={achievement}>
                           <ListSubheader sx={{
@@ -185,7 +191,10 @@ export const AchievementsView = () => {
                                 primary={(
                                   <>
                                     <span>{translation}</span>
-                                    <Box component="span" sx={{ ml: 0.5, color: 'text.secondary' }}>(x{titleCount})</Box>
+                                    <Box component="span" sx={{
+                                      ml: 0.5,
+                                      color: 'text.secondary',
+                                    }}>(x{titleCount})</Box>
                                   </>
                                 )}
                               />

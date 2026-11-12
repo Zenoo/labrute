@@ -1,9 +1,9 @@
 import { Fighter, FightGetResponse } from '@labrute/core';
 import {
-  Alert as MuiAlert, Box, Paper, Stack, TextField
+  Alert as MuiAlert, Box, Paper, Stack, TextField,
 } from '@mui/material';
 import React, {
-  useCallback, useMemo, useState
+  useCallback, useMemo, useState,
 } from 'react';
 import { FightComponent } from '../../components/Arena/FightComponent';
 import { FantasyButton } from '../../components/FantasyButton';
@@ -43,6 +43,7 @@ const normalizeFightPayload = (payload: unknown): FightGetResponse => {
 
   try {
     const parsedSteps = JSON.parse(steps as string) as unknown[];
+
     if (!Array.isArray(parsedSteps)) {
       throw new Error();
     }
@@ -105,7 +106,10 @@ export const FightReplayAdminView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Fight Replay</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Stack spacing={2}>
           <Text bold>
             Paste a fight JSON payload, then click Replay to render it locally.
@@ -121,7 +125,12 @@ export const FightReplayAdminView = () => {
             fullWidth
           />
 
-          <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Box sx={{
+            display: 'flex',
+            gap: 1,
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}>
             <FantasyButton color="success" onClick={onReplay} disabled={!canReplay}>Replay</FantasyButton>
             <FantasyButton color="warning" onClick={onClear}>Clear</FantasyButton>
           </Box>

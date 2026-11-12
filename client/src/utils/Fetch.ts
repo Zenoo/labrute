@@ -1,6 +1,6 @@
 import {
   CSRF_HEADER, FINGERPRINT_HEADER, getPredictableHeaders,
-  LANGUAGE_HEADER, TOKEN_COOKIE, USER_COOKIE, VERSION_HEADER, Version
+  LANGUAGE_HEADER, TOKEN_COOKIE, USER_COOKIE, VERSION_HEADER, Version,
 } from '@labrute/core';
 import { LS_KEY_CSRF_TOKEN } from './constants';
 import { getCookie } from './cookies';
@@ -34,16 +34,18 @@ export const fetchCsrfToken = async () => {
   csrfFetchPromise = new Promise<string>((resolve, reject) => {
     fetch('/api/csrf', {
       headers: {
-        Accept: 'application/json'
+        Accept: 'application/json',
       },
       credentials: 'include', // Important: allows cookies to be set/sent
     }).then((response) => {
       response.json().then((json: { csrfToken: string }) => {
         const { csrfToken } = json;
+
         // Store token in localStorage (cookie is httpOnly and used by server)
         if (csrfToken) {
           localStorage.setItem(LS_KEY_CSRF_TOKEN, csrfToken);
         }
+
         csrfFetchPromise = null; // Clear the promise so future calls can fetch again
         resolve(csrfToken);
       }).catch((err) => {
@@ -72,7 +74,10 @@ export const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', 
   let finalUrl = url;
 
   if (method === 'GET') {
-    finalUrl += `?${new URLSearchParams({ ...data, ...additionalURLParams }).toString()}`;
+    finalUrl += `?${new URLSearchParams({
+      ...data,
+      ...additionalURLParams,
+    }).toString()}`;
   } else {
     finalUrl += `?${new URLSearchParams({ ...additionalURLParams }).toString()}`;
     body = (data instanceof FormData || data instanceof Blob) ? data : JSON.stringify(data);
@@ -95,6 +100,7 @@ export const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', 
     if (!(data instanceof FormData) && !(data instanceof Blob)) {
       headers['Content-Type'] = 'application/json';
     }
+
     fetch(finalUrl, {
       headers,
       method,
@@ -103,6 +109,7 @@ export const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', 
     })
       .then((response) => {
         const contentType = response.headers.get('content-type');
+
         if (contentType && contentType.indexOf('application/json') !== -1) {
           const json = response.json();
 
@@ -142,7 +149,7 @@ export const Fetch = async <ReturnType>(url: string, data = {}, method = 'GET', 
             reject({
               message: text,
               statusText: response.statusText,
-              status: response.status
+              status: response.status,
             });
           }).catch((err) => {
             reject(err);

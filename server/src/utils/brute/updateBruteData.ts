@@ -79,6 +79,7 @@ export const updateBruteData = (
   } else if (destinyChoice.type === 'pet') {
     // New pet
     const pet = destinyChoice.pet && pets[destinyChoice.pet];
+
     if (!pet) {
       throw new Error('Pet not found');
     }
@@ -92,10 +93,12 @@ export const updateBruteData = (
     if (petTier > 1) {
       updatedBrute.hpModifier += pet.hpMalus[petTier - 2] ?? 0;
     }
+
     updatedBrute.hpModifier -= pet.hpMalus[petTier - 1] ?? 0;
   } else if (destinyChoice.stat1 && !destinyChoice.stat2) {
     // +X stat
     const stat = destinyChoice.stat1;
+
     updatedBrute = updateStat(updatedBrute, stat, destinyChoice.stat1Value as number);
   } else {
     // +X/+X

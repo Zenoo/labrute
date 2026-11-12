@@ -20,7 +20,7 @@ import {
   Modifiers,
   randomBetween,
   refreshChaosSeeds,
-  weightedRandom
+  weightedRandom,
 } from '@labrute/core';
 import {
   AchievementName,
@@ -48,7 +48,7 @@ import { traced } from './utils/trace.js';
 import { ilike } from './utils/ilike.js';
 import { computeDailyStats } from './utils/stats/computeDailyStats.js';
 import {
-  adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator
+  adjectives, animals, colors, languages, names, starWars, uniqueNamesGenerator,
 } from 'unique-names-generator';
 import { generateBot } from './utils/brute/generateBot.js';
 import { getOpponents } from './utils/brute/getOpponents.js';
@@ -205,7 +205,10 @@ const handleDailyTournaments = async (
 
   // All brutes are assigned, do nothing
   if (registeredBrutes.length === 0) {
-    return { registeredBrutes, gains };
+    return {
+      registeredBrutes,
+      gains,
+    };
   }
 
   // Shuffle brutes
@@ -285,6 +288,7 @@ const handleDailyTournaments = async (
   tournaments = tournaments.filter(Boolean).map((tournament) => {
     const firstHalf: typeof registeredBrutes = [];
     const secondHalf: typeof registeredBrutes = [];
+
     const sortedTournament = tournament.sort((a, b) => {
       if (a.ranking === b.ranking) {
         return b.level - a.level;
@@ -317,7 +321,10 @@ const handleDailyTournaments = async (
         },
         rounds: 6,
       },
-      select: { id: true, date: true },
+      select: {
+        id: true,
+        date: true,
+      },
     });
 
     // Create tournament steps (1 to 32 for first round, 33 to 48 for 2nd, etc etc)
@@ -327,9 +334,11 @@ const handleDailyTournaments = async (
     let lastFight: Prisma.FightCreateInput | null = null;
 
     const bruteIds = roundBrutes.map((b) => b.id);
+
     const fullBrutes = await prisma.brute.findMany({
       where: { id: { in: bruteIds } },
     });
+
     const bruteMap = new Map(fullBrutes.map((b) => [b.id, b]));
 
     while (roundBrutes.length > 1) {
@@ -340,6 +349,7 @@ const handleDailyTournaments = async (
         if (!roundBrute1 || !roundBrute2) {
           throw new Error(`Brute not found: ${roundBrute1?.id || roundBrute2?.id}`);
         }
+
         const brute1 = bruteMap.get(roundBrute1.id);
         const brute2 = bruteMap.get(roundBrute2.id);
 
@@ -371,11 +381,13 @@ const handleDailyTournaments = async (
               achievements: true,
               tournament: roundBrutes.length === 2 ? 'finals' : 'fight',
             });
+
             generatedFight = newGeneratedFight.data;
           } catch (error: unknown) {
             if (!(error instanceof Error)) {
               throw error;
             }
+
             LOGGER.log(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
             DISCORD().sendError(error);
           }
@@ -395,8 +407,18 @@ const handleDailyTournaments = async (
           select: { id: true },
         });
 
-        increaseStats({ prisma, user: { id: brute1.userId }, brute: brute1, stats: ['tournamentFights'] });
-        increaseStats({ prisma, user: { id: brute2.userId }, brute: brute2, stats: ['tournamentFights'] });
+        increaseStats({
+          prisma,
+          user: { id: brute1.userId },
+          brute: brute1,
+          stats: ['tournamentFights'],
+        });
+        increaseStats({
+          prisma,
+          user: { id: brute2.userId },
+          brute: brute2,
+          stats: ['tournamentFights'],
+        });
 
         // Get fight winner
         const winner = isWinner(roundBrute1, lastFight) ? roundBrute1 : roundBrute2;
@@ -407,6 +429,7 @@ const handleDailyTournaments = async (
 
         // Store XP for winner
         const winnerGains = gains[winnerId];
+
         if (!winnerGains) {
           gains[winnerId] = [DailyTournamentXpReward, 0];
         } else {
@@ -427,12 +450,14 @@ const handleDailyTournaments = async (
 
     // Get last fight winner
     const winner = roundBrutes[0];
+
     if (!winner) {
       throw new Error('No winner');
     }
 
     const loser = (JSON.parse(lastFight.fighters) as Fighter[])
       .find((fighter) => !fighter.master && fighter.id !== winner.id);
+
     if (!loser) {
       throw new Error('No loser');
     }
@@ -448,9 +473,13 @@ const handleDailyTournaments = async (
         ascensions: true,
       },
     });
+
     const loserBrute = await prisma.brute.findUnique({
       where: { id: loser.id },
-      select: { id: true, ranking: true },
+      select: {
+        id: true,
+        ranking: true,
+      },
     });
 
     if (!winnerBrute || !loserBrute) {
@@ -471,6 +500,7 @@ const handleDailyTournaments = async (
 
       // Store gains
       const winnerGains = gains[winnerBrute.id];
+
       if (!winnerGains) {
         gains[winnerBrute.id] = [0, DailyTournamentGoldReward];
       } else {
@@ -481,7 +511,7 @@ const handleDailyTournaments = async (
       await prisma.brute.update({
         where: { id: winnerBrute.id },
         data: {
-          tournamentWins: winnerBrute.tournamentWins + 1
+          tournamentWins: winnerBrute.tournamentWins + 1,
         },
         select: { id: true },
       });
@@ -615,9 +645,11 @@ const handleGlobalTournament = async (
       if (!roundBrute1 || !roundBrute2) {
         throw new Error(`Brute not found: ${roundBrute1?.id || roundBrute2?.id}`);
       }
+
       const brute1 = await prisma.brute.findUnique({
         where: { id: roundBrute1.id },
       });
+
       const brute2 = await prisma.brute.findUnique({
         where: { id: roundBrute2.id },
       });
@@ -656,11 +688,13 @@ const handleGlobalTournament = async (
             achievements: true,
             tournament: roundBrutes.length === 2 ? 'finals' : 'fight',
           });
+
           generatedFight = newGeneratedFight.data;
         } catch (error: unknown) {
           if (!(error instanceof Error)) {
             throw error;
           }
+
           LOGGER.log(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
           DISCORD().sendError(error);
         }
@@ -678,8 +712,18 @@ const handleGlobalTournament = async (
         select: { id: true },
       });
 
-      increaseStats({ prisma, user: { id: brute1.userId }, brute: brute1, stats: ['tournamentFights'] });
-      increaseStats({ prisma, user: { id: brute2.userId }, brute: brute2, stats: ['tournamentFights'] });
+      increaseStats({
+        prisma,
+        user: { id: brute1.userId },
+        brute: brute1,
+        stats: ['tournamentFights'],
+      });
+      increaseStats({
+        prisma,
+        user: { id: brute2.userId },
+        brute: brute2,
+        stats: ['tournamentFights'],
+      });
 
       // Add winner to next round
       nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
@@ -688,6 +732,7 @@ const handleGlobalTournament = async (
 
       // Store XP for winner
       const winnerGains = gains[winnerId];
+
       if (!winnerGains) {
         gains[winnerId] = [GlobalTournamentXpReward, 0];
       } else {
@@ -748,6 +793,7 @@ const handleGlobalTournament = async (
 
   // Store gains
   const winnerGains = gains[winnerBrute.id];
+
   if (!winnerGains) {
     gains[winnerBrute.id] = [0, GlobalTournamentGoldReward];
   } else {
@@ -853,9 +899,11 @@ const handleUnlimitedGlobalTournament = async (
       if (!roundBrute1 || !roundBrute2) {
         throw new Error(`Brute not found: ${roundBrute1?.id || roundBrute2?.id}`);
       }
+
       const brute1 = await prisma.brute.findUnique({
         where: { id: roundBrute1.id },
       });
+
       const brute2 = await prisma.brute.findUnique({
         where: { id: roundBrute2.id },
       });
@@ -894,11 +942,13 @@ const handleUnlimitedGlobalTournament = async (
             achievements: true,
             tournament: roundBrutes.length === 2 ? 'finals' : 'fight',
           });
+
           generatedFight = newGeneratedFight.data;
         } catch (error: unknown) {
           if (!(error instanceof Error)) {
             throw error;
           }
+
           LOGGER.log(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
           DISCORD().sendError(error);
         }
@@ -916,8 +966,18 @@ const handleUnlimitedGlobalTournament = async (
         select: { id: true },
       });
 
-      increaseStats({ prisma, user: { id: brute1.userId }, brute: brute1, stats: ['tournamentFights'] });
-      increaseStats({ prisma, user: { id: brute2.userId }, brute: brute2, stats: ['tournamentFights'] });
+      increaseStats({
+        prisma,
+        user: { id: brute1.userId },
+        brute: brute1,
+        stats: ['tournamentFights'],
+      });
+      increaseStats({
+        prisma,
+        user: { id: brute2.userId },
+        brute: brute2,
+        stats: ['tournamentFights'],
+      });
 
       // Add winner to next round
       nextBrutes.push(brute1.name === generatedFight.winner ? brute1 : brute2);
@@ -991,6 +1051,7 @@ const storeGains = async (
 
   for (const [bruteId, currentGains] of Object.entries(dailyGains)) {
     const bruteGains = gains[bruteId];
+
     if (!bruteGains) {
       gains[bruteId] = [currentGains[0], currentGains[1]];
     } else {
@@ -1001,6 +1062,7 @@ const storeGains = async (
 
   for (const [bruteId, currentGains] of Object.entries(globalGains)) {
     const bruteGains = gains[bruteId];
+
     if (!bruteGains) {
       gains[bruteId] = [currentGains[0], currentGains[1]];
     } else {
@@ -1044,6 +1106,7 @@ const handleXpGains = async (prisma: PrismaClient) => {
     FROM "TournamentXp"
     WHERE date < ${today}::date;
   `;
+
   const count = Number(xpCountResult[0]?.count ?? 0);
 
   if (!count) {
@@ -1092,6 +1155,7 @@ const handleTournamentEarnings = async (prisma: PrismaClient) => {
     FROM "TournamentAchievement"
     WHERE date < ${today}::date;
   `;
+
   const goldCountResult = await prisma.$queryRaw<{ count: bigint }[]>`
     SELECT COUNT(*)::bigint AS count
     FROM "TournamentGold"
@@ -1265,6 +1329,7 @@ const deleteBrutes = async (prisma: PrismaClient) => {
 
   // Separate brutes by chunk of 1000
   const bruteIds = brutes.map((brute) => brute.id);
+
   const bruteChunks = Array(Math.ceil(bruteIds.length / 1000))
     .fill([])
     .map((_, index) => bruteIds.slice(index * 1000, index * 1000 + 1000));
@@ -1323,7 +1388,10 @@ const deleteBrutes = async (prisma: PrismaClient) => {
 const calculateDailyBruteRankings = async (prisma: PrismaClient) => {
   // Check if rankings were already calculated today
   const state = await prisma.serverState.findFirst({
-    select: { id: true, bruteRankingsUpdatedAt: true },
+    select: {
+      id: true,
+      bruteRankingsUpdatedAt: true,
+    },
   });
 
   if (state?.bruteRankingsUpdatedAt && dayjs(state.bruteRankingsUpdatedAt).isSame(dayjs.utc(), 'day')) {
@@ -1487,6 +1555,7 @@ const cleanup = async (prisma: PrismaClient) => {
   if (deletedLogs.count) {
     LOGGER.log(`${dayjs.utc().valueOf() - now}ms to delete ${deletedLogs.count} logs older than 30 days`);
   }
+
   now = dayjs.utc().valueOf();
 
   // Delete notifications older than 30 days
@@ -1504,6 +1573,7 @@ const cleanup = async (prisma: PrismaClient) => {
 
   // Delete non tournament/war or favorited fights older than 30 days
   let deleted = null;
+
   while (deleted !== 0) {
     now = dayjs.utc().valueOf();
 
@@ -1526,6 +1596,7 @@ const cleanup = async (prisma: PrismaClient) => {
 
   // Delete deletedAt brutes older than 30 days
   deleted = null;
+
   while (deleted !== 0) {
     now = dayjs.utc().valueOf();
 
@@ -1545,7 +1616,9 @@ const cleanup = async (prisma: PrismaClient) => {
 
   // Delete bannedAt users older than 40 days
   const fortyDaysAgo = dayjs.utc().subtract(40, 'day').toDate();
+
   deleted = null;
+
   while (deleted !== 0) {
     now = dayjs.utc().valueOf();
 
@@ -1565,6 +1638,7 @@ const cleanup = async (prisma: PrismaClient) => {
 
   // Delete deletedAt clans older than 30 days
   deleted = null;
+
   while (deleted !== 0) {
     now = dayjs.utc().valueOf();
 
@@ -1604,10 +1678,16 @@ const handleClanWars = async (
       type: true,
       winnerId: true,
       attacker: {
-        select: { id: true, elo: true },
+        select: {
+          id: true,
+          elo: true,
+        },
       },
       defender: {
-        select: { id: true, elo: true },
+        select: {
+          id: true,
+          elo: true,
+        },
       },
     },
   });
@@ -1627,6 +1707,7 @@ const handleClanWars = async (
         clanWar.defender.elo,
         clanWar.winnerId === clanWar.attacker.id,
       );
+
       const defenderElo = getNewElo(
         clanWar.defender.elo,
         clanWar.attacker.elo,
@@ -1690,7 +1771,10 @@ const handleClanWars = async (
     },
     include: {
       fights: {
-        select: { id: true, date: true },
+        select: {
+          id: true,
+          date: true,
+        },
       },
     },
   });
@@ -1842,6 +1926,7 @@ const handleClanWars = async (
     // Generate fight (retry if failed)
     let generatedFight: Prisma.FightCreateInput | null = null;
     let retries = 0;
+
     while (!generatedFight) {
       // Stop at 10 retries
       if (retries > 10) {
@@ -1858,11 +1943,13 @@ const handleClanWars = async (
           achievements: true,
           clanWar: true,
         });
+
         generatedFight = newGeneratedFight.data;
       } catch (error: unknown) {
         if (!(error instanceof Error)) {
           throw error;
         }
+
         LOGGER.log(`Error while generating a clan war fight between ${clanWar.attackerId} and ${clanWar.defenderId}, retrying...`);
         DISCORD().sendError(error);
       }
@@ -1884,7 +1971,7 @@ const handleClanWars = async (
         prisma,
         user: { id: brute.userId },
         brute,
-        stats: ['clanWarFights']
+        stats: ['clanWarFights'],
       });
     }
 
@@ -1903,6 +1990,13 @@ const handleClanWars = async (
       || day >= clanWar.duration;
 
     // Update clan war
+    let winnerId: string | null = null;
+
+    if (shouldEnd) {
+      winnerId = clanWar.attackerWins > clanWar.defenderWins
+        ? clanWar.attackerId : clanWar.defenderId;
+    }
+
     await prisma.clanWar.update({
       where: { id: clanWar.id },
       data: {
@@ -1911,11 +2005,7 @@ const handleClanWars = async (
           : ClanWarStatus.ongoing,
         attackerWins: clanWar.attackerWins,
         defenderWins: clanWar.defenderWins,
-        winnerId: shouldEnd
-          ? clanWar.attackerWins > clanWar.defenderWins
-            ? clanWar.attackerId
-            : clanWar.defenderId
-          : null,
+        winnerId: winnerId,
       },
     });
 
@@ -2010,6 +2100,7 @@ const handleEventFinish = async (prisma: PrismaClient) => {
 
   // Create new event
   const maxLevel = randomBetween(20, 120);
+
   const newEvent = await prisma.event.create({
     data: {
       maxLevel,
@@ -2143,6 +2234,7 @@ const handleEventTournament = async (
       if (roundBrute2) {
         nextBrutes.push(roundBrute2);
       }
+
       continue;
     }
 
@@ -2155,6 +2247,7 @@ const handleEventTournament = async (
     const brute1 = await prisma.brute.findUnique({
       where: { id: roundBrute1 },
     });
+
     const brute2 = await prisma.brute.findUnique({
       where: { id: roundBrute2 },
     });
@@ -2192,11 +2285,13 @@ const handleEventTournament = async (
           backups: false,
           achievements: false,
         });
+
         generatedFight = newGeneratedFight.data;
       } catch (error: unknown) {
         if (!(error instanceof Error)) {
           throw error;
         }
+
         LOGGER.log(`Error while generating a tournament fight between ${brute1.name} and ${brute2.name}, retrying...`);
         DISCORD().sendError(error);
       }
@@ -2343,7 +2438,7 @@ const generateBots = async (prisma: PrismaClient) => {
   const brute = await prisma.brute.findFirst({
     where: {
       deletedAt: null,
-      userId: { not: null }
+      userId: { not: null },
     },
     orderBy: {
       level: 'desc',
@@ -2362,6 +2457,7 @@ const generateBots = async (prisma: PrismaClient) => {
 
   if (!brute) {
     LOGGER.log('No brutes found, skipping bot generation');
+
     return;
   }
 
@@ -2430,6 +2526,7 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
 
     // Roll daily modifiers
     const modifiers = await handleModifiers(prisma);
+
     logMemory('After modifiers');
 
     // Refresh chaos seeds
@@ -2454,6 +2551,7 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
         },
         select: { id: true },
       });
+
       logMemory('After fetching unregistered brutes');
 
       // Handle daily tournaments
@@ -2461,11 +2559,13 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
         registeredBrutes,
         gains: dailyGains,
       } = await handleDailyTournaments(prisma, modifiers);
+
       logMemory('After daily tournaments');
       triggerGC();
 
       // Handle global tournament
       const globalGains = await handleGlobalTournament(prisma, modifiers, registeredBrutes);
+
       logMemory('After global tournament');
       triggerGC();
 
@@ -2549,6 +2649,7 @@ export const dailyJob = (prisma: PrismaClient) => async () => {
     if (!(error instanceof Error)) {
       throw error;
     }
+
     DISCORD().sendError(error);
     // Delete misformatted tournaments
     await deleteMisformattedTournaments(prisma);

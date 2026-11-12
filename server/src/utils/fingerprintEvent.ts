@@ -1,6 +1,6 @@
 import { ForbiddenError, isUuid } from '@labrute/core';
 import {
-  createHash, createHmac, randomUUID, timingSafeEqual
+  createHash, createHmac, randomUUID, timingSafeEqual,
 } from 'node:crypto';
 import type { Request } from 'express';
 import { GLOBAL } from '../context.js';
@@ -26,8 +26,13 @@ export type VerifiedFingerprintEvent = {
 const signingKey = () => {
   const key = createHmac('sha256', GLOBAL.config.fpAesSecret)
     .update('labrute:fingerprint-event:v2').digest();
+
   const id = createHash('sha256').update(key).digest('hex').slice(0, 12);
-  return { id, key };
+
+  return {
+    id,
+    key,
+  };
 };
 
 const browserHash = (id: string) => createHash('sha256')
@@ -42,6 +47,7 @@ export const issueFingerprintEvent = (
   const key = signingKey();
 
   const issuedAt = Math.floor(now / 1000);
+
   const claims: VerifiedFingerprintEvent = {
     v: 2,
     purpose: PURPOSE,
@@ -56,6 +62,7 @@ export const issueFingerprintEvent = (
   const body = Buffer.from(JSON.stringify(claims)).toString('base64url');
   const signed = `fpe2.${key.id}.${body}`;
   const signature = createHmac('sha256', key.key).update(signed).digest('base64url');
+
   return `${signed}.${signature}`;
 };
 
@@ -65,7 +72,9 @@ export const verifyFingerprintEvent = (
   request: Pick<Request, 'signedCookies' | 'security'>,
   now = Date.now(),
 ): VerifiedFingerprintEvent => {
-  if (typeof token !== 'string' || token.length > 2048) throw invalidEvent();
+  if (typeof token !== 'string' || token.length > 2048) {
+    throw invalidEvent();
+  }
 
   const parts = token.split('.');
   const [version, keyId, body, signature] = parts;
@@ -79,7 +88,9 @@ export const verifyFingerprintEvent = (
 
   const key = signingKey();
 
-  if (key.id !== keyId) throw invalidEvent();
+  if (key.id !== keyId) {
+    throw invalidEvent();
+  }
 
   const supplied = Buffer.from(signature, 'base64url');
   const expected = createHmac('sha256', key.key).update(`fpe2.${keyId}.${body}`).digest();
@@ -90,6 +101,7 @@ export const verifyFingerprintEvent = (
   }
 
   let claims: VerifiedFingerprintEvent;
+
   try {
     claims = JSON.parse(Buffer.from(body, 'base64url').toString('utf8')) as VerifiedFingerprintEvent;
   } catch {

@@ -5,7 +5,9 @@ import {
   IconButton, List, ListItem, ListItemText, Paper, Stack, TextField,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useState,
+} from 'react';
 import { Page } from '../components/Page';
 import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
@@ -27,7 +29,9 @@ export const KnownFingerprintsView = () => {
 
   // Fetch fingerprints on mount
   useEffect(() => {
-    if (!admin?.admin) return;
+    if (!admin?.admin) {
+      return;
+    }
 
     Server.User.knownFingerprintsList().then((data) => {
       setFingerprints(data);
@@ -52,6 +56,7 @@ export const KnownFingerprintsView = () => {
   const handleAddFingerprint = useCallback(() => {
     if (!newFingerprint.trim()) {
       Alert.open('error', 'Please enter a fingerprint');
+
       return;
     }
 
@@ -75,10 +80,17 @@ export const KnownFingerprintsView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Known Fingerprints</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {admin?.admin ? (
           <Stack spacing={2}>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              p: 2,
+            }}>
               <Button
                 variant="contained"
                 startIcon={<Add />}

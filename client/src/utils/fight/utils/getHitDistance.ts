@@ -17,10 +17,14 @@ export const getHitDistance = (
   // Weapon reach
   if (!isSameSpace) {
     distance += fighter.animation.baseWidth * 0.5 + target.animation.baseWidth * 0.5;
+
     // Bigger distance for bosses
-    if (target.type === 'boss') distance *= 0.7;
+    if (target.type === 'boss') {
+      distance *= 0.7;
+    }
 
     let reach = 0;
+
     // Countered, take opponent weapon reach into account
     if (isCountered) {
       reach = target.animation.weapon ? weapons[target.animation.weapon].reach : 0;
@@ -31,5 +35,6 @@ export const getHitDistance = (
 
     distance += reach * 16;
   }
+
   return distance;
 };

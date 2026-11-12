@@ -10,11 +10,13 @@ export const handleStats = (
   tournament?: 'fight' | 'finals',
 ) => {
   const winner = fightData.fighters.find((f) => f.id === fightData.winner);
+
   if (!winner) {
     throw new Error('Winner not found');
   }
 
   const loser = fightData.fighters.find((f) => f.id === fightData.loser);
+
   if (!loser) {
     throw new Error('Loser not found');
   }

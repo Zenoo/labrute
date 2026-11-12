@@ -69,6 +69,13 @@ For architecture, code conventions, task-to-code navigation, and focused verific
   local login, scenarios and rebuilding fixtures.
 - `pnpm db:seed` only generates arena bots and remains the production bootstrap command.
 
+### Running checks
+
+Run `pnpm test` with Node 24 for compilation, client type-checking, all specs and browser tests,
+lint, and translation checks. The terminal shows a compact summary; detailed logs and a linked
+report are saved in the gitignored `test-results/` directory. See
+[test selection and reports](docs/engineering/development.md#test-selection) for prerequisites.
+
 ### pnpm troubleshooting
 
 If you encounter issues running pnpm scripts, change your config with the following commands:

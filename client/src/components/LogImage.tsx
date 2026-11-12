@@ -17,16 +17,30 @@ export const LogImage = ({
 }: LogImageProps) => {
   const theme = useTheme();
 
+  const getLogImage = () => {
+    if ((log.type === LogType.bossDefeat || log.type === LogType.bossFight)) {
+      return 'inventory/bossTicket';
+    }
+
+    if (log.type === LogType.lvl) {
+      return `rankings/lvl_${log.level ?? BruteRankings[0]}`;
+    }
+
+    if (log.type === LogType.tournament) {
+      return 'log/lose';
+    }
+
+    if (log.type === LogType.tournamentXp) {
+      return 'log/childup';
+    }
+
+    return `log/${log.type}`;
+  };
+
   return (
     <Box
       component="img"
-      src={`/images/${(log.type === LogType.bossDefeat || log.type === LogType.bossFight)
-        ? 'inventory/bossTicket'
-        : log.type === LogType.lvl
-          ? `rankings/lvl_${log.level ?? BruteRankings[0]}`
-          : log.type === LogType.tournament
-            ? 'log/lose'
-            : log.type === LogType.tournamentXp ? 'log/childup' : `log/${log.type}`}.webp`}
+      src={`/images/${getLogImage()}.webp`}
       sx={{
         filter: `drop-shadow(3px 3px ${negativeLogs.includes(log.type) ? theme.palette.error.main : theme.palette.success.main})`,
         maxWidth: 40,

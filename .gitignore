@@ -65,3 +65,6 @@ lib/
 *.local.toml
 
 docker-compose.local.yml
+
+# Full verification reports and per-check logs.
+/test-results/

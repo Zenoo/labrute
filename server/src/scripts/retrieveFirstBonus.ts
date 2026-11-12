@@ -6,6 +6,7 @@ import { GLOBAL, ServerContext } from '../context.js';
 
 async function main(cx: ServerContext) {
   cx.logger.info('retrieveFirstBonus: start');
+
   // Get all brutes with no first bonus stored
   const brutes = await cx.prisma.brute.findMany({
     where: {

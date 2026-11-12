@@ -1,6 +1,6 @@
 import { CalculatedBrute, readableHPFormula } from '@labrute/core';
 import {
-  Box, BoxProps, Divider, Stack, Tooltip
+  Box, BoxProps, Divider, Stack, Tooltip,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +33,10 @@ export const BruteBodyAndStats = ({
       {...rest}
     >
       {/* BRUTE */}
-      <Box flexGrow={centered ? 0 : 1} sx={{ width: centered ? 115 : 'fit-content', mt: 2 }}>
+      <Box flexGrow={centered ? 0 : 1} sx={{
+        width: centered ? 115 : 'fit-content',
+        mt: 2,
+      }}>
         <Box width={80} mx="auto">
           <BruteRender brute={brute} />
         </Box>
@@ -52,7 +55,11 @@ export const BruteBodyAndStats = ({
         >
           <Box>
             <BruteHP hp={brute.hpValue} />
-            <Text bold sx={{ display: 'inline-block', ml: 1, color: StatColor.hp }}>{t('healthPoints')}</Text>
+            <Text bold sx={{
+              display: 'inline-block',
+              ml: 1,
+              color: StatColor.hp,
+            }}>{t('healthPoints')}</Text>
           </Box>
         </Tooltip>
         {/* STRENGTH */}

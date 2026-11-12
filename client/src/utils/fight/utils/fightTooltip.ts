@@ -1,5 +1,5 @@
 import {
-  Fighter, Skill, Weapon
+  Fighter, Skill, Weapon,
 } from '@labrute/core';
 import { Container } from 'pixi.js';
 
@@ -21,6 +21,7 @@ export const bindFightTooltip = (
     activeTarget = getTarget();
     toggleTooltip(activeTarget, true);
   };
+
   const close = () => {
     if (activeTarget) {
       toggleTooltip(activeTarget, false);

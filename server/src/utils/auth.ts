@@ -30,6 +30,7 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
   if (!authorization) {
     throw new ForbiddenError('You are not logged in');
   }
+
   if (typeof authorization !== 'string') {
     throw new ExpectedError('Invalid authorization header');
   }
@@ -100,8 +101,13 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
     throw new ForbiddenError('Unrecognized fingerprint');
   }
 
-  if (user.browserRestricted) throw new ForbiddenError(translate('banned', user));
-  if (user.fingerprintRestricted) throw new ForbiddenError(translate('fingerprintBanned', user));
+  if (user.browserRestricted) {
+    throw new ForbiddenError(translate('banned', user));
+  }
+
+  if (user.fingerprintRestricted) {
+    throw new ForbiddenError(translate('fingerprintBanned', user));
+  }
 
   // Check expected headers
   if (!request.security?.validHeaders) {
@@ -134,7 +140,11 @@ export const auth = async (prisma: PrismaClient, request: Request, options?: {
       },
     }));
 
-    increaseStats({ prisma, user, stats: ['connectedDays'] });
+    increaseStats({
+      prisma,
+      user,
+      stats: ['connectedDays'],
+    });
   }
 
   return {

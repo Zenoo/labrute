@@ -35,10 +35,16 @@ export const ClanWars = {
         },
         include: {
           attacker: {
-            select: { id: true, name: true },
+            select: {
+              id: true,
+              name: true,
+            },
           },
           defender: {
-            select: { id: true, name: true },
+            select: {
+              id: true,
+              name: true,
+            },
           },
           fights: {
             select: {
@@ -60,10 +66,16 @@ export const ClanWars = {
             orderBy: { day: 'desc' },
             include: {
               attackers: {
-                select: { id: true, name: true },
+                select: {
+                  id: true,
+                  name: true,
+                },
               },
               defenders: {
-                select: { id: true, name: true },
+                select: {
+                  id: true,
+                  name: true,
+                },
               },
             },
           },
@@ -97,10 +109,16 @@ export const ClanWars = {
         },
         include: {
           attacker: {
-            select: { id: true, name: true },
+            select: {
+              id: true,
+              name: true,
+            },
           },
           defender: {
-            select: { id: true, name: true },
+            select: {
+              id: true,
+              name: true,
+            },
           },
         },
         orderBy: { date: 'desc' },
@@ -123,12 +141,18 @@ export const ClanWars = {
       }
 
       const clan = await traced('clanWars.getAvailableFighters.findClan', () => prisma.clan.findFirst({
-        where: { id: req.body.clan, deletedAt: null },
+        where: {
+          id: req.body.clan,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: {
+              userId: user.id,
+              deletedAt: null,
+            },
             select: {
               id: true,
               clanId: true,
@@ -293,12 +317,18 @@ export const ClanWars = {
       }
 
       const clan = await traced('clanWars.toggleFighter.findClan', () => prisma.clan.findFirst({
-        where: { id: req.body.clan, deletedAt: null },
+        where: {
+          id: req.body.clan,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: {
+              userId: user.id,
+              deletedAt: null,
+            },
             select: {
               id: true,
               clanId: true,
@@ -349,7 +379,10 @@ export const ClanWars = {
       if (req.body.add === 'true') {
         const fighters = await traced('clanWars.toggleFighter.findFighters', () => prisma.clanWarFighters.findUnique({
           where: {
-            clanWarId_day: { clanWarId: war.id, day: war.fights.length + 1 },
+            clanWarId_day: {
+              clanWarId: war.id,
+              day: war.fights.length + 1,
+            },
           },
           select: {
             id: true,
@@ -400,9 +433,16 @@ export const ClanWars = {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
 
+      const rosterChange = req.body.add === 'true'
+        ? { connect: { id: brute.id } }
+        : { disconnect: { id: brute.id } };
+
       await traced('clanWars.toggleFighter.upsertFighters', () => prisma.clanWarFighters.upsert({
         where: {
-          clanWarId_day: { clanWarId: war.id, day: war.fights.length + 1 },
+          clanWarId_day: {
+            clanWarId: war.id,
+            day: war.fights.length + 1,
+          },
         },
         create: {
           clanWar: { connect: { id: war.id } },
@@ -415,16 +455,8 @@ export const ClanWars = {
             : undefined,
         },
         update: {
-          attackers: war.attackerId === req.body.clan
-            ? req.body.add === 'true'
-              ? { connect: { id: brute.id } }
-              : { disconnect: { id: brute.id } }
-            : undefined,
-          defenders: war.defenderId === req.body.clan
-            ? req.body.add === 'true'
-              ? { connect: { id: brute.id } }
-              : { disconnect: { id: brute.id } }
-            : undefined,
+          attackers: war.attackerId === req.body.clan ? rosterChange : undefined,
+          defenders: war.defenderId === req.body.clan ? rosterChange : undefined,
         },
       }));
 
@@ -453,7 +485,11 @@ export const ClanWars = {
 
       // Check if user owns the brute
       const brute = await traced('clanWars.declareFriendlyWar.findBrute', () => prisma.brute.findFirst({
-        where: { id: req.body.brute, deletedAt: null, userId: user.id },
+        where: {
+          id: req.body.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
         select: { id: true },
       }));
 
@@ -463,7 +499,10 @@ export const ClanWars = {
 
       // Check if brute is the clan master
       const clan = await traced('clanWars.declareFriendlyWar.findClan', () => prisma.clan.findFirst({
-        where: { id: req.body.clan, masterId: req.body.brute },
+        where: {
+          id: req.body.clan,
+          masterId: req.body.brute,
+        },
         select: { id: true },
       }));
 
@@ -540,7 +579,11 @@ export const ClanWars = {
 
       // Check if the user owns the brute
       const brute = await traced('clanWars.cancel.findBrute', () => prisma.brute.findFirst({
-        where: { id: req.body.brute, deletedAt: null, userId: user.id },
+        where: {
+          id: req.body.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
         select: { id: true },
       }));
 
@@ -550,7 +593,10 @@ export const ClanWars = {
 
       // Check if brute is the clan master
       const clan = await traced('clanWars.cancel.findClan', () => prisma.clan.findFirst({
-        where: { id: req.body.clan, masterId: req.body.brute },
+        where: {
+          id: req.body.clan,
+          masterId: req.body.brute,
+        },
         select: { id: true },
       }));
 
@@ -598,7 +644,11 @@ export const ClanWars = {
 
       // Check if the user owns the brute
       const brute = await traced('clanWars.accept.findBrute', () => prisma.brute.findFirst({
-        where: { id: req.body.brute, deletedAt: null, userId: user.id },
+        where: {
+          id: req.body.brute,
+          deletedAt: null,
+          userId: user.id,
+        },
         select: { id: true },
       }));
 

@@ -1,7 +1,7 @@
 import { Lang, Log } from '@labrute/prisma';
 import { History, Policy } from '@mui/icons-material';
 import {
-  Box, Grid, IconButton, Paper, Tooltip, useMediaQuery, useTheme
+  Box, Grid, IconButton, Paper, Tooltip, useMediaQuery, useTheme,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -23,7 +23,6 @@ import { Text } from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
 import { useBrute } from '../../hooks/useBrute';
 import { AdResult } from '../../utils/ads';
-import { getBruteWinrate } from '../../utils/getBruteWinrate';
 import { keys } from '@labrute/core';
 
 export type CellMobileViewProps = {
@@ -80,7 +79,11 @@ export const CellMobileView = ({
             )}
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6} order={isXs ? 3 : 0} sx={{ textAlign: 'center', px: 1, alignSelf: 'center' }}>
+        <Grid item xs={12} sm={6} order={isXs ? 3 : 0} sx={{
+          textAlign: 'center',
+          px: 1,
+          alignSelf: 'center',
+        }}>
           <Box sx={{ mx: 1 }}>
             {/* WEAPONS */}
             <Text bold center color={theme.palette.mode === 'dark' ? 'text.primary' : undefined} sx={{ mb: 0.5 }}>
@@ -123,7 +126,10 @@ export const CellMobileView = ({
             {t('report')}
           </Text>
           {user?.admin && (
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}>
               <Tooltip title={t('adminPanel')}>
                 <IconButton
                   component={RouterLink}
@@ -142,7 +148,10 @@ export const CellMobileView = ({
             <CellPets />
           ) : (
             <Tooltip title={t(`${ad.name}.desc`)}>
-              <Link to={ad.url} target="_blank" sx={{ width: 200, mx: 'auto' }}>
+              <Link to={ad.url} target="_blank" sx={{
+                width: 200,
+                mx: 'auto',
+              }}>
                 <Box
                   component="img"
                   src={`/images/redirects/${ad.illustration}`}
@@ -178,15 +187,27 @@ export const CellMobileView = ({
           {logs.map((log) => <CellLog key={log.id} log={log} />)}
         </Paper>
       )}
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
         <FantasyButton to={`/${brute.name}/tournaments`} color="secondary" sx={{ m: 1 }}>
-          <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+          <History sx={{
+            verticalAlign: 'middle',
+            mr: 1,
+          }} />
           {t('tournaments')}
         </FantasyButton>
       </Box>
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
         <FantasyButton to={`/${brute.name}/event/history`} color="primary" sx={{ m: 1 }}>
-          <History sx={{ verticalAlign: 'middle', mr: 1 }} />
+          <History sx={{
+            verticalAlign: 'middle',
+            mr: 1,
+          }} />
           {t('eventHistory')}
         </FantasyButton>
       </Box>
@@ -194,7 +215,10 @@ export const CellMobileView = ({
       {owner
         && dayjs.utc().isAfter(dayjs.utc(brute.createdAt), 'day')
         && (
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}>
             <FantasyButton
               color="error"
               onClick={confirmSacrifice}
@@ -208,7 +232,10 @@ export const CellMobileView = ({
         )}
       {/* BRUTE RESET */}
       {owner && (
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
           <FantasyButton
             color="warning"
             onClick={confirmReset}

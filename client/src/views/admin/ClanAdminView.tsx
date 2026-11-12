@@ -1,12 +1,12 @@
 import { ClanGetForAdminResponse } from '@labrute/core';
 import { BossName, Clan } from '@labrute/prisma';
 import {
-  Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField
+  Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import React, {
-  useCallback, useEffect, useState
+  useCallback, useEffect, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
@@ -32,7 +32,9 @@ export const ClanAdminView = () => {
 
   // Fetch clan on page load
   useEffect(() => {
-    if (!clanId) return;
+    if (!clanId) {
+      return;
+    }
 
     Server.Clan.getForAdmin(clanId).then((c) => {
       setClan(c);
@@ -41,10 +43,13 @@ export const ClanAdminView = () => {
 
   // Save clan
   const saveClan = useCallback(() => {
-    if (!clan || !clanId) return;
+    if (!clan || !clanId) {
+      return;
+    }
 
     // Remove brutes from clan data
     const clanData = { ...clan } as Clan & { brutes?: unknown };
+
     delete clanData.brutes;
 
     Server.Clan.adminUpdate(clanId, clanData).then(() => {
@@ -54,9 +59,14 @@ export const ClanAdminView = () => {
 
   // Transfer ownership
   const transferOwnership = useCallback(() => {
-    if (!clanId || !newMasterId) return;
+    if (!clanId || !newMasterId) {
+      return;
+    }
 
-    Server.Clan.transferOwnership({ id: clanId, brute: newMasterId }).then(() => {
+    Server.Clan.transferOwnership({
+      id: clanId,
+      brute: newMasterId,
+    }).then(() => {
       Alert.open('success', 'Ownership transferred');
       setNewMasterId('');
     }).catch(catchError(Alert));
@@ -67,7 +77,10 @@ export const ClanAdminView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {clan ? (
           <>
             <Text h2 smallCaps>
@@ -217,7 +230,10 @@ export const ClanAdminView = () => {
             </Grid>
             <FantasyButton color="success" onClick={saveClan}>Save</FantasyButton>
             <Text h3 smallCaps sx={{ mt: 4 }}>Transfer ownership</Text>
-            <Grid container spacing={1} sx={{ mt: 2, mb: 4 }}>
+            <Grid container spacing={1} sx={{
+              mt: 2,
+              mb: 4,
+            }}>
               <Grid item xs={6} sm={3}>
                 <TextField
                   label="New master"

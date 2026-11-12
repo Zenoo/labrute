@@ -1,5 +1,5 @@
 import {
-  Box, BoxProps, useTheme
+  Box, BoxProps, useTheme,
 } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router';
@@ -48,6 +48,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
   const handleMouseEnter = useCallback(() => {
     setHover(true);
   }, []);
+
   const handleMouseLeave = useCallback(() => {
     setHover(false);
   }, []);
@@ -76,7 +77,7 @@ const StyledButton = React.forwardRef<HTMLDivElement, StyledButtonProps>(({
         pt: hover ? 0 : shift,
         pb: shift,
         cursor: 'pointer',
-        backgroundImage: `url('${swapImage ? hover ? themedImageHover : themedImage : themedImage}')`,
+        backgroundImage: `url('${swapImage && hover ? themedImageHover : themedImage}')`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100%',
         filter: `${shadow ? `drop-shadow(4px 4px 0px ${shadowColor})` : ''} ${contrast && hover ? 'contrast(90%)' : ''}`,

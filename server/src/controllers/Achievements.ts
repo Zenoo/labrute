@@ -31,7 +31,10 @@ export const increaseAchievement = async (
       userId,
       name,
     },
-    select: { id: true, count: true },
+    select: {
+      id: true,
+      count: true,
+    },
   }));
 
   if (current) {
@@ -185,7 +188,9 @@ export const Achievements = {
     res: Response<AchievementsGetResponse>,
   ) => {
     try {
-      if (!req.body.userId) throw new MissingElementError('Missing user id');
+      if (!req.body.userId) {
+        throw new MissingElementError('Missing user id');
+      }
 
       // Get achievements
       const achievements = await traced('achievements.getForUser.getAchievements', () => prisma.achievement.findMany({
@@ -201,6 +206,7 @@ export const Achievements = {
       // Merge achievements with same name
       const mergedAchievements = achievements.reduce((acc, achievement) => {
         const existingAchievement = acc.find((a) => a.name === achievement.name);
+
         if (existingAchievement) {
           // Display the highest count for some achievements
           if (AchievementData[achievement.name].max) {
@@ -214,6 +220,7 @@ export const Achievements = {
         } else {
           acc.push(achievement);
         }
+
         return acc;
       }, [] as typeof achievements);
 
@@ -221,10 +228,23 @@ export const Achievements = {
       mergedAchievements.sort((a, b) => {
         const aRarety = RaretyOrder.indexOf(AchievementData[a.name].rarety);
         const bRarety = RaretyOrder.indexOf(AchievementData[b.name].rarety);
-        if (aRarety < bRarety) return 1;
-        if (aRarety > bRarety) return -1;
-        if (a.count > b.count) return -1;
-        if (a.count < b.count) return 1;
+
+        if (aRarety < bRarety) {
+          return 1;
+        }
+
+        if (aRarety > bRarety) {
+          return -1;
+        }
+
+        if (a.count > b.count) {
+          return -1;
+        }
+
+        if (a.count < b.count) {
+          return 1;
+        }
+
         return 0;
       });
 
@@ -238,7 +258,9 @@ export const Achievements = {
     res: Response<AchievementsGetResponse>,
   ) => {
     try {
-      if (!req.params.name) throw new MissingElementError('Missing brute name');
+      if (!req.params.name) {
+        throw new MissingElementError('Missing brute name');
+      }
 
       // Get achievements
       const achievements = await traced('achievements.getForBrute.getAchievements', () => prisma.achievement.findMany({
@@ -258,10 +280,23 @@ export const Achievements = {
       achievements.sort((a, b) => {
         const aRarety = RaretyOrder.indexOf(AchievementData[a.name].rarety);
         const bRarety = RaretyOrder.indexOf(AchievementData[b.name].rarety);
-        if (aRarety < bRarety) return 1;
-        if (aRarety > bRarety) return -1;
-        if (a.count > b.count) return -1;
-        if (a.count < b.count) return 1;
+
+        if (aRarety < bRarety) {
+          return 1;
+        }
+
+        if (aRarety > bRarety) {
+          return -1;
+        }
+
+        if (a.count > b.count) {
+          return -1;
+        }
+
+        if (a.count < b.count) {
+          return 1;
+        }
+
         return 0;
       });
 
@@ -297,11 +332,13 @@ export const Achievements = {
       // Use cached rankings if available
       if (byUser && cachedRankingsByUser) {
         res.status(200).send(cachedRankingsByUser);
+
         return;
       }
 
       if (!byUser && cachedRankingsByBrute) {
         res.status(200).send(cachedRankingsByBrute);
+
         return;
       }
 

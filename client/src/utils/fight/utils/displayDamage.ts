@@ -28,8 +28,9 @@ export const displayDamage = ({
       fontFamily: 'GameFont',
       fontSize: criticalHit ? 30 : 20,
       fill: criticalHit ? 0xff0000 : 0xffffff,
-    }
+    },
   });
+
   damageText.anchor.set(0.5);
   damageText.zIndex = 1000;
   damageText.filters = [DAMAGE_TEXT_OUTLINE_FILTER];

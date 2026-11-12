@@ -1,18 +1,18 @@
 import { BanReason, UserGetAdminResponse } from '@labrute/core';
 import {
-  AchievementName, InventoryItemType, Lang
+  AchievementName, InventoryItemType, Lang,
 } from '@labrute/prisma';
 import {
-  Block, ExpandLess, ExpandMore
+  Block, ExpandLess, ExpandMore,
 } from '@mui/icons-material';
 import {
   Box,
   Checkbox, Collapse, FormControl, FormControlLabel, Grid,
   InputLabel, MenuItem, Paper, Select, Stack, Table,
-  TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip
+  TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useRef, useState
+  useCallback, useEffect, useRef, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../../components/FantasyButton';
@@ -66,7 +66,9 @@ export const UserAdminView = () => {
     const request = ++requestId.current;
 
     Server.User.getForAdmin({ identifier: userIdOrName }).then((result) => {
-      if (request !== requestId.current) return;
+      if (request !== requestId.current) {
+        return;
+      }
 
       const { achievements: currentAchievements, ...profile } = result.user;
 
@@ -80,7 +82,9 @@ export const UserAdminView = () => {
 
   // Trigger user fetch when userId changes (debounced for 1s)
   useEffect(() => {
-    if (!userIdOrName) return undefined;
+    if (!userIdOrName) {
+      return undefined;
+    }
 
     const timeout = setTimeout(() => {
       updateUser();
@@ -105,10 +109,13 @@ export const UserAdminView = () => {
 
   // Save user
   const saveUser = useCallback(() => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     const changedAchievements = achievements.filter((a) => {
       const initialAchievement = initialAchievements.find((b) => b.name === a.name);
+
       return !initialAchievement || initialAchievement.count !== a.count;
     });
 
@@ -131,19 +138,27 @@ export const UserAdminView = () => {
 
   // Unban user
   const unban = () => {
-    if (!user) return;
+    if (!user) {
+      return;
+    }
 
     Server.User.unban({ userId: user.id }).then(() => {
       Alert.open('success', 'User unbanned');
       updateUser();
     }).catch(catchError(Alert));
   };
+
   // Ban user
   const banUser = () => {
-    if (!user || !banReason) return;
+    if (!user || !banReason) {
+      return;
+    }
 
     Confirm.open(t('user:ban'), t('user:banConfirm'), () => {
-      Server.User.ban({ userId: user.id, reason: banReason })
+      Server.User.ban({
+        userId: user.id,
+        reason: banReason,
+      })
         .then(() => {
           Alert.open('success', t('user:banSuccess'));
           updateUser();
@@ -153,8 +168,13 @@ export const UserAdminView = () => {
 
   // Delete account
   const deleteAccount = () => {
-    if (!user) return;
-    if (user.id === admin?.id) return;
+    if (!user) {
+      return;
+    }
+
+    if (user.id === admin?.id) {
+      return;
+    }
 
     Confirm.open(t('user:deleteAccount'), t('user:deleteAccountConfirm'), () => {
       Server.User.deleteAccount({ id: user.id }).then(() => {
@@ -166,11 +186,13 @@ export const UserAdminView = () => {
 
   // Give item
   const giveItem = useCallback(() => {
-    if (!user || !item) return;
+    if (!user || !item) {
+      return;
+    }
 
     Server.User.giveItem({
       id: user?.id,
-      item
+      item,
     }).then(() => {
       Alert.open('success', 'Item given');
     }).catch(catchError(Alert));
@@ -178,9 +200,13 @@ export const UserAdminView = () => {
 
   const renderExpandButton = (
     open: boolean,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
   ) => (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Box sx={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    }}>
       {open ? (
         <ExpandMore
           onClick={() => setOpen((prev) => !prev)}
@@ -198,7 +224,10 @@ export const UserAdminView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {admin?.admin ? (
           <Stack spacing={2}>
             <Text bold h3 smallCaps color="secondary">User</Text>
@@ -207,10 +236,22 @@ export const UserAdminView = () => {
               value={userIdOrName}
             />
             {duplicates.length > 0 && (
-              <Box sx={{ bgcolor: 'warning.main', color: 'warning.contrastText', p: 2, borderRadius: 1, mb: 2 }}>
+              <Box sx={{
+                bgcolor: 'warning.main',
+                color: 'warning.contrastText',
+                p: 2,
+                borderRadius: 1,
+                mb: 2,
+              }}>
                 <Text bold>Duplicates:</Text>
                 {duplicates.map((dup) => (
-                  <Box key={dup.id} sx={{ border: '1px solid', borderColor: 'warning.dark', borderRadius: 1, p: 1, mt: 1 }}>
+                  <Box key={dup.id} sx={{
+                    border: '1px solid',
+                    borderColor: 'warning.dark',
+                    borderRadius: 1,
+                    p: 1,
+                    mt: 1,
+                  }}>
                     <Text>
                       {dup.name} (
                       <Link to={`/admin-panel/user/${dup.id}`}>
@@ -235,7 +276,10 @@ export const UserAdminView = () => {
                 <FantasyButton color="warning" onClick={deleteAccount} disabled={!!user.bannedAt}>Delete Account</FantasyButton>
                 <FantasyButton color="warning" onClick={unban} disabled={!user.bannedAt}>Unban</FantasyButton>
                 {!user.bannedAt && (
-                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}>
                     <Select
                       variant="standard"
                       value={banReason}
@@ -256,7 +300,11 @@ export const UserAdminView = () => {
                   </Box>
                 )}
                 <TableContainer component={Paper}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
                     <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Brutes ({user.brutes.filter(brute => !brute.deletedAt).length}/{user.brutes.length})</Text>
                     {renderExpandButton(brutesOpen, setBrutesOpen)}
                   </Box>
@@ -432,8 +480,10 @@ export const UserAdminView = () => {
                           .find((a) => a.name === key as AchievementName)?.count || 0}
                         onChange={(event) => {
                           const count = +event.target.value;
+
                           setAchievements((a) => {
                             const achievement = a.find((b) => b.name === key as AchievementName);
+
                             if (achievement) {
                               achievement.count = count;
                             } else {
@@ -442,6 +492,7 @@ export const UserAdminView = () => {
                                 count,
                               });
                             }
+
                             return [...a];
                           });
                         }}

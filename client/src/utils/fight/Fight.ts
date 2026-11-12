@@ -6,13 +6,13 @@ import {
   SaboteurStep, SkillActivateStep, SkillById, SkillExpireStep, SpyStep, WeaponId,
   FIGHTER_HEIGHT, StealStep, SurviveStep, ThrowStep, TrapStep, TrashStep, WeaponByName,
   TreatStep, VampirismStep, MimicStep, ReloadStep, RewindStep, skills, FightStep,
-  entries
+  entries,
 } from '@labrute/core';
 import {
-  Application, Sprite, BlurFilter, Container, Texture, Filter, Ticker, Text
+  Application, Sprite, BlurFilter, Container, Texture, Filter, Ticker, Text,
 } from 'pixi.js';
 import {
-  BossName, WeaponName, Gender, Fight as FightData
+  BossName, WeaponName, Gender, Fight as FightData,
 } from '@labrute/prisma';
 import { AnimationFighter, findFighter } from './utils/findFighter';
 import { shakeStage } from './utils/stageAnimations';
@@ -22,19 +22,19 @@ import {
   WEAPON_SPACING,
   SKILL_SIZE,
   SKILLS_PER_ROW,
-  SKILL_SPACING
+  SKILL_SPACING,
 } from './utils/fightPositions';
 import {
-  updateShadow, airbornMove, tweenShadow
+  updateShadow, airbornMove, tweenShadow,
 } from './utils/updateShadow';
 import { Spritesheets } from './utils/spritesheet';
 import {
-  fightDelay, tween, Easing
+  fightDelay, tween, Easing,
 } from './utils/tween';
 import { BevelFilter } from 'pixi-filters/bevel';
 import { getHitDistance } from './utils/getHitDistance';
 import {
-  getRealKnockBack, getHitKnockBack, isOwnSideHit
+  getRealKnockBack, getHitKnockBack, isOwnSideHit,
 } from './utils/knockBack';
 import { displayDamage } from './utils/displayDamage';
 import { fightSprite, getFightClock } from './utils/FightClock';
@@ -48,10 +48,11 @@ import { GlowFilter } from 'pixi-filters/glow';
 import { addSkillUse, consumeSkillUse } from './utils/skillUses';
 import { DropShadowFilter } from 'pixi-filters/drop-shadow';
 import { TFunction } from 'react-i18next';
+import type { Animation } from 'labrute-pixi-fighter';
 import { RendererContextInterface } from '../../hooks/useRenderer';
 import { playHypnosisEffect, HypnosisEffect } from './utils/playHypnosisEffect';
 import {
-  captureFightSnapshot, restoreFightSnapshot, FightSnapshot
+  captureFightSnapshot, restoreFightSnapshot, FightSnapshot,
 } from './utils/fightSnapshot';
 import { FightReversal, ReversalRecording } from './utils/FightReversal';
 import { FierceBruteEffect } from './utils/FierceBruteEffect';
@@ -64,6 +65,7 @@ const POISON_OUTLINE_FILTER_CONFIG = {
   thickness: 1,
   color: 0x006400,
 };
+
 const rangedSteps = [
   StepType.Haste,
   StepType.Throw,
@@ -147,18 +149,24 @@ export class Fight {
 
     // A Rewind at step `r` undoes steps [r - n, r - 1], passing through states [r - n, r].
     options.steps.forEach((step, index) => {
-      if (step.a !== StepType.Rewind) return;
+      if (step.a !== StepType.Rewind) {
+        return;
+      }
 
       const target = Math.max(0, index - step.n);
 
       for (let state = target; state <= index; state++) {
         this.rewoundStates.add(state);
 
-        if (state < index) this.rewoundSteps.add(state);
+        if (state < index) {
+          this.rewoundSteps.add(state);
+        }
       }
     });
 
-    if (this.recordsRewind) this.history.push(this.captureState(true));
+    if (this.recordsRewind) {
+      this.history.push(this.captureState(true));
+    }
 
     // Update fighter weapons
     for (const fighter of this.fighters) {
@@ -173,20 +181,26 @@ export class Fight {
   }
 
   async runStep(step: FightStep, seeking = false) {
-    if (this.executing || this.reversing) throw new Error('A fight step is already running');
+    if (this.executing || this.reversing) {
+      throw new Error('A fight step is already running');
+    }
 
     this.executing = true;
 
     const previousSeeking = this.seeking;
+
     const recording = !seeking
       && step.a !== StepType.Rewind
       && this.rewoundSteps.has(this.stepCount);
+
     let recordingFinished = false;
 
     this.seeking = seeking;
 
     try {
-      if (recording) this.getReversal().startStep();
+      if (recording) {
+        this.getReversal().startStep();
+      }
 
       await this.dispatch(step);
 
@@ -195,11 +209,14 @@ export class Fight {
           this.history.push(this.captureState(seeking));
           this.visualHistory.push(recording ? this.reversal?.finishStep() : undefined);
         }
+
         this.stepCount++;
         recordingFinished = true;
       }
     } finally {
-      if (recording && !recordingFinished) this.reversal?.finishStep();
+      if (recording && !recordingFinished) {
+        this.reversal?.finishStep();
+      }
 
       this.seeking = previousSeeking;
       this.executing = false;
@@ -216,16 +233,24 @@ export class Fight {
       throw new Error(`Invalid fight rewind count: ${count}`);
     }
 
-    if (this.reversing) throw new Error('A fight rewind is already running');
+    if (this.reversing) {
+      throw new Error('A fight rewind is already running');
+    }
 
-    if (count === 0 || this.shouldAbort()) return;
+    if (count === 0 || this.shouldAbort()) {
+      return;
+    }
 
-    if (!this.recordsRewind) throw new Error('Rewind history is disabled for this fight');
+    if (!this.recordsRewind) {
+      throw new Error('Rewind history is disabled for this fight');
+    }
 
     const targetIndex = Math.max(0, this.history.length - 1 - count);
     const snapshot = this.history[targetIndex];
 
-    if (!snapshot) throw new Error('Fight rewind state not found');
+    if (!snapshot) {
+      throw new Error('Fight rewind state not found');
+    }
 
     if (this.seeking) {
       this.restoreSnapshot(snapshot);
@@ -239,10 +264,15 @@ export class Fight {
     clock.suspend();
 
     try {
-      for (const fighter of this.allFighters) fighter.animation.pause();
+      for (const fighter of this.allFighters) {
+        fighter.animation.pause();
+      }
 
       await this.playHypnosisEffect(true);
-      if (this.shouldAbort()) return;
+
+      if (this.shouldAbort()) {
+        return;
+      }
 
       // Forward visuals must not remain frozen over recorded playback. Text is
       // reconstructed from its recorded content; generated ghost textures are retained.
@@ -250,9 +280,12 @@ export class Fight {
       this.clearFierceBruteEffects();
 
       const reversal = this.getReversal();
+
       const playBackwards = async () => {
         for (let index = this.history.length - 2; index >= targetIndex; index--) {
-          if (this.shouldAbort()) return;
+          if (this.shouldAbort()) {
+            return;
+          }
 
           const recording = this.visualHistory[index];
 
@@ -262,7 +295,9 @@ export class Fight {
             const from = this.history[index + 1];
             const to = this.history[index];
 
-            if (!from || !to) throw new Error('Fight rewind state not found');
+            if (!from || !to) {
+              throw new Error('Fight rewind state not found');
+            }
 
             await reversal.playBetween(from, to);
           }
@@ -271,21 +306,31 @@ export class Fight {
 
       await playBackwards();
 
-      if (this.shouldAbort()) return;
+      if (this.shouldAbort()) {
+        return;
+      }
 
-      for (const fighter of this.allFighters) fighter.animation.onceEvents = {};
+      for (const fighter of this.allFighters) {
+        fighter.animation.onceEvents = {};
+      }
 
       this.restoreSnapshot(snapshot);
       await this.renderState();
 
-      for (const fighter of this.allFighters) fighter.animation.pause();
+      for (const fighter of this.allFighters) {
+        fighter.animation.pause();
+      }
 
       await this.hypnosisEffect?.finish?.();
 
-      if (this.shouldAbort()) return;
+      if (this.shouldAbort()) {
+        return;
+      }
 
       for (const fighter of this.allFighters) {
-        if (fighter.animation.seekPose.visible) fighter.animation.play();
+        if (fighter.animation.seekPose.visible) {
+          fighter.animation.play();
+        }
       }
     } finally {
       this.hypnosisEffect?.dispose();
@@ -298,8 +343,11 @@ export class Fight {
 
   private restoreSnapshot(snapshot: FightSnapshot) {
     restoreFightSnapshot(snapshot, this.fighters);
+
     for (const fighter of this.allFighters) {
-      if (this.consumedRewinds.has(fighter.index)) delete fighter.skills[SkillId.rewind];
+      if (this.consumedRewinds.has(fighter.index)) {
+        delete fighter.skills[SkillId.rewind];
+      }
     }
   }
 
@@ -318,7 +366,9 @@ export class Fight {
 
   async renderState() {
     for (const fighter of this.allFighters) {
-      if (this.shouldAbort()) return;
+      if (this.shouldAbort()) {
+        return;
+      }
 
       const pose = fighter.animation.seekPose;
 
@@ -342,47 +392,60 @@ export class Fight {
       fighter.animation.container.filters = pose.hypnotised ? [
         ...filters,
         new GlowFilter({
-          distance: 10, outerStrength: 1, innerStrength: 0.5,
-          color: 0xAD3C8F, quality: 0.05,
+          distance: 10,
+          outerStrength: 1,
+          innerStrength: 0.5,
+          color: 0xAD3C8F,
+          quality: 0.05,
         }),
       ] : filters;
     }
 
     this.clearFierceBruteEffects();
+
     for (const fighter of this.allFighters) {
-      if (fighter.fierceBrute) this.startFierceBruteEffect(fighter);
+      if (fighter.fierceBrute) {
+        this.startFierceBruteEffect(fighter);
+      }
     }
 
     for (const fighter of this.fighters.filter((candidate) => candidate.HUDFocused)) {
       fighter.HUDFocused = false;
       await this.setHUDFocus(fighter.index);
 
-      if (this.shouldAbort()) return;
+      if (this.shouldAbort()) {
+        return;
+      }
 
       this.updateHp(fighter, fighter.hp, true);
     }
   }
 
   private async dispatch(step: FightStep) {
-    if (this.isRangedStep(step.a))
+    if (this.isRangedStep(step.a)) {
       await this.repositionFighters(undefined);
+    }
 
     const focus = async (index: number | undefined) => {
       await this.setHUDFocus(index);
     };
 
-    if ('b' in step && step.a !== StepType.AttemptHit)
+    if ('b' in step && step.a !== StepType.AttemptHit) {
       await focus(step.b);
+    }
 
-    if ('f' in step && typeof step.f === 'number')
+    if ('f' in step && typeof step.f === 'number') {
       await focus(step.f);
+    }
 
     if ('t' in step && typeof step.t === 'number'
-      && step.a !== StepType.Mimic && step.a !== StepType.Rewind)
+      && step.a !== StepType.Mimic && step.a !== StepType.Rewind) {
       await focus(step.t);
+    }
 
-    if (this.shouldAbort())
+    if (this.shouldAbort()) {
       return;
+    }
 
     switch (step.a) {
       case StepType.Move: return this.moveTo(step);
@@ -430,6 +493,7 @@ export class Fight {
       case StepType.Reload: return this.reload(step);
       case StepType.Rewind: return this.rewindSkill(step);
       case StepType.Counter: return;
+
       default: {
         const unhandled: never = step;
 
@@ -439,7 +503,9 @@ export class Fight {
   }
 
   async playHypnosisEffect(sustained = false) {
-    if (this.seeking) return;
+    if (this.seeking) {
+      return;
+    }
 
     this.hypnosisEffect?.dispose();
     this.hypnosisEffect = playHypnosisEffect(this.app, this.speed, this.shouldAbort, sustained);
@@ -507,7 +573,11 @@ export class Fight {
       speed: this.speed,
       duration: 0.5,
       ease: 'none',
-      endPosition: { x, y, zIndex: y },
+      endPosition: {
+        x,
+        y,
+        zIndex: y,
+      },
       seeking: this.seeking,
     });
 
@@ -553,15 +623,23 @@ export class Fight {
     const target = findFighter(this.fighters, step.t);
 
     // Custom animation for brutes
-    const animation = fighter.type === 'brute'
-      ? typeof step.w !== 'undefined' ? weapons[WeaponById[step.w]].animation || 'fist' : 'fist'
-      : 'attack';
+    let animation: Animation = 'attack';
+
+    if (fighter.type === 'brute') {
+      animation = 'fist';
+
+      if (typeof step.w !== 'undefined') {
+        animation = weapons[WeaponById[step.w]].animation || 'fist';
+      }
+    }
+
     const hitTriggered = this.seeking ? undefined : fighter.animation.waitForEvent(`${animation}:hit`);
     const animationEnded = this.seeking ? Promise.resolve() : fighter.animation.waitForEvent(`${animation}:end`);
 
     // Set animation to the correct hitting animation
-    if (!this.seeking)
+    if (!this.seeking) {
       fighter.animation.setAnimation(animation);
+    }
 
     // Wait for animation to hit
     await hitTriggered;
@@ -577,8 +655,7 @@ export class Fight {
       : hitRangeXPosition < fighter.animation.container.x) {
       if (this.seeking) {
         fighter.animation.container.x = hitRangeXPosition;
-      }
-      else {
+      } else {
         await tween(fighter.animation.container, {
           x: hitRangeXPosition,
           duration: 0.1 / this.speed.current,
@@ -810,6 +887,7 @@ export class Fight {
 
       // Get damage
       const damage = this.getBombDamage(step.d, target);
+
       // Get hit animation (random for male brute)
       const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
         ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
@@ -819,7 +897,12 @@ export class Fight {
       target.animation.setAnimation(animation, 0, this.seeking);
 
       if (!this.seeking) {
-        displayDamage({ app: this.app, target, damage, speed: this.speed });
+        displayDamage({
+          app: this.app,
+          target,
+          damage,
+          speed: this.speed,
+        });
       }
 
       // Play the resist animation now
@@ -851,7 +934,9 @@ export class Fight {
 
     fighter.dead = true;
 
-    if (this.isClanWar) fighter.animation.seekPose.visible = false;
+    if (this.isClanWar) {
+      fighter.animation.seekPose.visible = false;
+    }
 
     const animationEnded = this.seeking ? undefined : fighter.animation.waitForEvent('death:drop');
 
@@ -945,13 +1030,20 @@ export class Fight {
       // position middle of target
       const initialPosition = {
         x: target.animation.container.x,
-        y: target.animation.container.y - target.animation.baseHeight * 0.25
+        y: target.animation.container.y - target.animation.baseHeight * 0.25,
       };
+
       // velocity 9 back 7 up
-      const initialVelocity = { x: 9, y: -7 };
+      const initialVelocity = {
+        x: 9,
+        y: -7,
+      };
 
       // Drop shield
-      this.itemDrop(target, 'shield', { initialPosition, initialVelocity });
+      this.itemDrop(target, 'shield', {
+        initialPosition,
+        initialVelocity,
+      });
     }
   }
 
@@ -1153,6 +1245,7 @@ export class Fight {
           : target.animation.container.x + fighter.animation.baseWidth * 0.6,
         y: target.animation.container.y + 5,
       };
+
     let flashFloodContainer: Container | undefined;
     let thrownItem: Sprite | undefined;
 
@@ -1243,7 +1336,13 @@ export class Fight {
         if (!this.seeking) {
           // Display damage if weapon
           displayDamage(
-            { app: this.app, target, damage: step.d, speed: this.speed, criticalHit: step.c },
+            {
+              app: this.app,
+              target,
+              damage: step.d,
+              speed: this.speed,
+              criticalHit: step.c,
+            },
           );
         }
 
@@ -1252,17 +1351,23 @@ export class Fight {
 
         // Update HP bar
         this.updateHp(target, -step.d);
-      }
-      else {
+      } else {
         // Stun target brute if shield
-        if (target.type === 'brute')
+        if (target.type === 'brute') {
           target.stunned = true;
+        }
 
         if (!this.seeking) {
           thrownItem?.destroy();
 
           // Drop shield (rebounds on target head)
-          this.itemDrop(target, 'shield', { initialPosition: end, initialVelocity: { x: 9, y: -7 } });
+          this.itemDrop(target, 'shield', {
+            initialPosition: end,
+            initialVelocity: {
+              x: 9,
+              y: -7,
+            },
+          });
         }
       }
 
@@ -1321,8 +1426,7 @@ export class Fight {
     }, duration: number) => {
       if (this.seeking) {
         Object.assign(movingFighter.animation.container, position);
-      }
-      else {
+      } else {
         await tween(movingFighter.animation.container, {
           ...position,
           duration: duration / this.speed.current,
@@ -1506,7 +1610,13 @@ export class Fight {
     // Display damage
     if (!this.seeking) {
       displayDamage(
-        { app: this.app, target, damage: step.d, speed: this.speed, criticalHit: step.c },
+        {
+          app: this.app,
+          target,
+          damage: step.d,
+          speed: this.speed,
+          criticalHit: step.c,
+        },
       );
     }
 
@@ -1535,7 +1645,9 @@ export class Fight {
     ).then(() => {
       // The next step can already be playing (for example, a healing drink).
       // Only reset the landing hit while it is still the current animation.
-      if (!this.seeking && target.animation.animation !== hitAnimation) return;
+      if (!this.seeking && target.animation.animation !== hitAnimation) {
+        return;
+      }
 
       target.animation.setAnimation(
         target.stunned ? 'death' : 'idle',
@@ -1559,8 +1671,7 @@ export class Fight {
       if (this.seeking) {
         brute.animation.container.x = x;
         brute.animation.container.y = y;
-      }
-      else {
+      } else {
         await tween(brute.animation.container, {
           duration: duration / this.speed.current,
           ease: 'none',
@@ -1596,12 +1707,15 @@ export class Fight {
 
       hasteFilters = [
         // Yellowish color adjustment filter
-        new AdjustmentFilter({ red: 2, green: 2 }),
+        new AdjustmentFilter({
+          red: 2,
+          green: 2,
+        }),
         // Motion blur filter
         new MotionBlurFilter({
           velocity: [50, 0],
           kernelSize: 9,
-        })
+        }),
       ];
 
       // Add filters
@@ -1630,10 +1744,12 @@ export class Fight {
       // Create sprite from it
       const sprite = new Sprite(originalTexture);
       const displayWidth = sprite.texture.width;
+
       // Extract pixels from the generated fighter texture.
       const {
         pixels, width: extractedWidth, height: extractedHeight,
       } = this.app.renderer.extract.pixels(sprite);
+
       const pixelCount = Math.floor(pixels.length / 4);
       let pixelWidth = Math.round(extractedWidth ?? 0);
       let pixelHeight = Math.round(extractedHeight ?? 0);
@@ -1648,8 +1764,9 @@ export class Fight {
       if (pixelWidth * pixelHeight !== pixelCount) {
         pixelWidth = Math.max(1, Math.floor(Math.sqrt(pixelCount)));
 
-        while (pixelWidth > 1 && pixelCount % pixelWidth !== 0)
+        while (pixelWidth > 1 && pixelCount % pixelWidth !== 0) {
           pixelWidth -= 1;
+        }
 
         pixelHeight = Math.max(1, Math.floor(pixelCount / pixelWidth));
       }
@@ -1659,6 +1776,7 @@ export class Fight {
       let gradientStart = false;
       // Length of gradient in percent
       const gradientPart = 0.66;
+
       // Color of the ghost
       const ghostColor = {
         alpha: 225,
@@ -1671,17 +1789,20 @@ export class Fight {
       for (let i = pixels.length - 4; i > 0; i -= 4) {
         // Current column
         const column = (i % (4 * pixelWidth)) / 4;
+
         // Current row's gradient delta per pixel
         const gradientDelta = Math.max(
           1,
           (ghostColor.alpha - Math.random() * 4) / (pixelWidth * gradientPart),
         );
+
         // Alpha gradient
         const gradient = ghostColor.alpha - gradientDelta * (pixelWidth * gradientPart - column);
 
         // New row
-        if (column === 0)
+        if (column === 0) {
           gradientStart = false;
+        }
 
         // Colors
         pixels[i] = ghostColor.red - Math.random() * 30;
@@ -1694,11 +1815,12 @@ export class Fight {
         }
 
         // If gradient started, apply it
-        if (gradientStart)
+        if (gradientStart) {
           pixels[i + 3] = Math.max(0, gradient);
-        // Else min gradient and pixel's alpha
-        else
+        } else {
+          // Else min gradient and pixel's alpha
           pixels[i + 3] = Math.min(pixels[i + 3] ?? 0, gradient);
+        }
       }
 
       // Build a canvas-backed texture source for Pixi v8 compatibility.
@@ -1774,6 +1896,7 @@ export class Fight {
     const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
       ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
       : 'hit';
+
     const animationEnded = this.seeking ? undefined : target.animation.waitForEvent(`${animation}:end`);
 
     // Set target animation to the correct hit animation
@@ -1781,7 +1904,13 @@ export class Fight {
 
     if (!this.seeking) {
       displayDamage(
-        { app: this.app, target, damage: step.d, speed: this.speed, criticalHit: step.c },
+        {
+          app: this.app,
+          target,
+          damage: step.d,
+          speed: this.speed,
+          criticalHit: step.c,
+        },
       );
     }
 
@@ -1794,10 +1923,11 @@ export class Fight {
     // Stagger
     const staggerEnded = this.stagger(target, step.c ? 12 : 0);
 
-    if (this.seeking)
+    if (this.seeking) {
       await staggerEnded;
-    else
+    } else {
       staggerEnded.catch(console.error);
+    }
 
     const resetTarget = () => {
       // Set target animation to normal
@@ -1905,6 +2035,7 @@ export class Fight {
     const animation: 'hit' | 'hit-0' | 'hit-1' | 'hit-2' = target.type === 'brute' && target.gender === 'male'
       ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}`
       : 'hit';
+
     const ownSideHit = isOwnSideHit(fighter, target);
 
     // Wake up target
@@ -1921,19 +2052,16 @@ export class Fight {
       if (step.a === StepType.Poison) {
         // Poison SFX
         void sound.play('sfx', { sprite: 'poison' });
-      }
-      else if (typeof step.w !== 'undefined') {
+      } else if (typeof step.w !== 'undefined') {
         // Weapon SFX
         void sound.play(
           'sfx',
           { sprite: `${WEAPONS_SFX[WeaponById[step.w]][randomBetween(0, WEAPONS_SFX[WeaponById[step.w]].length - 1)]}` },
         );
-      }
-      else if (fighter.type === 'pet') {
+      } else if (fighter.type === 'pet') {
         // Sword SFX for pets
         void sound.play('sfx', { sprite: 'sword' });
-      }
-      else {
+      } else {
         // Fist SFX
         void sound.play('sfx', { sprite: `fist${randomBetween(1, 3)}` });
       }
@@ -1962,7 +2090,13 @@ export class Fight {
 
     if (!this.seeking) {
       displayDamage(
-        { app: this.app, target, damage: step.d, speed: this.speed, criticalHit: step.c },
+        {
+          app: this.app,
+          target,
+          damage: step.d,
+          speed: this.speed,
+          criticalHit: step.c,
+        },
       );
     }
 
@@ -2086,16 +2220,22 @@ export class Fight {
       const { x, y } = position;
 
       // Set pet animation to `run`
-      if (!this.seeking)
+      if (!this.seeking) {
         pet.animation.setAnimation('run');
+      }
 
       // Move pet to other team
       const movement = this.seeking
-        ? Promise.resolve(Object.assign(pet.animation.container, { x, y, zIndex: y }))
+        ? Promise.resolve(Object.assign(pet.animation.container, {
+          x,
+          y,
+          zIndex: y,
+        }))
         : tween(pet.animation.container, {
           duration: 0.5 / this.speed.current,
           ease: 'none',
-          x, y
+          x,
+          y,
         });
 
       animationsDone.push(movement.then(() => {
@@ -2201,13 +2341,17 @@ export class Fight {
 
     // Move fighter to the position
     if (this.seeking) {
-      Object.assign(fighter.animation.container, { x, y, zIndex: y });
+      Object.assign(fighter.animation.container, {
+        x,
+        y,
+        zIndex: y,
+      });
     } else {
       await tween(fighter.animation.container, {
         duration: duration / this.speed.current,
         ease: 'none',
         x,
-        y
+        y,
       });
     }
 
@@ -2231,10 +2375,12 @@ export class Fight {
     }
 
     const distance = getHitDistance(fighter, target, !!step.c, !!step.s);
+
     // Get travel position
     const targetX = target.team === 'R'
       ? target.animation.container.x - distance
       : target.animation.container.x + distance;
+
     const targetY = target.animation.container.y;
 
     // Get travel distance
@@ -2265,7 +2411,11 @@ export class Fight {
     if (this.seeking) {
       Object.assign(
         fighter.animation.container,
-        { x: targetX, y: targetY, zIndex: targetY },
+        {
+          x: targetX,
+          y: targetY,
+          zIndex: targetY,
+        },
       );
     } else {
       await tween(fighter.animation.container, {
@@ -2304,16 +2454,21 @@ export class Fight {
 
   playResistAnimation(brute: AnimationFighter) {
     // Abort if brute doesn't resist
-    if (!brute.resist) return;
+    if (!brute.resist) {
+      return;
+    }
 
     brute.resist = false;
 
-    if (this.seeking) return;
+    if (this.seeking) {
+      return;
+    }
 
     const spritesheet = this.spritesheets.misc;
 
     // Create resist sprite
     const resistSprite = fightSprite(spritesheet.animations.resist);
+
     resistSprite.animationSpeed = this.speed.current * 0.4;
     resistSprite.loop = false;
 
@@ -2354,7 +2509,11 @@ export class Fight {
       };
 
       // Drop broken weapon
-      this.itemDrop(target, step.w, { initialPosition, initialVelocity, broken: true });
+      this.itemDrop(target, step.w, {
+        initialPosition,
+        initialVelocity,
+        broken: true,
+      });
     }
 
     // Update weapon list
@@ -2367,6 +2526,7 @@ export class Fight {
     const animation = !this.seeking && brute.gender === 'male'
       ? `hit-${randomBetween(0, 2) as 0 | 1 | 2}` as const
       : 'hit' as const;
+
     let animationEnded = Promise.resolve();
 
     if (!this.seeking) {
@@ -2398,6 +2558,7 @@ export class Fight {
         x: brute.animation.container.x,
         y: brute.animation.container.y - brute.animation.baseHeight * 0.6,
       };
+
       // Weapon velocity
       const initialVelocity = {
         x: 2,
@@ -2405,7 +2566,11 @@ export class Fight {
       };
 
       // Drop saboteur weapon
-      this.itemDrop(brute, step.w, { initialPosition, initialVelocity, saboteur: true });
+      this.itemDrop(brute, step.w, {
+        initialPosition,
+        initialVelocity,
+        saboteur: true,
+      });
     }
 
     // Wait for stagger
@@ -2470,7 +2635,10 @@ export class Fight {
   }
 
   private clearFierceBruteEffects() {
-    for (const effect of this.fierceBruteEffects?.values() ?? []) effect.destroy();
+    for (const effect of this.fierceBruteEffects?.values() ?? []) {
+      effect.destroy();
+    }
+
     this.fierceBruteEffects?.clear();
   }
 
@@ -2503,7 +2671,9 @@ export class Fight {
       if (step.s === SkillId.fierceBrute) {
         brute.fierceBrute = true;
 
-        if (!this.seeking) this.startFierceBruteEffect(brute);
+        if (!this.seeking) {
+          this.startFierceBruteEffect(brute);
+        }
       }
 
       const animations = [];
@@ -2624,6 +2794,7 @@ export class Fight {
     if (step.s === SkillId.fierceBrute) {
       // End fierceBrute
       fighter.fierceBrute = false;
+
       if (!this.seeking) {
         this.fierceBruteEffects?.get(fighter)?.destroy();
         this.fierceBruteEffects?.delete(fighter);
@@ -2661,8 +2832,11 @@ export class Fight {
 
         if (glowFilter) {
           let { outerStrength, innerStrength } = glowFilter;
+
           const fadeOut = () => {
-            if (this.reversing) return;
+            if (this.reversing) {
+              return;
+            }
 
             if (!fighter.animation.container.filters?.includes(glowFilter)) {
               this.app.ticker.remove(fadeOut);
@@ -2678,8 +2852,7 @@ export class Fight {
               fighter.animation.container.filters = fighter.animation.container.filters
                 ?.filter((filter) => !(filter instanceof GlowFilter)) || [];
               this.app.ticker.remove(fadeOut);
-            }
-            else {
+            } else {
               glowFilter.outerStrength = outerStrength;
               glowFilter.innerStrength = innerStrength;
             }
@@ -2712,7 +2885,11 @@ export class Fight {
         speed: this.speed,
         duration: 0.4,
         ease: Easing.easeInCubic,
-        endPosition: { x, y, zIndex: y },
+        endPosition: {
+          x,
+          y,
+          zIndex: y,
+        },
         seeking: this.seeking,
       });
 
@@ -2840,6 +3017,7 @@ export class Fight {
             .forEach((weapon, i) => {
               // Get random duration
               const duration = 1 + randomBetween(1, 10) / 10;
+
               // Get target position
               const targetPosition = {
                 x: fighter.team === 'R'
@@ -2896,6 +3074,7 @@ export class Fight {
         x: brute.animation.container.x,
         y: brute.animation.container.y,
       };
+
       const end = {
         x: target.animation.container.x,
         y: target.animation.container.y - FIGHTER_HEIGHT.brute / 2,
@@ -3028,9 +3207,11 @@ export class Fight {
     // Weapon return
     if (step.r) {
       // Get correct animation
-      const animation = fighter.type === 'brute'
-        ? fighter.animation.weapon ? weapons[fighter.animation.weapon].animation : 'fist'
-        : 'attack';
+      let animation: Animation = 'attack';
+
+      if (fighter.type === 'brute') {
+        animation = fighter.animation.weapon ? weapons[fighter.animation.weapon].animation : 'fist';
+      }
 
       // Set animation to the correct animation
       fighter.animation.setAnimation(animation, 0, this.seeking);
@@ -3076,6 +3257,7 @@ export class Fight {
           : fighter.animation.container.x,
         y: fighter.animation.container.y - fighter.animation.baseHeight * 0.5,
       };
+
       // Get end position
       const end = {
         x: target.team === 'L'
@@ -3233,7 +3415,10 @@ export class Fight {
             // Create trashed weapon sprite
             const trashedWeapon = new Sprite(spritesheet.textures[`${weaponName}.png`]);
 
-            trashedWeapon.filters = [new DropShadowFilter({ alpha: 0, quality: 1 })];
+            trashedWeapon.filters = [new DropShadowFilter({
+              alpha: 0,
+              quality: 1,
+            })];
             trashedWeapon.zIndex = 1;
 
             // Anchor to left center
@@ -3243,7 +3428,7 @@ export class Fight {
             trashedWeapon.position.set(brute.team === 'L'
               ? brute.animation.container.x + brute.animation.baseWidth * 0.25
               : brute.animation.container.x + brute.animation.baseWidth * 0.25,
-              brute.animation.container.y - brute.animation.baseHeight * 0.5,
+            brute.animation.container.y - brute.animation.baseHeight * 0.5,
             );
 
             // Set angle
@@ -3410,7 +3595,12 @@ export class Fight {
       // Blood vfx
       this.playHitEffect(brute, target, 'blood');
       displayHeal(this.app, brute, step.h, this.speed);
-      displayDamage({ app: this.app, target, damage: step.d, speed: this.speed });
+      displayDamage({
+        app: this.app,
+        target,
+        damage: step.d,
+        speed: this.speed,
+      });
     }
 
     // Play the resist animation now
@@ -3553,7 +3743,7 @@ export class Fight {
           fontSize: 30,
           fill: 0xffffff,
           align: 'center',
-        }
+        },
       });
       motionBlur = new MotionBlurFilter({
         velocity: [50, 0],
@@ -3641,8 +3831,9 @@ export class Fight {
     }
 
     for (const skill of step.s) {
-      if (!skills[SkillById[skill.i]].uses)
+      if (!skills[SkillById[skill.i]].uses) {
         continue;
+      }
 
       this.updateSkills(fighter, skill.i, 'add', skill.t);
 
@@ -3676,12 +3867,14 @@ export class Fight {
     const repositioning: Promise<void>[] = [];
 
     for (const fighter of this.fighters) {
-      if (excludedFighterId && fighter.id === excludedFighterId)
+      if (excludedFighterId && fighter.id === excludedFighterId) {
         continue;
+      }
 
       // Can't reposition if dead or stunned or trapped
-      if (fighter.dead || fighter.stunned || fighter.trapped)
+      if (fighter.dead || fighter.stunned || fighter.trapped) {
         continue;
+      }
 
       // Mispositionned fighter can be:
       //   - One that countered a lot without moving
@@ -3702,12 +3895,16 @@ export class Fight {
       const fighter = misplacedFighters[i];
       const targetPosition = targetPositions[i];
 
-      if (!fighter || !targetPosition)
+      if (!fighter || !targetPosition) {
         continue;
+      }
 
       // Move back to the right half of the map
       repositioning.push(
-        this.moveBack({ a: StepType.MoveBack, f: fighter.index }, targetPosition),
+        this.moveBack({
+          a: StepType.MoveBack,
+          f: fighter.index,
+        }, targetPosition),
       );
     }
 
@@ -3718,7 +3915,9 @@ export class Fight {
     const fighter = findFighter(this.fighters, fighterIndex);
 
     // Abort if not focused or not brute
-    if (fighter.HUDFocused || fighter.type !== 'brute') return;
+    if (fighter.HUDFocused || fighter.type !== 'brute') {
+      return;
+    }
 
     this.fighters.forEach((f) => {
       if (f.team === fighter.team) {
@@ -3727,7 +3926,9 @@ export class Fight {
     });
     fighter.HUDFocused = true;
 
-    if (this.seeking) return;
+    if (this.seeking) {
+      return;
+    }
 
     if (fighter.text) {
       fighter.text.text = fighter.name.toLocaleUpperCase();
@@ -3739,11 +3940,14 @@ export class Fight {
 
     if (!this.app.stage
       || this.app.stage.destroyed
-      || fighter.animation.container.destroyed) return;
+      || fighter.animation.container.destroyed) {
+      return;
+    }
 
     if (fighter.bust && fighter.bustImage) {
       fighter.bust.texture = Texture.from(fighter.bustImage);
     }
+
     // Don't update hp bar if clanwar
     if (!this.isClanWar) {
       this.updateHp(fighter, fighter.hp, true);
@@ -3756,7 +3960,7 @@ export class Fight {
     brute: AnimationFighter,
     weapon?: WeaponId,
     action?: 'remove' | 'add',
-    weaponTier?: number
+    weaponTier?: number,
   ) {
     // Only affect the HUD for the focused brutes
     if (!this.seeking && brute.HUDFocused) {
@@ -3778,6 +3982,7 @@ export class Fight {
       if (typeof weapon === 'undefined') {
         throw new Error('Weapon not found');
       }
+
       if (typeof weaponTier === 'undefined') {
         throw new Error('Weapon tier not found');
       }
@@ -3785,7 +3990,9 @@ export class Fight {
       brute.weapons[weapon] = weaponTier;
     }
 
-    if (this.seeking) return;
+    if (this.seeking) {
+      return;
+    }
 
     const spritesheet = this.spritesheets.misc;
 
@@ -3800,6 +4007,7 @@ export class Fight {
         }
 
         const sprite = new Sprite(texture);
+
         sprite.label = w.toString();
         sprite.zIndex = 104;
         sprite.width = WEAPON_SIZE;
@@ -3810,6 +4018,7 @@ export class Fight {
         } else {
           sprite.x = 480 - ((index % WEAPONS_PER_ROW) * (WEAPON_SIZE + WEAPON_SPACING) + 60);
         }
+
         sprite.y = Math.floor(index / WEAPONS_PER_ROW) * (WEAPON_SIZE + WEAPON_SPACING) + 40;
         sprite.filters = [];
 
@@ -3819,7 +4028,9 @@ export class Fight {
             color: parseInt(TieredPerkColor[tier]?.slice(1) ?? '0', 16),
           })];
         }
+
         sprite.filters = sprite.filters.concat(new OutlineFilter());
+
         if (brute.toggleTooltip) {
           bindFightTooltip(sprite, () => ({
             type: 'weapon',
@@ -3827,6 +4038,7 @@ export class Fight {
             tier,
           }), brute.toggleTooltip);
         }
+
         this.app.stage.addChild(sprite);
         brute.teamWeaponsIllustrations.push(sprite);
 
@@ -3874,7 +4086,9 @@ export class Fight {
       addSkillUse(brute, skillId, skillTier);
     }
 
-    if (this.seeking) return;
+    if (this.seeking) {
+      return;
+    }
 
     const spritesheet = this.spritesheets.skills;
 
@@ -3911,6 +4125,7 @@ export class Fight {
           } else {
             sprite.x = 480 - ((index % SKILLS_PER_ROW) * (SKILL_SIZE + SKILL_SPACING) + 60);
           }
+
           sprite.y = Math.floor(index / SKILLS_PER_ROW)
             * (SKILL_SIZE + SKILL_SPACING)
             + skillsStartY;
@@ -3922,6 +4137,7 @@ export class Fight {
               tier: currentSkill.tier,
             }), brute.toggleTooltip);
           }
+
           this.app.stage.addChild(sprite);
           brute.teamSkillsIllustrations.push(sprite);
 
@@ -3935,32 +4151,44 @@ export class Fight {
   itemDrop(
     fighter: AnimationFighter,
     item: WeaponId | 'shield',
-    { initialPosition,
+    {
+      initialPosition,
       initialVelocity,
       broken,
-      saboteur }: {
+      saboteur,
+    }: {
         initialPosition?: { x?: number; y?: number; r?: number },
         initialVelocity?: { x?: number; y?: number; r?: number },
         broken?: boolean;
         saboteur?: boolean;
-      } = {}
+      } = {},
   ) {
-    if (this.seeking) return;
+    if (this.seeking) {
+      return;
+    }
 
     const itemSpriteSheet = item === 'shield' || broken || saboteur
       ? this.spritesheets.misc
       : this.spritesheets.thrownWeapons;
 
     // Shield / weapon / broken-weapon / saboteur-weapon texture
-    const itemTexture = itemSpriteSheet.textures[
-      item === 'shield'
-        ? 'shield.png'
-        : broken
-          ? `broken-weapons/${WeaponById[item]}.png`
-          : saboteur
-            ? `saboteur-weapons/${WeaponById[item]}.png`
-            : `${WeaponById[item]}.png`
-    ];
+    const getItemTextureName = () => {
+      if (item === 'shield') {
+        return 'shield.png';
+      }
+
+      if (broken) {
+        return `broken-weapons/${WeaponById[item]}.png`;
+      }
+
+      if (saboteur) {
+        return `saboteur-weapons/${WeaponById[item]}.png`;
+      }
+
+      return `${WeaponById[item]}.png`;
+    };
+
+    const itemTexture = itemSpriteSheet.textures[getItemTextureName()];
 
     // Create sprites
     const itemSprite = new Sprite(itemTexture);
@@ -3976,6 +4204,7 @@ export class Fight {
         - fighter.animation.baseWidth * 0.25
         + itemSprite.width * 0.2
       );
+
     const itemY = initialPosition?.y
       ?? (fighter.animation.container.y
         - fighter.animation.baseHeight * 0.5 - itemSprite.width * 0.7);
@@ -3992,8 +4221,13 @@ export class Fight {
     shadowContainer.addChild(shadowSprite);
 
     itemContainer.zIndex = baseZIndex;
+
     // Add a transparent shadow filter to item sprite that will be faded in at the end
-    const shadowFilter = new DropShadowFilter({ alpha: 0, quality: 1 });
+    const shadowFilter = new DropShadowFilter({
+      alpha: 0,
+      quality: 1,
+    });
+
     itemSprite.filters = [shadowFilter];
     itemSprite.anchor.set(0.5, 0.5);
     // Set sprite angle
@@ -4013,7 +4247,7 @@ export class Fight {
       strength: 4,
       quality: 4,
       resolution: 4,
-      kernelSize: 5
+      kernelSize: 5,
     })];
     shadowContainer.scale.y = 0.4;
 
@@ -4033,13 +4267,18 @@ export class Fight {
       : Math.max(0.1, weapons[WeaponById[item]].damage[0] / 70);
 
     // Lower weight if broken or saboteur (plastic)
-    if (broken) itemWeight *= 0.5;
-    if (saboteur) itemWeight = Math.min(itemWeight, 0.2);
+    if (broken) {
+      itemWeight *= 0.5;
+    }
+
+    if (saboteur) {
+      itemWeight = Math.min(itemWeight, 0.2);
+    }
 
     // Roundness coefficient to handle bounces
     const itemRoundness = Math.min(
       0.7,
-      Math.min(itemSprite.height, itemSprite.width) / Math.max(itemSprite.height, itemSprite.width)
+      Math.min(itemSprite.height, itemSprite.width) / Math.max(itemSprite.height, itemSprite.width),
     );
 
     // How much the item will bounce
@@ -4068,7 +4307,9 @@ export class Fight {
 
     // Update function
     const update = (ticker: Ticker) => {
-      if (this.reversing) return;
+      if (this.reversing) {
+        return;
+      }
 
       const deltaTime = ticker.deltaTime * this.speed.current * itemSpeed;
 
@@ -4077,7 +4318,10 @@ export class Fight {
       itemContainer.y += velocity.y * deltaTime;
 
       // Update angle
-      if (levitate) velocity.r = 270 - itemSprite.angle;
+      if (levitate) {
+        velocity.r = 270 - itemSprite.angle;
+      }
+
       itemSprite.angle = (((itemSprite.angle + velocity.r * deltaTime) % 360) + 360) % 360;
 
       // Update shadow x
@@ -4090,8 +4334,10 @@ export class Fight {
         shadowContainer.alpha = (10 - numBounces) * 0.1
           * Math.max(0.6, Math.abs(itemContainer.y - shadowContainer.y) / 200);
       }
+
       // Check if item is in contact with the ground
       const itemBounds = itemSprite.getBounds().rectangle;
+
       if (itemBounds.y + itemBounds.height > baseZIndex && velocity.y > 0) {
         // Increment number of bounces
         numBounces++;
@@ -4104,32 +4350,39 @@ export class Fight {
         let vxCoef = 0;
         let vyCoef = 0;
         let vrCoef = 0;
+
         // Interpolate the influence depending on the item angle for realism
         // For instance, for 0 - 45 - 90 - 135 - 0 angles, x influence is 0.7 - 0.5 - 0.6 - 0.5 - 0.7
         if (currentAngle < 45) {
           const interpFactor = currentAngle / 45;
+
           vxCoef = 0.7 * (1 - interpFactor) + 0.5 * interpFactor;
           vyCoef = 0.8 * (1 - interpFactor) + 0.6 * interpFactor;
           vrCoef = -0.5 * (1 - interpFactor) + -1 * interpFactor;
         } else if (currentAngle < 90) {
           const interpFactor = (currentAngle - 45) / 45;
+
           vxCoef = 0.5 * (1 - interpFactor) + 0.6 * interpFactor;
           vyCoef = 0.6 * (1 - interpFactor) + 0.1 * interpFactor;
           vrCoef = -1 * (1 - interpFactor) + -0.5 * interpFactor;
         } else if (currentAngle < 135) {
           const interpFactor = (currentAngle - 90) / 45;
+
           vxCoef = 0.6 * (1 - interpFactor) + 0.5 * interpFactor;
           vyCoef = 0.1 * (1 - interpFactor) + 0.6 * interpFactor;
           vrCoef = 0.5 * (1 - interpFactor) + 1 * interpFactor;
         } else {
           const interpFactor = (currentAngle - 135) / 45;
+
           vxCoef = 0.5 * (1 - interpFactor) + 0.7 * interpFactor;
           vyCoef = 0.6 * (1 - interpFactor) + 0.8 * interpFactor;
           vrCoef = 1 * (1 - interpFactor) + 0.5 * interpFactor;
         }
+
         // Get the new velocity
         const newVr = vrCoef * 1
           * (vxCoef * Math.abs(velocity.x) + vyCoef * velocity.y + 10 / numBounces);
+
         const newVx = velocity.x * (1 - vxCoef) * (1 - itemWeight);
         const newVy = velocity.y * (1 - vyCoef);
 
@@ -4176,14 +4429,16 @@ export class Fight {
       if (endPhase) {
         // Get the progress of the end phase
         const progress = Math.min(1, (endShadowAlpha - shadowContainer.alpha) / endShadowAlpha);
+
         // Change the item scale to make a minimal 3d effect
         const finalScale = Math.min(
           0.8 + 0.2 * (Math.min(
             Math.abs(itemSprite.angle - 90),
-            Math.abs(itemSprite.angle - 270)
+            Math.abs(itemSprite.angle - 270),
           ) / 90),
-          itemRoundness > 0.6 ? 0.85 : 1
+          itemRoundness > 0.6 ? 0.85 : 1,
         );
+
         itemContainer.scale.y = 1 + (finalScale - 1) * progress;
         shadowContainer.scale.y = 1 + (finalScale - 1) * progress;
         // Move the shadow behind the item
@@ -4197,6 +4452,7 @@ export class Fight {
 
       // Add gravity at the end of the update process
       velocity.y += deltaTime * gravity;
+
       // If item goes off the screen
       if (itemContainer.x - itemSprite.width > this.app.screen.width
         || itemContainer.x + itemSprite.width < 0
@@ -4222,6 +4478,7 @@ export class Fight {
   ) {
     const knockBackDistance = getRealKnockBack(fighter, unsignedKnockBack);
     const x = fighter.animation.container.x + knockBackDistance;
+
     // Move fighter
     if (this.seeking) {
       fighter.animation.container.x = x;
@@ -4246,7 +4503,7 @@ export class Fight {
 
     // Stagger animation
     staggers.push(
-      this._staggerObject(fighter.animation.container, fighter.team, knockBack, duration)
+      this._staggerObject(fighter.animation.container, fighter.team, knockBack, duration),
     );
 
     // Stagger bust
@@ -4280,6 +4537,7 @@ export class Fight {
       knockBack * 0.2 + -8,
       knockBack * 0.2,
     ];
+
     const segments = [0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2];
 
     const baseX = object.x;
@@ -4289,6 +4547,7 @@ export class Fight {
     for (let i = 0; i < deltas.length; i++) {
       const delta = deltas[i] ?? 0;
       const segment = segments[i] ?? 0;
+
       currentX += delta;
       keyframes.push({
         x: currentX,
@@ -4310,12 +4569,15 @@ export class Fight {
     fighter: AnimationFighter,
     offset = 0,
   ) {
-    if (this.seeking) return;
+    if (this.seeking) {
+      return;
+    }
 
     const spritesheet = this.spritesheets.misc;
 
     // Create dust sprite
     const dustSprite = fightSprite(spritesheet.animations.dust);
+
     dustSprite.animationSpeed = this.speed.current / 2;
     dustSprite.loop = false;
 
@@ -4341,7 +4603,9 @@ export class Fight {
     target: AnimationFighter,
     VFX?: string,
   ) {
-    if (this.seeking) return;
+    if (this.seeking) {
+      return;
+    }
 
     const spritesheet = this.spritesheets.misc;
 
@@ -4357,6 +4621,7 @@ export class Fight {
 
     // Create hit VFX
     const hitVfx = fightSprite(spritesheet.animations[vfx]);
+
     hitVfx.zIndex = 1000;
     hitVfx.animationSpeed = this.speed.current / 4;
     hitVfx.loop = false;
@@ -4410,6 +4675,7 @@ export class Fight {
   ) {
     if (fighter.trapped) {
       fighter.trapped = false;
+
       if (fighter.type === 'brute') {
 
         fighter.stunned = true;
@@ -4434,6 +4700,7 @@ export class Fight {
       // Create 6 net parts
       for (let i = 0; i < 6; i += 1) {
         const netPart = new Sprite(spritesheet.textures['net-part.png']);
+
         netPart.filters = [new BevelFilter()];
         // Set random position around fighter
         netPart.position.set(
@@ -4498,7 +4765,9 @@ export class Fight {
       fighter.hp += realHpChange;
     }
 
-    if (this.seeking) return;
+    if (this.seeking) {
+      return;
+    }
 
     let currentHP = 0;
 
@@ -4520,6 +4789,7 @@ export class Fight {
     const newWidth = Math.max(1, Math.min(236, percent));
 
     hpBar.width = newWidth;
+
     if (currentHP === 0) {
       hpBar.visible = false;
     } else {
@@ -4528,6 +4798,7 @@ export class Fight {
 
     if (fix) {
       hpBarPhantom.width = newWidth;
+
       if (currentHP === 0) {
         hpBarPhantom.visible = false;
       } else {

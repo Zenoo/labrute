@@ -1,12 +1,12 @@
 import {
-  BruteRanking, BruteRankings, BrutesGetForRankResponse, BrutesGetNeighborsForRankResponse
+  BruteRanking, BruteRankings, BrutesGetForRankResponse, BrutesGetNeighborsForRankResponse,
 } from '@labrute/core';
 import {
   Box, Grid, Paper, Table, TableBody, TableCell,
-  TableHead, TableRow, Tooltip, useMediaQuery, useTheme
+  TableHead, TableRow, Tooltip, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useEffect, useMemo, useState
+  useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, Link as RouterLink } from 'react-router';
@@ -18,7 +18,6 @@ import { Text } from '../components/Text';
 import { useStateAsync } from '../hooks/useStateAsync';
 import { useAuth } from '../hooks/useAuth';
 import { useBrute } from '../hooks/useBrute';
-import { getBruteWinrate } from '../utils/getBruteWinrate';
 import { useServer } from '../hooks/useServer';
 import { BruteName } from '../components/Brute/BruteName';
 
@@ -37,15 +36,18 @@ export const RankingView = () => {
     name: bruteName || '',
     rank: rank || '0',
   }), [bruteName, rank]);
+
   const { data: rankingData } = useStateAsync(null, Server.Brute.getForRank, rankingProps);
+
   const [neighborsData, setNeighborsData] = useState<BrutesGetNeighborsForRankResponse | null>(
-    null
+    null,
   );
 
   // Fetch neighbors only if brute is not in top 15 AND we're viewing the brute's own rank
   useEffect(() => {
     if (!rankingData || rankingData.bruteInTop || !brute) {
       setNeighborsData(null);
+
       return undefined;
     }
 
@@ -53,10 +55,12 @@ export const RankingView = () => {
     if ((ranking !== -1 && ranking !== brute.ranking)
       || (ranking === -1 && brute.eventId === null)) {
       setNeighborsData(null);
+
       return undefined;
     }
 
     let isSubscribed = true;
+
     Server.Brute.getNeighborsForRank(rankingProps).then((data) => {
       if (isSubscribed) {
         setNeighborsData(data);
@@ -65,11 +69,15 @@ export const RankingView = () => {
       console.error(error);
     });
 
-    return () => { isSubscribed = false; };
+    return () => {
+      isSubscribed = false;
+    };
   }, [rankingData, rankingProps, Server.Brute, ranking, brute]);
 
   const rankings = useMemo(() => {
-    if (!rankingData) return null;
+    if (!rankingData) {
+      return null;
+    }
 
     // If brute is in top 15, no neighbors needed
     if (rankingData.bruteInTop) {
@@ -142,7 +150,10 @@ export const RankingView = () => {
           })}
         </Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Box sx={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -187,7 +198,10 @@ export const RankingView = () => {
                   <Box
                     component="img"
                     src={`/images/rankings/lvl_${bruteRanking}.webp`}
-                    sx={{ height: 38, width: 38 }}
+                    sx={{
+                      height: 38,
+                      width: 38,
+                    }}
                   />
                 </StyledButton>
               </RouterLink>
@@ -264,7 +278,10 @@ export const RankingView = () => {
             </Text>
           </Grid>
           {!isMd && (
-            <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Grid item xs={12} md={3} sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}>
               <Box component="img" src={`/images${theme.palette.mode === 'dark' ? '/dark' : ''}/arena/referee.webp`} sx={{ maxWidth: 1 }} />
             </Grid>
           )}

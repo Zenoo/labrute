@@ -7,7 +7,9 @@ import { lockAccountSanction } from './accountSanctionLock.js';
 import { traced } from '../trace.js';
 
 export const unbanUser = async (prisma: PrismaClient, rawId: string, actor: AuthedUser) => {
-  if (!isUuid(rawId)) throw new ExpectedError('Invalid account ID');
+  if (!isUuid(rawId)) {
+    throw new ExpectedError('Invalid account ID');
+  }
 
   const id = rawId.toLowerCase();
 
@@ -20,55 +22,87 @@ export const unbanUser = async (prisma: PrismaClient, rawId: string, actor: Auth
         bannedAt: true,
         brutes: {
           where: {
-            deletedAt: { not: null }, deletionReason: BruteDeletionReason.BANNED_USER,
+            deletedAt: { not: null },
+            deletionReason: BruteDeletionReason.BANNED_USER,
           },
-          select: { id: true, name: true }
+          select: {
+            id: true,
+            name: true,
+          },
         },
-      }
+      },
     }));
 
-    if (!user) throw new NotFoundError('User not found');
-    if (!user.bannedAt) return;
+    if (!user) {
+      throw new NotFoundError('User not found');
+    }
+
+    if (!user.bannedAt) {
+      return;
+    }
 
     // Restore all brutes
     for (const brute of user.brutes) {
       // Check if the name is available
-      const duplicate = await traced('unbanUser.countDuplicateBrute', () => tx.brute.count({ where: { name: brute.name, deletedAt: null } }));
+      const duplicate = await traced('unbanUser.countDuplicateBrute', () => tx.brute.count({
+        where: {
+          name: brute.name,
+          deletedAt: null,
+        },
+      }));
 
       if (duplicate) {
         // Rename brute with _unbanned suffix
         await traced('unbanUser.updateBruteName', () => tx.brute.update({
           where: { id: brute.id },
-          data: { name: `${brute.name}_unbanned` }
+          data: { name: `${brute.name}_unbanned` },
         }));
 
         // Add 1x free name change
         await traced('unbanUser.upsertInventoryItem', () => tx.inventoryItem.upsert({
           where: {
-            type_bruteId: { type: InventoryItemType.nameChange, bruteId: brute.id },
+            type_bruteId: {
+              type: InventoryItemType.nameChange,
+              bruteId: brute.id,
+            },
           },
-          create: { type: InventoryItemType.nameChange, bruteId: brute.id, count: 1 },
-          update: { count: { increment: 1 } }
+          create: {
+            type: InventoryItemType.nameChange,
+            bruteId: brute.id,
+            count: 1,
+          },
+          update: { count: { increment: 1 } },
         }));
       }
 
       // Restore brute
       await traced('unbanUser.updateBrute', () => tx.brute.update({
-        where: { id: brute.id }, data: { deletedAt: null, deletionReason: null },
+        where: { id: brute.id },
+        data: {
+          deletedAt: null,
+          deletionReason: null,
+        },
       }));
     }
 
     await traced('unbanUser.updateUser', () => tx.user.update({
-      where: { id }, data: {
-        bannedAt: null, banReason: null, banAppealCode: null,
-      }
+      where: { id },
+      data: {
+        bannedAt: null,
+        banReason: null,
+        banAppealCode: null,
+      },
     }));
 
     await traced('unbanUser.createSecurityAction', () => tx.securityAction.create({
       data: {
-        subjectType: 'account', subjectId: id, userId: id, actorId: actor.id,
-        action: 'unban', reason: 'Manual account unban',
-      }
+        subjectType: 'account',
+        subjectId: id,
+        userId: id,
+        actorId: actor.id,
+        action: 'unban',
+        reason: 'Manual account unban',
+      },
     }));
   }, { timeout: 30000 });
 };

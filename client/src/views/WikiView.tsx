@@ -1,24 +1,62 @@
-import { BruteRankings, DailyTournamentGoldReward, DailyTournamentXpReward, getBruteGoldValue, getGoldNeededForNewBrute, getWinsNeededToRankUp, GlobalTournamentGoldReward, GlobalTournamentXpReward, RESET_PRICE } from '@labrute/core';
-import { Box, Grid, Paper } from '@mui/material';
+import {
+  BruteRankings, DailyTournamentGoldReward, DailyTournamentXpReward,
+  getBruteGoldValue, getGoldNeededForNewBrute, getWinsNeededToRankUp,
+  GlobalTournamentGoldReward, GlobalTournamentXpReward, RESET_PRICE,
+} from '@labrute/core';
+import {
+  Box, Grid, Paper,
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../components/FantasyButton';
 import { Page } from '../components/Page';
 import { Text } from '../components/Text';
-import { ChildCare, EmojiEvents, Groups, KeyboardDoubleArrowUp } from '@mui/icons-material';
+import {
+  ChildCare, EmojiEvents, Groups, KeyboardDoubleArrowUp,
+} from '@mui/icons-material';
 import { Brute } from '@labrute/prisma';
 
 const sacrificeExamples = [
-  { rank: 11, level: 10 },
-  { rank: 11, level: 20 },
-  { rank: 11, level: 30 },
-  { rank: 11, level: 40 },
-  { rank: 11, level: 50 },
-  { rank: 10, level: 10 },
-  { rank: 9, level: 20 },
-  { rank: 8, level: 30 },
-  { rank: 7, level: 40 },
-  { rank: 6, level: 50 },
+  {
+    rank: 11,
+    level: 10,
+  },
+  {
+    rank: 11,
+    level: 20,
+  },
+  {
+    rank: 11,
+    level: 30,
+  },
+  {
+    rank: 11,
+    level: 40,
+  },
+  {
+    rank: 11,
+    level: 50,
+  },
+  {
+    rank: 10,
+    level: 10,
+  },
+  {
+    rank: 9,
+    level: 20,
+  },
+  {
+    rank: 8,
+    level: 30,
+  },
+  {
+    rank: 7,
+    level: 40,
+  },
+  {
+    rank: 6,
+    level: 50,
+  },
 ];
 
 export const WikiView = () => {
@@ -50,7 +88,10 @@ export const WikiView = () => {
           <Grid item xs={12} sm={6}>
             {/* RANK UP */}
             <FantasyButton color="success" sx={{ ml: 0 }}>
-              <KeyboardDoubleArrowUp sx={{ verticalAlign: 'middle', mr: 1 }} />
+              <KeyboardDoubleArrowUp sx={{
+                verticalAlign: 'middle',
+                mr: 1,
+              }} />
               {t('rankUp')}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howToRankup')}</Text>
@@ -60,22 +101,41 @@ export const WikiView = () => {
                 <Box
                   component="img"
                   src={`/images/rankings/lvl_${rank}.webp`}
-                  sx={{ width: 16, mx: 1, verticalAlign: 'middle' }}
+                  sx={{
+                    width: 16,
+                    mx: 1,
+                    verticalAlign: 'middle',
+                  }}
                 />
                 →
                 <Box
                   component="img"
                   src={`/images/rankings/lvl_${rank - 1}.webp`}
-                  sx={{ width: 16, mx: 1, verticalAlign: 'middle' }}
+                  sx={{
+                    width: 16,
+                    mx: 1,
+                    verticalAlign: 'middle',
+                  }}
                 />
-                {t('wins', { count: getWinsNeededToRankUp({ ranking: rank, ascensions: 0 }) })}
+                {t('wins', {
+                  count: getWinsNeededToRankUp({
+                    ranking: rank,
+                    ascensions: 0,
+                  }),
+                })}
               </Text>
             ))}
             <Text body2>{t('restartAfterRankup')}</Text>
             <Text body2>{t('previousDestiny')}</Text>
             {/* TOURNAMENTS */}
-            <FantasyButton color="warning" sx={{ ml: 0, mt: 3 }}>
-              <EmojiEvents sx={{ verticalAlign: 'middle', mr: 1 }} />
+            <FantasyButton color="warning" sx={{
+              ml: 0,
+              mt: 3,
+            }}>
+              <EmojiEvents sx={{
+                verticalAlign: 'middle',
+                mr: 1,
+              }} />
               {t('tournaments')}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howWork')}</Text>
@@ -98,8 +158,14 @@ export const WikiView = () => {
             <Text body2>- {t('unregisteredOnly')}</Text>
             <Text body2>- {t('noRewards')}</Text>
             {/* CLANS */}
-            <FantasyButton color="warning" sx={{ ml: 0, mt: 3 }}>
-              <Groups sx={{ verticalAlign: 'middle', mr: 1 }} />
+            <FantasyButton color="warning" sx={{
+              ml: 0,
+              mt: 3,
+            }}>
+              <Groups sx={{
+                verticalAlign: 'middle',
+                mr: 1,
+              }} />
               {t('clans')}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('increaseClanCapacity')}</Text>
@@ -109,13 +175,19 @@ export const WikiView = () => {
               component="img"
               display="block"
               src="/images/wiki/defeat-boss.png"
-              sx={{ mt: 1, maxWidth: 200 }}
+              sx={{
+                mt: 1,
+                maxWidth: 200,
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             {/* GOLD */}
             <FantasyButton color="warning" sx={{ ml: 0 }}>
-              <Box component="img" src="/images/gold.png" sx={{ verticalAlign: 'middle', mr: 1 }} />
+              <Box component="img" src="/images/gold.png" sx={{
+                verticalAlign: 'middle',
+                mr: 1,
+              }} />
               {t('gold')}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('howToGetGold')}</Text>
@@ -126,7 +198,11 @@ export const WikiView = () => {
                   <Box
                     component="img"
                     src={`/images/rankings/lvl_${rank}.webp`}
-                    sx={{ width: 16, mx: 1, verticalAlign: 'middle' }}
+                    sx={{
+                      width: 16,
+                      mx: 1,
+                      verticalAlign: 'middle',
+                    }}
                   />
                   {t('level', { count: level })} = {getBruteGoldValue({
                     level,
@@ -137,7 +213,10 @@ export const WikiView = () => {
                   <Box
                     component="img"
                     src="/images/gold.png"
-                    sx={{ ml: 0.5, verticalAlign: 'middle' }}
+                    sx={{
+                      ml: 0.5,
+                      verticalAlign: 'middle',
+                    }}
                   />
                 </Text>
               ))}
@@ -149,7 +228,10 @@ export const WikiView = () => {
               <Box
                 component="img"
                 src="/images/gold.png"
-                sx={{ ml: 0.5, verticalAlign: 'middle' }}
+                sx={{
+                  ml: 0.5,
+                  verticalAlign: 'middle',
+                }}
               />
             </Text>
             <Text h6 upperCase typo="LaBrute" color="secondary">
@@ -157,7 +239,10 @@ export const WikiView = () => {
               <Box
                 component="img"
                 src="/images/gold.png"
-                sx={{ ml: 0.5, verticalAlign: 'middle' }}
+                sx={{
+                  ml: 0.5,
+                  verticalAlign: 'middle',
+                }}
               />
             </Text>
             <Text h6 upperCase typo="LaBrute" color="secondary">• {t('beatClanBoss')}</Text>
@@ -165,11 +250,17 @@ export const WikiView = () => {
             <Text h6 upperCase typo="LaBrute" color="secondary">• {t('createNewBrutes')}</Text>
             {[4, 5, 6].map((brutes) => (
               <Text body2 key={brutes}>
-                {t('count', { count: brutes })} = {getGoldNeededForNewBrute({ bruteLimit: brutes - 1, brutes: new Array(brutes - 1).fill({ id: '' }) as Pick<Brute, 'id'>[] })}
+                {t('count', { count: brutes })} = {getGoldNeededForNewBrute({
+                  bruteLimit: brutes - 1,
+                  brutes: new Array(brutes - 1).fill({ id: '' }) as Pick<Brute, 'id'>[],
+                })}
                 <Box
                   component="img"
                   src="/images/gold.png"
-                  sx={{ ml: 0.5, verticalAlign: 'middle' }}
+                  sx={{
+                    ml: 0.5,
+                    verticalAlign: 'middle',
+                  }}
                 />
               </Text>
             ))}
@@ -178,14 +269,23 @@ export const WikiView = () => {
               <Box
                 component="img"
                 src="/images/gold.png"
-                sx={{ ml: 0.5, verticalAlign: 'middle' }}
+                sx={{
+                  ml: 0.5,
+                  verticalAlign: 'middle',
+                }}
               />
             </Text>
             <Text body2>{t('resetExample')}</Text>
             <Text body2>{t('resetExample2')}</Text>
             {/* PUPILS */}
-            <FantasyButton color="success" sx={{ ml: 0, mt: 3 }}>
-              <ChildCare sx={{ verticalAlign: 'middle', mr: 1 }} />
+            <FantasyButton color="success" sx={{
+              ml: 0,
+              mt: 3,
+            }}>
+              <ChildCare sx={{
+                verticalAlign: 'middle',
+                mr: 1,
+              }} />
               {t('pupils')}
             </FantasyButton>
             <Text h5 bold upperCase typo="LaBrute" color="secondary" mt={1}>{t('whatPupilBenefits')}</Text>

@@ -1,11 +1,11 @@
 import { Brute } from '@labrute/prisma';
 import { autoDetectRenderer, Renderer } from 'pixi.js';
 import React, {
-  useCallback, useContext, useEffect, useMemo, useRef, useState
+  useCallback, useContext, useEffect, useMemo, useRef, useState,
 } from 'react';
 import { BruteDisplay, clearPortraitCache } from 'labrute-pixi-static-portrait';
 import {
-  BruteColor, readBodyString, readColorString
+  BruteColor, readBodyString, readColorString,
 } from '@labrute/core';
 import { PORTRAIT_SCALE, PortraitFrame } from '../utils/portraitLayout';
 
@@ -78,9 +78,11 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
   const [queue, setQueue] = useState<BruteData[]>([]);
   const [renderers, setRenderers] = useState<RendererInstance[]>([]);
   const [cache, setCache] = useState<Cache>([]);
+
   const [callbacks, setCallbacks] = useState<
     Record<string, RenderCallback[]>
   >({});
+
   const isProcessingRef = useRef(false);
   const callbacksRef = useRef<Record<string, RenderCallback[]>>({});
   const cacheRef = useRef<Cache>([]);
@@ -97,15 +99,21 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
     const idCallbacks = callbacksRef.current[id] ?? [];
 
     const callback = idCallbacks[0];
-    if (!callback) return;
+
+    if (!callback) {
+      return;
+    }
 
     callback(content, frame);
 
     setCallbacks((prev) => {
       const prevCallbacks = prev[id] ?? [];
+
       if (prevCallbacks.length <= 1) {
         const next = { ...prev };
+
         delete next[id];
+
         return next;
       }
 
@@ -126,12 +134,15 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
         ...prev,
         [id]: [...(prev[id] ?? []), callback],
       }));
+
       return;
     }
 
     const cached = cacheRef.current.find((c) => c.id === id);
+
     if (cached) {
       callback(cached.content, cached.frame);
+
       return;
     }
 
@@ -147,22 +158,31 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
   // Process queue
   useEffect(() => {
-    if (isProcessingRef.current) return;
+    if (isProcessingRef.current) {
+      return;
+    }
 
     const request = queue[0];
-    if (!request) return;
+
+    if (!request) {
+      return;
+    }
 
     const { body, colors } = request;
+
     if (!body || !colors) {
       console.error('BruteRenderer: missing body or colors');
       setQueue((prev) => prev.slice(1));
+
       return;
     }
 
     const cached = cache.find((c) => c.id === request.id);
+
     if (cached && !request.skipCache) {
       setQueue((prev) => prev.slice(1));
       resolveCallbacks(request.id, cached.content, cached.frame);
+
       return;
     }
 
@@ -186,8 +206,13 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
         autoDensity: true,
         resolution: 1,
       }).then((renderer) => {
-        const rendererInstance: RendererInstance = { renderer, busy: false };
+        const rendererInstance: RendererInstance = {
+          renderer,
+          busy: false,
+        };
+
         setRenderers((prev) => [...prev, rendererInstance]);
+
         return rendererInstance;
       });
 
@@ -197,12 +222,14 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
         setRenderers((prev) => prev.filter((r) => r !== freeRenderer));
         isProcessingRef.current = false;
         setQueue((prev) => [...prev]);
+
         return;
       }
 
       freeRenderer.busy = true;
 
       let display: BruteDisplay | undefined;
+
       try {
         display = new BruteDisplay({
           renderer: freeRenderer.renderer,
@@ -214,20 +241,24 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
           highlightColorName: request.highlightColorName,
         });
         await display.ready;
+
         if (!isRendererUsable(freeRenderer.renderer) || display.container.destroyed) {
           resolveCallbacks(request.id, EMPTY_PNG);
+
           return;
         }
 
         // Keep the crop's origin: fitting every tight PNG to the same CSS width
         // would change the fighter's scale when hair or clothing changes its bounds.
         const bounds = display.container.getLocalBounds().rectangle.clone();
+
         const frame: PortraitFrame = {
           x: bounds.x / PORTRAIT_SCALE,
           y: bounds.y / PORTRAIT_SCALE,
           width: bounds.width / PORTRAIT_SCALE,
           height: bounds.height / PORTRAIT_SCALE,
         };
+
         const content = await freeRenderer.renderer.extract.image({
           target: display.container,
           frame: bounds,
@@ -237,12 +268,17 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
 
         if (!content?.src) {
           resolveCallbacks(request.id, EMPTY_PNG);
+
           return;
         }
 
         // Don't cache id 0 or requests with skipCache
         if (request.id && !request.skipCache) {
-          setCache((prev) => [...prev, { id: request.id, content: content.src, frame }]);
+          setCache((prev) => [...prev, {
+            id: request.id,
+            content: content.src,
+            frame,
+          }]);
         }
 
         resolveCallbacks(request.id, content.src, frame);
@@ -257,6 +293,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
         } catch {
           // Ignore renderer destroy errors during recovery.
         }
+
         setRenderers((prev) => prev.filter((r) => r !== freeRenderer));
         resolveCallbacks(request.id, EMPTY_PNG);
       } finally {
@@ -269,6 +306,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
         } else {
           setRenderers((prev) => prev.filter((r) => r !== freeRenderer));
         }
+
         isProcessingRef.current = false;
 
         // Trigger next processing cycle
@@ -288,7 +326,7 @@ export const RendererProvider = ({ children }: RendererProviderProps) => {
       onRender,
       resetCache,
     }),
-    [render, onRender, resetCache]
+    [render, onRender, resetCache],
   );
 
   return (

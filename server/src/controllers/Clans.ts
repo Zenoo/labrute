@@ -49,11 +49,13 @@ export const Clans = {
       }
 
       const page = +req.query.page;
+
       if (page < 1) {
         throw new MissingElementError('Page number must be greater than 0');
       }
 
       const { search } = req.query;
+
       if (search && typeof search !== 'string') {
         throw new ExpectedError('Invalid search parameter');
       }
@@ -176,6 +178,7 @@ export const Clans = {
       if (typeof banned?.[0]?.count !== 'bigint') {
         throw new ExpectedError('Error while checking banned words');
       }
+
       if (banned[0].count > 0) {
         throw new ForbiddenError(translate('nameContainsBannedWord', user));
       }
@@ -187,7 +190,10 @@ export const Clans = {
           brutes: { connect: { id: brute.id } },
           boss: BossName.Cerberus,
         },
-        select: { id: true, name: true },
+        select: {
+          id: true,
+          name: true,
+        },
       }));
 
       // Update clan points
@@ -217,7 +223,10 @@ export const Clans = {
       const { id } = req.params;
 
       const clan = await traced('clans.get.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         include: {
           master: {
             select: {
@@ -236,7 +245,11 @@ export const Clans = {
                 },
               },
               clanRole: {
-                select: { id: true, name: true, permissions: true },
+                select: {
+                  id: true,
+                  name: true,
+                  permissions: true,
+                },
               },
             },
             orderBy: [
@@ -259,7 +272,12 @@ export const Clans = {
           },
           bossDamages: {
             select: {
-              brute: { select: { id: true, name: true } },
+              brute: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
               damage: true,
             },
             orderBy: { damage: 'desc' },
@@ -330,6 +348,7 @@ export const Clans = {
 
       if (masterIndex !== -1) {
         const [master] = clan.brutes.splice(masterIndex, 1);
+
         if (master) {
           clan.brutes.unshift(master);
         }
@@ -361,7 +380,10 @@ export const Clans = {
       const { id } = req.params;
 
       const clan = await traced('clans.request.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           limit: true,
@@ -381,8 +403,12 @@ export const Clans = {
           eventId: null,
           userId: user.id,
         },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+        },
       }));
+
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
@@ -430,7 +456,10 @@ export const Clans = {
       const { id } = req.params;
 
       const clan = await traced('clans.cancelRequest.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           limit: true,
@@ -488,7 +517,10 @@ export const Clans = {
       const { id } = req.params;
 
       const clan = await traced('clans.accept.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           limit: true,
@@ -513,7 +545,11 @@ export const Clans = {
           id: true,
           clanId: true,
           clanRole: {
-            select: { id: true, name: true, permissions: true },
+            select: {
+              id: true,
+              name: true,
+              permissions: true,
+            },
           },
         },
       }));
@@ -521,6 +557,7 @@ export const Clans = {
       if (!clan) {
         throw new NotFoundError(translate('clanNotFound', user));
       }
+
       if (userClanBrutes.length === 0) {
         throw new ForbiddenError(translate('unauthorized', user));
       }
@@ -547,6 +584,7 @@ export const Clans = {
           ascensions: true,
         },
       }));
+
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
@@ -600,18 +638,28 @@ export const Clans = {
       const { id } = req.params;
 
       const clan = await traced('clans.reject.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
           joinRequests: { select: { id: true } },
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: {
+              userId: user.id,
+              deletedAt: null,
+            },
             select: {
               id: true,
               clanId: true,
               clanRole: {
-                select: { id: true, name: true, permissions: true },
+                select: {
+                  id: true,
+                  name: true,
+                  permissions: true,
+                },
               },
             },
           },
@@ -642,6 +690,7 @@ export const Clans = {
         },
         select: { id: true },
       }));
+
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
@@ -672,17 +721,27 @@ export const Clans = {
       const { id } = req.params;
 
       const clan = await traced('clans.remove.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: {
+              userId: user.id,
+              deletedAt: null,
+            },
             select: {
               id: true,
               clanId: true,
               clanRole: {
-                select: { id: true, name: true, permissions: true },
+                select: {
+                  id: true,
+                  name: true,
+                  permissions: true,
+                },
               },
             },
           },
@@ -712,9 +771,14 @@ export const Clans = {
           deletedAt: null,
         },
         select: {
-          id: true, level: true, ranking: true, ascensions: true, clanId: true,
+          id: true,
+          level: true,
+          ranking: true,
+          ascensions: true,
+          clanId: true,
         },
       }));
+
       if (!brute) {
         throw new NotFoundError(translate('bruteNotFound', user));
       }
@@ -745,7 +809,10 @@ export const Clans = {
           ],
           status: ClanWarStatus.ongoing,
         },
-        select: { id: true, fights: { select: { id: true } } },
+        select: {
+          id: true,
+          fights: { select: { id: true } },
+        },
       }));
 
       if (currentWar) {
@@ -817,7 +884,10 @@ export const Clans = {
       const { id } = req.params;
 
       const clan = await traced('clans.leave.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
@@ -836,7 +906,11 @@ export const Clans = {
           deletedAt: null,
         },
         select: {
-          id: true, level: true, ranking: true, ascensions: true, clanRoleId: true,
+          id: true,
+          level: true,
+          ranking: true,
+          ascensions: true,
+          clanRoleId: true,
         },
       }));
 
@@ -899,7 +973,10 @@ export const Clans = {
           ],
           status: ClanWarStatus.ongoing,
         },
-        select: { id: true, fights: { select: { id: true } } },
+        select: {
+          id: true,
+          fights: { select: { id: true } },
+        },
       }));
 
       if (currentWar) {
@@ -974,7 +1051,10 @@ export const Clans = {
           deletedAt: null,
           userId: user.id,
         },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+        },
       }));
 
       if (!brute) {
@@ -989,7 +1069,10 @@ export const Clans = {
       }
 
       const clan = await traced('clans.getThreads.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: { masterId: true },
       }));
 
@@ -1008,11 +1091,21 @@ export const Clans = {
           },
         },
         include: {
-          creator: { select: { id: true, name: true } },
+          creator: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
           posts: {
             select: {
               date: true,
-              author: { select: { id: true, name: true } },
+              author: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
             },
             orderBy: { date: 'desc' },
             take: 1,
@@ -1052,7 +1145,10 @@ export const Clans = {
           deletedAt: null,
           userId: user.id,
         },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+        },
       }));
 
       if (!brute) {
@@ -1125,7 +1221,10 @@ export const Clans = {
 
       const thread = await traced('clans.updateThread.findThread', () => prisma.clanThread.findFirst({
         where: { id: threadId },
-        select: { id: true, creatorId: true },
+        select: {
+          id: true,
+          creatorId: true,
+        },
       }));
 
       if (!thread) {
@@ -1187,7 +1286,10 @@ export const Clans = {
           deletedAt: null,
           userId: user.id,
         },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+        },
       }));
 
       if (!brute) {
@@ -1197,7 +1299,10 @@ export const Clans = {
       // Get thread
       const thread = await traced('clans.createPost.findThread', () => prisma.clanThread.findFirst({
         where: { id },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+        },
       }));
 
       if (!thread) {
@@ -1257,7 +1362,10 @@ export const Clans = {
           deletedAt: null,
           userId: user.id,
         },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+        },
       }));
 
       if (!brute) {
@@ -1266,9 +1374,13 @@ export const Clans = {
 
       const clan = await traced('clans.lockThread.findClan', () => prisma.clan.findFirst({
         where: {
-          id, deletedAt: null,
+          id,
+          deletedAt: null,
         },
-        select: { id: true, masterId: true },
+        select: {
+          id: true,
+          masterId: true,
+        },
       }));
 
       if (!clan) {
@@ -1339,7 +1451,10 @@ export const Clans = {
           deletedAt: null,
           userId: user.id,
         },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+        },
       }));
 
       if (!brute) {
@@ -1365,7 +1480,13 @@ export const Clans = {
               author: true,
             },
           },
-          clan: { select: { id: true, masterId: true, name: true } },
+          clan: {
+            select: {
+              id: true,
+              masterId: true,
+              name: true,
+            },
+          },
         },
       }));
 
@@ -1426,9 +1547,14 @@ export const Clans = {
 
       const clan = await traced('clans.challengeBoss.findClan', () => prisma.clan.findFirst({
         where: {
-          id, deletedAt: null,
+          id,
+          deletedAt: null,
         },
-        select: { id: true, boss: true, damageOnBoss: true },
+        select: {
+          id: true,
+          boss: true,
+          damageOnBoss: true,
+        },
       }));
 
       if (!clan) {
@@ -1437,6 +1563,7 @@ export const Clans = {
 
       // Get boss
       const boss = bosses.find((b) => b.name === clan.boss);
+
       if (!boss) {
         throw new NotFoundError('Boss not found');
       }
@@ -1467,7 +1594,10 @@ export const Clans = {
             team1: { brutes: [brute] },
             team2: {
               bosses: [
-                { ...boss, startHP: boss.hp - Math.floor(clan.damageOnBoss / boss.count) },
+                {
+                  ...boss,
+                  startHP: boss.hp - Math.floor(clan.damageOnBoss / boss.count),
+                },
               ],
             },
             modifiers,
@@ -1475,7 +1605,9 @@ export const Clans = {
             achievements: false,
             clanId: clan.id,
           });
+
           generatedFight = newGeneratedFight;
+
           if (newGeneratedFight.boss?.defeated) {
             bossXpGains = newGeneratedFight.boss.xp;
             bossGoldGains = newGeneratedFight.boss.gold;
@@ -1484,6 +1616,7 @@ export const Clans = {
           if (!(error instanceof Error)) {
             throw error;
           }
+
           if (error instanceof ExpectedError) {
             expectedError = error;
           } else {
@@ -1563,7 +1696,8 @@ export const Clans = {
 
       const clan = await traced('clans.pinThread.findClan', () => prisma.clan.findFirst({
         where: {
-          id, deletedAt: null,
+          id,
+          deletedAt: null,
         },
         select: {
           id: true,
@@ -1643,7 +1777,8 @@ export const Clans = {
 
       const clan = await traced('clans.pinThread.findClan', () => prisma.clan.findFirst({
         where: {
-          id, deletedAt: null,
+          id,
+          deletedAt: null,
         },
         select: {
           id: true,
@@ -1723,7 +1858,8 @@ export const Clans = {
 
       const clan = await traced('clans.pinThread.findClan', () => prisma.clan.findFirst({
         where: {
-          id, deletedAt: null,
+          id,
+          deletedAt: null,
         },
         select: {
           id: true,
@@ -1744,7 +1880,10 @@ export const Clans = {
           id: threadId,
           clanId: clan.id,
         },
-        select: { id: true, creatorId: true },
+        select: {
+          id: true,
+          creatorId: true,
+        },
       }));
 
       if (!thread) {
@@ -1752,6 +1891,7 @@ export const Clans = {
       }
 
       const canDelete = hasPermission(brute, clan, ClanPermission.canDeleteThreads);
+
       if (!canDelete && thread.creatorId !== brute.id) {
         throw new ForbiddenError(translate('unauthorized', user));
       }
@@ -1788,7 +1928,10 @@ export const Clans = {
       const { id } = req.params;
 
       const clan = await traced('clans.setMaster.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
@@ -1819,7 +1962,10 @@ export const Clans = {
           deletedAt: null,
         },
         select: {
-          id: true, level: true, ranking: true, clanId: true,
+          id: true,
+          level: true,
+          ranking: true,
+          clanId: true,
         },
       }));
 
@@ -1858,8 +2004,15 @@ export const Clans = {
       const { id } = req.params;
 
       const clan = await traced('clans.toggleClanWarParticipation.findClan', () => prisma.clan.findFirst({
-        where: { id, deletedAt: null },
-        select: { id: true, participateInClanWar: true, masterId: true },
+        where: {
+          id,
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          participateInClanWar: true,
+          masterId: true,
+        },
       }));
 
       if (!clan) {
@@ -1901,7 +2054,10 @@ export const Clans = {
         where: { id: req.params.id },
         include: {
           brutes: {
-            select: { id: true, name: true },
+            select: {
+              id: true,
+              name: true,
+            },
           },
         },
       }));
@@ -1992,12 +2148,18 @@ export const Clans = {
       }
 
       const clan = await prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: {
+              userId: user.id,
+              deletedAt: null,
+            },
             select: {
               id: true,
               clanId: true,
@@ -2063,12 +2225,18 @@ export const Clans = {
       const { id, roleId } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: {
+              userId: user.id,
+              deletedAt: null,
+            },
             select: {
               id: true,
               clanId: true,
@@ -2100,9 +2268,11 @@ export const Clans = {
       if (req.body.name && typeof req.body.name !== 'string') {
         throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
+
       if (typeof req.body.name === 'string' && req.body.name.length > 50) {
         throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
+
       if (req.body.permissions && !Array.isArray(req.body.permissions)) {
         throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
@@ -2144,11 +2314,17 @@ export const Clans = {
       const { id, roleId } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           masterId: true,
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: {
+              userId: user.id,
+              deletedAt: null,
+            },
             select: { id: true },
           },
         },
@@ -2194,12 +2370,18 @@ export const Clans = {
       const { bruteIds } = req.body;
 
       const clan = await prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: {
+              userId: user.id,
+              deletedAt: null,
+            },
             select: {
               id: true,
               clanId: true,
@@ -2228,7 +2410,10 @@ export const Clans = {
       }
 
       const role = await prisma.clanRole.findFirst({
-        where: { id: roleId, clanId: id },
+        where: {
+          id: roleId,
+          clanId: id,
+        },
       });
 
       if (!role) {
@@ -2276,15 +2461,23 @@ export const Clans = {
         throw new InvalidAPIUseError(user, translate('missingParameters', user));
       }
 
-      const { id, bruteId, roleId } = req.params;
+      const {
+        id, bruteId, roleId,
+      } = req.params;
 
       const clan = await prisma.clan.findFirst({
-        where: { id, deletedAt: null },
+        where: {
+          id,
+          deletedAt: null,
+        },
         select: {
           id: true,
           masterId: true,
           brutes: {
-            where: { userId: user.id, deletedAt: null },
+            where: {
+              userId: user.id,
+              deletedAt: null,
+            },
             select: {
               id: true,
               clanId: true,
@@ -2345,7 +2538,10 @@ export const Clans = {
           id: bruteId,
           deletedAt: null,
         },
-        select: { id: true, clanId: true },
+        select: {
+          id: true,
+          clanId: true,
+        },
       }));
 
       if (!brute) {
@@ -2362,7 +2558,10 @@ export const Clans = {
           id: clanId,
           deletedAt: null,
         },
-        select: { id: true, masterId: true },
+        select: {
+          id: true,
+          masterId: true,
+        },
       }));
 
       if (!clan) {
@@ -2372,7 +2571,10 @@ export const Clans = {
       // Add brute to clan and make it master
       await traced('clans.transferOwnership.updateBrute', () => prisma.brute.update({
         where: { id: bruteId },
-        data: { clanId, clanRoleId: null },
+        data: {
+          clanId,
+          clanRoleId: null,
+        },
         select: { id: true },
       }));
 

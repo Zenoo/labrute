@@ -12,6 +12,7 @@ export const getOpponents = async (
     level: brute.level,
     deletedAt: null,
   };
+
   const bruteIds = await traced('getOpponents.findBruteIds', () => prisma.brute.findMany({
     where: bruteSearch,
     select: { id: true },
@@ -39,6 +40,7 @@ export const getOpponents = async (
   }
 
   const opponents = [];
+
   for (const bruteId of randomlySelectedBruteIds) {
     const opponent = await traced('getOpponents.findOpponent', () => prisma.brute.findFirst({
       where: {
@@ -90,6 +92,7 @@ export const getOpponents = async (
       },
       deletedAt: null,
     };
+
     const additionalBruteIds = await traced('getOpponents.findAdditionalBruteIds', () => prisma.brute.findMany({
       where: additionalBruteSearch,
       select: { id: true },
@@ -110,6 +113,7 @@ export const getOpponents = async (
         if (!randomId) {
           throw new Error('No random id found');
         }
+
         if (!additionalRandomlySelectedBruteIds.includes(randomId)) {
           additionalRandomlySelectedBruteIds.push(randomId);
         }
@@ -117,6 +121,7 @@ export const getOpponents = async (
     }
 
     const additionalOpponents: Brute[] = [];
+
     for (const bruteId of additionalRandomlySelectedBruteIds) {
       const opponent = await traced('getOpponents.findAdditionalOpponent', () => prisma.brute.findFirst({
         where: {
@@ -129,6 +134,7 @@ export const getOpponents = async (
         additionalOpponents.push(opponent);
       }
     }
+
     opponents.push(...additionalOpponents);
   }
 

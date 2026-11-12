@@ -13,7 +13,13 @@ const dogColors: Partial<Record<PetName, [string, string]>> = {
 };
 
 const dogShape = (type: PetName) => {
-  const suffix = type === PetName.dog2 ? '-2' : type === PetName.dog3 ? '-3' : '';
+  let suffix = '';
+
+  if (type === PetName.dog2) {
+    suffix = '-2';
+  } else if (type === PetName.dog3) {
+    suffix = '-3';
+  }
 
   return (
     <>
@@ -90,9 +96,11 @@ export const CellPets = ({
     if (selectCallback === undefined) {
       return;
     }
+
     if (!brute?.pets[clicked]) {
       return;
     }
+
     selectCallback(clicked);
   };
 
@@ -103,7 +111,10 @@ export const CellPets = ({
       open={hoveredPet !== null}
       ascended={hoveredPet ? brute?.ascendedPets.includes(hoveredPet) : false}
     >
-      <Box sx={{ textAlign: 'center', ...sx }} {...rest}>
+      <Box sx={{
+        textAlign: 'center',
+        ...sx,
+      }} {...rest}>
         <svg xmlnsXlink="http://www.w3.org/1999/xlink" height="210px" width="290px" xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, -24.0, 218.15)">
             {brute.pets[PetName.dog3] && (

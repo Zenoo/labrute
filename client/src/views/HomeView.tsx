@@ -1,17 +1,17 @@
 import {
   getCalculatedBrute, getRandomBody, getRandomColors,
   isNameValid, refreshChaosSeeds, TOKEN_COOKIE, USER_COOKIE,
-  Version
+  Version,
 } from '@labrute/core';
 import { EventStatus, Gender } from '@labrute/prisma';
 import {
-  EmojiEvents, EmojiEventsOutlined, Lock, LockOpen
+  EmojiEvents, EmojiEventsOutlined, Lock, LockOpen,
 } from '@mui/icons-material';
 import {
-  Box, IconButton, Link, Tooltip, useMediaQuery, useTheme
+  Box, IconButton, Link, Tooltip, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useMemo, useState
+  useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router';
@@ -41,6 +41,7 @@ export const HomeView = () => {
   const { t } = useTranslation(['home', 'event']);
   const smallScreen = useMediaQuery('(max-width: 935px)');
   const Alert = useAlert();
+
   const {
     authing,
     currentEvent,
@@ -49,8 +50,9 @@ export const HomeView = () => {
     setModifiers,
     setCurrentEvent,
     updateData,
-    user
+    user,
   } = useAuth();
+
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const eventId = searchParams.get('event');
@@ -63,6 +65,7 @@ export const HomeView = () => {
   useEffect(() => {
     const url = new URL(window.location.href);
     const error = url.searchParams.get('error');
+
     if (error) {
       Alert.open('error', t('loginError'));
     }
@@ -88,7 +91,7 @@ export const HomeView = () => {
     setAuthing(true);
     Server.OAuth.token({
       code,
-      eventId: fingerprint.eventId
+      eventId: fingerprint.eventId,
     }).then((response) => {
       setModifiers(response.modifiers);
       refreshChaosSeeds(response.modifiers);
@@ -122,6 +125,7 @@ export const HomeView = () => {
       // Redirect to first brute if exists, else home, using navigate (no reload)
       if (loggedInUser.brutes.length) {
         const brutePath = `/${loggedInUser.brutes[0]?.name}/cell`;
+
         navigate({
           pathname: brutePath,
           search: cleanUrlSearch,
@@ -166,6 +170,7 @@ export const HomeView = () => {
   // Body parts randomizer
   const randomizeAppearance = useCallback(() => {
     const newGender = gender === 'male' ? 'female' : 'male';
+
     setGender(newGender);
 
     setBody(getRandomBody(newGender));
@@ -178,7 +183,10 @@ export const HomeView = () => {
     setName(event.target.value);
 
     // Change character
-    if (!creationStarted) setCreationStarted(true);
+    if (!creationStarted) {
+      setCreationStarted(true);
+    }
+
     if (!fixBruteAppearance) {
       randomizeAppearance();
     }
@@ -202,12 +210,14 @@ export const HomeView = () => {
     // Check if logged in
     if (!user) {
       Alert.open('error', t('pleaseLogin'));
+
       return;
     }
 
     // Check name validity
     if (!isNameValid(name)) {
       Alert.open('error', t('invalidName'));
+
       return;
     }
 
@@ -217,6 +227,7 @@ export const HomeView = () => {
 
       if (!isNameAvailable) {
         Alert.open('error', t('nameUnavailable'));
+
         return;
       }
 
@@ -233,7 +244,7 @@ export const HomeView = () => {
         body,
         colors,
         referer,
-        eventId
+        eventId,
       );
 
       updateData({
@@ -264,15 +275,19 @@ export const HomeView = () => {
 
   // Event toggle button for creating a brute for the current event
   const toggleEvent = () => {
-    if (!currentEvent) return;
+    if (!currentEvent) {
+      return;
+    }
 
     setSearchParams((previous) => {
       const next = new URLSearchParams(previous);
+
       if (next.get('event') === currentEvent.id) {
         next.delete('event');
       } else {
         next.set('event', currentEvent.id);
       }
+
       return next;
     }, { replace: true });
   };
@@ -286,12 +301,15 @@ export const HomeView = () => {
           color={eventId === currentEvent.id ? 'primary' : 'default'}
           onClick={toggleEvent}
           size="small"
-          sx={{ float: 'right', mt: 1 }}
+          sx={{
+            float: 'right',
+            mt: 1,
+          }}
         >
           {eventId === currentEvent.id ? <EmojiEvents /> : <EmojiEventsOutlined />}
         </IconButton>
       </Tooltip>
-    );
+  );
 
   const character = (
     <Box sx={{
@@ -334,7 +352,11 @@ export const HomeView = () => {
     : (
       <Page
       >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          mb: 1,
+        }}>
           {/* CHARACTER CREATION */}
           <BoxBg
             src={`/images${mode === 'dark' ? '/dark' : ''}/creation/bg.png`}
@@ -354,7 +376,10 @@ export const HomeView = () => {
               mt: 1.5,
             }}
             >
-              <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
+              <Text sx={{
+                typography: 'Pixelized',
+                fontSize: 7,
+              }} color="secondary">{t('chooseName')}</Text>
               <Box
                 component="img"
                 src="/images/creation/arrow.png"
@@ -362,7 +387,10 @@ export const HomeView = () => {
               />
             </Box>
             {/* NAME INPUT */}
-            <Box sx={{ pl: 6.5, pr: 4 }}>
+            <Box sx={{
+              pl: 6.5,
+              pr: 4,
+            }}>
               <StyledInput
                 onChange={changeName}
                 value={name}
@@ -371,7 +399,10 @@ export const HomeView = () => {
                 ? t('unlockBruteAppearance')
                 : t('lockBruteAppearance')}
               >
-                <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{ float: 'right', mt: 1 }}>
+                <IconButton onClick={() => setFixBruteAppearance((prev) => !prev)} size="small" sx={{
+                  float: 'right',
+                  mt: 1,
+                }}>
                   {fixBruteAppearance ? <Lock /> : <LockOpen />}
                 </IconButton>
               </Tooltip>
@@ -393,7 +424,7 @@ export const HomeView = () => {
                     sx={{
                       width: 89,
                       height: 89,
-                      backgroundSize: '100%'
+                      backgroundSize: '100%',
                     }}
                   />
                 </Tooltip>
@@ -405,7 +436,7 @@ export const HomeView = () => {
                     sx={{
                       width: 89,
                       height: 89,
-                      backgroundSize: '100%'
+                      backgroundSize: '100%',
                     }}
                   />
                 </Tooltip>
@@ -415,7 +446,10 @@ export const HomeView = () => {
                 component="img"
                 src={`/images${mode === 'dark' ? '/dark' : ''}/creation/broken.png`}
                 alt="Crack"
-                sx={{ mt: -0.25, ml: 16 }}
+                sx={{
+                  mt: -0.25,
+                  ml: 16,
+                }}
               />
               {/* VALIDATION */}
               <Box sx={{ textAlign: 'center' }}>
@@ -444,27 +478,47 @@ export const HomeView = () => {
           {/* RIGHT SIDE */}
           <BoxBg
             src={`/images/${mode === 'dark' ? 'dark/' : ''}main-bg.gif`}
-            sx={{ width: 640, height: 454 }}
+            sx={{
+              width: 640,
+              height: 454,
+            }}
           >
             {/* FIRST TEXT */}
-            <Box sx={{ width: 300, mt: 2 }}>
+            <Box sx={{
+              width: 300,
+              mt: 2,
+            }}>
               <Text h5 bold typo="handwritten" color="secondary">{t('heroTitle')}</Text>
               <Text bold color="text.primary">{t('heroBody')}</Text>
             </Box>
             {/* SECOND TEXT */}
-            <Box sx={{ width: 300, mt: 4, ml: 2 }}>
+            <Box sx={{
+              width: 300,
+              mt: 4,
+              ml: 2,
+            }}>
               <Text h5 bold typo="handwritten" color="secondary">{t('otherGamesTitle')}</Text>
               <Text bold color="text.primary">{t('otherGamesBody')}</Text>
             </Box>
             {/* OTHER GAMES */}
-            <Box sx={{ mt: 1, ml: 2 }}>
+            <Box sx={{
+              mt: 1,
+              ml: 2,
+            }}>
               {[leftAd, rightAd].map((ad) => (
                 <Tooltip title={t(`${ad.name}.desc`)} key={ad.name}>
-                  <Link href={ad.url} target="_blank" sx={{ width: 200, mx: 4, display: 'inline-block' }}>
+                  <Link href={ad.url} target="_blank" sx={{
+                    width: 200,
+                    mx: 4,
+                    display: 'inline-block',
+                  }}>
                     <Box
                       component="img"
                       src={`/images/redirects/${ad.illustration}`}
-                      sx={{ width: 1, border: 2 }}
+                      sx={{
+                        width: 1,
+                        border: 2,
+                      }}
                     />
                   </Link>
                 </Tooltip>

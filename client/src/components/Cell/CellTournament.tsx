@@ -1,6 +1,6 @@
 import { Lang } from '@labrute/prisma';
 import {
-  Box, Paper, PaperProps
+  Box, Paper, PaperProps,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
@@ -25,7 +25,11 @@ export const CellTournament = ({
 }: CellTournamentProps) => {
   const { t } = useTranslation('tournament');
   const Alert = useAlert();
-  const { brute, owner, updateBrute } = useBrute();
+
+  const {
+    brute, owner, updateBrute,
+  } = useBrute();
+
   const { updateData } = useAuth();
   const Server = useServer();
 
@@ -33,7 +37,10 @@ export const CellTournament = ({
   const tomorrow = useMemo(() => dayjs.utc().add(1, 'day'), []);
 
   const registerBrute = useCallback(async () => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
+
     try {
       await Server.Tournament.registerDaily(brute?.name || '');
       Alert.open('success', t('bruteRegistered'));
@@ -51,6 +58,7 @@ export const CellTournament = ({
               registeredForTournament: true,
             };
           }
+
           return b;
         }),
       }) : data));
@@ -63,7 +71,10 @@ export const CellTournament = ({
     <>
       {/* CURRENT TOURNAMENT */}
       {!!brute.tournaments.length && (
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
           <FantasyButton
             color="secondary"
             to={`/${brute.name}/tournament/${now.format('YYYY-MM-DD')}`}
@@ -83,7 +94,7 @@ export const CellTournament = ({
               bgcolor: 'background.paperDark',
               textAlign: 'center',
               p: 1,
-              ...sx
+              ...sx,
             }}
             {...rest}
           >

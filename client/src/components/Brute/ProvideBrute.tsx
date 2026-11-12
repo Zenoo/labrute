@@ -19,7 +19,9 @@ export const ProvideBrute = () => {
 
   // Fetch brute data (only when bruteName changes)
   useEffect(() => {
-    if (!bruteName) return;
+    if (!bruteName) {
+      return;
+    }
 
     setLoading(true);
 
@@ -32,13 +34,16 @@ export const ProvideBrute = () => {
 
   // Recalculate brute when raw data or modifiers change
   useEffect(() => {
-    if (!rawBrute) return;
+    if (!rawBrute) {
+      return;
+    }
 
     updateBrute(getCalculatedBrute(rawBrute, modifiers));
     setTimeout(() => {
       setLoading(false);
     }, 0);
   }, [rawBrute, modifiers, updateBrute]);
+
   return (
     loading ? <Loader height="calc(100vh - 32px)" color="secondary" /> : <Outlet />
   );

@@ -1,11 +1,11 @@
 import {
-  BrutesGetOpponentsResponse, getCalculatedBrute, getFightsLeft, getXPNeeded
+  BrutesGetOpponentsResponse, getCalculatedBrute, getFightsLeft, getXPNeeded,
 } from '@labrute/core';
 import {
-  Alert as MuiAlert, Box, Button, Grid, Paper, useMediaQuery, useTheme
+  Alert as MuiAlert, Box, Button, Grid, Paper, useMediaQuery, useTheme,
 } from '@mui/material';
 import React, {
-  useCallback, useEffect, useMemo, useRef, useState
+  useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
@@ -35,7 +35,11 @@ export const ArenaView = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.down('md'));
   const { brute, updateBrute } = useBrute();
-  const { modifiers, user, updateData, currentEvent, authing } = useAuth();
+
+  const {
+    modifiers, user, updateData, currentEvent, authing,
+  } = useAuth();
+
   const Server = useServer();
 
   const [opponents, setOpponents] = useState<CalculatedBruteGetOpponentsResponse>([]);
@@ -48,17 +52,24 @@ export const ArenaView = () => {
 
   const fightsLeft = useMemo(
     () => (brute && getFightsLeft(brute)) ?? 0,
-    [brute]
+    [brute],
   );
 
   // Fetch random opponents
   useEffect(() => {
     let isSubscribed = true;
+
     const cleanup = () => {
       isSubscribed = false;
     };
-    if (!brute) return cleanup;
-    if (!user || authing) return cleanup;
+
+    if (!brute) {
+      return cleanup;
+    }
+
+    if (!user || authing) {
+      return cleanup;
+    }
 
     // Redirect to cell if XP is too much
     // TODO: I think this part triggers when clicking on an opponent to fight it, redirecting to the cell page
@@ -85,7 +96,10 @@ export const ArenaView = () => {
     }
 
     // Prevent duplicate fetches
-    if (fetchingRef.current) return cleanup;
+    if (fetchingRef.current) {
+      return cleanup;
+    }
+
     fetchingRef.current = true;
 
     Server.Brute.getOpponents(brute.name, brute.level).then((data) => {
@@ -106,18 +120,25 @@ export const ArenaView = () => {
 
   // Search for opponents
   const searchOpponent = useCallback(async () => {
-    if (!brute) return;
-    if (search.length < 3) {
-      Alert.open('error', t('search.atLeastThreeCharacters'));
+    if (!brute) {
       return;
     }
+
+    if (search.length < 3) {
+      Alert.open('error', t('search.atLeastThreeCharacters'));
+
+      return;
+    }
+
     if (search === brute.name) {
       Alert.open('error', t('search.noSelf'));
+
       return;
     }
 
     try {
       const response = await Server.Brute.exists(search);
+
       if (!response.exists) {
         Alert.open('error', t('search.notFound'));
       } else {
@@ -131,9 +152,11 @@ export const ArenaView = () => {
 
   // Go to versus page
   const goToVersus = useCallback((
-    opponent: CalculatedBruteGetOpponentsResponse[0]
+    opponent: CalculatedBruteGetOpponentsResponse[0],
   ) => async () => {
-    if (!user || !brute || loading) return;
+    if (!user || !brute || loading) {
+      return;
+    }
 
     // Skip versus page
     if (!user.displayVersusPage) {
@@ -142,6 +165,7 @@ export const ArenaView = () => {
       // Create the fight
       try {
         const fight = await Server.Fight.create(brute.name, opponent.name);
+
         navigate(`/${brute.name}/fight/${fight.id}`);
 
         // Defer local stats updates to avoid showing the result in Arena before route transition.
@@ -191,7 +215,10 @@ export const ArenaView = () => {
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title')}</Text>
         <Text bold color="secondary">{fightsLeft > 1 ? t('fightsLeft', { value: getFightsLeft(brute) }) : t('fightLeft')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {brute && loading ? <Loader height={420} /> : (
           <>
             {/* No XP won for event brutes at max level */}
@@ -205,11 +232,23 @@ export const ArenaView = () => {
                 <Text h4 bold color="secondary" center>{brute.name}</Text>
                 <BruteLevelAndXP
                   brute={brute}
-                  textProps={{ h3: false, h5: true, color: 'primary.text', center: true }}
-                  sx={{ mb: 1, width: 120, mx: 'auto' }}
+                  textProps={{
+                    h3: false,
+                    h5: true,
+                    color: 'primary.text',
+                    center: true,
+                  }}
+                  sx={{
+                    mb: 1,
+                    width: 120,
+                    mx: 'auto',
+                  }}
                 />
                 <BruteBodyAndStats brute={brute} isMd={isMd} />
-                <Box sx={{ textAlign: 'center', mt: 1 }}>
+                <Box sx={{
+                  textAlign: 'center',
+                  mt: 1,
+                }}>
                   <Link to={`/${brute.name}/cell`}>
                     <Text bold>{t('backToCell')}</Text>
                   </Link>
@@ -238,7 +277,13 @@ export const ArenaView = () => {
                     ))}
                   </Grid>
                 )}
-                <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center', mt: 1 }}>
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  mt: 1,
+                }}>
                   <StyledInput
                     onChange={changeSearch}
                     value={search}

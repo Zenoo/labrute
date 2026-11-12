@@ -10,5 +10,5 @@ export const getGoldNeededForNewBrute = (
   ? 0
   : Math.round(
     NEW_BRUTE_BASE_COST
-    + Math.max(user.brutes.length - 3, 0) * NEW_BRUTE_BASE_COST * (1 / 3)
+    + Math.max(user.brutes.length - 3, 0) * NEW_BRUTE_BASE_COST * (1 / 3),
   ));

@@ -176,10 +176,12 @@ export const emptyConfig: Config = {
 export function readPort(envPort: string | undefined) {
   if (typeof envPort === 'string') {
     const numPort = parseInt(envPort, 10);
+
     if (!Number.isNaN(numPort)) {
       return numPort;
     }
   }
+
   return emptyConfig.port;
 }
 
@@ -194,6 +196,7 @@ export function readSelfUrl(envSelfUrl: string | undefined): URL {
   if (typeof envSelfUrl === 'string') {
     try {
       const selfUrl = new URL(envSelfUrl);
+
       if (selfUrl.protocol === 'http:' || selfUrl.protocol === 'https:') {
         return selfUrl;
       }
@@ -201,6 +204,7 @@ export function readSelfUrl(envSelfUrl: string | undefined): URL {
       // fall through and return default
     }
   }
+
   return emptyConfig.selfUrl;
 }
 
@@ -215,6 +219,7 @@ export function readCorsRegex(envCorsRegex: string | undefined) {
       // fall through and return default
     }
   }
+
   // Default: only allow localhost (safer for development)
   return /^http:\/\/localhost(:\d+)?$/;
 }
@@ -226,6 +231,7 @@ export function readStringEnv<Default extends string | undefined>(
   if (typeof envValue === 'string') {
     return envValue;
   }
+
   return defaultValue;
 }
 
@@ -255,12 +261,15 @@ export async function readConfig(
   const cryptr = new Cryptr(cryptrSecret);
 
   const eternaltwinUrl = env.ETERNALTWIN_URL ?? env.ETWIN_URL ?? emptyConfig.eternaltwin.url;
+
   const eternaltwinClientRef = env.ETERNALTWIN_CLIENT_REF
     ?? env.ETWIN_CLIENT_ID
     ?? emptyConfig.eternaltwin.clientRef;
+
   const eternaltwinSecret = env.ETERNALTWIN_SECRET
     ?? env.ETWIN_CLIENT_SECRET
     ?? emptyConfig.eternaltwin.secret;
+
   const eternaltwinApp = env.ETERNALTWIN_APP ?? emptyConfig.eternaltwin.app;
   const eternaltwinChannel = env.ETERNALTWIN_CHANNEL ?? emptyConfig.eternaltwin.channel;
 
@@ -280,6 +289,7 @@ export async function readConfig(
 
   for (const { key, value } of configVars) {
     const decryptedValue = key === 'CRYPTR_SECRET' ? value : cryptr.decrypt(value);
+
     switch (key) {
       case 'DISCORD_WEBHOOK_ID':
         rawDiscordNotifId = decryptedValue;
@@ -337,6 +347,7 @@ export async function readConfig(
   };
 
   let discordNotifications: DiscordConfig | null = null;
+
   if (typeof rawDiscordNotifId === 'string' && typeof rawDiscordNotifToken === 'string') {
     discordNotifications = {
       webhookId: rawDiscordNotifId,
@@ -345,6 +356,7 @@ export async function readConfig(
   }
 
   let discordLogs: DiscordConfig | null = null;
+
   if (typeof rawDiscordLogId === 'string' && typeof rawDiscordLogToken === 'string') {
     discordLogs = {
       webhookId: rawDiscordLogId,
@@ -353,6 +365,7 @@ export async function readConfig(
   }
 
   let discordRankUps: DiscordConfig | null = null;
+
   if (typeof rawDiscordRankUpId === 'string' && typeof rawDiscordRankUpToken === 'string') {
     discordRankUps = {
       webhookId: rawDiscordRankUpId,
@@ -361,6 +374,7 @@ export async function readConfig(
   }
 
   let discordReleases: DiscordConfig | null = null;
+
   if (typeof rawDiscordReleasesId === 'string' && typeof rawDiscordReleasesToken === 'string') {
     discordReleases = {
       webhookId: rawDiscordReleasesId,
@@ -369,6 +383,7 @@ export async function readConfig(
   }
 
   let discordKnownIssues: DiscordConfig | null = null;
+
   if (typeof rawDiscordKnownIssuesId === 'string' && typeof rawDiscordKnownIssuesToken === 'string') {
     discordKnownIssues = {
       webhookId: rawDiscordKnownIssuesId,

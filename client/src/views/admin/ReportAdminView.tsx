@@ -3,11 +3,11 @@ import { BruteReportStatus } from '@labrute/prisma';
 import { Check, Close } from '@mui/icons-material';
 import {
   Box, FormControl, FormControlLabel, FormLabel,
-  IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack, TextField, Tooltip
+  IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack, TextField, Tooltip,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, {
-  Fragment, useCallback, useEffect
+  Fragment, useCallback, useEffect,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FantasyButton } from '../../components/FantasyButton';
@@ -34,12 +34,14 @@ export const ReportAdminView = () => {
   // Trigger reports fetch when status or page changes (debounced)
   useEffect(() => {
     const handler = setTimeout(() => {
-      if (!user?.admin && !user?.moderator) return;
+      if (!user?.admin && !user?.moderator) {
+        return;
+      }
 
       Server.BruteReport.list(status, page).then((data) => {
         setReports((prev) => prev.concat(
           // Filter out reports already in the list (solves possible desync if report created between requests)
-          data.filter((report) => !prev.find((prevReport) => prevReport.id === report.id))
+          data.filter((report) => !prev.find((prevReport) => prevReport.id === report.id)),
         ));
 
         // Set last page
@@ -86,8 +88,14 @@ export const ReportAdminView = () => {
 
   // Add banned word
   const addBannedWord = useCallback(() => {
-    if (!user?.admin) return;
-    if (!newBanndedWord) return;
+    if (!user?.admin) {
+      return;
+    }
+
+    if (!newBanndedWord) {
+      return;
+    }
+
     Server.BruteReport.addBannedWord(newBanndedWord).then(() => {
       Alert.open('success', 'Banned word added');
     }).catch(catchError(Alert));
@@ -98,11 +106,17 @@ export const ReportAdminView = () => {
       <Paper sx={{ mx: 4 }}>
         <Text h3 bold upperCase typo="handwritten">Reports</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {(user?.admin || user?.moderator) ? (
           <Stack spacing={2}>
             {user.admin && (
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}>
                 <TextField
                   label="Add a banned word"
                   value={newBanndedWord}
@@ -129,61 +143,78 @@ export const ReportAdminView = () => {
             </FormControl>
             {/* Report list */}
             <List dense>
-              {reports.map((report) => (
-                <ListItem
-                  key={report.id}
-                  secondaryAction={status === BruteReportStatus.pending ? (
-                    <>
-                      <Tooltip title={t('accept')}>
-                        <IconButton onClick={acceptReport(report.id)}>
-                          <Check />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title={t('reject')}>
-                        <IconButton edge="end" onClick={rejectReport(report.id)}>
+              {reports.map((report) => {
+                const renderReportActions = () => {
+                  if (status === BruteReportStatus.pending) {
+                    return (
+                      <>
+                        <Tooltip title={t('accept')}>
+                          <IconButton onClick={acceptReport(report.id)}>
+                            <Check />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title={t('reject')}>
+                          <IconButton edge="end" onClick={rejectReport(report.id)}>
+                            <Close />
+                          </IconButton>
+                        </Tooltip>
+                      </>
+                    );
+                  }
+
+                  if (status === BruteReportStatus.accepted) {
+                    return (
+                      <Tooltip title={t('cancel')}>
+                        <IconButton onClick={cancelReport(report.id)}>
                           <Close />
                         </IconButton>
                       </Tooltip>
-                    </>
-                  ) : status === BruteReportStatus.accepted ? (
-                    <Tooltip title={t('cancel')}>
-                      <IconButton onClick={cancelReport(report.id)}>
-                        <Close />
-                      </IconButton>
-                    </Tooltip>
-                  ) : null}
-                >
-                  <ListItemText
-                    primary={(
-                      <Text body2>({report.count}) <Link to={`/${report.brute?.name ?? report.bruteName}`} target="_blank">{report.brute?.name ?? report.bruteName}</Link></Text>
-                    )}
-                    secondary={(
-                      <>
-                        <Text body2 component="span" display="block">
-                          [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map((u, index) => (
-                            <Fragment key={u.id}>
-                              {index > 0 && ', '}
-                              <Link to={`/user/${u.id}`} target="_blank">{u.name}</Link>
-                            </Fragment>
+                    );
+                  }
+
+                  return null;
+                };
+
+                return (
+                  <ListItem
+                    key={report.id}
+                    secondaryAction={renderReportActions()}
+                  >
+                    <ListItemText
+                      primary={(
+                        <Text body2>({report.count}) <Link to={`/${report.brute?.name ?? report.bruteName}`} target="_blank">{report.brute?.name ?? report.bruteName}</Link></Text>
+                      )}
+                      secondary={(
+                        <>
+                          <Text body2 component="span" display="block">
+                            [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map((u, index) => (
+                              <Fragment key={u.id}>
+                                {index > 0 && ', '}
+                                <Link to={`/user/${u.id}`} target="_blank">{u.name}</Link>
+                              </Fragment>
                           ))}
-                        </Text>
-                        {status !== BruteReportStatus.pending && (
+                          </Text>
+                          {status !== BruteReportStatus.pending && (
                           <Text body2 component="span" display="block">
                             [{dayjs.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy')} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown')}</Link>
                           </Text>
-                        )}
-                      </>
-                    )}
-                  />
-                </ListItem>
-              ))}
+                          )}
+                        </>
+                      )}
+                    />
+                  </ListItem>
+                );
+              })}
             </List>
             {!lastPage && (
               <Box>
                 <FantasyButton
                   color="success"
                   onClick={() => setPage((prev) => prev + 1)}
-                  sx={{ mx: 'auto', mt: 3 }}
+                  sx={{
+                    mx: 'auto',
+                    mt: 3,
+                  }}
                 >
                   {t('showMore')}
                 </FantasyButton>

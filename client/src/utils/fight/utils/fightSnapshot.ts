@@ -44,6 +44,7 @@ export const captureFightSnapshot = (
   fighters: allFighters.map((fighter) => {
     const { animation: holder } = fighter;
     const { container } = holder;
+
     return {
       fighter,
       state: {
@@ -97,6 +98,7 @@ export const restoreFightSnapshot = (
     const { fighter } = saved;
     const { animation: holder } = fighter;
     const { container } = holder;
+
     Object.assign(fighter, structuredClone(saved.state));
     Object.assign(holder.seekPose, saved.pose);
     holder.weapon = saved.weapon;
@@ -113,5 +115,6 @@ export const restoreFightSnapshot = (
     container.alpha = saved.container.alpha;
     container.visible = saved.container.visible;
   }
+
   fighters.splice(0, fighters.length, ...snapshot.activeFighters);
 };

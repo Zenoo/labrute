@@ -1,6 +1,6 @@
 import { HookBrute } from '@labrute/core';
 import React, {
-  useCallback, useContext, useMemo, useState
+  useCallback, useContext, useMemo, useState,
 } from 'react';
 import { useAuth } from './useAuth';
 

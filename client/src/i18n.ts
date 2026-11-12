@@ -97,9 +97,11 @@ const languageLoaders: Record<Lang, (namespace: string) => Promise<unknown>> = {
 // Load a specific namespace for a language - delegates to language-specific loader
 const loadNamespace = (language: Lang, namespace: string): Promise<unknown> => {
   const loader = languageLoaders[language];
+
   if (!loader) {
     return Promise.reject(new Error(`Unsupported language "${language}"`));
   }
+
   return loader(namespace);
 };
 
@@ -111,6 +113,7 @@ const languageBackend: BackendModule = {
   read: async (language, namespace, callback) => {
     if (!isSupportedLanguage(language)) {
       callback(new Error(`Unsupported language "${language}"`), false);
+
       return;
     }
 
@@ -120,10 +123,13 @@ const languageBackend: BackendModule = {
     if (cached) {
       try {
         const resources = await cached;
+
         callback(null, resources as never);
+
         return;
       } catch (error) {
         callback(error instanceof Error ? error : new Error(String(error)), false);
+
         return;
       }
     }
@@ -135,6 +141,7 @@ const languageBackend: BackendModule = {
 
     try {
       const resources = await loadPromise;
+
       callback(null, resources as never);
     } catch (error) {
       callback(error instanceof Error ? error : new Error(String(error)), false);
@@ -178,13 +185,20 @@ const prefetchNamespaces = () => {
   // Load all namespaces except those already loaded
   const namespacesToLoad = namespaces.filter((ns) => !i18next.hasResourceBundle(language, ns));
 
-  if (namespacesToLoad.length === 0) return;
+  if (namespacesToLoad.length === 0) {
+    return;
+  }
 
   const loadNext = (index: number) => {
-    if (index >= namespacesToLoad.length) return;
+    if (index >= namespacesToLoad.length) {
+      return;
+    }
 
     const ns = namespacesToLoad[index];
-    if (!ns) return;
+
+    if (!ns) {
+      return;
+    }
 
     // Load namespace in the background
     i18next.loadNamespaces(ns).then(() => {
@@ -196,6 +210,7 @@ const prefetchNamespaces = () => {
       }
     }).catch((err) => {
       console.warn(`Failed to prefetch namespace ${ns}:`, err);
+
       // Continue with next namespace even if one fails
       if ('requestIdleCallback' in window) {
         requestIdleCallback(() => loadNext(index + 1), { timeout: 2000 });

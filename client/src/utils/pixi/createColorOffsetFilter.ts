@@ -68,8 +68,14 @@ export const createColorOffsetFilter = (
   },
   resources: {
     colorOffsetUniforms: {
-      offset: { value: [r, g, b], type: 'vec3<f32>' },
-      mult: { value: [1, 1, 1], type: 'vec3<f32>' },
+      offset: {
+        value: [r, g, b],
+        type: 'vec3<f32>',
+      },
+      mult: {
+        value: [1, 1, 1],
+        type: 'vec3<f32>',
+      },
     },
   },
 });

@@ -1,5 +1,5 @@
 import React, {
-  createContext, useContext, useRef, useMemo
+  createContext, useContext, useRef, useMemo,
 } from 'react';
 import { Server } from '../utils/Server';
 import { useFingerprint } from './useFingerprint';
@@ -27,18 +27,21 @@ const wrappedCache = new WeakMap<object, unknown>();
 
 function wrapServer<T extends object>(
   obj: T,
-  loadingRef: { current: boolean }
+  loadingRef: { current: boolean },
 ): PromisifyFunctions<T> {
   // Check cache first
   const cached = wrappedCache.get(obj);
+
   if (cached) {
     return cached as PromisifyFunctions<T>;
   }
 
   const result = {} as PromisifyFunctions<T>;
+
   (Object.keys(obj) as Array<keyof T>).forEach((_key) => {
     const key = _key;
     const value = obj[key];
+
     if (typeof value === 'function') {
       type Func = T[typeof key] extends (...args: infer A) => infer R
         ? (...args: A) => Promise<Awaited<R>>
@@ -46,15 +49,17 @@ function wrapServer<T extends object>(
       (result[key] as Func) = ((...args: unknown[]) => {
         if (!loadingRef.current) {
           return Promise.resolve(
-            (value as (...args: unknown[]) => unknown)(...args)
+            (value as (...args: unknown[]) => unknown)(...args),
           );
         }
+
         return new Promise((resolve, reject) => {
           const handler = () => {
             window.removeEventListener('fingerprint-ready', handler);
+
             try {
               Promise.resolve(
-                (value as (...args: unknown[]) => unknown)(...args)
+                (value as (...args: unknown[]) => unknown)(...args),
               )
                 .then(resolve)
                 .catch(reject);
@@ -62,6 +67,7 @@ function wrapServer<T extends object>(
               reject(err);
             }
           };
+
           window.addEventListener('fingerprint-ready', handler);
         });
       }) as Func;
@@ -83,6 +89,7 @@ export const ServerProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Use ref to track loading state dynamically
   const loadingRef = useRef(fingerprint.loading);
+
   loadingRef.current = fingerprint.loading;
 
   // Memoize the wrapped server with stable reference

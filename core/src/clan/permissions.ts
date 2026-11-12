@@ -1,5 +1,5 @@
 import {
-  Brute, Clan, ClanPermission, ClanRole
+  Brute, Clan, ClanPermission, ClanRole,
 } from '@labrute/prisma';
 
 /**
@@ -10,14 +10,21 @@ export const hasPermission = (
     clanRole: Pick<ClanRole, 'permissions'> | null;
   }) | null,
   clan: Pick<Clan, 'id' | 'masterId'>,
-  permissions: ClanPermission | ClanPermission[]
+  permissions: ClanPermission | ClanPermission[],
 ) => {
-  if (!brute) return false;
-  if (brute.clanId !== clan.id) return false;
+  if (!brute) {
+    return false;
+  }
+
+  if (brute.clanId !== clan.id) {
+    return false;
+  }
+
   if (clan.masterId === brute.id) {
     return true;
   }
 
   const permissionsArray = Array.isArray(permissions) ? permissions : [permissions];
+
   return permissionsArray.some((p) => brute.clanRole?.permissions.includes(p));
 };

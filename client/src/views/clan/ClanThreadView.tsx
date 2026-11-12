@@ -1,5 +1,5 @@
 import {
-  ClanGetThreadResponse, ClanPermission, hasPermission
+  ClanGetThreadResponse, ClanPermission, hasPermission,
 } from '@labrute/core';
 import { Box, Paper } from '@mui/material';
 import dayjs from 'dayjs';
@@ -18,7 +18,11 @@ import { useBrute } from '../../hooks/useBrute';
 
 export const ClanThreadView = () => {
   const { t } = useTranslation('clan');
-  const { bruteName, id, tid } = useParams();
+
+  const {
+    bruteName, id, tid,
+  } = useParams();
+
   const Alert = useAlert();
   const Confirm = useConfirm();
   const navigate = useNavigate();
@@ -30,7 +34,9 @@ export const ClanThreadView = () => {
 
   // Fetch thread page
   useEffect(() => {
-    if (!bruteName || !id || !tid) return;
+    if (!bruteName || !id || !tid) {
+      return;
+    }
 
     Server.Clan.getThread(bruteName, id, tid, page)
       .then(setThread)
@@ -41,7 +47,9 @@ export const ClanThreadView = () => {
   const lockThread = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!bruteName || !id || !tid) return;
+    if (!bruteName || !id || !tid) {
+      return;
+    }
 
     Confirm.open(t('lockThread'), t('confirmLockThread'), () => {
       Server.Clan.lockThread(bruteName, id, tid).then(() => {
@@ -57,7 +65,9 @@ export const ClanThreadView = () => {
   const pinThread = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!bruteName || !id || !tid) return;
+    if (!bruteName || !id || !tid) {
+      return;
+    }
 
     Server.Clan.pinThread(bruteName, id, tid).then(() => {
       Alert.open('success', t('threadPinned'));
@@ -71,7 +81,9 @@ export const ClanThreadView = () => {
   const unpinThread = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!bruteName || !id || !tid) return;
+    if (!bruteName || !id || !tid) {
+      return;
+    }
 
     Server.Clan.unpinThread(bruteName, id, tid).then(() => {
       Alert.open('success', t('threadUnpinned'));
@@ -85,7 +97,9 @@ export const ClanThreadView = () => {
   const deleteThread = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    if (!bruteName || !id || !tid) return;
+    if (!bruteName || !id || !tid) {
+      return;
+    }
 
     Server.Clan.deleteThread(bruteName, id, tid).then(() => {
       Alert.open('success', t('threadDeleted'));
@@ -107,9 +121,15 @@ export const ClanThreadView = () => {
             <Link to={`/${bruteName}/clan/${id}/forum`} sx={{ display: 'inline-block' }}>
               <Text h3 bold upperCase typo="handwritten">{t('forum')} {thread.clan.name}</Text>
             </Link>
-            <Text h3 bold upperCase typo="handwritten" color="secondary" sx={{ ml: 1, display: 'inline-block' }}>&gt; {thread.title.substring(0, 30)}{thread.title.length > 30 && '...'}</Text>
+            <Text h3 bold upperCase typo="handwritten" color="secondary" sx={{
+              ml: 1,
+              display: 'inline-block',
+            }}>&gt; {thread.title.substring(0, 30)}{thread.title.length > 30 && '...'}</Text>
           </Paper>
-          <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+          <Paper sx={{
+            bgcolor: 'background.paperLight',
+            mt: -2,
+          }}>
             <Box sx={{
               display: 'flex',
               flexWrap: 'wrap',
@@ -159,7 +179,10 @@ export const ClanThreadView = () => {
               )}
             </Box>
             {thread.posts.map((post) => (
-              <Box key={post.id} sx={{ position: 'relative', my: 1 }}>
+              <Box key={post.id} sx={{
+                position: 'relative',
+                my: 1,
+              }}>
                 {/* HEADER */}
                 <Box sx={{
                   display: 'flex',
@@ -171,11 +194,20 @@ export const ClanThreadView = () => {
                   pl: 8,
                 }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}>
                     {post.author?.eventId ? (
-                      <Box component="img" src="/images/event.webp" sx={{ height: 18, mr: 1 }} />
+                      <Box component="img" src="/images/event.webp" sx={{
+                        height: 18,
+                        mr: 1,
+                      }} />
                     ) : (
-                      (typeof post.author?.ranking === 'number') && <Box component="img" src={`/images/rankings/lvl_${post.author.ranking}.webp`} sx={{ mr: 1, width: 20 }} />
+                      (typeof post.author?.ranking === 'number') && <Box component="img" src={`/images/rankings/lvl_${post.author.ranking}.webp`} sx={{
+                        mr: 1,
+                        width: 20,
+                      }} />
                     )}
                     {post.author?.name ? (
                       <Link to={`/${post.author?.name}/cell`}>
@@ -183,7 +215,10 @@ export const ClanThreadView = () => {
                       </Link>
                     ) : <Text bold color="primary">{t('deleted')}</Text>}
                     {post.author?.id === thread.clan.masterId && (
-                      <Box component="img" src="/images/clan/master.gif" sx={{ ml: 1, width: 7 }} />
+                      <Box component="img" src="/images/clan/master.gif" sx={{
+                        ml: 1,
+                        width: 7,
+                      }} />
                     )}
                   </Box>
                   <Text color="primary">{dayjs.utc(post.date).format('D MMM YYYY HH:mm')}</Text>
@@ -199,7 +234,7 @@ export const ClanThreadView = () => {
                     minHeight: 100,
                     '& p': {
                       m: 0,
-                    }
+                    },
                   }}
                 />
                 {/* BRUTE */}
@@ -218,7 +253,11 @@ export const ClanThreadView = () => {
                 </Box>
               </Box>
             ))}
-            <Box sx={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'space-around',
+              flexWrap: 'wrap',
+            }}>
               {page > 1 && (
                 <Link onClick={changePage(-Math.ceil(thread.postCount / 10))} href="#">
                   <Text>{t('first')}</Text>

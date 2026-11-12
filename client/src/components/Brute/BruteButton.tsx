@@ -1,9 +1,9 @@
 import {
-  CalculatedBrute, FightStat, getXPNeeded
+  CalculatedBrute, FightStat, getXPNeeded,
 } from '@labrute/core';
 import { User } from '@labrute/prisma';
 import {
-  Box, Divider, Tooltip
+  Box, Divider, Tooltip,
 } from '@mui/material';
 import { BoxProps } from '@mui/system';
 import React, { useMemo } from 'react';
@@ -53,13 +53,16 @@ export const BruteButton = ({
   const navigate = useNavigate();
 
   const xpNeededForNextLevel = useMemo(() => getXPNeeded(brute.level + 1), [brute.level]);
+
   const limitedXP = useMemo(() => Math.min(
     brute.xp,
     xpNeededForNextLevel,
   ), [brute.xp, xpNeededForNextLevel]);
 
   const goTo = () => {
-    if (!link) return;
+    if (!link) {
+      return;
+    }
 
     navigate(link);
   };
@@ -131,7 +134,11 @@ export const BruteButton = ({
             />
           )}
         </Text>
-        <Box sx={{ display: 'flex', alignItems: 'center', width: 115 }}>
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          width: 115,
+        }}>
           <Box sx={{
             display: 'flex',
             height: 1,
@@ -143,7 +150,11 @@ export const BruteButton = ({
             {/* LEVEL BAR */}
             {xp && (
               <Tooltip title={`${limitedXP} / ${xpNeededForNextLevel}`}>
-                <Box sx={{ bgcolor: 'divider', p: '2px', width: 40 }}>
+                <Box sx={{
+                  bgcolor: 'divider',
+                  p: '2px',
+                  width: 40,
+                }}>
                   <Box sx={{
                     bgcolor: 'level',
                     height: 3,

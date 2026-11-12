@@ -33,7 +33,7 @@ export const generateBodyString = (body: Record<BruteBodyPart, number>): string 
 
 export const readColorString = (
   gender: Gender,
-  colorsString: string
+  colorsString: string,
 ): Record<BruteColor, string> => {
   // TODO: Remove this on release
   if (colorsString.length === 32) {
@@ -45,9 +45,12 @@ export const readColorString = (
     ?.reduce((acc, color, index) => {
       const colorName = colorableBodyParts[index];
 
-      if (!colorName) return acc;
+      if (!colorName) {
+        return acc;
+      }
 
       acc[colorName] = `#${color}`;
+
       return acc;
     }, {} as Record<BruteColor, string>);
 

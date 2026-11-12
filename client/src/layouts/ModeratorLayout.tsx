@@ -1,4 +1,6 @@
-import { Box, Grid, Paper, useTheme } from '@mui/material';
+import {
+  Box, Grid, Paper, useTheme,
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router';
@@ -16,9 +18,15 @@ export const ModeratorLayout = () => {
 
   const moderator = user?.moderator || user?.admin;
 
-  return moderator ? (
-    <Outlet />
-  ) : authing ? null : (
+  if (moderator) {
+    return <Outlet />;
+  }
+
+  if (authing) {
+    return null;
+  }
+
+  return (
     <Page headerUrl="/">
       <Paper sx={{
         mx: 4,
@@ -30,12 +38,21 @@ export const ModeratorLayout = () => {
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('unauthorized')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         <Grid container spacing={1} sx={{ textAlign: 'center' }}>
-          <Grid item xs={6} md={3} order={{ xs: 2, md: 1 }}>
+          <Grid item xs={6} md={3} order={{
+            xs: 2,
+            md: 1,
+          }}>
             <Box component="img" src={`/images${mode === 'dark' ? '/dark' : ''}/arena/bear.webp`} sx={{ maxWidth: 1 }} />
           </Grid>
-          <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+          <Grid item xs={12} md={6} order={{
+            xs: 1,
+            md: 2,
+          }}>
             <Text bold>{t('unauthorized.desc')}</Text>
           </Grid>
           <Grid item xs={6} md={3} order={3}>

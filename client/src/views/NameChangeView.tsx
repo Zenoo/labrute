@@ -22,7 +22,9 @@ export const NameChangeView = () => {
 
   // Change name
   const changeName = () => {
-    if (!brute) return;
+    if (!brute) {
+      return;
+    }
 
     Confirm.open(t('title'), t('confirm', { name }), () => {
       Server.Brute.changeName(brute.name, name).then(() => {
@@ -44,10 +46,16 @@ export const NameChangeView = () => {
       >
         <Text h3 bold upperCase typo="handwritten" sx={{ mr: 2 }}>{t('title')}</Text>
       </Paper>
-      <Paper sx={{ bgcolor: 'background.paperLight', mt: -2 }}>
+      <Paper sx={{
+        bgcolor: 'background.paperLight',
+        mt: -2,
+      }}>
         {owner && (
           <Box sx={{ textAlign: 'center' }}>
-            <Text sx={{ typography: 'Pixelized', fontSize: 7 }} color="secondary">{t('chooseName')}</Text>
+            <Text sx={{
+              typography: 'Pixelized',
+              fontSize: 7,
+            }} color="secondary">{t('chooseName')}</Text>
             <Box
               component="img"
               src="/images/creation/arrow.png"

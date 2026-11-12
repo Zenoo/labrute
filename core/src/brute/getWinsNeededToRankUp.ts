@@ -2,7 +2,7 @@ import { Brute } from '@labrute/prisma';
 import { BruteRankings } from '../constants.js';
 
 export const getWinsNeededToRankUp = (
-  brute: Pick<Brute, 'ranking' | 'ascensions'>
+  brute: Pick<Brute, 'ranking' | 'ascensions'>,
 ) => {
   const regularRequirement = BruteRankings[0] + 1 - brute.ranking;
 

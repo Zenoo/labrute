@@ -1,5 +1,5 @@
 import {
-  BruteForRender, pets, skills, UserStatsGetResponse, weapons
+  BruteForRender, pets, skills, UserStatsGetResponse, weapons,
 } from '@labrute/core';
 import {
   Box,
@@ -20,14 +20,14 @@ import {
   Select,
   SelectChangeEvent,
   Tooltip,
-  useTheme
+  useTheme,
 } from '@mui/material';
 import { HeatmapRect } from '@visx/heatmap';
 import { scaleBand, scaleLinear } from '@visx/scale';
 import { Bar } from '@visx/shape';
 import dayjs from 'dayjs';
 import React, {
-  useCallback, useEffect, useMemo, useState
+  useCallback, useEffect, useMemo, useState,
 } from 'react';
 import {
   PetName,
@@ -75,6 +75,7 @@ const TOP_LABEL_SPACE = 20;
 const METRIC_OPTIONS: HeatmapMetric[] = ['xpGained', 'fights', 'wins', 'losses'];
 const MONTHLY_BAR_AREA_HEIGHT = 140;
 const MONTHLY_BAR_MIN_STEP = 16;
+
 const MONTHLY_BAR_CHART_MARGIN = {
   top: 8,
   right: 8,
@@ -162,6 +163,7 @@ export const StatsView = () => {
       );
 
       const labels: { x: number; label: string }[] = [];
+
       for (
         let monthStart = normalizedStart.startOf('month');
         monthStart.isBefore(normalizedEnd) || monthStart.isSame(normalizedEnd, 'month');
@@ -199,9 +201,11 @@ export const StatsView = () => {
   );
 
   const selectedYear = year ?? dayjs.utc().year();
+
   const yearlyRangeStart = year
     ? dayjs.utc().year(year).startOf('year')
     : dayjs.utc().startOf('day').subtract(364, 'day');
+
   const yearlyRangeEnd = year
     ? dayjs.utc().year(year).endOf('year').startOf('day')
     : dayjs.utc().startOf('day');
@@ -259,9 +263,17 @@ export const StatsView = () => {
 
       const ratio = count / max;
 
-      if (ratio <= 0.25) return activityColors[1];
-      if (ratio <= 0.5) return activityColors[2];
-      if (ratio <= 0.75) return activityColors[3];
+      if (ratio <= 0.25) {
+        return activityColors[1];
+      }
+
+      if (ratio <= 0.5) {
+        return activityColors[2];
+      }
+
+      if (ratio <= 0.75) {
+        return activityColors[3];
+      }
 
       return activityColors[4];
     },
@@ -272,7 +284,10 @@ export const StatsView = () => {
     const colorScale = getColorScale(computedHeatmap.maxCount);
 
     return (
-      <Box sx={{ overflowX: 'auto', maxWidth: '100%' }}>
+      <Box sx={{
+        overflowX: 'auto',
+        maxWidth: '100%',
+      }}>
         <svg width={computedHeatmap.heatmapWidth} height={computedHeatmap.heatmapHeight} role="img" aria-label="Activity heatmap">
           {computedHeatmap.monthLabels.map((m) => (
             <text
@@ -334,9 +349,11 @@ export const StatsView = () => {
 
   const renderMonthlyBars = useCallback((days: MonthlyDay[], max: number) => {
     const innerWidth = Math.max(days.length * MONTHLY_BAR_MIN_STEP, 520);
+
     const chartWidth = innerWidth
       + MONTHLY_BAR_CHART_MARGIN.left
       + MONTHLY_BAR_CHART_MARGIN.right;
+
     const chartHeight = MONTHLY_BAR_AREA_HEIGHT
       + MONTHLY_BAR_CHART_MARGIN.top
       + MONTHLY_BAR_CHART_MARGIN.bottom;
@@ -357,10 +374,16 @@ export const StatsView = () => {
     const colorScale = getColorScale(max);
 
     return (
-      <Box sx={{ width: 1, overflowX: 'auto', pb: 1, textAlign: 'center' }}>
+      <Box sx={{
+        width: 1,
+        overflowX: 'auto',
+        pb: 1,
+        textAlign: 'center',
+      }}>
         <svg width={chartWidth} height={chartHeight} role="img" aria-label="Monthly activity bars">
           {days.map((day, index) => {
             const x = xScale(day.date);
+
             if (x === undefined) {
               return null;
             }
@@ -449,14 +472,35 @@ export const StatsView = () => {
     }
 
     return [
-      { label: t('fights'), value: stats.current.fights },
-      { label: t('wins'), value: stats.current.wins },
-      { label: t('losses'), value: stats.current.losses },
-      { label: t('xpGained'), value: stats.current.xpGained },
-      { label: t('tournamentFights'), value: stats.current.tournamentFights },
+      {
+        label: t('fights'),
+        value: stats.current.fights,
+      },
+      {
+        label: t('wins'),
+        value: stats.current.wins,
+      },
+      {
+        label: t('losses'),
+        value: stats.current.losses,
+      },
+      {
+        label: t('xpGained'),
+        value: stats.current.xpGained,
+      },
+      {
+        label: t('tournamentFights'),
+        value: stats.current.tournamentFights,
+      },
       ...(userOnlyStats ? [
-        { label: t('connectedDays'), value: userOnlyStats.connectedDays },
-        { label: t('createdBrutes'), value: userOnlyStats.createdBrutes },
+        {
+          label: t('connectedDays'),
+          value: userOnlyStats.connectedDays,
+        },
+        {
+          label: t('createdBrutes'),
+          value: userOnlyStats.createdBrutes,
+        },
       ] : []),
     ];
   }, [stats, t, userOnlyStats]);
@@ -470,6 +514,7 @@ export const StatsView = () => {
     }
 
     const total = Math.max(stats.current.fights, 1);
+
     return {
       winRate: (stats.current.wins / total) * 100,
       lossRate: (stats.current.losses / total) * 100,
@@ -516,14 +561,24 @@ export const StatsView = () => {
 
     return levelUpRows.reduce((acc, row) => {
       acc[row.type].push(row);
+
       return acc;
     }, emptyGroups);
   }, [levelUpRows]);
 
   const getLevelUpGroupTitle = useCallback((type: LevelUpRow['type']) => {
-    if (type === 'pet') return t('pets');
-    if (type === 'weapon') return t('weapons');
-    if (type === 'skill') return t('skills');
+    if (type === 'pet') {
+      return t('pets');
+    }
+
+    if (type === 'weapon') {
+      return t('weapons');
+    }
+
+    if (type === 'skill') {
+      return t('skills');
+    }
+
     return t('stats');
   }, [t]);
 
@@ -534,7 +589,11 @@ export const StatsView = () => {
           <SkillIcon
             skill={row.choice as SkillName}
             tier={1}
-            sx={{ width: 18, height: 18, filter: 'drop-shadow(1px 1px 1px black)' }}
+            sx={{
+              width: 18,
+              height: 18,
+              filter: 'drop-shadow(1px 1px 1px black)',
+            }}
           />
         </SkillTooltip>
       );
@@ -547,7 +606,12 @@ export const StatsView = () => {
             component="img"
             src={`/images/game/resources/misc/weapons/${row.choice as WeaponName}.png`}
             alt={row.choice}
-            sx={{ width: 18, height: 18, objectFit: 'contain', filter: 'drop-shadow(1px 1px 1px black)' }}
+            sx={{
+              width: 18,
+              height: 18,
+              objectFit: 'contain',
+              filter: 'drop-shadow(1px 1px 1px black)',
+            }}
           />
         </WeaponTooltip>
       );
@@ -560,30 +624,48 @@ export const StatsView = () => {
             component="img"
             src={`/images/pets/${row.choice as PetName}.svg`}
             alt={row.choice}
-            sx={{ width: 18, height: 18, objectFit: 'contain', filter: 'drop-shadow(1px 1px 1px black)' }}
+            sx={{
+              width: 18,
+              height: 18,
+              objectFit: 'contain',
+              filter: 'drop-shadow(1px 1px 1px black)',
+            }}
           />
         </PetTooltip>
       );
     }
 
     const statIconPath = `/images/stats/${row.choice}.webp`;
+
     return (
       <Box
         component="img"
         src={statIconPath}
         alt={row.choice}
-        sx={{ width: 12, height: 12, objectFit: 'contain' }}
+        sx={{
+          width: 12,
+          height: 12,
+          objectFit: 'contain',
+        }}
       />
     );
   }, []);
 
+  const getPeriodTitle = () => {
+    if (typeof month === 'number') {
+      return dayjs().month(month).year(year ?? 0).format('MMMM YYYY');
+    }
+
+    if (year) {
+      return dayjs().year(year).format('YYYY');
+    }
+
+    return t('allTime');
+  };
+
   const title = t('title', {
     name: brute?.name ?? stats?.user.name,
-    granularity: typeof month === 'number'
-      ? dayjs().month(month).year(year ?? 0).format('MMMM YYYY')
-      : year
-        ? dayjs().year(year).format('YYYY')
-        : t('allTime'),
+    granularity: getPeriodTitle(),
   });
 
   useEffect(() => {
@@ -613,6 +695,7 @@ export const StatsView = () => {
   const openSettings = useCallback(() => {
     setSettingsOpen(true);
   }, []);
+
   const closeSettings = useCallback(() => {
     setSettingsOpen(false);
   }, []);
@@ -628,16 +711,20 @@ export const StatsView = () => {
     if (!event.target.value) {
       setDialogMonth(null);
       setDialogYear(null);
+
       return;
     }
+
     setDialogYear(+event.target.value);
   }, []);
 
   const changeDialogMonth = useCallback((event: SelectChangeEvent<string>) => {
     if (!event.target.value) {
       setDialogMonth(null);
+
       return;
     }
+
     setDialogMonth(+event.target.value);
 
     if (!dialogYear) {
@@ -648,9 +735,12 @@ export const StatsView = () => {
   const changeDialogBrute = useCallback((event: SelectChangeEvent<string>) => {
     if (!event.target.value) {
       setDialogBrute(null);
+
       return;
     }
+
     const selectedBrute = stats?.user.brutes.find(b => b.id === event.target.value);
+
     setDialogBrute(selectedBrute ?? null);
   }, [stats?.user.brutes]);
 
@@ -679,6 +769,7 @@ export const StatsView = () => {
                   <MenuItem value=""><em>{t('none')}</em></MenuItem>
                   {Array.from({ length: 20 }, (_, i) => {
                     const y = dayjs().year() - i;
+
                     return (
                       <MenuItem key={y} value={y}>{y}</MenuItem>
                     );
@@ -758,8 +849,17 @@ export const StatsView = () => {
               </IconButton>
             </Tooltip>
           </Paper>
-          <Paper sx={{ bgcolor: 'background.paperLight', mt: -2, p: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: 1 }}>
+          <Paper sx={{
+            bgcolor: 'background.paperLight',
+            mt: -2,
+            p: 2,
+          }}>
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+              gap: 1,
+            }}>
               <ButtonGroup size="small">
                 {METRIC_OPTIONS.map((option) => (
                   <Button
@@ -779,21 +879,40 @@ export const StatsView = () => {
           </Paper>
 
           {stats?.current && (
-            <Paper sx={{ bgcolor: 'background.paperLight', mt: 2, p: 2 }}>
+            <Paper sx={{
+              bgcolor: 'background.paperLight',
+              mt: 2,
+              p: 2,
+            }}>
               <Grid container spacing={1}>
                 {topMetrics.map((metricCard) => (
                   <Grid key={metricCard.label} item xs={6} md={3} lg={12 / topMetrics.length}>
-                    <Paper sx={{ p: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <Text sx={{ color: 'text.secondary', textAlign: 'center' }}>{metricCard.label}</Text>
+                    <Paper sx={{
+                      p: 0.5,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                    }}>
+                      <Text sx={{
+                        color: 'text.secondary',
+                        textAlign: 'center',
+                      }}>{metricCard.label}</Text>
                       <Text h4 bold>{formatNumber(metricCard.value)}</Text>
                     </Paper>
                   </Grid>
                 ))}
 
                 <Grid item xs={12} md={userOnlyStats ? 12 : 6}>
-                  <Paper sx={{ p: 2, bgcolor: 'background.paper' }}>
+                  <Paper sx={{
+                    p: 2,
+                    bgcolor: 'background.paper',
+                  }}>
                     <Text h4 bold typo="handwritten">{t('winRatio')}</Text>
-                    <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between' }}>
+                    <Box sx={{
+                      mt: 1,
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                    }}>
                       <Text sx={{ color: 'success.main' }}>{t('wins')}: {formatPercent(winLoss.winRate)}</Text>
                       <Text sx={{ color: 'error.main' }}>{t('losses')}: {formatPercent(winLoss.lossRate)}</Text>
                     </Box>
@@ -802,7 +921,10 @@ export const StatsView = () => {
                         variant="determinate"
                         value={Math.min(100, Math.max(0, winLoss.winRate))}
                         color="success"
-                        sx={{ height: 10, borderRadius: 99 }}
+                        sx={{
+                          height: 10,
+                          borderRadius: 99,
+                        }}
                       />
                     </Box>
                   </Paper>
@@ -810,9 +932,17 @@ export const StatsView = () => {
 
                 {userOnlyStats && (
                   <Grid item xs={12} md={6}>
-                    <Paper sx={{ p: 2, bgcolor: 'background.paper' }}>
+                    <Paper sx={{
+                      p: 2,
+                      bgcolor: 'background.paper',
+                    }}>
                       <Text h4 bold typo="handwritten">{t('economy')}</Text>
-                      <Box sx={{ mt: 1, display: 'grid', gridTemplateColumns: '1fr auto', gap: 1 }}>
+                      <Box sx={{
+                        mt: 1,
+                        display: 'grid',
+                        gridTemplateColumns: '1fr auto',
+                        gap: 1,
+                      }}>
                         <Text sx={{ color: 'text.secondary' }}>{t('goldWon')}</Text>
                         <Text bold sx={{ color: 'success.main' }}>{formatNumber(userOnlyStats.goldWon)}</Text>
                         <Text sx={{ color: 'text.secondary' }}>{t('goldLost')}</Text>
@@ -829,9 +959,17 @@ export const StatsView = () => {
                 )}
 
                 <Grid item xs={12} md={6}>
-                  <Paper sx={{ p: 2, bgcolor: 'background.paper' }}>
+                  <Paper sx={{
+                    p: 2,
+                    bgcolor: 'background.paper',
+                  }}>
                     <Text h4 bold typo="handwritten">{t('clanContribution')}</Text>
-                    <Box sx={{ mt: 1, display: 'grid', gridTemplateColumns: '1fr auto', gap: 1 }}>
+                    <Box sx={{
+                      mt: 1,
+                      display: 'grid',
+                      gridTemplateColumns: '1fr auto',
+                      gap: 1,
+                    }}>
                       <Text sx={{ color: 'text.secondary' }}>{t('clanWarFights')}</Text>
                       <Text bold>{formatNumber(stats.current.clanWarFights)}</Text>
                       <Text sx={{ color: 'text.secondary' }}>{t('clanBossFights')}</Text>
@@ -843,7 +981,10 @@ export const StatsView = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                  <Paper sx={{ p: 2, bgcolor: 'background.paper' }}>
+                  <Paper sx={{
+                    p: 2,
+                    bgcolor: 'background.paper',
+                  }}>
                     <Text h4 bold typo="handwritten">{t('levelUp')}</Text>
                     <Box sx={{ mt: 1 }}>
                       {levelUpRows.length === 0 && (
@@ -862,18 +1003,32 @@ export const StatsView = () => {
                               <Grid container spacing={1.25}>
                                 {rows.map((row) => (
                                   <Grid key={`${row.type}-${row.choice}`} item xs={12} md={6}>
-                                    <Paper sx={{ p: 1.25, bgcolor: 'background.paperLight' }}>
-                                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <Paper sx={{
+                                      p: 1.25,
+                                      bgcolor: 'background.paperLight',
+                                    }}>
+                                      <Box sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 1,
+                                      }}>
                                         {renderLevelUpIcon(row)}
-                                        <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-                                          <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1 }}>
+                                        <Box sx={{
+                                          flexGrow: 1,
+                                          minWidth: 0,
+                                        }}>
+                                          <Box sx={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            gap: 1,
+                                          }}>
                                             <Text bold>{t(row.choice)}</Text>
                                             <Text>
                                               <Trans
                                                 t={t}
                                                 i18nKey="levelUp.pickRate"
                                                 components={{
-                                                  picked: <strong />
+                                                  picked: <strong />,
                                                 }}
                                                 values={{
                                                   percent: formatPercent(row.pickRate),
@@ -885,7 +1040,11 @@ export const StatsView = () => {
                                             <LinearProgress
                                               variant="determinate"
                                               value={Math.min(100, Math.max(0, row.pickRate))}
-                                              sx={{ mt: 0.5, height: 8, borderRadius: 99 }}
+                                              sx={{
+                                                mt: 0.5,
+                                                height: 8,
+                                                borderRadius: 99,
+                                              }}
                                             />
                                           </Tooltip>
                                         </Box>

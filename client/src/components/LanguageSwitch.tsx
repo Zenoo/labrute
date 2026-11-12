@@ -2,7 +2,7 @@ import { Lang } from '@labrute/prisma';
 import {
   Box, BoxProps,
   Tooltip,
-  useTheme
+  useTheme,
 } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -64,7 +64,7 @@ export const LanguageSwitch = ({ sx, ...rest }: BoxProps) => {
               border: `1px solid ${theme.palette.topbar.colorDark}`,
               '&:hover': {
                 boxShadow: `0 0 8px ${theme.palette.topbar.contrastShadow}`,
-              }
+              },
             }}
           />
         </Tooltip>

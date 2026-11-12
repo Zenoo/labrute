@@ -1,5 +1,5 @@
 import {
-  InvalidAPIUseError, LogGetForUserFeedResponse, LogListResponse, NotFoundError
+  InvalidAPIUseError, LogGetForUserFeedResponse, LogListResponse, NotFoundError,
 } from '@labrute/core';
 import { LogType, PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -17,12 +17,16 @@ export const Logs = {
     try {
       if (!req.params.name) {
         res.send([]);
+
         return;
       }
 
       // Get brute id
       const brute = await traced('logs.list.findBrute', () => prisma.brute.findFirst({
-        where: { name: ilike(req.params.name), deletedAt: null },
+        where: {
+          name: ilike(req.params.name),
+          deletedAt: null,
+        },
         select: { id: true },
       }));
 
@@ -116,7 +120,10 @@ export const Logs = {
         },
       }));
 
-      res.status(200).send({ brutes, logs });
+      res.status(200).send({
+        brutes,
+        logs,
+      });
     } catch (error) {
       sendError(res, error);
     }

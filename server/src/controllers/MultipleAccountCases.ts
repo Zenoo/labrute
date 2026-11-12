@@ -41,6 +41,7 @@ export const MultipleAccountCases = {
   ) => {
     try {
       const actor = await auth(prisma, req, { admin: true });
+
       res.send(await reviewMultipleAccountCase(prisma, req.params.id, actor.id, req.body));
     } catch (error) {
       sendError(res, error);

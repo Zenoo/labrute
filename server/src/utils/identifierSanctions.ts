@@ -1,6 +1,6 @@
 import { ExpectedError, isUuid } from '@labrute/core';
 import {
-  Prisma, PrismaClient, User
+  Prisma, PrismaClient, User,
 } from '@labrute/prisma';
 import { isFingerprintFormatValid } from './fingerprintIdentity.js';
 import { lockMultipleAccountPolicy } from './multipleAccountPolicyLock.js';
@@ -9,6 +9,7 @@ const reviewReason = (reason: unknown) => {
   if (typeof reason !== 'string' || !reason.trim() || reason.trim().length > 500) {
     throw new ExpectedError('A review reason between 1 and 500 characters is required');
   }
+
   return reason.trim();
 };
 
@@ -52,7 +53,9 @@ export const getIdentifierRestrictions = async (
     identifierRestrictionQuery(Prisma.sql`${userId}::uuid`, browserId, fingerprint),
   );
 
-  if (!result) throw new Error('Could not determine identifier restrictions');
+  if (!result) {
+    throw new Error('Could not determine identifier restrictions');
+  }
 
   return result;
 };
@@ -81,6 +84,7 @@ export const findUserForAuthentication = async (
     WHERE u.id = ${id}::uuid AND u."connexionToken" = ${token}::uuid
     LIMIT 1
   `;
+
   return user ?? null;
 };
 
@@ -93,12 +97,22 @@ export const setIdentifierRestriction = async (
   reason: unknown,
 ) => {
   const reviewedReason = reviewReason(reason);
-  const validIdentifier = restricted
-    ? kind === 'browser' ? typeof value === 'string' && value.length === 36 && isUuid(value)
-      : isFingerprintFormatValid(value)
-    : typeof value === 'string' && value.length > 0 && value.length <= 255;
 
-  if (!isUuid(actorId) || !validIdentifier) throw new ExpectedError('Invalid restriction identifier');
+  let validIdentifier: boolean;
+
+  if (restricted) {
+    if (kind === 'browser') {
+      validIdentifier = typeof value === 'string' && value.length === 36 && isUuid(value);
+    } else {
+      validIdentifier = isFingerprintFormatValid(value);
+    }
+  } else {
+    validIdentifier = typeof value === 'string' && value.length > 0 && value.length <= 255;
+  }
+
+  if (!isUuid(actorId) || !validIdentifier) {
+    throw new ExpectedError('Invalid restriction identifier');
+  }
 
   const subjectId = kind === 'browser' ? value.toLowerCase() : value;
 
@@ -106,20 +120,35 @@ export const setIdentifierRestriction = async (
     // Serialize a change and its audit event, including concurrent restrict/release requests.
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${`${kind}:${subjectId}`}, 0))`;
 
-    const result = kind === 'browser'
-      ? restricted
-        ? await tx.bannedBrowser.createMany({ data: [{ id: subjectId }], skipDuplicates: true })
-        : await tx.bannedBrowser.deleteMany({ where: { id: subjectId } })
-      : restricted
-        ? await tx.bannedFingerprint.createMany({ data: [{ id: subjectId }], skipDuplicates: true })
-        : await tx.bannedFingerprint.deleteMany({ where: { id: subjectId } });
+    let result: Prisma.BatchPayload;
+
+    if (kind === 'browser') {
+      if (restricted) {
+        result = await tx.bannedBrowser.createMany({
+          data: [{ id: subjectId }],
+          skipDuplicates: true,
+        });
+      } else {
+        result = await tx.bannedBrowser.deleteMany({ where: { id: subjectId } });
+      }
+    } else if (restricted) {
+      result = await tx.bannedFingerprint.createMany({
+        data: [{ id: subjectId }],
+        skipDuplicates: true,
+      });
+    } else {
+      result = await tx.bannedFingerprint.deleteMany({ where: { id: subjectId } });
+    }
 
     if (result.count) {
       await tx.securityAction.create({
         data: {
-          subjectType: kind, subjectId, actorId, reason: reviewedReason,
+          subjectType: kind,
+          subjectId,
+          actorId,
+          reason: reviewedReason,
           action: restricted ? 'restrict' : 'release',
-        }
+        },
       });
     }
   });
@@ -148,11 +177,16 @@ export const editSharedBrowserExemptions = async (
 
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${`shared-browser:${subjectId}`}, 0))`;
 
-    if (!removeBrowser) await tx.sharedBrowser.upsert({
-      where: { id: subjectId },
-      create: { id: subjectId, description: reviewedReason },
-      update: { description: reviewedReason },
-    });
+    if (!removeBrowser) {
+      await tx.sharedBrowser.upsert({
+        where: { id: subjectId },
+        create: {
+          id: subjectId,
+          description: reviewedReason,
+        },
+        update: { description: reviewedReason },
+      });
+    }
 
     const existing = await tx.sharedBrowserExemption.findMany({ where: { browserId: subjectId } });
 
@@ -166,38 +200,63 @@ export const editSharedBrowserExemptions = async (
 
       if (retained) {
         await tx.sharedBrowserExemption.update({
-          where: { userId_browserId: { userId: member.userId, browserId: subjectId } },
+          where: {
+            userId_browserId: {
+              userId: member.userId,
+              browserId: subjectId,
+            },
+          },
           data: { reason: reviewedReason },
         });
 
         requested.delete(member.userId);
-      } else await tx.sharedBrowserExemption.delete({
-        where: { userId_browserId: { userId: member.userId, browserId: subjectId } },
-      });
+      } else {
+        await tx.sharedBrowserExemption.delete({
+          where: {
+            userId_browserId: {
+              userId: member.userId,
+              browserId: subjectId,
+            },
+          },
+        });
+      }
 
       await tx.securityAction.create({
         data: {
-          subjectType: 'shared-browser', subjectId, userId: member.userId, actorId,
-          action: retained ? 'update-grant' : 'revoke', reason: reviewedReason,
-        }
+          subjectType: 'shared-browser',
+          subjectId,
+          userId: member.userId,
+          actorId,
+          action: retained ? 'update-grant' : 'revoke',
+          reason: reviewedReason,
+        },
       });
     }
 
     for (const userId of requested) {
       await tx.sharedBrowserExemption.create({
         data: {
-          browserId: subjectId, userId, createdBy: actorId, reason: reviewedReason,
-        }
+          browserId: subjectId,
+          userId,
+          createdBy: actorId,
+          reason: reviewedReason,
+        },
       });
 
       await tx.securityAction.create({
         data: {
-          subjectType: 'shared-browser', subjectId, userId, actorId,
-          action: 'grant', reason: reviewedReason,
-        }
+          subjectType: 'shared-browser',
+          subjectId,
+          userId,
+          actorId,
+          action: 'grant',
+          reason: reviewedReason,
+        },
       });
     }
 
-    if (removeBrowser) await tx.sharedBrowser.delete({ where: { id: subjectId } });
+    if (removeBrowser) {
+      await tx.sharedBrowser.delete({ where: { id: subjectId } });
+    }
   });
 };

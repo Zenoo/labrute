@@ -9,6 +9,7 @@ type IdentifierListProps = {
 export const IdentifierList = ({ values, highlightedValues }: IdentifierListProps) => {
   const highlighted = Array.isArray(highlightedValues)
     ? new Set(highlightedValues) : highlightedValues;
+
   return (
     <>
       {Array.from(new Set(values)).map((value) => (

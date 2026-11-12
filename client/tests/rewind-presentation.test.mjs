@@ -7,18 +7,28 @@ import { StepType } from '@labrute/core';
 import { translateFightStep } from '../src/utils/translateFightStep.ts';
 
 const clientRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const repoRoot = path.resolve(clientRoot, '..');
 const localesRoot = path.join(clientRoot, 'src', 'i18n', 'locales');
 // Other locales are filled in through Crowdin.
 const locales = ['en'];
 
 test('rewind fight log translation passes caster and actual turns', () => {
   const calls = [];
+
   const t = (key, options) => {
-    calls.push({ key, options });
+    calls.push({
+      key,
+      options,
+    });
+
     return key;
   };
-  const fighters = [{ index: 7, type: 'brute', name: 'Rewinder' }];
+
+  const fighters = [{
+    index: 7,
+    type: 'brute',
+    name: 'Rewinder',
+  }];
+
   const result = translateFightStep(fighters, {
     a: StepType.Rewind,
     f: 7,
@@ -29,7 +39,10 @@ test('rewind fight log translation passes caster and actual turns', () => {
   assert.equal(result, 'fight.step.rewind');
   assert.deepEqual(calls, [{
     key: 'fight.step.rewind',
-    options: { brute: 'Rewinder', turns: 4 },
+    options: {
+      brute: 'Rewinder',
+      turns: 4,
+    },
   }]);
 });
 

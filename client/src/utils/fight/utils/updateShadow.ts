@@ -7,7 +7,7 @@ const getFadeFactor = (
 ) => Math.max(0.2, Math.min(
   1,
   (100 * (fighter.animation.baseWidth / 50) - altitude)
-  / (100 * (fighter.animation.baseWidth / 50))
+  / (100 * (fighter.animation.baseWidth / 50)),
 ));
 
 const updateShadow = (
@@ -21,9 +21,11 @@ const updateShadow = (
 
   const altitude = forceAltitude
     ?? fighter.animation.container.zIndex - fighter.animation.container.y;
+
   fighter.animation.shadow.y = altitude;
 
   const fadeFactor = forceFadeFactor ?? getFadeFactor(fighter, altitude);
+
   fighter.animation.shadow.alpha = fadeFactor;
   fighter.animation.shadow.scale.set(0.5 + fadeFactor * 0.5, 0.5 + fadeFactor * 0.5);
 };
@@ -55,7 +57,7 @@ const tweenShadow = async ({
     ease,
     y: endAltitude,
     alpha: targetFadeFactor,
-  })
+  }),
   );
 
   // Tweener for scale
@@ -64,7 +66,7 @@ const tweenShadow = async ({
     ease,
     x: 0.5 + targetFadeFactor * 0.5,
     y: 0.5 + targetFadeFactor * 0.5,
-  })
+  }),
   );
 
   // Wait for the animations
@@ -88,8 +90,10 @@ const airbornMove = async ({
 }) => {
   if (seeking) {
     Object.assign(fighter.animation.container, endPosition);
+
     return;
   }
+
   if (fighter.animation.container.destroyed || fighter.animation.shadow.destroyed) {
     return;
   }
@@ -116,4 +120,6 @@ const airbornMove = async ({
   await Promise.all(animations);
 };
 
-export { updateShadow, tweenShadow, airbornMove };
+export {
+  updateShadow, tweenShadow, airbornMove,
+};

@@ -1,7 +1,7 @@
 import {
   BruteDeletionReason,
   BruteReportsListRequest, BruteReportsListResponse, BruteReportsSendRequest, InvalidAPIUseError,
-  LimitError, NotFoundError
+  LimitError, NotFoundError,
 } from '@labrute/core';
 import {
   BruteReportReason, BruteReportStatus, InventoryItemType, NotificationSeverity, PrismaClient,
@@ -53,7 +53,12 @@ export const BruteReports = {
         // Order by count for pending, by handledAt for others
         orderBy: req.params.status === BruteReportStatus.pending
           ? [{ count: 'desc' }, { date: 'desc' }]
-          : { handledAt: { sort: 'desc', nulls: 'last' } },
+          : {
+            handledAt: {
+              sort: 'desc',
+              nulls: 'last',
+            },
+          },
       }));
 
       res.status(200).send(reports);
@@ -84,7 +89,11 @@ export const BruteReports = {
           name: ilike(name),
           deletedAt: null,
         },
-        select: { id: true, name: true, deletionReason: true },
+        select: {
+          id: true,
+          name: true,
+          deletionReason: true,
+        },
       }));
 
       if (!brute) {
@@ -95,6 +104,7 @@ export const BruteReports = {
         res.status(200).send({
           success: true,
         });
+
         return;
       }
 
@@ -230,6 +240,7 @@ export const BruteReports = {
       }));
 
       const reportBruteId = report.bruteId;
+
       if (reportBruteId) {
         // Tag brute for deletion
         await traced('bruteReports.accept.tagBruteForDeletion', () => prisma.brute.update({
@@ -246,10 +257,12 @@ export const BruteReports = {
 
       const reportBrute = report.brute;
       const reportBruteUserId = reportBrute?.userId;
+
       if (!reportBruteUserId) {
         res.status(200).send({
           success: true,
         });
+
         return;
       }
 

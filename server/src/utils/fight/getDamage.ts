@@ -15,9 +15,16 @@ export const getDamage = (
   opponent: DetailedFighter,
   thrown?: Tiered<Weapon>,
 ) => {
-  const base = thrown
-    ? (thrown.damage[thrown.tier - 1] ?? 0)
-    : (fighter.activeWeapon ? getWeaponScaledStat(chaos, fighter.activeWeapon, 'damage') : fighter.baseDamage);
+  let base;
+
+  if (thrown) {
+    base = thrown.damage[thrown.tier - 1] ?? 0;
+  } else if (fighter.activeWeapon) {
+    base = getWeaponScaledStat(chaos, fighter.activeWeapon, 'damage');
+  } else {
+    base = fighter.baseDamage;
+  }
+
   let skillsMultiplier = 1;
 
   // Using Piledriver ?
@@ -169,6 +176,7 @@ export const getDamage = (
   // Critical hit
   const criticalChance = getFighterStat(chaos, fighter, FightStat.CRITICAL_CHANCE);
   const criticalHit = !!criticalChance && Math.random() < criticalChance;
+
   if (criticalHit) {
     damage = Math.floor(damage * getFighterStat(chaos, fighter, FightStat.CRITICAL_DAMAGE));
   }

@@ -1,10 +1,10 @@
 import {
-  entries, weaponList, weapons
+  entries, weaponList, weapons,
 } from '@labrute/core';
 import { WeaponName } from '@labrute/prisma';
 import { Box, BoxProps } from '@mui/material';
 import React, {
-  useCallback, useMemo, useState
+  useCallback, useMemo, useState,
 } from 'react';
 import { useBrute } from '../../hooks/useBrute';
 import { PerkColor, TieredPerkColor } from '../../utils/StatColor';
@@ -17,40 +17,201 @@ const weaponSvgProps: Record<WeaponName, {
   width: string;
   xlinkHref: string;
 }> = {
-  [WeaponName.fan]: { id: '_w10', height: '43.15', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 25.335, 19.3693)', width: '48.65', xlinkHref: '#sprite18' },
-  [WeaponName.keyboard]: { id: '_w25', height: '13.35', transform: 'matrix(1.7112, -0.2186, 0.2186, 1.7112, 22.7598, 134.7653)', width: '33.3', xlinkHref: '#sprite51' },
-  [WeaponName.knife]: { id: '_w1', height: '8.1', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 38.091, 4.4059)', width: '55.6', xlinkHref: '#sprite3' },
-  [WeaponName.leek]: { id: '_w19', height: '61.95', transform: 'matrix(0.9007, 0.0, 0.0, 0.9007, 142.5953, 87.5244)', width: '44.2', xlinkHref: '#sprite31' },
-  [WeaponName.mug]: { id: '_w20', height: '24.5', transform: 'matrix(0.9007, 0.0, 0.0, 0.9007, 238.6467, 59.0669)', width: '25.15', xlinkHref: '#sprite32' },
-  [WeaponName.sai]: { id: '_w18', height: '26.2', transform: 'matrix(1.0, 0.0, 0.0, 1.0, 195.0, 173.45)', width: '60.6', xlinkHref: '#sprite49' },
-  [WeaponName.racquet]: { id: '_w27', height: '40.0', transform: 'matrix(1.0, 0.0, 0.0, 1.0, 92.2, 123.2)', width: '69.3', xlinkHref: '#sprite45' },
-  [WeaponName.axe]: { id: '_w8', height: '43.15', transform: 'matrix(0.0, 0.7269, -0.7269, 0.0, 249.2428, 1.416)', width: '71.75', xlinkHref: '#sprite14' },
-  [WeaponName.bumps]: { id: '_w13', height: '39.05', transform: 'matrix(0.1616, -0.8678, 0.8678, 0.1616, 171.0511, 79.6175)', width: '83.45', xlinkHref: '#sprite21' },
-  [WeaponName.flail]: { id: '_w16', height: '56.45', transform: 'matrix(0.8995, 0.036, -0.036, 0.8995, 100.7669, 78.2476)', width: '59.2', xlinkHref: '#sprite27' },
-  [WeaponName.fryingPan]: { id: '_w21', height: '42.05', transform: 'matrix(-0.279, 1.0412, -1.0412, -0.279, 299.6064, 120.4467)', width: '70.4', xlinkHref: '#sprite34' },
-  [WeaponName.hatchet]: { id: '_w6', height: '45.1', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 123.1949, 10.7539)', width: '77.15', xlinkHref: '#sprite10' },
-  [WeaponName.mammothBone]: { id: '_w15', height: '27.35', transform: 'matrix(-0.5487, 0.7138, -0.7138, -0.5487, 300.3664, 67.016)', width: '74.05', xlinkHref: '#sprite25' },
-  [WeaponName.morningStar]: { id: '_w14', height: '87.5', transform: 'matrix(0.3003, -0.8478, 0.8478, 0.3003, 14.9775, 93.1636)', width: '42.2', xlinkHref: '#sprite23' },
-  [WeaponName.trombone]: { id: '_w24', height: '57.0', transform: 'matrix(1.451, 0.0, 0.0, 1.5608, 204.7837, 76.2753)', width: '26.3', xlinkHref: '#sprite44' },
-  [WeaponName.baton]: { id: '_w4', height: '4.6', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 124.7055, 2.028)', width: '116.55', xlinkHref: '#sprite8' },
-  [WeaponName.halbard]: { id: '_w23', height: '34.0', transform: 'matrix(-0.8949, -0.0958, 0.0958, -0.8949, 191.4224, 209.3746)', width: '204.7', xlinkHref: '#sprite42' },
-  [WeaponName.lance]: { id: '_w3', height: '163.3', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 7.3798, 4.886)', width: '14.8', xlinkHref: '#sprite6' },
-  [WeaponName.trident]: { id: '_w5', height: '40.4', transform: 'matrix(-0.4643, -0.4643, 0.4643, -0.4643, 193.6863, 134.9724)', width: '176.35', xlinkHref: '#sprite9' },
-  [WeaponName.whip]: { id: '_w17', height: '31.7', transform: 'matrix(0.2331, -0.87, 0.87, 0.2331, 250.3412, 51.5226)', width: '62.5', xlinkHref: '#sprite29' },
-  [WeaponName.noodleBowl]: { id: '_w26', height: '27.0', transform: 'matrix(1.0, 0.0, 0.0, 1.0, 169.65, 145.15)', width: '36.2', xlinkHref: '#sprite47' },
-  [WeaponName.piopio]: { id: '_w22', height: '24.85', transform: 'matrix(-0.4374, -0.7859, 0.7859, -0.4374, 91.6181, 90.0935)', width: '23.55', xlinkHref: '#sprite36' },
-  [WeaponName.shuriken]: { id: '_w11', height: '15.35', transform: 'matrix(1.7143, 0.0, 0.0, 1.7143, 152.0914, 49.0489)', width: '17.1', xlinkHref: '#sprite19' },
-  [WeaponName.sword]: { id: '_w9', height: '22.5', transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 22.7385, 105.4265)', width: '122.05', xlinkHref: '#sprite16' },
-  [WeaponName.scimitar]: { id: '_w7', height: '22.9', transform: 'matrix(0.514, -0.514, 0.514, 0.514, 61.7086, 72.2334)', width: '101.15', xlinkHref: '#sprite12' },
-  [WeaponName.broadsword]: { id: '_w2', height: '41.3', transform: 'matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)', width: '81.15', xlinkHref: '#sprite4' },
+  [WeaponName.fan]: {
+    id: '_w10',
+    height: '43.15',
+    transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 25.335, 19.3693)',
+    width: '48.65',
+    xlinkHref: '#sprite18',
+  },
+  [WeaponName.keyboard]: {
+    id: '_w25',
+    height: '13.35',
+    transform: 'matrix(1.7112, -0.2186, 0.2186, 1.7112, 22.7598, 134.7653)',
+    width: '33.3',
+    xlinkHref: '#sprite51',
+  },
+  [WeaponName.knife]: {
+    id: '_w1',
+    height: '8.1',
+    transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 38.091, 4.4059)',
+    width: '55.6',
+    xlinkHref: '#sprite3',
+  },
+  [WeaponName.leek]: {
+    id: '_w19',
+    height: '61.95',
+    transform: 'matrix(0.9007, 0.0, 0.0, 0.9007, 142.5953, 87.5244)',
+    width: '44.2',
+    xlinkHref: '#sprite31',
+  },
+  [WeaponName.mug]: {
+    id: '_w20',
+    height: '24.5',
+    transform: 'matrix(0.9007, 0.0, 0.0, 0.9007, 238.6467, 59.0669)',
+    width: '25.15',
+    xlinkHref: '#sprite32',
+  },
+  [WeaponName.sai]: {
+    id: '_w18',
+    height: '26.2',
+    transform: 'matrix(1.0, 0.0, 0.0, 1.0, 195.0, 173.45)',
+    width: '60.6',
+    xlinkHref: '#sprite49',
+  },
+  [WeaponName.racquet]: {
+    id: '_w27',
+    height: '40.0',
+    transform: 'matrix(1.0, 0.0, 0.0, 1.0, 92.2, 123.2)',
+    width: '69.3',
+    xlinkHref: '#sprite45',
+  },
+  [WeaponName.axe]: {
+    id: '_w8',
+    height: '43.15',
+    transform: 'matrix(0.0, 0.7269, -0.7269, 0.0, 249.2428, 1.416)',
+    width: '71.75',
+    xlinkHref: '#sprite14',
+  },
+  [WeaponName.bumps]: {
+    id: '_w13',
+    height: '39.05',
+    transform: 'matrix(0.1616, -0.8678, 0.8678, 0.1616, 171.0511, 79.6175)',
+    width: '83.45',
+    xlinkHref: '#sprite21',
+  },
+  [WeaponName.flail]: {
+    id: '_w16',
+    height: '56.45',
+    transform: 'matrix(0.8995, 0.036, -0.036, 0.8995, 100.7669, 78.2476)',
+    width: '59.2',
+    xlinkHref: '#sprite27',
+  },
+  [WeaponName.fryingPan]: {
+    id: '_w21',
+    height: '42.05',
+    transform: 'matrix(-0.279, 1.0412, -1.0412, -0.279, 299.6064, 120.4467)',
+    width: '70.4',
+    xlinkHref: '#sprite34',
+  },
+  [WeaponName.hatchet]: {
+    id: '_w6',
+    height: '45.1',
+    transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 123.1949, 10.7539)',
+    width: '77.15',
+    xlinkHref: '#sprite10',
+  },
+  [WeaponName.mammothBone]: {
+    id: '_w15',
+    height: '27.35',
+    transform: 'matrix(-0.5487, 0.7138, -0.7138, -0.5487, 300.3664, 67.016)',
+    width: '74.05',
+    xlinkHref: '#sprite25',
+  },
+  [WeaponName.morningStar]: {
+    id: '_w14',
+    height: '87.5',
+    transform: 'matrix(0.3003, -0.8478, 0.8478, 0.3003, 14.9775, 93.1636)',
+    width: '42.2',
+    xlinkHref: '#sprite23',
+  },
+  [WeaponName.trombone]: {
+    id: '_w24',
+    height: '57.0',
+    transform: 'matrix(1.451, 0.0, 0.0, 1.5608, 204.7837, 76.2753)',
+    width: '26.3',
+    xlinkHref: '#sprite44',
+  },
+  [WeaponName.baton]: {
+    id: '_w4',
+    height: '4.6',
+    transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 124.7055, 2.028)',
+    width: '116.55',
+    xlinkHref: '#sprite8',
+  },
+  [WeaponName.halbard]: {
+    id: '_w23',
+    height: '34.0',
+    transform: 'matrix(-0.8949, -0.0958, 0.0958, -0.8949, 191.4224, 209.3746)',
+    width: '204.7',
+    xlinkHref: '#sprite42',
+  },
+  [WeaponName.lance]: {
+    id: '_w3',
+    height: '163.3',
+    transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 7.3798, 4.886)',
+    width: '14.8',
+    xlinkHref: '#sprite6',
+  },
+  [WeaponName.trident]: {
+    id: '_w5',
+    height: '40.4',
+    transform: 'matrix(-0.4643, -0.4643, 0.4643, -0.4643, 193.6863, 134.9724)',
+    width: '176.35',
+    xlinkHref: '#sprite9',
+  },
+  [WeaponName.whip]: {
+    id: '_w17',
+    height: '31.7',
+    transform: 'matrix(0.2331, -0.87, 0.87, 0.2331, 250.3412, 51.5226)',
+    width: '62.5',
+    xlinkHref: '#sprite29',
+  },
+  [WeaponName.noodleBowl]: {
+    id: '_w26',
+    height: '27.0',
+    transform: 'matrix(1.0, 0.0, 0.0, 1.0, 169.65, 145.15)',
+    width: '36.2',
+    xlinkHref: '#sprite47',
+  },
+  [WeaponName.piopio]: {
+    id: '_w22',
+    height: '24.85',
+    transform: 'matrix(-0.4374, -0.7859, 0.7859, -0.4374, 91.6181, 90.0935)',
+    width: '23.55',
+    xlinkHref: '#sprite36',
+  },
+  [WeaponName.shuriken]: {
+    id: '_w11',
+    height: '15.35',
+    transform: 'matrix(1.7143, 0.0, 0.0, 1.7143, 152.0914, 49.0489)',
+    width: '17.1',
+    xlinkHref: '#sprite19',
+  },
+  [WeaponName.sword]: {
+    id: '_w9',
+    height: '22.5',
+    transform: 'matrix(0.7269, 0.0, 0.0, 0.7269, 22.7385, 105.4265)',
+    width: '122.05',
+    xlinkHref: '#sprite16',
+  },
+  [WeaponName.scimitar]: {
+    id: '_w7',
+    height: '22.9',
+    transform: 'matrix(0.514, -0.514, 0.514, 0.514, 61.7086, 72.2334)',
+    width: '101.15',
+    xlinkHref: '#sprite12',
+  },
+  [WeaponName.broadsword]: {
+    id: '_w2',
+    height: '41.3',
+    transform: 'matrix(0.5771, -0.4402, 0.4402, 0.5771, 56.7885, 26.853)',
+    width: '81.15',
+    xlinkHref: '#sprite4',
+  },
 };
 
 const getRotationAngle = (transform: string): number => {
   // Parse matrix(a, b, c, d, e, f) to extract rotation angle
   const match = transform.match(/matrix\(([^,]+),\s*([^,]+)/);
-  if (!match) return 0;
+
+  if (!match) {
+    return 0;
+  }
+
   const a = parseFloat(match[1] ?? '1');
   const b = parseFloat(match[2] ?? '0');
+
   return Math.atan2(b, a);
 };
 
@@ -77,7 +238,7 @@ export const CellWeapons = (
     selectCallback?: (weapon: WeaponName) => void,
     hoverSelectAscend?: boolean,
     selectedWeapon?: WeaponName | null,
-  }
+  },
 ) => {
   const { brute } = useBrute();
   const [hoveredWeapon, setHoveredWeapon] = useState<WeaponName | 'bare-hands' | null>(null);
@@ -98,7 +259,7 @@ export const CellWeapons = (
 
   const randomWeapon = useMemo(
     () => (brute && !hoverSelectAscend ? brute.randomWeapon : null),
-    [brute, hoverSelectAscend]
+    [brute, hoverSelectAscend],
   );
 
   const isAscended = (weapon: WeaponName) => {
@@ -115,6 +276,7 @@ export const CellWeapons = (
     if (randomWeapon === weapon) {
       // Add smaller border for random weapon
       filters.push('url(#random-weapon-border)');
+
       return filters.join(' ');
     }
 
@@ -135,15 +297,19 @@ export const CellWeapons = (
     if (selectCallback === undefined) {
       return;
     }
+
     if (clicked === null) {
       return;
     }
+
     if (clicked === 'bare-hands') {
       return;
     }
+
     if (!brute?.weapons[clicked]) {
       return;
     }
+
     selectCallback(clicked);
   };
 
@@ -252,6 +418,7 @@ export const CellWeapons = (
           </g>
           {entries(brute.weapons).map(([weapon, tier]) => {
             const filter = getFilter(weapon, tier);
+
             return (
               <g
                 key={weapon}
@@ -271,7 +438,10 @@ export const CellWeapons = (
             );
           })}
           {unownedWeapons.map((weapon) => {
-            if (weapon === randomWeapon) return null;
+            if (weapon === randomWeapon) {
+              return null;
+            }
+
             return (
               <g
                 key={weapon}
@@ -925,7 +1095,10 @@ export const CellWeapons = (
             <g
               id="use8"
               transform="matrix(3.1517563,-0.37157527,-1.0958756,-1.0518607,-28.7878,-12.664682)"
-              style={{ strokeWidth: 0.998479, strokeDasharray: 'none' }}
+              style={{
+                strokeWidth: 0.998479,
+                strokeDasharray: 'none',
+              }}
             >
               <g id="use2368">
                 <g id="use2372">
@@ -969,21 +1142,33 @@ export const CellWeapons = (
             <g
               id="use6"
               transform="matrix(3.6081508,0.07948004,0.07948004,-3.6081508,-29.256755,-19.927505)"
-              style={{ strokeWidth: 0.138437, strokeDasharray: 'none' }}
+              style={{
+                strokeWidth: 0.138437,
+                strokeDasharray: 'none',
+              }}
             >
               <g
                 id="use1759"
                 transform="translate(0.05,2.65)"
-                style={{ strokeWidth: 0.138437, strokeDasharray: 'none' }}
+                style={{
+                  strokeWidth: 0.138437,
+                  strokeDasharray: 'none',
+                }}
               >
                 <g
                   id="use1767"
                   transform="translate(-0.15,6.65)"
-                  style={{ strokeWidth: 0.138437, strokeDasharray: 'none' }}
+                  style={{
+                    strokeWidth: 0.138437,
+                    strokeDasharray: 'none',
+                  }}
                 >
                   <g
                     id="use1773"
-                    style={{ strokeWidth: 0.138437, strokeDasharray: 'none' }}
+                    style={{
+                      strokeWidth: 0.138437,
+                      strokeDasharray: 'none',
+                    }}
                   >
                     <path
                       d="m -4.8,-6.05 c -0.1,1.2666667 0.05,2.55 0.45,3.85 l 0.4,1.35 -2.05,0.4 v -0.25 0.25 l 2.05,-0.4 -0.4,-1.35 C -4.75,-3.5 -4.9,-4.7833333 -4.8,-6.05 M -7.15,4.7 c 0,0 -0.8826748,-0.2451581 -1.1048204,-0.6006308 C -8.6348832,3.491201 -8.35,1.95 -8.35,1.95 -8.45,0.08333333 -7.6666667,-0.8 -6,-0.7 c -0.3,-1 -0.5,-2.2333333 -0.6,-3.7 -0.066667,-1.1 0.083333,-2.2 0.45,-3.3 L -5.5182606,-8.2837684 -4.6550579,-8.6211592 1.65,-8.35 2,-5.9 c 0.033333,1.0333333 -0.1166667,2.0666667 -0.45,3.1 L 0.8,-0.45 C 0.5,0.35 0.35,1.1833333 0.35,2.05 0.25,3.25 -0.3,4.1833333 -1.3,4.85 l -0.4,0.3 c -0.5,0.2 -1,0.2 -1.5,0 -0.4,-0.3 -0.7,-0.45 -0.9,-0.45 -0.3666667,-0.1 -0.7,-0.1 -1,0 -0.2333333,0.2 -0.35,0.5 -0.35,0.9 l 0.2,0.6 C -5.55,6.2 -5.8,6.0666667 -6,5.8 L -7.15,4.7 V 4.55 c -0.2,-1.7333333 0.1833333,-3.4 1.15,-5 -0.9666667,1.6 -1.35,3.2666667 -1.15,5 V 4.7 m 3.2,-5.55 c 0.3,1.9333333 -0.083333,3.7833333 -1.15,5.55 1.0666667,-1.7666667 1.45,-3.6166667 1.15,-5.55"
@@ -991,7 +1176,10 @@ export const CellWeapons = (
                       fillRule="evenodd"
                       stroke="none"
                       id="path1777"
-                      style={{ strokeWidth: 0.138437, strokeDasharray: 'none' }}
+                      style={{
+                        strokeWidth: 0.138437,
+                        strokeDasharray: 'none',
+                      }}
                     />
                     <path
                       d="M 4.9527158,-8.2881273 5.3,-7.2 5.65,-6.75 7,-3.25 8.9,2.35 C 9.1,3.0166667 9.05,3.95 8.75,5.15 7.3833333,5.85 6,6.5833333 4.6,7.35 c -1.6666667,1 -3.2833333,1.6 -4.85,1.8 l -0.55,-1 -0.8,-1.5 -2.2,0.4 2.2,-0.4 0.8,1.5 L -2.75,8 -3.8,7.05 -5.25,6.2 -5.45,5.6 c 0,-0.4 0.1166667,-0.7 0.35,-0.9 0.3,-0.1 0.6333333,-0.1 1,0 0.2,0 0.5,0.15 0.9,0.45 0.5,0.2 1,0.2 1.5,0 l 0.4,-0.3 c 1,-0.6666667 1.55,-1.6 1.65,-2.8 0,-0.8666667 0.15,-1.7 0.45,-2.5 L 1.55,-2.8 C 1.8833333,-3.8333333 2.0333333,-4.8666667 2,-5.9 L 1.65,-8.35 V -8.4 l 0.2,0.05 1.8787193,0.065508 M 4.75,-0.85 3.3,0.3 2.55,1 1.4,3.35 0.9,5.15 C 0.83333333,5.5833333 0.7,5.8833333 0.5,6.05 0,6.35 -0.6,6.5 -1.3,6.5 L -1.85,6.05 H -2 L -3.5,5.6 -4.1,4.7 -3.5,5.6 -2,6.05 h 0.15 L -1.3,6.5 C -0.6,6.5 0,6.35 0.5,6.05 0.7,5.8833333 0.83333333,5.5833333 0.9,5.15 L 1.4,3.35 2.55,1 3.3,0.3 4.75,-0.85 M 2.7,4.3 V 3.7 L 1.4,3.35 2.7,3.7 C 3.6,3.2 4.1,2.5166667 4.2,1.65 4.4,0.45 4.1,0 3.3,0.3 4.1,0 4.4,0.45 4.2,1.65 4.1,2.5166667 3.6,3.2 2.7,3.7 V 4.3 L 4.35,4.45 4.6,4.7 C 5.1,4.9 5.35,5.2 5.35,5.6 5.35,5.2 5.1,4.9 4.6,4.7 L 4.35,4.45 2.7,4.3 3,5.8 2.85,6.05 1.4,7.8 2.85,6.05 3,5.8 2.7,4.3 m -4,2.2 -0.3,0.15 0.3,-0.15"
@@ -999,7 +1187,10 @@ export const CellWeapons = (
                       fillRule="evenodd"
                       stroke="none"
                       id="path1779"
-                      style={{ strokeWidth: 0.138437, strokeDasharray: 'none' }}
+                      style={{
+                        strokeWidth: 0.138437,
+                        strokeDasharray: 'none',
+                      }}
                     />
                     <path
                       d="m -6,-0.7 v 0.25 l 2.05,-0.4 -0.4,-1.35 C -4.75,-3.5 -4.9,-4.7833333 -4.8,-6.05 M -4.5843913,-8.6614697 -5.5182606,-8.2837684 -6.15,-7.7 c -0.1709327,0.1579529 -0.5166667,2.2 -0.45,3.3 0.1,1.4666667 0.3,2.7 0.6,3.7 -1.6666667,-0.1 -2.45,0.78333333 -2.35,2.65 0,0 -0.2658966,1.5296987 0.1094358,2.1357275 C -8.0208853,4.4404311 -7.15,4.7 -7.15,4.7 V 4.55 c -0.2,-1.7333333 0.1833333,-3.4 1.15,-5 m 5.2,8.6 0.55,1 C 1.3166667,8.95 2.9333333,8.35 4.6,7.35 6,6.5833333 7.3833333,5.85 8.75,5.15 9.05,3.95 9.1,3.0166667 8.9,2.35 L 7,-3.25 5.65,-6.75 5.3,-7.2 4.9533895,-8.3187103 M -4.1,4.7 -3.5,5.6 -2,6.05 h 0.15 L -1.3,6.5 C -0.6,6.5 0,6.35 0.5,6.05 0.7,5.8833333 0.83333333,5.5833333 0.9,5.15 L 1.4,3.35 2.55,1 3.3,0.3 4.75,-0.85 M 1.4,3.35 2.7,3.7 C 3.6,3.2 4.1,2.5166667 4.2,1.65 4.4,0.45 4.1,0 3.3,0.3 M 5.35,5.6 C 5.35,5.2 5.1,4.9 4.6,4.7 L 4.35,4.45 2.7,4.3 3,5.8 2.85,6.05 1.4,7.8 M 2.7,3.7 V 4.3 M -7.15,4.7 -6,5.8 c 0.2,0.2666667 0.45,0.4 0.75,0.4 l -0.2,-0.6 c 0,-0.4 0.1166667,-0.7 0.35,-0.9 1.0666667,-1.7666667 1.45,-3.6166667 1.15,-5.55 m 3.15,9 -0.8,-1.5 -2.2,0.4 L -2.75,8 -0.8,8.15 M -1.6,6.65 -1.3,6.5 M -5.25,6.2 -3.8,7.05"
@@ -1014,7 +1205,7 @@ export const CellWeapons = (
                         stroke: '#000000',
                         strokeWidth: 0.138437,
                         strokeDasharray: 'none',
-                        strokeOpacity: 1
+                        strokeOpacity: 1,
                       }}
                     />
                   </g>

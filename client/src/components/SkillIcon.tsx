@@ -22,7 +22,9 @@ type SkillIconProps = Omit<BoxProps, 'component'> & {
  * ```
  */
 const SkillIcon = React.forwardRef<HTMLDivElement, SkillIconProps>(
-  ({ skill, tier = 1, sx, ...props }, ref) => {
+  ({
+    skill, tier = 1, sx, ...props
+  }, ref) => {
     const svgPath = `/images/skills/tier-${tier}/${skill}.svg`;
 
     return (
@@ -33,12 +35,12 @@ const SkillIcon = React.forwardRef<HTMLDivElement, SkillIconProps>(
         alt={skill}
         sx={{
           display: 'inline-block',
-          ...sx
+          ...sx,
         }}
         {...props}
       />
     );
-  }
+  },
 );
 
 SkillIcon.displayName = 'SkillIcon';

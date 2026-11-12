@@ -29,6 +29,7 @@ const setGlobalTournamentValid = async (prisma: PrismaClient, valid: boolean) =>
   const serverState = await traced('serverState.setGlobalTournamentValid.getServerState', () => prisma.serverState.findFirst({
     select: { id: true },
   }));
+
   if (!serverState) {
     await traced('serverState.setGlobalTournamentValid.createServerState', () => prisma.serverState.create({
       data: { globalTournamentValid: valid },
@@ -65,6 +66,7 @@ const getModifiers = async (prisma: PrismaClient) => {
   MODIFIERS = (serverState?.activeModifiers ?? [])
     .reduce<Modifiers>((acc, modifier) => {
       acc[modifier] = true;
+
       return acc;
     }, {});
 
@@ -76,6 +78,7 @@ const setModifiers = async (
   modifiers: Modifiers,
 ) => {
   const tomorrow = dayjs.utc().add(1, 'day').toDate();
+
   const serverState = await traced('serverState.setModifiers.getServerState', () => prisma.serverState.findFirst({
     select: { id: true },
   }));
@@ -136,7 +139,10 @@ const addBannedIps = async (prisma: PrismaClient, ips: string[]) => {
     data: newIps.map((ip) => ({ id: ip })),
   }));
 
-  if (BANNED_IPS) BANNED_IPS.push(...newIps);
+  if (BANNED_IPS) {
+    BANNED_IPS.push(...newIps);
+  }
+
   BANNED_IP_KEYS = null;
 };
 
@@ -145,7 +151,9 @@ const isIpBanned = async (prisma: PrismaClient, ip: string) => {
 
   const normalized = normalizeIp(ip);
 
-  if (!normalized) return false;
+  if (!normalized) {
+    return false;
+  }
 
   if (!BANNED_IP_KEYS) {
     BANNED_IP_KEYS = new Set(bannedIps.map(normalizeIp)
@@ -162,7 +170,9 @@ const removeBannedIps = async (prisma: PrismaClient, ips: string[]) => {
     where: { id: { in: ips } },
   }));
 
-  if (BANNED_IPS) BANNED_IPS = bannedIps.filter((ip) => !ips.includes(ip));
+  if (BANNED_IPS) {
+    BANNED_IPS = bannedIps.filter((ip) => !ips.includes(ip));
+  }
 
   BANNED_IP_KEYS = null;
 };
@@ -190,7 +200,11 @@ const addKnownFingerprint = async (
     await lockMultipleAccountPolicy(tx);
 
     await traced('serverState.addKnownFingerprint.createKnownFingerprint', () => tx.knownFingerprint.createMany({
-      data: [{ id: fingerprint, description }], skipDuplicates: true,
+      data: [{
+        id: fingerprint,
+        description,
+      }],
+      skipDuplicates: true,
     }));
   });
 
@@ -211,6 +225,7 @@ const removeKnownFingerprint = async (prisma: PrismaClient, fingerprint: string)
 
     await traced('serverState.removeKnownFingerprint.deleteKnownFingerprint', () => tx.knownFingerprint.deleteMany({ where: { id: fingerprint } }));
   });
+
   if (KNOWN_FINGERPRINTS) {
     KNOWN_FINGERPRINTS = KNOWN_FINGERPRINTS.filter((known) => known !== fingerprint);
   }
@@ -253,6 +268,7 @@ const getNextModifiers = async (prisma: PrismaClient) => {
   return (serverState?.nextModifiers ?? [])
     .reduce<Modifiers>((acc, modifier) => {
       acc[modifier] = true;
+
       return acc;
     }, {});
 };

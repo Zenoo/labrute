@@ -1,5 +1,5 @@
 import {
-  FightModifier, Lang, PetName
+  FightModifier, Lang, PetName,
 } from '@labrute/prisma';
 import { PETS_TOTAL_ODDS } from './brute/pets.js';
 import { SKILLS_TOTAL_ODDS } from './brute/skills.js';
@@ -36,9 +36,18 @@ export type Perk = {
 }
 
 export const PERK_ODDS: Perk[] = [
-  { name: 'pet', odds: PETS_TOTAL_ODDS },
-  { name: 'skill', odds: SKILLS_TOTAL_ODDS },
-  { name: 'weapon', odds: WEAPONS_TOTAL_ODDS },
+  {
+    name: 'pet',
+    odds: PETS_TOTAL_ODDS,
+  },
+  {
+    name: 'skill',
+    odds: SKILLS_TOTAL_ODDS,
+  },
+  {
+    name: 'weapon',
+    odds: WEAPONS_TOTAL_ODDS,
+  },
 ];
 
 export const NEW_BRUTE_BASE_COST = 500;
@@ -57,10 +66,22 @@ export const FIGHTER_WIDTH = {
 } as const;
 
 export const FIGHTER_HIT_ANCHOR = {
-  brute: { x: 5, y: 40 },
-  [PetName.bear]: { x: 60, y: 100 },
-  [PetName.panther]: { x: 45, y: 45 },
-  dog: { x: 30, y: 30 },
+  brute: {
+    x: 5,
+    y: 40,
+  },
+  [PetName.bear]: {
+    x: 60,
+    y: 100,
+  },
+  [PetName.panther]: {
+    x: 45,
+    y: 45,
+  },
+  dog: {
+    x: 30,
+    y: 30,
+  },
 } as const;
 
 export const MAX_FAVORITE_BRUTES = 30;
@@ -90,7 +111,7 @@ export const BOSS_XP_REWARD = 500;
 export const BOSS_GOLD_REWARD = 500;
 
 export const DOJO_UNLOCKS = [
-  5, 10, 15, 20, 25, 30, 50
+  5, 10, 15, 20, 25, 30, 50,
 ] as const;
 
 export enum BruteDeletionReason {
@@ -101,23 +122,65 @@ export enum BruteDeletionReason {
 }
 
 export const DailyModifierOdds = [
-  { modifier: FightModifier.noThrows, odds: 1 },
-  { modifier: FightModifier.focusOpponent, odds: 1 },
-  { modifier: FightModifier.alwaysUseSupers, odds: 1 },
-  { modifier: FightModifier.drawEveryWeapon, odds: 1 },
-  { modifier: FightModifier.doubleAgility, odds: 1 },
-  { modifier: FightModifier.randomSkill, odds: 1 },
-  { modifier: FightModifier.randomWeapon, odds: 1 },
-  { modifier: FightModifier.bareHandsFirstHit, odds: 1 },
-  { modifier: FightModifier.startWithWeapon, odds: 1 },
-  { modifier: FightModifier.chaos, odds: 0 },
+  {
+    modifier: FightModifier.noThrows,
+    odds: 1,
+  },
+  {
+    modifier: FightModifier.focusOpponent,
+    odds: 1,
+  },
+  {
+    modifier: FightModifier.alwaysUseSupers,
+    odds: 1,
+  },
+  {
+    modifier: FightModifier.drawEveryWeapon,
+    odds: 1,
+  },
+  {
+    modifier: FightModifier.doubleAgility,
+    odds: 1,
+  },
+  {
+    modifier: FightModifier.randomSkill,
+    odds: 1,
+  },
+  {
+    modifier: FightModifier.randomWeapon,
+    odds: 1,
+  },
+  {
+    modifier: FightModifier.bareHandsFirstHit,
+    odds: 1,
+  },
+  {
+    modifier: FightModifier.startWithWeapon,
+    odds: 1,
+  },
+  {
+    modifier: FightModifier.chaos,
+    odds: 0,
+  },
 ];
 
 export const DailyModifierCountOdds = [
-  { count: 1, odds: 50 },
-  { count: 2, odds: 25 },
-  { count: 3, odds: 15 },
-  { count: 4, odds: 10 },
+  {
+    count: 1,
+    odds: 50,
+  },
+  {
+    count: 2,
+    odds: 25,
+  },
+  {
+    count: 3,
+    odds: 15,
+  },
+  {
+    count: 4,
+    odds: 10,
+  },
 ];
 
 export const DailyModifierSpawnChance = 4 / 30;
