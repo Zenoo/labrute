@@ -86,6 +86,7 @@
   "modifier.chaos": "Kontrolliertes Chaos",
   "modifier.chaos.desc": "Heute ist alles irgendwie seltsam. Alle Werte sind zufällig verteilt.",
   "bannedAccount": "Dein Account wurde aus folgendem Grund gebannt: {{reason}}",
+  "banAppealCode": "Appeal code: {{code}}. Include this code when appealing on Discord.",
   "deletedAccount": "Dein Konto wurde gelöscht",
   "userNotBanned": "Nutzer nicht gebannt",
   "userAlreadyBanned": "Nutzer bereits gebannt",
