@@ -86,6 +86,7 @@
   "modifier.chaos": "Управляемый Хаос",
   "modifier.chaos.desc": "Сегодня всё странновато. Все параметры перемешаны случайным образом.",
   "bannedAccount": "Ваша учётная запись была забанена по следующей причине: {{reason}}",
+  "banAppealCode": "Appeal code: {{code}}. Include this code when appealing on Discord.",
   "deletedAccount": "Ваша учётная запись была удалена",
   "userNotBanned": "Пользователь не забанен",
   "userAlreadyBanned": "Пользователь уже забанен",
