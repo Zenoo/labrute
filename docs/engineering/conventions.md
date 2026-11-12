@@ -7,9 +7,9 @@ workspace ESLint configs, and [tsconfig.json](../../tsconfig.json). These notes 
 rules from patterns to follow in new code.
 
 - EditorConfig specifies UTF-8, two-space indentation, LF, a final newline, no trailing spaces and a
-  general 120-character width. ESLint's code limit is 100, excluding comments/strings/templates.
+  100-character width. ESLint's code limit is 100, excluding comments/strings/templates.
 - Existing TypeScript generally uses single quotes, semicolons, trailing commas in multiline structures,
-  and K&R braces. Match nearby code; there is no repository Prettier workflow to assume.
+  and K&R braces. Use the shared ESLint formatting workflow described below.
 - Named exports are enforced. Tool configuration files can have justified default-export exceptions.
 - Imports with three or more named properties must span lines. Import ordering is not enforced;
   follow the surrounding grouping without reordering unrelated imports.
@@ -24,6 +24,72 @@ rules from patterns to follow in new code.
   Comments should explain invariants, ownership, or non-obvious decisions.
 - PascalCase is common for components, controller collections and classes; helpers/hooks typically
   follow their exported camelCase names. Preserve existing filename/casing conventions per directory.
+
+## Readability
+
+These rules apply to new and edited code throughout maintained source, scripts, tests, and configs.
+They take precedence over nearby compressed formatting. Preserve unrelated code and generated files.
+
+- Expand objects with two or more properties, with one property per line. Expand complex type
+  declarations, nested calls, callbacks, and JSX when they need more than a quick glance to follow.
+- Use braces and separate lines for every branch and loop body. Write one statement per line.
+  Replace nested ternaries with named intermediate values or `if`/`else` branches.
+- Separate validation, data preparation, mutations, and results with blank lines. Blank lines around
+  control-flow blocks and before returns are enforced; add others where the logical step changes.
+- Use descriptive names. Split a function into named helpers when it spans separate responsibilities
+  or its phases become difficult to follow. Keep orchestration readable from top to bottom.
+- Explain **why**: document non-obvious business rules, invariants, ordering, transaction boundaries,
+  side effects, cleanup, and performance tradeoffs beside the relevant code. Introduce the phases of
+  a multi-step workflow with short intent comments. Explain exported helpers when their contract or
+  constraints are not clear from the name and types.
+- Keep comments current when behavior changes. Avoid comments that simply repeat an assignment,
+  arbitrary comment quotas, and lint disables used to retain compressed code.
+- Before finishing a change, read the final diff as a maintainer: formatting alone cannot establish
+  that the names, decomposition, or comments explain the code.
+
+For example:
+
+```ts
+// Keep the reward and inventory update atomic so retries cannot grant duplicate tickets.
+await prisma.$transaction(async (transaction) => {
+  const reward = {
+    userId: user.id,
+    gold: bossReward,
+  };
+
+  if (!eligible) {
+    return;
+  }
+
+  await grantReward(transaction, reward);
+});
+```
+
+### Automated checks
+
+The rules live directly in [eslint.config.js](../../eslint.config.js), inherited by each workspace.
+Use the ESLint CLI; no custom checker or separate formatter is involved.
+
+```sh
+pnpm lint
+pnpm lint:fix
+
+# Focused checks/fixes (use the relevant workspace for its extra lint rules).
+pnpm --dir server exec eslint src/seed-dev.ts
+pnpm --dir server exec eslint src/seed-dev.ts --fix
+```
+
+The root commands run `eslint .` and `eslint . --fix`. They include existing formatting debt;
+use explicit paths for a focused change instead of rewriting unrelated files. Fixes expand objects,
+branches, and spacing. Remaining errors, such as nested ternaries, require a deliberate rewrite.
+Generated Prisma, dependencies, compiled output, declaration files, and public assets are excluded.
+Comments and helper boundaries are agent/review requirements; ESLint enforces mechanical structure.
+
+VS Code workspace settings enable the ESLint extension for JavaScript, JSX, TypeScript, and TSX,
+select the nearest workspace config, and run `source.fixAll.eslint` on every save. Its save-action
+mode is `all`, so every available ESLint autofix is applied, including rules without a currently
+visible diagnostic. Install the recommended **ESLint** extension (`dbaeumer.vscode-eslint`).
+The built-in TypeScript formatter is disabled on save so it cannot undo ESLint's layout.
 
 ## React and UI
 

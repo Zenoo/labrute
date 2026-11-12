@@ -48,7 +48,8 @@ as part of documentation maintenance.
 | Server lint                    | `pnpm --dir server exec eslint src/PATH.ts`     | Paths relative to `server`                                |
 | Whitespace review              | `git diff --check`                              | Also inspect untracked documentation before committing    |
 
-There is no root `lint` script; run lint from the relevant workspace.
+Run `pnpm lint` / `pnpm lint:fix` for the ESLint CLI over the repository. For focused changes and workspace-specific
+rules, run ESLint on explicit paths from the relevant workspace.
 `pnpm build` compiles shared/server projects and bundles the client; use the separate client type check too.
 
 ## Test selection

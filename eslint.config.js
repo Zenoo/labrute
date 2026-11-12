@@ -3,6 +3,7 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import { importX } from 'eslint-plugin-import-x';
 import tsParser from '@typescript-eslint/parser';
+import globals from 'globals';
 
 export default [
   {
@@ -12,7 +13,9 @@ export default [
       '**/build/**',
       '**/dist/**',
       '**/lib/**',
-      '**/*.js',
+      '**/coverage/**',
+      'prisma/**',
+      '**/public/**',
       '**/*.d.ts',
       'Procfile',
     ],
@@ -48,10 +51,9 @@ export default [
       '@typescript-eslint/no-use-before-define': ['error'],
       '@typescript-eslint/no-shadow': ['error'],
       '@typescript-eslint/no-var-requires': 'off',
-      "@typescript-eslint/no-non-null-assertion": "error",
+      '@typescript-eslint/no-non-null-assertion': 'error',
 
       // General rules
-      'eol-last': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       camelcase: 'off',
       'no-plusplus': 'off',
@@ -66,13 +68,104 @@ export default [
 
       // Style rules
       'linebreak-style': 'off',
-      'no-nested-ternary': 'off',
+      'prefer-promise-reject-errors': 'off',
+      'no-restricted-syntax': 'off',
+      'no-param-reassign': 'off',
+    },
+  },
+  {
+    files: ['**/*.{js,jsx,mjs,cjs}'],
+    languageOptions: {
+      globals: globals.node,
+    },
+    rules: {
+      'import-x/no-named-as-default-member': 'off',
+    },
+  },
+  {
+    files: ['**/eslint.config.js'],
+    rules: {
+      // ESLint plugins expose CommonJS defaults that the static import resolver cannot always see.
+      'import-x/default': 'off',
+    },
+  },
+  {
+    files: ['**/*.{ts,tsx,js,jsx,mjs,cjs}'],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+    },
+    // All workspaces inherit the same mechanical readability rules.
+    rules: {
+      curly: ['error', 'all'],
+      'brace-style': ['error', '1tbs', { allowSingleLine: false }],
+      'max-statements-per-line': ['error', { max: 1 }],
+      'no-nested-ternary': 'error',
       'object-curly-newline': [
         'error',
         {
-          ImportDeclaration: { multiline: true, minProperties: 3 },
+          ObjectExpression: {
+            multiline: true,
+            minProperties: 2,
+            consistent: true,
+          },
+          ObjectPattern: {
+            multiline: true,
+            minProperties: 3,
+            consistent: true,
+          },
+          ImportDeclaration: {
+            multiline: true,
+            minProperties: 3,
+            consistent: true,
+          },
+          ExportDeclaration: {
+            multiline: true,
+            minProperties: 3,
+            consistent: true,
+          },
         },
       ],
+      'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }],
+      'padding-line-between-statements': [
+        'error',
+        {
+          blankLine: 'always',
+          prev: '*',
+          next: 'return',
+        },
+        {
+          blankLine: 'always',
+          prev: '*',
+          next: 'block-like',
+        },
+        {
+          blankLine: 'always',
+          prev: 'block-like',
+          next: '*',
+        },
+        {
+          blankLine: 'always',
+          prev: 'import',
+          next: '*',
+        },
+        {
+          blankLine: 'any',
+          prev: 'import',
+          next: 'import',
+        },
+      ],
+      // Core indent cannot handle some JSX trees; React's rules format those in the client.
+      indent: ['error', 2, {
+        SwitchCase: 1,
+        ignoredNodes: ['JSXElement', 'JSXFragment'],
+      }],
+      quotes: ['error', 'single', { avoidEscape: true }],
+      semi: ['error', 'always'],
+      'comma-dangle': ['error', 'always-multiline'],
+      'eol-last': ['error', 'always'],
+      'no-trailing-spaces': 'error',
       'max-len': [
         'error',
         {
@@ -82,11 +175,6 @@ export default [
           ignoreTemplateLiterals: true,
         },
       ],
-      'prefer-promise-reject-errors': 'off',
-      'comma-dangle': 'off',
-      'no-restricted-syntax': 'off',
-      'no-param-reassign': 'off',
-      indent: 'off',
     },
-  }
+  },
 ];

@@ -2,20 +2,22 @@
   "search.exclude": {
     "prisma/**/*": true
   },
-  "eslint.workingDirectories": [
-    "./client",
-    "./server",
-    "./core"
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.useFlatConfig": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
   ],
-	"[typescript]": {
-		"editor.autoClosingBrackets": "languageDefined",
-		"editor.defaultFormatter": "vscode.typescript-language-features",
-	},
-	"[typescriptreact]": {
-		"editor.autoClosingBrackets": "languageDefined",
-		"editor.defaultFormatter": "vscode.typescript-language-features"
+  "eslint.codeActionsOnSave.mode": "all",
+  "eslint.codeActionsOnSave.rules": ["*"],
+  "eslint.format.enable": true,
+  "[javascript][javascriptreact][typescript][typescriptreact]": {
+    "editor.autoClosingBrackets": "languageDefined",
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": false
   },
-  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.addMissingImports.ts": "always",
     "source.removeUnusedImports": "always",

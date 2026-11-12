@@ -35,7 +35,7 @@ export default [
     },
     settings: {
       react: {
-        react: { version: "18" } // Avoids auto-detection crash
+        react: { version: '18' }, // Avoids auto-detection crash
       },
       'import-x/parsers': {
         '@typescript-eslint/parser': ['.ts', '.tsx'],
@@ -60,6 +60,8 @@ export default [
       'react/jsx-curly-brace-presence': 'error',
       'react/jsx-props-no-spreading': 'off',
       'react/jsx-one-expression-per-line': 'off',
+      'react/jsx-indent': ['error', 2],
+      'react/jsx-indent-props': ['error', 2],
 
       // React Hooks rules
       'react-hooks/rules-of-hooks': 'error',
@@ -83,5 +85,5 @@ export default [
       // General rules
       'no-await-in-loop': 'off',
     },
-  }
+  },
 ];

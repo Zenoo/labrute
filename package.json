@@ -10,6 +10,8 @@
   "scripts": {
     "clean": "rimraf --glob \"client/build\" \"core/lib\" \"server/lib\" \"**/node_modules\" \"**/tsconfig.tsbuildinfo\"",
     "compile": "tsc -b tsconfig.build.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "pnpm compile && pnpm --recursive --workspace-concurrency=1 --no-bail --filter @labrute/server --filter @labrute/client test",
     "front": "pnpm --filter client start",
     "back": "pnpm --filter server start:watch",
@@ -27,6 +29,7 @@
     "db:resolve:applied": "pnpm --filter server db:resolve:applied",
     "db:resolve:rolled-back": "pnpm --filter server db:resolve:rolled-back",
     "db:seed": "pnpm --filter server db:seed",
+    "db:seed:dev": "pnpm compile && pnpm --filter @labrute/server db:seed:dev",
     "db:reset": "pnpm --filter server db:reset",
     "studio": "pnpm --filter server studio",
     "add:client": "pnpm --filter client add",

@@ -45,7 +45,7 @@ For architecture, code conventions, task-to-code navigation, and focused verific
 
 - Compile the sources: `pnpm compile`
 
-- Seed your database (optional, but useful for development): `pnpm db:seed`
+- Seed your database (optional, but useful for development): `pnpm db:seed:dev`
 
 - Make sure to initialize your etwin database by running `pnpm eternaltwin db sync`
 
@@ -63,9 +63,11 @@ For architecture, code conventions, task-to-code navigation, and focused verific
 
 ### How to seed your database
 
-- Edit `server/src/seed.ts`
-
-- Run `pnpm db:seed`
+- Run `pnpm db:seed:dev` for a complete local debugging dataset (accounts, brutes, fights,
+  tournaments, events, clans, inventory, statistics and moderation).
+- See [development seed instructions](docs/engineering/development-seed.md) for database selection,
+  local login, scenarios and rebuilding fixtures.
+- `pnpm db:seed` only generates arena bots and remains the production bootstrap command.
 
 ### pnpm troubleshooting
 

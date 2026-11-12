@@ -18,6 +18,7 @@
     "db:resolve:applied": "prisma migrate resolve --applied",
     "db:resolve:rolled-back": "prisma migrate resolve --rolled-back",
     "db:seed": "prisma db seed",
+    "db:seed:dev": "node ./lib/seed-dev.js",
     "db:reset": "prisma migrate reset --skip-generate",
     "studio": "prisma studio",
     "run:retrieveFirstBonus": "pnpm compile && node ./lib/scripts/retrieveFirstBonus.js",
