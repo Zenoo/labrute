@@ -240,7 +240,7 @@ export const HallView = () => {
                   top: -44,
                   left: 100,
                   height: 136,
-                  width: '150%',
+                  width: 85,
                   overflow: 'hidden',
                   pointerEvents: 'none',
                 }}
