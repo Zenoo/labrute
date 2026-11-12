@@ -88,8 +88,6 @@
   "bannedAccount": "Dein Account wurde aus folgendem Grund gebannt: {{reason}}",
   "banAppealCode": "Einspruchs-Code: {{code}}. Fügen Sie diesen Code bei, wenn sie auf Discord Einspruch einlegen.",
   "deletedAccount": "Dein Konto wurde gelöscht",
-  "userNotBanned": "Nutzer nicht gebannt",
-  "userAlreadyBanned": "Nutzer bereits gebannt",
   "banReason.innapropriateName": "Unangemessener Name",
   "banReason.innapropriateBruteName": "Unangemessener Name des Brutalos",
   "banReason.multipleAccounts": "Mehrere Accounts",
