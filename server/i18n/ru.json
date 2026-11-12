@@ -88,8 +88,6 @@
   "bannedAccount": "Ваша учётная запись была забанена по следующей причине: {{reason}}",
   "banAppealCode": "Код апелляции: {{code}}. Предоставьте этот код при подаче апелляции в Дискорде.",
   "deletedAccount": "Ваша учётная запись была удалена",
-  "userNotBanned": "Пользователь не забанен",
-  "userAlreadyBanned": "Пользователь уже забанен",
   "banReason.innapropriateName": "Неуместное имя",
   "banReason.innapropriateBruteName": "Неуместное имя Брутала",
   "banReason.multipleAccounts": "Несколько учётных записей",
