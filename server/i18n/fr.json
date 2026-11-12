@@ -86,6 +86,7 @@
   "modifier.chaos": "Chaos Contrôlé",
   "modifier.chaos.desc": "Tout semble étrange aujourd'hui. Toutes les statistiques sont aléatoires.",
   "bannedAccount": "Votre compte a été banni pour la raison suivante : {{reason}}",
+  "banAppealCode": "Appeal code: {{code}}. Include this code when appealing on Discord.",
   "deletedAccount": "Votre compte a été supprimé",
   "userNotBanned": "Utilisateur non banni",
   "userAlreadyBanned": "Utilisateur déjà banni",
