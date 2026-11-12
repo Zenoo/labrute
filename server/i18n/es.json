@@ -88,8 +88,6 @@
   "bannedAccount": "Tu cuenta ha sido baneada por el siguiente motivo: {{reason}}",
   "banAppealCode": "Appeal code: {{code}}. Include this code when appealing on Discord.",
   "deletedAccount": "Your account has been deleted",
-  "userNotBanned": "Usuario no baneado",
-  "userAlreadyBanned": "El usuario ya está baneado",
   "banReason.innapropriateName": "Nombre inapropiado",
   "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
   "banReason.multipleAccounts": "Múltiples cuentas",
