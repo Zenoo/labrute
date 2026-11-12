@@ -37,7 +37,8 @@ for (const gender of ['male', 'female']) {
       }, { current: 1 });
       try {
         while (!holder.loaded) await setImmediate();
-        const maskOffset = Symbol68.parts.find((part) => part.name === 'Symbol39').offset;
+        const maskDefinition = Symbol68.parts.find((part) => part.name === 'Symbol39');
+        const maskOffset = maskDefinition.parts.find((part) => part.type === 'svg').offset;
         for (const weapon of ['piopio', 'broadsword', 'knife', 'piopio']) {
           holder.weapon = weapon;
           holder.setAnimation('idle');

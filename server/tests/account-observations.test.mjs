@@ -68,7 +68,7 @@ before(async () => {
   const url = new URL(databaseUrl);
   // Never reset tables in a configured development/production database.
   assert.ok(['localhost', '127.0.0.1'].includes(url.hostname));
-  assert.equal(url.pathname, '/observation_test');
+  assert.ok(['/observation_test', '/labrute_observation_test'].includes(url.pathname));
   admin = new PrismaClient({ datasources: { db: { url: url.toString() } } });
   await admin.$executeRawUnsafe(`CREATE SCHEMA "${schema}"`);
   url.searchParams.set('schema', schema);

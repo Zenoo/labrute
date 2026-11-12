@@ -8,7 +8,7 @@ mock.module('../lib/context.js', { namedExports: {
 } });
 const { bannedAccountMessage } = await import('../lib/utils/user/bannedAccountMessage.js');
 const { auth } = await import('../lib/utils/auth.js');
-await i18next.init({ lng: 'en', resources: Object.fromEntries(['en', 'fr'].map((lang) => [lang, {
+await i18next.init({ lng: 'en', fallbackLng: 'en', resources: Object.fromEntries(['en', 'fr'].map((lang) => [lang, {
   translation: JSON.parse(readFileSync(new URL(`../i18n/${lang}.json`, import.meta.url), 'utf8')),
 }])) });
 const id = '11111111-1111-4111-8111-111111111111';
@@ -20,7 +20,9 @@ test('ban notices include the stable case reference and localized Discord appeal
   assert.match(message, new RegExp(`MC-${code}`));
   assert.match(message, /Multiple accounts/);
   assert.match(message, /appealing on Discord/);
-  assert.match(bannedAccountMessage({ ...user, lang: 'fr' }), /Code de recours/);
+  const frenchMessage = bannedAccountMessage({ ...user, lang: 'fr' });
+  assert.match(frenchMessage, /Votre compte/);
+  assert.match(frenchMessage, new RegExp(`MC-${code}`));
   assert.match(bannedAccountMessage({ ...user, banAppealCode: null }), new RegExp(`USER-${id}`));
 });
 

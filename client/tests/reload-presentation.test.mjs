@@ -22,12 +22,14 @@ test('source locale reload tooltips expose the tiered use count', async () => {
   }
 });
 
-test('blank reload SVG placeholders exist for each skill tier', async () => {
+test('reload artwork exists for each skill tier', async () => {
   for (const tier of [1, 2, 3]) {
     const svg = await readFile(
       path.join(clientRoot, 'public', 'images', 'skills', `tier-${tier}`, 'reload.svg'),
       'utf8',
     );
-    assert.match(svg.trim(), /^<svg\b[^>]*\/>$/);
+    assert.match(svg, /<svg\b[^>]*\bviewBox="[^"]+"/);
+    assert.match(svg, /<(?:path|polygon|rect|circle|ellipse)\b/);
+    assert.match(svg.trim(), /<\/svg>$/);
   }
 });

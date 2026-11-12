@@ -35,6 +35,7 @@ as part of documentation maintenance.
 | Purpose                        | Command                                         | Notes                                                     |
 | ------------------------------ | ----------------------------------------------- | --------------------------------------------------------- |
 | Compile shared/server projects | `pnpm compile`                                  | Builds Prisma/core/server references; excludes client     |
+| Run all tests                  | `pnpm test`                                     | Compiles shared/server, runs server/client and Chrome tests |
 | Check client TypeScript        | `pnpm --filter @labrute/client run compile`     | `tsc --build`; client uses `noEmit`                       |
 | Bundle client                  | `pnpm --filter @labrute/client run build`       | Vite output in `client/build`, including bundle stats     |
 | Client development server      | `pnpm --filter @labrute/client run start`       | Port 3000, opens browser                                  |
@@ -47,7 +48,7 @@ as part of documentation maintenance.
 | Server lint                    | `pnpm --dir server exec eslint src/PATH.ts`     | Paths relative to `server`                                |
 | Whitespace review              | `git diff --check`                              | Also inspect untracked documentation before committing    |
 
-There is no root `test` or `lint` script. Do not invent `pnpm test` as a verification step.
+There is no root `lint` script; run lint from the relevant workspace.
 `pnpm build` compiles shared/server projects and bundles the client; use the separate client type check too.
 
 ## Test selection
@@ -55,6 +56,20 @@ There is no root `test` or `lint` script. Do not invent `pnpm test` as a verific
 Tests use Node's built-in runner and `.mjs`, not Jest/Vitest. Many client tests import TypeScript directly
 or load modules through Vite; read the target test imports before deciding prerequisites.
 Server fight tests import `server/lib` and compiled core, so compile first.
+
+Run `pnpm test` from the root with Node 24. It compiles core/server, discovers every
+`server/tests/*.test.mjs`, `client/tests/*.test.mjs` and `client/tests/*.browser.mjs`.
+After a successful compile, all suites run even when individual tests fail; the command exits nonzero
+if any suite fails. This includes the admin Chrome browser checks.
+Client tests run serially because several create Vite servers. Benchmarks (`*.bench.mjs`) are separate.
+Chrome defaults to its standard Windows installation path; set `CHROME_PATH` on other installations.
+Database integration tests require `OBSERVATION_TEST_DATABASE_URL` pointing to a disposable loopback
+PostgreSQL database named `observation_test` or `labrute_observation_test`; without it, those tests
+explicitly skip. Never point this variable at a development or production database.
+Tests create/migrate isolated test schemas;
+the command does not start a database server or migrate an application's existing schema.
+Use `pnpm --filter @labrute/server test`, `pnpm --filter @labrute/client test:unit` or
+`pnpm --filter @labrute/client test:browser` to run a subset (compile first for server tests).
 
 ```sh
 # After pnpm compile: server fight behavior and deterministic scenarios

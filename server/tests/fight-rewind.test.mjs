@@ -43,10 +43,10 @@ const simulateTurn = (fight, stats = {}, achievements = {}, lethal = false) => {
   }, (caster) => { caster.initiative -= 3; });
 };
 
-test('Rewind has stable appended IDs and is a non-reloadable once-per-fight passive in the normal pool', () => {
+test('Rewind has stable appended IDs and is a non-reloadable once-per-fight super in the normal pool', () => {
   assert.equal(SkillByName.rewind, SkillId.deity + 1);
   assert.equal(StepType.Rewind, StepType.Reload + 1);
-  assert.equal(skills.rewind.type, 'passive');
+  assert.equal(skills.rewind.type, 'super');
   assert.ok(skills.rewind.odds > 0);
   assert.equal(skills.rewind.canReload, false);
   assert.deepEqual(skills.rewind.uses, [1, 1, 1]);
@@ -72,7 +72,7 @@ test('tiers rewind exactly 3/4/5 playFighterTurn boundaries and preserve the for
   }
 });
 
-test('an early lethal hit clamps to available history, restores all mutable fight state and discards future stats', () => {
+test('an early lethal hit restores combat state while retaining cumulative stats and achievements', () => {
   const fight = fixture(3);
   const pet = fighter(3, { type: 'pet', team: 'L', master: 'fighter-1' });
   fight.fighters.push(pet);
@@ -99,8 +99,9 @@ test('an early lethal hit clamps to available history, restores all mutable figh
   assert.deepEqual(fight.fighters, before);
   assert.equal(fight.initiative, 0);
   assert.equal(fight.loser, null);
-  assert.deepEqual(stats, { 'fighter-1': { userId: 'user', hits: 2, skillsUsed: 1 } });
-  assert.equal(achievements.extra, undefined);
+  assert.deepEqual(stats, { 'fighter-1': { userId: 'user', hits: 100, skillsUsed: 1 },
+    extra: { userId: 'extra' } });
+  assert.deepEqual(achievements.extra, { userId: 'extra', achievements: {} });
   assert.deepEqual(fight.steps.at(-1), { a: StepType.Rewind, f: 1, n: 1, t: 1 });
 });
 

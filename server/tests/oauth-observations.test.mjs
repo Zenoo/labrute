@@ -159,7 +159,7 @@ before(async () => {
   if (!databaseUrl) return;
   const url = new URL(databaseUrl);
   assert.ok(['localhost', '127.0.0.1'].includes(url.hostname));
-  assert.equal(url.pathname, '/observation_test');
+  assert.ok(['/observation_test', '/labrute_observation_test'].includes(url.pathname));
   admin = new PrismaClient({ datasources: { db: { url: url.toString() } } });
   await admin.$transaction(async (tx) => {
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended('security-test-extensions', 0))`;

@@ -10,6 +10,7 @@
   "scripts": {
     "clean": "rimraf --glob \"client/build\" \"core/lib\" \"server/lib\" \"**/node_modules\" \"**/tsconfig.tsbuildinfo\"",
     "compile": "tsc -b tsconfig.build.json",
+    "test": "pnpm compile && pnpm --recursive --workspace-concurrency=1 --no-bail --filter @labrute/server --filter @labrute/client test",
     "front": "pnpm --filter client start",
     "back": "pnpm --filter server start:watch",
     "eternaltwin": "eternaltwin",

@@ -2,11 +2,11 @@
 
 ## Separate the three representations
 
-| Representation | Source | Purpose |
-| --- | --- | --- |
-| Detailed combat state | server `utils/fight/generateFight.ts`, `fightMethods.ts` | Mutable simulation fighters, initiative, skills/weapons, achievements/stats |
-| Persisted fight protocol | core `types.ts`, schema `Fight`, server `generateFight.ts` | Serialized initial fighters and steps, results, modifiers and background |
-| Client animation state | client `Fight.ts`, `FighterHolder.ts`, `utils/findFighter.ts` | Pixi holders, poses, HUD, transient effects, seek/snapshot/reversal state |
+| Representation           | Source                                                        | Purpose                                                                     |
+| ------------------------ | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Detailed combat state    | server `utils/fight/generateFight.ts`, `fightMethods.ts`      | Mutable simulation fighters, initiative, skills/weapons, achievements/stats |
+| Persisted fight protocol | core `types.ts`, schema `Fight`, server `generateFight.ts`    | Serialized initial fighters and steps, results, modifiers and background    |
+| Client animation state   | client `Fight.ts`, `FighterHolder.ts`, `utils/findFighter.ts` | Pixi holders, poses, HUD, transient effects, seek/snapshot/reversal state   |
 
 A wrong winner/damage value usually starts in simulation; a correct stored step displayed incorrectly
 starts in playback. Inspect the actual serialized step before changing both layers.
@@ -96,14 +96,13 @@ the frame with the image on both fresh renders and cache hits; fitting each PNG 
 would rescale bodies when hair or clothing changes. Use `portrait-layout.test.mjs` for registration
 checks and a browser for actual portraits. Avoid per-selector CSS scale/offset corrections.
 
-Server tests: `fight-determinism.test.mjs`, `fight-reload.test.mjs`, `fight-rewind.test.mjs`.
-The deterministic suite hashes full outcomes for seeded scenarios, including combat state and RNG
-usage. For an optimization, preserve these outcomes and random-call order. For an intentional balance
-change, inspect and explain the new behavior before updating golden expectations.
-
 Client tests cover clock timing, snapshots, reversal, seek, hypnosis/rewind transitions, reload, healing,
 holder masks and holder resolution. Some exercise mocked/Vite-loaded modules; they do not prove the
 final browser appearance. See [development.md](development.md) for commands and build prerequisites.
+
+Seek fixtures allow the constructor's initial HUD setup, then install throwing rendering/audio guards
+for the reduction itself. Movement handlers must honor the fight's seeking mode without a live clock;
+normal playback must still interpolate through the clock.
 
 Fixtures in `client/tests/fixtures` include slow seeking, hammer/heal, and Fierce Brute rewind.
 `rewind-fierce-brute.json` preserves the reported fight `2b2a0e89-1bed-403b-a4b7-613dca9e949c` regression;

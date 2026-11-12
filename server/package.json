@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "compile": "tsc --build ./tsconfig.json",
+    "test": "node --experimental-test-module-mocks --test \"tests/*.test.mjs\"",
     "start": "node --expose-gc --max-old-space-size=16384 ./lib/main.js",
     "start:watch": "tsc-watch --build ./tsconfig.json --onSuccess \"node --expose-gc ./lib/main.js\"",
     "db:migrate:manual": "prisma migrate dev --create-only",

@@ -4219,12 +4219,11 @@ export class Fight {
     fighter: AnimationFighter,
     unsignedKnockBack: number,
     duration = 0.5,
-    seeking = false,
   ) {
     const knockBackDistance = getRealKnockBack(fighter, unsignedKnockBack);
     const x = fighter.animation.container.x + knockBackDistance;
     // Move fighter
-    if (seeking) {
+    if (this.seeking) {
       fighter.animation.container.x = x;
     } else {
       await tween(fighter.animation.container, {

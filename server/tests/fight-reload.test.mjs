@@ -240,8 +240,8 @@ test('Reload spends one use per trigger, counts as a used skill and never reload
   assert.equal(step.s.some((s) => s.i === SkillByName.reload), false);
 });
 
-test('Reload is a non-reloadable passive with 1/2/3 uses', () => {
-  assert.equal(skills.reload.type, 'passive');
+test('Reload is a non-reloadable super with 1/2/3 uses', () => {
+  assert.equal(skills.reload.type, 'super');
   assert.deepEqual(skills.reload.uses, [1, 2, 3]);
   assert.equal(skills.reload.canReload, false);
   assert.ok(skills.reload.odds > 0);

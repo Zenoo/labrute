@@ -18,7 +18,7 @@ const { auth } = await import('../lib/utils/auth.js');
 const { findUserForAuthentication, getIdentifierRestrictions } = await import('../lib/utils/identifierSanctions.js');
 const url = new URL(process.env.OBSERVATION_TEST_DATABASE_URL);
 assert.ok(['127.0.0.1', 'localhost'].includes(url.hostname));
-assert.equal(url.pathname, '/observation_test');
+assert.ok(['/observation_test', '/labrute_observation_test'].includes(url.pathname));
 const schema = `request_bench_${randomUUID().replaceAll('-', '')}`;
 const admin = new PrismaClient({ datasources: { db: { url: url.toString() } } });
 url.searchParams.set('schema', schema);

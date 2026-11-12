@@ -6,6 +6,9 @@
   "scripts": {
     "start": "vite",
     "compile": "tsc --build ./tsconfig.json",
+    "test": "node --experimental-transform-types --experimental-test-module-mocks --test --test-concurrency=1 \"tests/*.test.mjs\" \"tests/*.browser.mjs\"",
+    "test:unit": "node --experimental-transform-types --experimental-test-module-mocks --test --test-concurrency=1 \"tests/*.test.mjs\"",
+    "test:browser": "node tests/multiple-account-cases.browser.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },

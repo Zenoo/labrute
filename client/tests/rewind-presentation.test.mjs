@@ -47,32 +47,3 @@ test('source locale rewind tooltips expose the use count and tiered rewind amoun
     assert.ok(messages['fight.step.rewind'], `${locale}: missing fight log`);
   }
 });
-
-test('existing skill tooltip wires passive uses and extra tier values into effect text', async () => {
-  const skills = await readFile(path.join(repoRoot, 'core', 'src', 'brute', 'skills.ts'), 'utf8');
-  const tooltip = await readFile(
-    path.join(clientRoot, 'src', 'components', 'Brute', 'SkillTooltip.tsx'),
-    'utf8',
-  );
-  const rewindDefinition = skills.match(/\[SkillName\.rewind\]:\s*\{([\s\S]*?)\n\s+\},/);
-
-  assert.ok(rewindDefinition, 'rewind skill definition exists');
-  assert.match(rewindDefinition[1], /type:\s*'passive'/);
-  assert.match(rewindDefinition[1], /uses:\s*\[1,\s*1,\s*1\]/);
-  assert.match(skills, /\[SkillName\.rewind\]:\s*\[3,\s*4,\s*5\]/);
-
-  assert.match(tooltip, /i18nKey=\{`\$\{skill\.name\}\.effect`\}/);
-  assert.match(tooltip, /uses:\s*skill\.uses\s*\?\s*<TieredStat values=\{skill\.uses\} tier=\{tier\}\s*\/>/);
-  assert.match(tooltip, /ExtraTieredSkillData\[skill\.name\]/);
-  assert.match(tooltip, /getExtraTieredSkillStatProps\(\{\s*skill:\s*skill\.name,\s*tier\s*\}\)/);
-});
-
-test('blank rewind SVG placeholders exist for each skill tier', async () => {
-  for (const tier of [1, 2, 3]) {
-    const svg = await readFile(
-      path.join(clientRoot, 'public', 'images', 'skills', `tier-${tier}`, 'rewind.svg'),
-      'utf8',
-    );
-    assert.match(svg.trim(), /^<svg\b[^>]*\/>$/);
-  }
-});

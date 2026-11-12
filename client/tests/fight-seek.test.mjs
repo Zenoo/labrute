@@ -3,16 +3,19 @@ import { after, before, test } from 'node:test';
 import { createServer } from 'vite';
 import { SkillById, SkillByName, SkillId, skills, StepType, WeaponById, WeaponByName } from '@labrute/core';
 import { readFileSync } from 'node:fs';
-import { Ticker } from 'pixi.js';
+import { Container, DOMAdapter, Texture, Ticker } from 'pixi.js';
 import { gsap } from 'gsap';
 
 let server;
 let seekFight;
 let Fight;
 let setAnimation;
+let createCanvas;
 const soughtStepTypes = new Set();
 
 before(async () => {
+  createCanvas = DOMAdapter.get().createCanvas;
+  DOMAdapter.get().createCanvas = () => ({ getContext: () => null });
   server = await createServer({
     configFile: false,
     plugins: [{
@@ -62,7 +65,7 @@ before(async () => {
       shouldAbort: () => false,
       steps,
     };
-    const fight = new Fight(context);
+    const fight = createHeadlessFight(context);
     for (let index = 0; index < position; index++) {
       await fight.runStep(steps[index], true);
       soughtStepTypes.add(steps[index].a);
@@ -71,6 +74,7 @@ before(async () => {
   };
 });
 after(async () => {
+  DOMAdapter.get().createCanvas = createCanvas;
   await server?.close();
   gsap.ticker.sleep();
 });
@@ -117,11 +121,28 @@ const fighter = (index, overrides = {}) => ({
 const reportedFight = JSON.parse(readFileSync(
   new URL('./fixtures/slow-seek-fight.json', import.meta.url), 'utf8',
 ));
+// The constructor initializes HUD weapons before seeking begins. Allow that setup, then make
+// rendering/audio access throw during the actual seek reduction.
+const createHeadlessFight = (options) => {
+  const textures = new Proxy({}, { get: () => Texture.WHITE });
+  const stage = new Container();
+  const fight = new Fight({ ...options, app: { stage }, spritesheets: {
+    misc: { textures }, skills: { textures },
+  } });
+  stage.destroy({ children: true });
+  for (const fighter of options.fighters) {
+    fighter.teamWeaponsIllustrations.length = 0;
+    fighter.teamSkillsIllustrations.length = 0;
+  }
+  fight.app = options.app;
+  fight.spritesheets = options.spritesheets;
+  return fight;
+};
 const headlessFight = (fighters, options = {}) => {
   const noRender = new Proxy({}, {
     get() { throw new Error('Seeking must not access rendering or audio'); },
   });
-  return new Fight({
+  return createHeadlessFight({
     fighters, fight: { clanWarId: null }, app: noRender, spritesheets: noRender,
     renderer: noRender, t: noRender, speed: { current: 2 }, shouldAbort: () => false,
     steps: [],
@@ -297,7 +318,7 @@ test('vampirism uses shared helpers with only a boolean and no seek context', as
     left.animation.seekPose.airborne = true;
     right.animation.seekPose.animation = trapped ? 'trapped' : 'death';
 
-    const fight = new Fight({
+    const fight = createHeadlessFight({
       app: noRender, spritesheets: noRender, fighters: [left, right],
       speed: { current: 2 }, fight: { clanWarId: null },
       renderer: noRender, t: noRender, shouldAbort: () => false,
@@ -471,7 +492,7 @@ test('shared movement helpers apply clamped endpoints immediately while seeking'
   assert.equal(left.animation.seekPose.animation, 'idle');
   assert.equal(right.animation.seekPose.airborne, false);
 
-  const fight = new Fight({
+  const fight = createHeadlessFight({
     fighters: [left, right], fight: { clanWarId: null }, speed: { current: 2 },
     shouldAbort: () => false,
     steps: [],
@@ -531,20 +552,21 @@ test('winning pets leave their trapped pose through the shared untrap helper', a
 
 test('knockback and stagger reach the same endpoints in playback and seeking', async () => {
   const { FightClock } = await server.ssrLoadModule('/src/utils/fight/utils/FightClock.ts');
-  const { knockBack } = await server.ssrLoadModule('/src/utils/fight/utils/knockBack.ts');
-  const { stagger } = await server.ssrLoadModule('/src/utils/fight/stagger.ts');
   const ticker = new Ticker();
   ticker.update(0);
   const clock = new FightClock({ ticker });
   try {
-    for (const move of [knockBack, stagger]) {
+    for (const method of ['knockBack', 'stagger']) {
       const playing = fighter(1);
       const seeking = fighter(1);
       playing.animation.container.x = 100;
       seeking.animation.container.x = 100;
       const start = ticker.lastTime;
-      const animation = move(playing, { current: 1 }, 45, 0.5);
-      await move(seeking, { current: 1 }, 45, 0.5, true);
+      const playback = headlessFight([playing], { speed: { current: 1 } });
+      const reduction = headlessFight([seeking], { speed: { current: 1 } });
+      reduction.seeking = true;
+      const animation = playback[method](playing, 45, 0.5);
+      await reduction[method](seeking, 45, 0.5, true);
       assert.equal(playing.animation.container.x, 100);
       assert.ok(Math.abs(seeking.animation.container.x - 55) < 0.000001);
       ticker.update(start + 1000);
@@ -588,10 +610,10 @@ test('invalid seek positions and unknown steps throw rather than load forever', 
 
 test('fights without a Rewind instruction do not capture snapshots or record rendered frames', async () => {
   const left = fighter(1);
+  const fight = headlessFight([left, fighter(2)]);
   Object.defineProperty(left, 'weapons', {
     get() { throw new Error('Snapshot capture must not read equipment'); },
   });
-  const fight = headlessFight([left, fighter(2)]);
   fight.getReversal = () => { throw new Error('Must not create recorder'); };
   await fight.runStep({ a: StepType.Counter, f: 1, t: 2 });
   assert.equal(fight.completedSteps, 1);
