@@ -240,6 +240,7 @@ export const MultipleAccountsView = () => {
                 setReason('');
               }}>
               {item.signal} - {item.accountCount} accounts
+              {' - '}{item.scoreEvidence ? `${item.scoreEvidence.percentage}% suspicion` : 'Score unavailable'}
               {' - '}{new Date(item.detectedAt).toLocaleString()}
             </Button>
           ))}

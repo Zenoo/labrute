@@ -56,6 +56,7 @@ export const UserCasePanel = ({ userId }: { userId: string }) => {
           <Stack key={row.id} spacing={1}>
             <Link to={`/admin-panel/multiple-accounts?case=${row.id}`}>
               {row.signal} - {row.accountCount} accounts - {row.status}
+              {' - '}{row.scoreEvidence ? `${row.scoreEvidence.percentage}% suspicion` : 'Score unavailable'}
             </Link>
             <Typography variant="body2">
               Appeal code: MC-{row.appealCode}

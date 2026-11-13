@@ -7,6 +7,7 @@ import { getTlsFingerprints, parseFingerprint } from './fingerprintIdentity.js';
 import { traced } from './trace.js';
 import { getClientIp } from './clientIp.js';
 import { createMultipleAccountCases } from './multipleAccountCases.js';
+import type { MultipleAccountMetrics } from './multipleAccountScore.js';
 
 const sha256 = (value: string) => createHash('sha256').update(value).digest('hex');
 
@@ -118,6 +119,7 @@ export type MultipleAccountObservationGroup = {
   userIds: string[];
   firstSeen: Date;
   lastSeen: Date;
+  metrics?: MultipleAccountMetrics;
 };
 
 export const findMultipleAccountObservationGroups = async (
@@ -128,7 +130,8 @@ export const findMultipleAccountObservationGroups = async (
 
   return prisma.$queryRaw<MultipleAccountObservationGroup[]>`
     WITH recent AS (
-      SELECT o."userId", o."browserId", o.fingerprint, o.ip, o."firstSeen", o."lastSeen"
+      SELECT o."userId", o."browserId", o.fingerprint, o.ip, o."visitorId", o."observedDay",
+        o."firstSeen", o."lastSeen"
       FROM "AccountObservation" o
       INNER JOIN "User" u ON u.id = o."userId"
       WHERE o."lastSeen" >= (${since}::timestamptz AT TIME ZONE 'UTC')
@@ -138,24 +141,69 @@ export const findMultipleAccountObservationGroups = async (
           SELECT 1 FROM "SharedBrowserExemption" e
           WHERE e."userId" = o."userId" AND e."browserId" = o."browserId"::text
         )
+    ), browser_users AS (
+      SELECT "browserId", "userId", COUNT(DISTINCT "observedDay") AS days,
+        COUNT(DISTINCT ip) AS networks
+      FROM recent GROUP BY "browserId", "userId"
+    ), browser_metrics AS (
+      SELECT "browserId", COUNT(*)::int AS accounts,
+        COUNT(*) FILTER (WHERE days >= 3)::int AS repeated,
+        COUNT(*) FILTER (WHERE networks >= 2)::int AS mobile
+      FROM browser_users GROUP BY "browserId"
+    ), browser_visitors AS (
+      SELECT "browserId", "visitorId", COUNT(DISTINCT "userId")::int AS accounts
+      FROM recent GROUP BY "browserId", "visitorId"
+    ), visitor_metrics AS (
+      SELECT "browserId", MAX(accounts)::int AS accounts
+      FROM browser_visitors GROUP BY "browserId"
+    ), fingerprint_users AS (
+      SELECT fingerprint, ip, "userId", COUNT(DISTINCT "observedDay") AS days
+      FROM recent WHERE ip IS NOT NULL GROUP BY fingerprint, ip, "userId"
+    ), fingerprint_metrics AS (
+      SELECT fingerprint, ip, COUNT(*) FILTER (WHERE days >= 3)::int AS repeated
+      FROM fingerprint_users GROUP BY fingerprint, ip
+    ), fingerprint_browsers AS (
+      SELECT fingerprint, ip, "browserId", COUNT(DISTINCT "userId")::int AS accounts
+      FROM recent WHERE ip IS NOT NULL GROUP BY fingerprint, ip, "browserId"
+    ), fingerprint_browser_metrics AS (
+      SELECT fingerprint, ip, MAX(accounts)::int AS accounts
+      FROM fingerprint_browsers GROUP BY fingerprint, ip
+    ), candidates AS (
+      SELECT 'browser' AS signal, "browserId"::text AS "browserId",
+        NULL::text AS fingerprint, NULL::text AS ip,
+        ARRAY_AGG(DISTINCT "userId"::text ORDER BY "userId"::text) AS "userIds",
+        MIN("firstSeen") AS "firstSeen", MAX("lastSeen") AS "lastSeen"
+      FROM recent
+      GROUP BY "browserId"
+      HAVING COUNT(DISTINCT "userId") > 3
+      UNION ALL
+      SELECT 'fingerprint-ip' AS signal, NULL::text AS "browserId", fingerprint, ip,
+        ARRAY_AGG(DISTINCT "userId"::text ORDER BY "userId"::text) AS "userIds",
+        MIN("firstSeen") AS "firstSeen", MAX("lastSeen") AS "lastSeen"
+      FROM recent
+      WHERE ip IS NOT NULL
+        AND NOT EXISTS (SELECT 1 FROM "KnownFingerprint" k WHERE k.id = recent.fingerprint)
+      GROUP BY fingerprint, ip
+      HAVING COUNT(DISTINCT "userId") > 30
     )
-    SELECT 'browser' AS signal, "browserId"::text AS "browserId",
-      NULL::text AS fingerprint, NULL::text AS ip,
-      ARRAY_AGG(DISTINCT "userId"::text ORDER BY "userId"::text) AS "userIds",
-      MIN("firstSeen") AS "firstSeen", MAX("lastSeen") AS "lastSeen"
-    FROM recent
-    GROUP BY "browserId"
-    HAVING COUNT(DISTINCT "userId") > 3
-    UNION ALL
-    SELECT 'fingerprint-ip' AS signal, NULL::text AS "browserId", fingerprint, ip,
-      ARRAY_AGG(DISTINCT "userId"::text ORDER BY "userId"::text) AS "userIds",
-      MIN("firstSeen") AS "firstSeen", MAX("lastSeen") AS "lastSeen"
-    FROM recent
-    WHERE ip IS NOT NULL
-      AND NOT EXISTS (SELECT 1 FROM "KnownFingerprint" k WHERE k.id = recent.fingerprint)
-    GROUP BY fingerprint, ip
-    HAVING COUNT(DISTINCT "userId") > 30
-    ORDER BY signal, "browserId", fingerprint, ip
+    SELECT c.*,
+      CASE WHEN c.signal = 'browser' THEN jsonb_build_object(
+        'sharedBrowserAccounts', b.accounts,
+        'repeatedAccounts', b.repeated,
+        'sharedVisitorAccounts', v.accounts,
+        'crossNetworkAccounts', b.mobile
+      ) ELSE jsonb_build_object(
+        'sharedBrowserAccounts', fb.accounts,
+        'repeatedAccounts', f.repeated,
+        'sharedVisitorAccounts', 0,
+        'crossNetworkAccounts', 0
+      ) END AS metrics
+    FROM candidates c
+    LEFT JOIN browser_metrics b ON b."browserId"::text = c."browserId"
+    LEFT JOIN visitor_metrics v ON v."browserId"::text = c."browserId"
+    LEFT JOIN fingerprint_metrics f ON f.fingerprint = c.fingerprint AND f.ip = c.ip
+    LEFT JOIN fingerprint_browser_metrics fb ON fb.fingerprint = c.fingerprint AND fb.ip = c.ip
+    ORDER BY c.signal, c."browserId", c.fingerprint, c.ip
   `;
 };
 

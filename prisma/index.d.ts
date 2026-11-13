@@ -36132,6 +36132,7 @@ export namespace Prisma {
     accountCount: number
     threshold: number
     confidence: number
+    scoreEvidence: number
     firstSeen: number
     lastSeen: number
     windowStart: number
@@ -36221,6 +36222,7 @@ export namespace Prisma {
     accountCount?: true
     threshold?: true
     confidence?: true
+    scoreEvidence?: true
     firstSeen?: true
     lastSeen?: true
     windowStart?: true
@@ -36333,6 +36335,7 @@ export namespace Prisma {
     accountCount: number
     threshold: number
     confidence: string
+    scoreEvidence: JsonValue | null
     firstSeen: Date
     lastSeen: Date
     windowStart: Date
@@ -36377,6 +36380,7 @@ export namespace Prisma {
     accountCount?: boolean
     threshold?: boolean
     confidence?: boolean
+    scoreEvidence?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
     windowStart?: boolean
@@ -36405,6 +36409,7 @@ export namespace Prisma {
     accountCount?: boolean
     threshold?: boolean
     confidence?: boolean
+    scoreEvidence?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
     windowStart?: boolean
@@ -36430,6 +36435,7 @@ export namespace Prisma {
     accountCount?: boolean
     threshold?: boolean
     confidence?: boolean
+    scoreEvidence?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
     windowStart?: boolean
@@ -36455,6 +36461,7 @@ export namespace Prisma {
     accountCount?: boolean
     threshold?: boolean
     confidence?: boolean
+    scoreEvidence?: boolean
     firstSeen?: boolean
     lastSeen?: boolean
     windowStart?: boolean
@@ -36468,7 +36475,7 @@ export namespace Prisma {
     automaticNote?: boolean
   }
 
-  export type MultipleAccountCaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appealCode" | "ruleVersion" | "signal" | "browserId" | "fingerprint" | "ip" | "userIds" | "accountCount" | "threshold" | "confidence" | "firstSeen" | "lastSeen" | "windowStart" | "windowEnd" | "detectedAt" | "exemptions" | "excludedCount" | "status" | "revision" | "automaticAt" | "automaticNote", ExtArgs["result"]["multipleAccountCase"]>
+  export type MultipleAccountCaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appealCode" | "ruleVersion" | "signal" | "browserId" | "fingerprint" | "ip" | "userIds" | "accountCount" | "threshold" | "confidence" | "scoreEvidence" | "firstSeen" | "lastSeen" | "windowStart" | "windowEnd" | "detectedAt" | "exemptions" | "excludedCount" | "status" | "revision" | "automaticAt" | "automaticNote", ExtArgs["result"]["multipleAccountCase"]>
   export type MultipleAccountCaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | MultipleAccountCase$reviewsArgs<ExtArgs>
     actions?: boolean | MultipleAccountCase$actionsArgs<ExtArgs>
@@ -36495,6 +36502,7 @@ export namespace Prisma {
       accountCount: number
       threshold: number
       confidence: string
+      scoreEvidence: Prisma.JsonValue | null
       firstSeen: Date
       lastSeen: Date
       windowStart: Date
@@ -36942,6 +36950,7 @@ export namespace Prisma {
     readonly accountCount: FieldRef<"MultipleAccountCase", 'Int'>
     readonly threshold: FieldRef<"MultipleAccountCase", 'Int'>
     readonly confidence: FieldRef<"MultipleAccountCase", 'String'>
+    readonly scoreEvidence: FieldRef<"MultipleAccountCase", 'Json'>
     readonly firstSeen: FieldRef<"MultipleAccountCase", 'DateTime'>
     readonly lastSeen: FieldRef<"MultipleAccountCase", 'DateTime'>
     readonly windowStart: FieldRef<"MultipleAccountCase", 'DateTime'>
@@ -58819,6 +58828,7 @@ export namespace Prisma {
     accountCount: 'accountCount',
     threshold: 'threshold',
     confidence: 'confidence',
+    scoreEvidence: 'scoreEvidence',
     firstSeen: 'firstSeen',
     lastSeen: 'lastSeen',
     windowStart: 'windowStart',
@@ -59090,6 +59100,14 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const JsonNullValueInput: {
@@ -61594,6 +61612,7 @@ export namespace Prisma {
     accountCount?: IntFilter<"MultipleAccountCase"> | number
     threshold?: IntFilter<"MultipleAccountCase"> | number
     confidence?: StringFilter<"MultipleAccountCase"> | string
+    scoreEvidence?: JsonNullableFilter<"MultipleAccountCase">
     firstSeen?: DateTimeFilter<"MultipleAccountCase"> | Date | string
     lastSeen?: DateTimeFilter<"MultipleAccountCase"> | Date | string
     windowStart?: DateTimeFilter<"MultipleAccountCase"> | Date | string
@@ -61621,6 +61640,7 @@ export namespace Prisma {
     accountCount?: SortOrder
     threshold?: SortOrder
     confidence?: SortOrder
+    scoreEvidence?: SortOrderInput | SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     windowStart?: SortOrder
@@ -61651,6 +61671,7 @@ export namespace Prisma {
     accountCount?: IntFilter<"MultipleAccountCase"> | number
     threshold?: IntFilter<"MultipleAccountCase"> | number
     confidence?: StringFilter<"MultipleAccountCase"> | string
+    scoreEvidence?: JsonNullableFilter<"MultipleAccountCase">
     firstSeen?: DateTimeFilter<"MultipleAccountCase"> | Date | string
     lastSeen?: DateTimeFilter<"MultipleAccountCase"> | Date | string
     windowStart?: DateTimeFilter<"MultipleAccountCase"> | Date | string
@@ -61678,6 +61699,7 @@ export namespace Prisma {
     accountCount?: SortOrder
     threshold?: SortOrder
     confidence?: SortOrder
+    scoreEvidence?: SortOrderInput | SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     windowStart?: SortOrder
@@ -61711,6 +61733,7 @@ export namespace Prisma {
     accountCount?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
     threshold?: IntWithAggregatesFilter<"MultipleAccountCase"> | number
     confidence?: StringWithAggregatesFilter<"MultipleAccountCase"> | string
+    scoreEvidence?: JsonNullableWithAggregatesFilter<"MultipleAccountCase">
     firstSeen?: DateTimeWithAggregatesFilter<"MultipleAccountCase"> | Date | string
     lastSeen?: DateTimeWithAggregatesFilter<"MultipleAccountCase"> | Date | string
     windowStart?: DateTimeWithAggregatesFilter<"MultipleAccountCase"> | Date | string
@@ -65287,6 +65310,7 @@ export namespace Prisma {
     accountCount: number
     threshold: number
     confidence: string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen: Date | string
     lastSeen: Date | string
     windowStart: Date | string
@@ -65314,6 +65338,7 @@ export namespace Prisma {
     accountCount: number
     threshold: number
     confidence: string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen: Date | string
     lastSeen: Date | string
     windowStart: Date | string
@@ -65341,6 +65366,7 @@ export namespace Prisma {
     accountCount?: IntFieldUpdateOperationsInput | number
     threshold?: IntFieldUpdateOperationsInput | number
     confidence?: StringFieldUpdateOperationsInput | string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65368,6 +65394,7 @@ export namespace Prisma {
     accountCount?: IntFieldUpdateOperationsInput | number
     threshold?: IntFieldUpdateOperationsInput | number
     confidence?: StringFieldUpdateOperationsInput | string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65395,6 +65422,7 @@ export namespace Prisma {
     accountCount: number
     threshold: number
     confidence: string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen: Date | string
     lastSeen: Date | string
     windowStart: Date | string
@@ -65420,6 +65448,7 @@ export namespace Prisma {
     accountCount?: IntFieldUpdateOperationsInput | number
     threshold?: IntFieldUpdateOperationsInput | number
     confidence?: StringFieldUpdateOperationsInput | string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65445,6 +65474,7 @@ export namespace Prisma {
     accountCount?: IntFieldUpdateOperationsInput | number
     threshold?: IntFieldUpdateOperationsInput | number
     confidence?: StringFieldUpdateOperationsInput | string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -68791,6 +68821,29 @@ export namespace Prisma {
   export type BannedBrowserMinOrderByAggregateInput = {
     id?: SortOrder
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -68847,6 +68900,7 @@ export namespace Prisma {
     accountCount?: SortOrder
     threshold?: SortOrder
     confidence?: SortOrder
+    scoreEvidence?: SortOrder
     firstSeen?: SortOrder
     lastSeen?: SortOrder
     windowStart?: SortOrder
@@ -68920,6 +68974,32 @@ export namespace Prisma {
     threshold?: SortOrder
     excludedCount?: SortOrder
     revision?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -74249,6 +74329,29 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBruteReportStatusFilter<$PrismaModel>
     _max?: NestedEnumBruteReportStatusFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -85168,6 +85271,7 @@ export namespace Prisma {
     accountCount: number
     threshold: number
     confidence: string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen: Date | string
     lastSeen: Date | string
     windowStart: Date | string
@@ -85194,6 +85298,7 @@ export namespace Prisma {
     accountCount: number
     threshold: number
     confidence: string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen: Date | string
     lastSeen: Date | string
     windowStart: Date | string
@@ -85236,6 +85341,7 @@ export namespace Prisma {
     accountCount?: IntFieldUpdateOperationsInput | number
     threshold?: IntFieldUpdateOperationsInput | number
     confidence?: StringFieldUpdateOperationsInput | string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -85262,6 +85368,7 @@ export namespace Prisma {
     accountCount?: IntFieldUpdateOperationsInput | number
     threshold?: IntFieldUpdateOperationsInput | number
     confidence?: StringFieldUpdateOperationsInput | string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -85288,6 +85395,7 @@ export namespace Prisma {
     accountCount: number
     threshold: number
     confidence: string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen: Date | string
     lastSeen: Date | string
     windowStart: Date | string
@@ -85314,6 +85422,7 @@ export namespace Prisma {
     accountCount: number
     threshold: number
     confidence: string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen: Date | string
     lastSeen: Date | string
     windowStart: Date | string
@@ -85356,6 +85465,7 @@ export namespace Prisma {
     accountCount?: IntFieldUpdateOperationsInput | number
     threshold?: IntFieldUpdateOperationsInput | number
     confidence?: StringFieldUpdateOperationsInput | string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     windowStart?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -85382,6 +85492,7 @@ export namespace Prisma {
     accountCount?: IntFieldUpdateOperationsInput | number
     threshold?: IntFieldUpdateOperationsInput | number
     confidence?: StringFieldUpdateOperationsInput | string
+    scoreEvidence?: NullableJsonNullValueInput | InputJsonValue
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     windowStart?: DateTimeFieldUpdateOperationsInput | Date | string

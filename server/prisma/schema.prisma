@@ -847,6 +847,7 @@ model MultipleAccountCase {
   accountCount  Int
   threshold     Int
   confidence    String                      @db.VarChar(32)
+  scoreEvidence Json?
   firstSeen     DateTime                    @db.Timestamptz(3)
   lastSeen      DateTime                    @db.Timestamptz(3)
   windowStart   DateTime                    @db.Timestamptz(3)

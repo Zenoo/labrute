@@ -210,6 +210,14 @@ before(async () => {
     await prisma.$executeRawUnsafe(statement);
   }
 
+  const scoreMigration = readFileSync(new URL(
+    '../prisma/migrations/20261113120000_multiple_account_scores/migration.sql', import.meta.url,
+  ), 'utf8');
+
+  for (const statement of scoreMigration.split(';').filter((sql) => sql.trim())) {
+    await prisma.$executeRawUnsafe(statement);
+  }
+
   fingerprintReset = {
     users: await prisma.$queryRaw`SELECT fingerprints, "bannedAt", "browserIds", ips FROM "User"`,
     known: await prisma.knownFingerprint.count(),
@@ -276,6 +284,38 @@ const caseGroup = (overrides = {}) => ({
   ...overrides,
 });
 
+integration('group scoring counts distinct member days and networks after excluding approved pairs', async () => {
+  for (let index = 0; index < 4; index++) {
+    const id = await user();
+
+    for (const day of [1, 2, 3]) {
+      await recordAccountObservation(prisma, id, request(), daysAgo(day));
+      await recordAccountObservation(prisma, id, request(browser, fingerprint, '192.0.2.2'), daysAgo(day));
+    }
+  }
+
+  const approved = await user(browser);
+
+  await recordAccountObservation(prisma, approved, request(), now);
+  const groups = await findMultipleAccountObservationGroups(prisma, now);
+
+  assert.equal(groups.length, 1);
+  assert.deepEqual(groups[0].metrics, {
+    sharedBrowserAccounts: 4,
+    repeatedAccounts: 4,
+    sharedVisitorAccounts: 4,
+    crossNetworkAccounts: 4,
+  });
+  await createMultipleAccountCases(prisma, groups, now);
+  const saved = await prisma.multipleAccountCase.findFirst();
+  const detail = await getMultipleAccountCase(prisma, saved.id);
+  const list = await listMultipleAccountCases(prisma);
+
+  assert.equal(saved.scoreEvidence.percentage, 95);
+  assert.deepEqual(detail.case.scoreEvidence, saved.scoreEvidence);
+  assert.deepEqual(list.cases[0].scoreEvidence, saved.scoreEvidence);
+});
+
 integration('daily cases preserve observed evidence and active exclusions without duplicate or rewritten snapshots', async () => {
   const ids = [];
 
@@ -300,6 +340,8 @@ integration('daily cases preserve observed evidence and active exclusions withou
   assert.equal(original.signal, 'browser');
   assert.equal(original.threshold, 3);
   assert.equal(original.confidence, 'uncalibrated');
+  assert.equal(original.scoreEvidence.percentage, 60);
+  assert.equal(original.scoreEvidence.factors[0].matchedAccounts, 4);
   assert.deepEqual(original.userIds, ids.sort());
   assert.equal(original.accountCount, 4);
   assert.equal(original.windowStart.getTime(), daysAgo(7).getTime());
@@ -328,6 +370,7 @@ integration('daily cases preserve observed evidence and active exclusions withou
   assert.equal(saved.revision, 2);
   assert.equal(saved.windowEnd.getTime(), original.windowEnd.getTime());
   assert.deepEqual(saved.exemptions, original.exemptions);
+  assert.deepEqual(saved.scoreEvidence, original.scoreEvidence);
   assert.ok(logs.every((line) => !line.includes(ids[0])), 'logs contain bounded counts, not complete evidence');
   await reportMultipleAccountObservations(prisma, { log() {} }, new Date(now.getTime() + 86400000));
   assert.equal(await prisma.multipleAccountCase.count(), 1, 'unchanged evidence does not reopen reviewed cases each day');
@@ -344,6 +387,7 @@ integration('case list uses bounded pages and does not return full account array
   assert.equal(first.cases.length, 25);
   assert.ok(first.nextCursor);
   assert.ok(first.cases.every((row) => !('userIds' in row) && !('exemptions' in row)));
+  assert.ok(first.cases.every((row) => row.scoreEvidence === null));
   const second = await listMultipleAccountCases(prisma, 'open', first.nextCursor);
 
   assert.equal(second.cases.length, 1);
@@ -861,6 +905,14 @@ integration('fingerprint/IP reporting uses observed seven-day pairs, distinct us
   assert.equal(groups[0].signal, 'fingerprint-ip');
   assert.equal(groups[0].userIds.length, 31);
   assert.equal(groups[0].ip, '192.0.2.1');
+  assert.deepEqual(groups[0].metrics, {
+    sharedBrowserAccounts: 1,
+    repeatedAccounts: 0,
+    sharedVisitorAccounts: 0,
+    crossNetworkAccounts: 0,
+  });
+  await createMultipleAccountCases(prisma, groups, now);
+  assert.equal((await prisma.multipleAccountCase.findFirst()).scoreEvidence.percentage, 20);
   await prisma.$executeRaw`INSERT INTO "KnownFingerprint" (id) VALUES (${fingerprint})`;
   assert.deepEqual(await findMultipleAccountObservationGroups(prisma, now), []);
 });

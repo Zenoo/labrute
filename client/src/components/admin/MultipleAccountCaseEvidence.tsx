@@ -1,4 +1,4 @@
-import type { MultipleAccountCaseDetailResponse } from '@labrute/core';
+import type { MultipleAccountCaseDetailResponse, MultipleAccountScore } from '@labrute/core';
 import {
   Alert, Box, List, ListItem, Stack, Typography,
 } from '@mui/material';
@@ -6,6 +6,14 @@ import React from 'react';
 import { Link } from '../Link';
 
 const date = (value: Date | string) => new Date(value).toLocaleString();
+
+const factorLabels: Record<MultipleAccountScore['factors'][number]['key'], string> = {
+  'shared-browser': 'Accounts sharing one browser',
+  'fingerprint-ip': 'Shared fingerprint and IP (anchor top-up)',
+  'repeated-days': 'Accounts observed on at least 3 distinct days',
+  'shared-visitor': 'Accounts sharing one visitor fingerprint in this browser',
+  'multiple-networks': 'Accounts using this browser on at least 2 distinct IPs each',
+};
 
 export const MultipleAccountCaseEvidence = ({ detail }: {
   detail: MultipleAccountCaseDetailResponse
@@ -19,6 +27,25 @@ export const MultipleAccountCaseEvidence = ({ detail }: {
       use shared-browser approvals or known-fingerprint exceptions for ongoing exceptions.
     </Alert>
     <Link to="/admin-panel/shared-browser">Manage shared-browser approvals</Link>
+    <Typography variant="h6">
+      Suspicion score: {detail.case.scoreEvidence
+      ? `${detail.case.scoreEvidence.percentage}%` : 'Unavailable for this snapshot'}
+    </Typography>
+    {detail.case.scoreEvidence && <>
+      <Typography variant="body2">
+        Heuristic v{detail.case.scoreEvidence.version}, not a calibrated probability
+        or proof of common ownership. Points reflect the proportion of accounts
+        supporting each signal;
+        a subgroup does not implicate everyone.
+        Scores are capped at 95%. The score does not affect automatic sanctions.
+      </Typography>
+      {detail.case.scoreEvidence.factors.map((factor) => (
+        <Typography key={factor.key} variant="body2">
+          {factorLabels[factor.key]}: {factor.matchedAccounts}/{factor.totalAccounts} accounts,
+          {' '}+{factor.points} points (maximum {factor.maxPoints}).
+        </Typography>
+      ))}
+    </>}
     {detail.case.signal === 'fingerprint-ip' && (
       <Link to="/admin-panel/known-fingerprints">Manage known fingerprint exceptions</Link>
     )}

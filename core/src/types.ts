@@ -906,7 +906,19 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
 export type UserBannedListResponse = Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[];
 export type MultipleAccountReviewDecision = 'open' | 'dismissed' | 'needs-action';
 export type MultipleAccountCaseStatus = MultipleAccountReviewDecision | 'processed' | 'all';
-export type MultipleAccountCaseSummary = Omit<MultipleAccountCase, 'userIds' | 'exemptions'> & {
+export type MultipleAccountScore = {
+  version: number;
+  percentage: number;
+  factors: {
+    key: 'shared-browser' | 'fingerprint-ip' | 'repeated-days' | 'shared-visitor' | 'multiple-networks';
+    points: number;
+    maxPoints: number;
+    matchedAccounts: number;
+    totalAccounts: number;
+  }[];
+};
+export type MultipleAccountCaseSummary = Omit<MultipleAccountCase, 'userIds' | 'exemptions' | 'scoreEvidence'> & {
+  scoreEvidence: MultipleAccountScore | null;
   accountAction?: MultipleAccountCaseAction;
 };
 export type UserMultipleAccountsListResponse = {

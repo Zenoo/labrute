@@ -13,7 +13,9 @@ const time = '2026-11-11T12:00:00Z';
 const makeCase = (id, signal, count) => ({id: id.repeat(64), signal, accountCount: count,
   threshold: signal === 'browser' ? 3 : 30, status: 'open', revision: 1, ruleVersion: 1,
   appealCode: id.repeat(8)+'-'+id.repeat(4)+'-4'+id.repeat(3)+'-8'+id.repeat(3)+'-'+id.repeat(12),
-  confidence: 'uncalibrated', detectedAt: time, firstSeen: time, lastSeen: time,
+  confidence: 'uncalibrated', scoreEvidence: {version:1, percentage:60, factors:[
+    {key:'shared-browser',points:45,maxPoints:45,matchedAccounts:count,totalAccounts:count}]},
+  detectedAt: time, firstSeen: time, lastSeen: time,
   windowStart: time, windowEnd: time, browserId: id + '-browser', excludedCount: 0});
 const cases = [makeCase('a', 'fingerprint-ip', 31), makeCase('b', 'browser', 4), makeCase('c', 'browser', 5)];
 const fixture = window.__fixture = { requests: [], errors: [], reviews: [], User: {
@@ -68,6 +70,7 @@ const button = (label) => [...document.querySelectorAll('button')].find(b => b.t
 const assert = (condition, message) => {if(!condition) throw new Error(message);};
 (async () => {
   await wait(() => button('fingerprint-ip'));
+  assert(button('fingerprint-ip').textContent.includes('60% suspicion'), 'case list missing score');
   button('Next cases').click();
   await wait(() => button('browser - 5'));
   button('Previous cases').click();
@@ -76,6 +79,8 @@ const assert = (condition, message) => {if(!condition) throw new Error(message);
   await wait(() => fixture.requests.some(r => r[0] === 'detail' && r[1][0] === 'a'));
   button('browser - 4').click();
   await wait(() => document.body.textContent.includes('b-browser'));
+  assert(document.body.textContent.includes('Suspicion score: 60%'), 'evidence missing score');
+  assert(document.body.textContent.includes('Accounts sharing one browser: 4/4'), 'evidence missing score explanation');
   await new Promise(r=>setTimeout(r,230));
   assert(!document.body.textContent.includes('a-browser'), 'stale response replaced current evidence');
   button('fingerprint-ip').click();
@@ -111,6 +116,7 @@ const assert = (condition, message) => {if(!condition) throw new Error(message);
     React.createElement(Routes,{},React.createElement(Route,{path:'/admin-panel/user/:id', element:React.createElement(UserAdminView)}))));
   await wait(() => document.body.textContent.includes('Case-linked automatic ban'));
   assert(document.body.textContent.includes('Multiple-account cases and automatic actions'), 'profile missing cases');
+  assert(document.body.textContent.includes('60% suspicion'), 'profile missing case score');
   assert(!document.body.textContent.includes('Users sharing fingerprints'), 'legacy fingerprint table still mounted');
   assert(!document.body.textContent.includes('Users sharing browser IDs'), 'legacy browser table still mounted');
   assert([...document.querySelectorAll('a')].some(a => a.getAttribute('href')?.includes('/admin-panel/multiple-accounts?case=')), 'profile missing case deep link');

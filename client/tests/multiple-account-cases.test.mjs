@@ -113,4 +113,5 @@ test('deleted accounts remain identifiable and truncated exemption context is la
   assert.ok(html.includes('deleted-id'));
   assert.ok(html.includes('first 100 excluded pairs'));
   assert.ok(html.includes('No review decisions yet'));
+  assert.ok(html.includes('Unavailable for this snapshot'));
 });

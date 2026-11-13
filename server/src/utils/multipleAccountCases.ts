@@ -3,11 +3,14 @@ import {
 } from '@labrute/core';
 import type {
   MultipleAccountCaseDetailResponse, MultipleAccountCaseExemption, ReviewMultipleAccountCaseRequest,
-  UserMultipleAccountsListResponse,
+  UserMultipleAccountsListResponse, MultipleAccountScore,
 } from '@labrute/core';
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { createHash, randomUUID } from 'node:crypto';
 import type { MultipleAccountObservationGroup } from './accountObservations.js';
+import {
+  MULTIPLE_ACCOUNT_SCORE_VERSION, scoreMultipleAccountGroup,
+} from './multipleAccountScore.js';
 
 const RULE_VERSION = 1;
 const PAGE_SIZE = 25;
@@ -29,6 +32,7 @@ const summary = {
   accountCount: true,
   threshold: true,
   confidence: true,
+  scoreEvidence: true,
   firstSeen: true,
   lastSeen: true,
   windowStart: true,
@@ -56,6 +60,7 @@ export const createMultipleAccountCases = async (
       id: createHash('sha256').update(JSON.stringify([
         RULE_VERSION, group.signal, group.browserId, group.fingerprint, group.ip,
         group.userIds, group.firstSeen, group.lastSeen,
+        ...(group.metrics ? [MULTIPLE_ACCOUNT_SCORE_VERSION, group.metrics] : []),
       ])).digest('hex'),
     }));
 
@@ -105,12 +110,17 @@ export const createMultipleAccountCases = async (
         accountCount: row.userIds.length,
         threshold: row.signal === 'browser' ? 3 : 30,
         confidence: 'uncalibrated',
+        scoreEvidence: row.metrics
+          ? scoreMultipleAccountGroup(
+            row.signal, row.userIds.length, row.metrics,
+          )
+          : Prisma.DbNull,
         firstSeen: row.firstSeen,
         lastSeen: row.lastSeen,
         windowStart,
         windowEnd: now,
         detectedAt: now,
-        exemptions: (byId.get(row.id)?.exemptions ?? []) as unknown as Prisma.InputJsonValue,
+        exemptions: (byId.get(row.id)?.exemptions ?? []),
         excludedCount: byId.get(row.id)?.count ?? 0,
       })),
       skipDuplicates: true,
@@ -160,6 +170,7 @@ export const listMultipleAccountCases = async (
   return {
     cases: page.map((row) => ({
       ...row,
+      scoreEvidence: row.scoreEvidence as MultipleAccountScore | null,
       accountAction: byCase.get(row.id),
     })),
     nextCursor: rows.length > PAGE_SIZE
@@ -229,7 +240,10 @@ export const getMultipleAccountCase = async (
   const { exemptions, ...caseSummary } = row;
 
   return {
-    case: caseSummary,
+    case: {
+      ...caseSummary,
+      scoreEvidence: caseSummary.scoreEvidence as MultipleAccountScore | null,
+    },
     users: selected.map((user) => ({
       ...(byId.get(user.id) ?? {
         id: user.id,
