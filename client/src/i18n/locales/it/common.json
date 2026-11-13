@@ -442,6 +442,8 @@
   "vampirism.effect": "Action x<uses /> Deals 25% of your missing health as damage and heals you for up to twice that amount.",
   "vitality.desc": "La tua aspettativa di vita è aumentata! Ora puoi combattere più a lungo nell'arena.",
   "weapons": "Weapons",
+  "weaponType": "{{type}} weapons",
+  "noWeaponType": "without weapons",
   "weaponsMaster.desc": "Dopo aver padroneggiato tutte le armi da taglio, sei una minaccia molto più grande per i tuoi avversari.",
   "weaponsMaster.effect": "La Spia non può scambiare le tue armi da taglio.",
   "perk.ascended.weapon": "Quest'arma è stata selezionata quando il bruto è asceso.",

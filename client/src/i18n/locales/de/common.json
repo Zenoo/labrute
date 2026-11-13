@@ -442,6 +442,8 @@
   "vampirism.effect": "Aktion x<uses />: Verursacht Schaden in Höhe von 25% deiner fehlenden Gesundheit und heilt bis zu doppelt so viel.",
   "vitality.desc": "Deine Lebenserwartung ist soeben gestiegen! Du wirst ab sofort länger in der Arena durchhalten.",
   "weapons": "Waffen",
+  "weaponType": "Waffen des Typs „{{type}}“",
+  "noWeaponType": "waffenlos",
   "weaponsMaster.desc": "Du hast deine Waffenkunst perfektioniert. Ab sofort fügst du deinen Gegnern mit scharfen Klingen noch mehr Schaden zu.",
   "weaponsMaster.effect": "Der Spion kann deine scharfen Waffen nicht tauschen",
   "perk.ascended.weapon": "Diese Waffe wurde beim Aufstieg des Brutalos ausgewählt.",

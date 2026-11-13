@@ -1,4 +1,5 @@
 {
+  "createForEvent": "Create a brute for {{event}}",
   "loginError": "Error de login",
   "loginSuccess": "Sesión iniciada",
   "pleaseLogin": "Por favor, inicia sesión antes de crear un Bruto",

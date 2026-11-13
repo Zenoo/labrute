@@ -442,6 +442,8 @@
   "vampirism.effect": "Action x<uses /> Inflige 25% de vos points de vie manquants et vous soigne jusqu'à deux fois ce montant.",
   "vitality.desc": "Ton espérance de vie a augmenté ! Désormais tu tiendras debout plus longtemps dans l'arène.",
   "weapons": "Armes",
+  "weaponType": "{{type}}",
+  "noWeaponType": "sans armes",
   "weaponsMaster.desc": "Grâce à ta maîtrise, tu causes plus de dégâts à ton adversaire avec les armes tranchantes.",
   "weaponsMaster.effect": "Espion ne peut pas échanger vos armes tranchantes.",
   "perk.ascended.weapon": "Cette arme a été sélectionnée lorsque la brute s'est élevée.",
