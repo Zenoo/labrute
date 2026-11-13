@@ -71,7 +71,6 @@ model User {
   @@index([sharedBrowserId])
 }
 
-// One row per validated identifier tuple per UTC day; legacy arrays are not backfilled.
 // Sampled authenticated activity, including rapid same-browser account changes.
 model AccountActivitySample {
   id          String   @id @db.Uuid
@@ -87,6 +86,7 @@ model AccountActivitySample {
   @@index([userId])
 }
 
+// One row per validated identifier tuple per UTC day.
 model AccountObservation {
   id            String   @id @db.Char(64)
   userId        String   @db.Uuid

@@ -20,7 +20,7 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
  * Model AccountActivitySample
- *
+ * 
  */
 export type AccountActivitySample = $Result.DefaultSelection<Prisma.$AccountActivitySamplePayload>
 /**
@@ -8764,7 +8764,7 @@ export namespace Prisma {
     readonly ip: FieldRef<"AccountActivitySample", 'String'>
     readonly observedAt: FieldRef<"AccountActivitySample", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -8835,31 +8835,31 @@ export namespace Prisma {
     where?: AccountActivitySampleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AccountActivitySamples to fetch.
      */
     orderBy?: AccountActivitySampleOrderByWithRelationInput | AccountActivitySampleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for AccountActivitySamples.
      */
     cursor?: AccountActivitySampleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AccountActivitySamples from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AccountActivitySamples.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of AccountActivitySamples.
      */
     distinct?: AccountActivitySampleScalarFieldEnum | AccountActivitySampleScalarFieldEnum[]
@@ -8888,31 +8888,31 @@ export namespace Prisma {
     where?: AccountActivitySampleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AccountActivitySamples to fetch.
      */
     orderBy?: AccountActivitySampleOrderByWithRelationInput | AccountActivitySampleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for AccountActivitySamples.
      */
     cursor?: AccountActivitySampleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AccountActivitySamples from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AccountActivitySamples.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of AccountActivitySamples.
      */
     distinct?: AccountActivitySampleScalarFieldEnum | AccountActivitySampleScalarFieldEnum[]
@@ -8941,25 +8941,25 @@ export namespace Prisma {
     where?: AccountActivitySampleWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AccountActivitySamples to fetch.
      */
     orderBy?: AccountActivitySampleOrderByWithRelationInput | AccountActivitySampleOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing AccountActivitySamples.
      */
     cursor?: AccountActivitySampleWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AccountActivitySamples from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AccountActivitySamples.
      */
     skip?: number
@@ -9333,55 +9333,55 @@ export namespace Prisma {
     where?: AccountObservationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AccountObservations to fetch.
      */
     orderBy?: AccountObservationOrderByWithRelationInput | AccountObservationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: AccountObservationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AccountObservations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AccountObservations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned AccountObservations
     **/
     _count?: true | AccountObservationCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: AccountObservationAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: AccountObservationSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: AccountObservationMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: AccountObservationMaxAggregateInputType
@@ -9617,13 +9617,13 @@ export namespace Prisma {
      * @example
      * // Get all AccountObservations
      * const accountObservations = await prisma.accountObservation.findMany()
-     *
+     * 
      * // Get first 10 AccountObservations
      * const accountObservations = await prisma.accountObservation.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const accountObservationWithIdOnly = await prisma.accountObservation.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends AccountObservationFindManyArgs>(args?: SelectSubset<T, AccountObservationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -9637,7 +9637,7 @@ export namespace Prisma {
      *     // ... data to create a AccountObservation
      *   }
      * })
-     *
+     * 
      */
     create<T extends AccountObservationCreateArgs>(args: SelectSubset<T, AccountObservationCreateArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9651,7 +9651,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends AccountObservationCreateManyArgs>(args?: SelectSubset<T, AccountObservationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9665,7 +9665,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many AccountObservations and only return the `id`
      * const accountObservationWithIdOnly = await prisma.accountObservation.createManyAndReturn({
      *   select: { id: true },
@@ -9675,7 +9675,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends AccountObservationCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountObservationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -9689,7 +9689,7 @@ export namespace Prisma {
      *     // ... filter to delete one AccountObservation
      *   }
      * })
-     *
+     * 
      */
     delete<T extends AccountObservationDeleteArgs>(args: SelectSubset<T, AccountObservationDeleteArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9706,7 +9706,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends AccountObservationUpdateArgs>(args: SelectSubset<T, AccountObservationUpdateArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9720,7 +9720,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends AccountObservationDeleteManyArgs>(args?: SelectSubset<T, AccountObservationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9739,7 +9739,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends AccountObservationUpdateManyArgs>(args: SelectSubset<T, AccountObservationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9756,7 +9756,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more AccountObservations and only return the `id`
      * const accountObservationWithIdOnly = await prisma.accountObservation.updateManyAndReturn({
      *   select: { id: true },
@@ -9769,7 +9769,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends AccountObservationUpdateManyAndReturnArgs>(args: SelectSubset<T, AccountObservationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -9858,7 +9858,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends AccountObservationGroupByArgs,
