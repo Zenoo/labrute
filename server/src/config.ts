@@ -142,6 +142,8 @@ export type Config = {
   readonly dinoRpgUrl: string;
 }
 
+export type TelemetryConfig = Pick<Config, 'isProduction' | 'eternaltwin'>;
+
 export const emptyConfig: Config = {
   isProduction: false,
   port: 50380,
@@ -236,13 +238,31 @@ export function readStringEnv<Default extends string | undefined>(
 }
 
 /**
+ * Resolve telemetry before instrumented modules and database configuration are loaded.
+ */
+export function readTelemetryConfig(env: Record<string, string | undefined>): TelemetryConfig {
+  return {
+    isProduction: env.NODE_ENV === 'production',
+    eternaltwin: {
+      url: env.ETERNALTWIN_URL ?? env.ETWIN_URL ?? emptyConfig.eternaltwin.url,
+      clientRef: env.ETERNALTWIN_CLIENT_REF
+        ?? env.ETWIN_CLIENT_ID
+        ?? emptyConfig.eternaltwin.clientRef,
+      secret: env.ETERNALTWIN_SECRET ?? env.ETWIN_CLIENT_SECRET ?? emptyConfig.eternaltwin.secret,
+      app: env.ETERNALTWIN_APP ?? emptyConfig.eternaltwin.app,
+      channel: env.ETERNALTWIN_CHANNEL ?? emptyConfig.eternaltwin.channel,
+    },
+  };
+}
+
+/**
  * Read the provided environment recorded and build a config object.
  */
 export async function readConfig(
   env: Record<string, string | undefined>,
   prisma?: PrismaClient,
 ): Promise<Config> {
-  const isProduction = env.NODE_ENV === 'production';
+  const { isProduction, eternaltwin } = readTelemetryConfig(env);
   const port = readPort(env.PORT);
   const selfUrl = readSelfUrl(env.SELF_URL);
   let corsRegex = readCorsRegex(env.CORS_REGEX);
@@ -259,19 +279,6 @@ export async function readConfig(
 
   const cryptrSecret = configVars.find((v) => v.key === 'CRYPTR_SECRET')?.value ?? 'dev';
   const cryptr = new Cryptr(cryptrSecret);
-
-  const eternaltwinUrl = env.ETERNALTWIN_URL ?? env.ETWIN_URL ?? emptyConfig.eternaltwin.url;
-
-  const eternaltwinClientRef = env.ETERNALTWIN_CLIENT_REF
-    ?? env.ETWIN_CLIENT_ID
-    ?? emptyConfig.eternaltwin.clientRef;
-
-  const eternaltwinSecret = env.ETERNALTWIN_SECRET
-    ?? env.ETWIN_CLIENT_SECRET
-    ?? emptyConfig.eternaltwin.secret;
-
-  const eternaltwinApp = env.ETERNALTWIN_APP ?? emptyConfig.eternaltwin.app;
-  const eternaltwinChannel = env.ETERNALTWIN_CHANNEL ?? emptyConfig.eternaltwin.channel;
 
   let rawDiscordNotifId = env.DISCORD_WEBHOOK_ID;
   let rawDiscordNotifToken = env.DISCORD_WEBHOOK_TOKEN;
@@ -337,14 +344,6 @@ export async function readConfig(
         break;
     }
   }
-
-  const eternaltwin: EternaltwinConfig = {
-    url: eternaltwinUrl,
-    clientRef: eternaltwinClientRef,
-    secret: eternaltwinSecret,
-    app: eternaltwinApp,
-    channel: eternaltwinChannel,
-  };
 
   let discordNotifications: DiscordConfig | null = null;
 
@@ -413,6 +412,13 @@ export async function readConfig(
     dinoRpgUrl,
     fpAesSecret,
   };
+}
+
+/** Load only environment-based telemetry settings before database initialization. */
+export function loadTelemetryConfig(): TelemetryConfig {
+  dotenv.config();
+
+  return readTelemetryConfig(process.env);
 }
 
 /**

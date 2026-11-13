@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js';
 import utc from 'dayjs/plugin/utc.js';
 import urlJoin from 'url-join';
-import { Config, loadConfig } from './config.js';
+import { TelemetryConfig, loadTelemetryConfig } from './config.js';
 
 // Load dayjs plugins
 dayjs.extend(utc);
@@ -26,7 +26,7 @@ function getAuthorizationHeader(clientId: string, clientSecret: string): string 
   return `Basic ${token}`;
 }
 
-function initOpentelemetry(config: Config): NodeSDK {
+function initOpentelemetry(config: TelemetryConfig): NodeSDK {
   const exporter = new OTLPTraceExporter({
     url: urlJoin(config.eternaltwin.url, 'v1/traces'),
     headers: {
@@ -64,7 +64,8 @@ function initOpentelemetry(config: Config): NodeSDK {
 }
 
 async function main() {
-  const config = await loadConfig();
+  // Full configuration requires the database and is validated later by ServerContext.init().
+  const config = loadTelemetryConfig();
   const otelSdk = initOpentelemetry(config);
 
   otelSdk.start();

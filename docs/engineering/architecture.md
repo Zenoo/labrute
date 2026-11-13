@@ -29,8 +29,10 @@ its own type-check configuration and Vite build. Database source is
 3. [Fetch](../../client/src/utils/Fetch.ts) sends credentials plus authorization, CSRF, fingerprint,
    language, version, and predictable headers. It fetches/caches CSRF tokens and retries a CSRF
    rejection once. `useServer` gates calls on fingerprint readiness.
-4. [Server main](../../server/src/main.ts) loads configuration, installs Day.js plugins and telemetry,
-   then dynamically imports the server. Preserve telemetry-before-server import ordering.
+4. [Server main](../../server/src/main.ts) loads environment-only telemetry configuration, installs
+   Day.js plugins and telemetry, then dynamically imports the server. Preserve telemetry-before-server
+   import ordering. Full configuration and fingerprint-secret validation run in `ServerContext.init()`
+   after encrypted database overrides are available.
 5. [server.ts](../../server/src/server.ts) installs CORS, cookies, CSRF, body parsing, request locks,
    readiness, and security middleware before application routes. `/api/csrf` is registered separately.
    CSRF applies to GET too: only HEAD/OPTIONS are ignored, apart from an explicit external-game exception.
