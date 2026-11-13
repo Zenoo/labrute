@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.101.0](https://github.com/Zenoo/labrute/compare/labrute-v2.100.4...labrute-v2.101.0) (2026-11-13)
+
+
+### Features
+
+* Add user case reviews ([2034055](https://github.com/Zenoo/labrute/commit/20340556a62e1a3ced6d29201e6a61ea9113c633))
+
+
+### Bug Fixes
+
+* Add linting ([48f3a28](https://github.com/Zenoo/labrute/commit/48f3a28b424b25f97412d5e9037e8f55f0089ea4))
+* Authenticate fingerprint events ([0c1479c](https://github.com/Zenoo/labrute/commit/0c1479c9e83af9392466641c597fc59db8b579b6))
+* Auto bans + appeal code ([6c50bb0](https://github.com/Zenoo/labrute/commit/6c50bb084e955bf2fbc4e05dd6d295619f174731))
+* Body width overflow in hall ([dd1ecd5](https://github.com/Zenoo/labrute/commit/dd1ecd5eb851265710b7b1d95ea99a00ed292241))
+* Brute position on creation ([512db4b](https://github.com/Zenoo/labrute/commit/512db4b07781cfb78502dc1166816100fbbbc0e4))
+* Center brute fight busts on their faces ([5313dac](https://github.com/Zenoo/labrute/commit/5313dac4a6bfae2970c22a78371d87abbd8ef3b0))
+* Icon to create a brute for the current event ([097607c](https://github.com/Zenoo/labrute/commit/097607cafd568e8a772883b9aacce03f37927396))
+* Local seed command ([f3aa8a0](https://github.com/Zenoo/labrute/commit/f3aa8a0534e61ece912f8846cb571522d29b4c96))
+* Refactor IP handling ([23e7eeb](https://github.com/Zenoo/labrute/commit/23e7eeb2f5bf0ac307e65a9b1ba367dc4bb1c3da))
+* Remove duplicate brutes in rankings ([6c8c46e](https://github.com/Zenoo/labrute/commit/6c8c46e98868fde6a3e10e105b8f31c2f550baf5))
+* Restore customization tokens for all brutes ([14c2094](https://github.com/Zenoo/labrute/commit/14c2094c619e173719779284ab373d1a1a0029dc))
+* Score multiple account cases ([00a5969](https://github.com/Zenoo/labrute/commit/00a5969338367fe357d73806728b57dba419f391))
+* Show event final rounds as a non participant ([6c88fa5](https://github.com/Zenoo/labrute/commit/6c88fa5b684caaeabc9cb5e4e526921ae0843012))
+* Stat icons ([f6d216e](https://github.com/Zenoo/labrute/commit/f6d216e57f30d0ec064d6f7c1b9ac59bcdb16cc1))
+* Stop automatic propagation of sanctions ([8cada7e](https://github.com/Zenoo/labrute/commit/8cada7e06183da39cd2df0905826ea1e9c3d7f8d))
+* Store banned browser ID in user trying to log in ([02b700f](https://github.com/Zenoo/labrute/commit/02b700f64724eaae2943fcca7102b5352095389d))
+* Update tests ([f1e3f25](https://github.com/Zenoo/labrute/commit/f1e3f256af95dd21e18a2fec7247d98b40ea86ff))
+* Updated stat icons ([6b2add0](https://github.com/Zenoo/labrute/commit/6b2add03547917969f0e0b1ba6197c79537910bd))
+* Use JA3/4 in fingerprints ([676bd5c](https://github.com/Zenoo/labrute/commit/676bd5c63817864541551ce09f43907dce52bcf0))
+* Use linked identifiers for accounts ([9780046](https://github.com/Zenoo/labrute/commit/978004670cd798c5e58267f432e6d5f6ac718dc5))
+* Use names + login times to improve detection ([6ea9d3d](https://github.com/Zenoo/labrute/commit/6ea9d3d08b1f2a2952c99511d80e3637364370cc))
+* Wrong pet vertical positions ([99382ed](https://github.com/Zenoo/labrute/commit/99382edf500cff389bccf8d00eb568dcc3fc9e92))
+
 ## [2.100.4](https://github.com/Zenoo/labrute/compare/labrute-v2.100.3...labrute-v2.100.4) (2026-11-02)
 
 
