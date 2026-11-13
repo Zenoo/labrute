@@ -30,6 +30,7 @@ const {
 const { registerFingerprintIdentity } = await import('../lib/utils/fingerprintEvent.js');
 const { createFingerprint } = await import('../lib/utils/fingerprintIdentity.js');
 const { normalizeIp } = await import('../lib/utils/clientIp.js');
+const { enrichMultipleAccountGroups } = await import('../lib/utils/multipleAccountSignals.js');
 
 const {
   createMultipleAccountCases, listMultipleAccountCases,
@@ -218,6 +219,19 @@ before(async () => {
     await prisma.$executeRawUnsafe(statement);
   }
 
+  const activityMigration = readFileSync(new URL(
+    '../prisma/migrations/20261113150000_account_activity_samples/migration.sql', import.meta.url,
+  ), 'utf8');
+
+  for (const statement of activityMigration.split(';').filter((sql) => sql.trim())) {
+    await prisma.$executeRawUnsafe(statement);
+  }
+
+  await prisma.$executeRawUnsafe(`CREATE TABLE "Brute" (
+    id UUID PRIMARY KEY, "userId" UUID REFERENCES "User"(id) ON DELETE CASCADE,
+    name TEXT NOT NULL, "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "deletedAt" TIMESTAMP
+  )`);
+
   fingerprintReset = {
     users: await prisma.$queryRaw`SELECT fingerprints, "bannedAt", "browserIds", ips FROM "User"`,
     known: await prisma.knownFingerprint.count(),
@@ -311,9 +325,118 @@ integration('group scoring counts distinct member days and networks after exclud
   const detail = await getMultipleAccountCase(prisma, saved.id);
   const list = await listMultipleAccountCases(prisma);
 
-  assert.equal(saved.scoreEvidence.percentage, 95);
+  assert.equal(saved.scoreEvidence.percentage, 75);
   assert.deepEqual(detail.case.scoreEvidence, saved.scoreEvidence);
   assert.deepEqual(list.cases[0].scoreEvidence, saved.scoreEvidence);
+});
+
+integration('rapid account changes and cross-owner name families enrich immutable case evidence', async () => {
+  const ids = [];
+
+  for (let index = 0; index < 4; index++) {
+    const id = await user();
+
+    ids.push(id);
+    await prisma.$executeRaw`UPDATE "User" SET name = ${`Zénoo-${index}`} WHERE id = ${id}::uuid`;
+    await prisma.$executeRaw`INSERT INTO "Brute" (id, "userId", name)
+      VALUES (${randomUUID()}::uuid, ${id}::uuid, ${`Warlock_${index}`})`;
+  }
+
+  const sequence = [0, 1, 0, 1, 2, 3, 2, 3, 0, 1, 2, 3];
+
+  for (const [index, member] of sequence.entries()) {
+    await recordAccountObservation(
+      prisma, ids[member], request(), new Date(now.getTime() - (20 - index) * 60000),
+    );
+  }
+
+  const groups = await reportMultipleAccountObservations(prisma, { log() {} }, now);
+
+  assert.equal(groups[0].metrics.switchingAccounts, 4);
+  assert.equal(groups[0].metrics.similarUserNames, 4);
+  assert.equal(groups[0].metrics.similarBruteNames, 4);
+  assert.equal(await prisma.accountActivitySample.count(), sequence.length);
+  const saved = await prisma.multipleAccountCase.findFirst();
+
+  assert.equal(saved.scoreEvidence.version, 2);
+  assert.equal(saved.scoreEvidence.percentage, 75);
+  const bruteFactor = saved.scoreEvidence.factors.find((factor) => factor.key === 'similar-brute-names');
+
+  assert.equal(bruteFactor.examples.length, 3);
+  await prisma.$executeRaw`UPDATE "User" SET name = 'Different name'`;
+  const detail = await getMultipleAccountCase(prisma, saved.id);
+
+  assert.deepEqual(detail.case.scoreEvidence, saved.scoreEvidence);
+});
+
+integration('approved accounts remain timeline boundaries rather than manufacturing switches between members', async () => {
+  const ids = [];
+
+  for (let index = 0; index < 4; index++) {
+    const id = await user();
+
+    ids.push(id);
+    await recordAccountObservation(prisma, id, request(), daysAgo(1));
+  }
+
+  const approved = await user(browser);
+  const sequence = [ids[0], approved, ids[1], approved, ids[0], approved, ids[1], approved];
+
+  for (const [index, id] of sequence.entries()) {
+    await recordAccountObservation(
+      prisma, id, request(), new Date(now.getTime() - (20 - index) * 60000),
+    );
+  }
+
+  const groups = await findMultipleAccountObservationGroups(prisma, now);
+
+  await enrichMultipleAccountGroups(prisma, groups, now);
+  assert.equal(groups[0].metrics.switchingAccounts, 0);
+  assert.equal(groups[0].userIds.length, 4);
+  await prisma.$executeRaw`DELETE FROM "User" WHERE id = ${approved}::uuid`;
+  await enrichMultipleAccountGroups(prisma, groups, now);
+  assert.equal(groups[0].metrics.switchingAccounts, 0, 'deleted accounts remain anonymous boundaries');
+});
+
+integration('simultaneous accounts and long idle gaps do not count as rapid switching', async () => {
+  const ids = [];
+
+  for (let index = 0; index < 4; index++) {
+    const id = await user();
+
+    ids.push(id);
+    await recordAccountObservation(prisma, id, request(), daysAgo(1));
+  }
+
+  for (let index = 0; index < 12; index++) {
+    await recordAccountObservation(
+      prisma, ids[index % 4], request(), new Date(now.getTime() - (12 - index) * 11 * 60000),
+    );
+  }
+
+  const groups = await findMultipleAccountObservationGroups(prisma, now);
+
+  await enrichMultipleAccountGroups(prisma, groups, now);
+  assert.equal(groups[0].metrics.switchingAccounts, 0);
+});
+
+integration('activity write failures roll back daily observations and retry without a cached success', async () => {
+  const id = await user();
+
+  await prisma.$executeRawUnsafe(`ALTER TABLE "AccountActivitySample"
+    ADD CONSTRAINT reject_sample CHECK (ip <> '192.0.2.1')`);
+
+  try {
+    await assert.rejects(recordAccountObservation(prisma, id, request(), now));
+    assert.equal(await prisma.accountObservation.count(), 0);
+    assert.equal(await prisma.accountActivitySample.count(), 0);
+  } finally {
+    await prisma.$executeRawUnsafe('ALTER TABLE "AccountActivitySample" DROP CONSTRAINT reject_sample');
+  }
+
+  await recordAccountObservation(prisma, id, request(), now);
+  assert.equal(await prisma.accountObservation.count(), 1);
+  assert.equal(await prisma.accountActivitySample.count(), 1);
 });
 
 integration('daily cases preserve observed evidence and active exclusions without duplicate or rewritten snapshots', async () => {
@@ -340,7 +463,7 @@ integration('daily cases preserve observed evidence and active exclusions withou
   assert.equal(original.signal, 'browser');
   assert.equal(original.threshold, 3);
   assert.equal(original.confidence, 'uncalibrated');
-  assert.equal(original.scoreEvidence.percentage, 60);
+  assert.equal(original.scoreEvidence.percentage, 55);
   assert.equal(original.scoreEvidence.factors[0].matchedAccounts, 4);
   assert.deepEqual(original.userIds, ids.sort());
   assert.equal(original.accountCount, 4);
@@ -925,8 +1048,13 @@ integration('retention removes only expired observations and user deletion casca
   await recordAccountObservation(prisma, id, request(), now);
   assert.equal(await cleanupAccountObservations(prisma, now), 1);
   assert.equal(await prisma.accountObservation.count(), 2);
+  assert.equal(await prisma.accountActivitySample.count(), 2);
   await prisma.$executeRaw`DELETE FROM "User" WHERE id = ${id}::uuid`;
   assert.equal(await prisma.accountObservation.count(), 0);
+  assert.equal(await prisma.accountActivitySample.count(), 2);
+  const anonymousSamples = await prisma.accountActivitySample.findMany();
+
+  assert.ok(anonymousSamples.every((sample) => sample.userId === null));
 });
 
 integration('representative observation volume has a measured query plan', async (t) => {
@@ -1036,7 +1164,7 @@ integration('retention deletes in bounded transactions and skips rows currently 
   try {
     await locked;
     assert.equal(await cleanupAccountObservations(counted, now), 5001);
-    assert.deepEqual(batches, [5000, 1]);
+    assert.deepEqual(batches, [5000, 1, 0]);
     assert.equal(await prisma.accountObservation.count(), 1);
   } finally {
     unlock();

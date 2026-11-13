@@ -38,6 +38,7 @@ model User {
   fingerprints            String[]                 @default([])
   browserIds              String[]                 @default([])
   accountObservations     AccountObservation[]
+  accountActivitySamples  AccountActivitySample[]
   sharedBrowserExemptions SharedBrowserExemption[]
   createdAt               DateTime                 @default(now()) @db.Timestamp()
   bannedAt                DateTime?                @db.Timestamp()
@@ -70,7 +71,22 @@ model User {
   @@index([sharedBrowserId])
 }
 
-// One row per validated identifier tuple per UTC day; legacy arrays are not backfilled.
+// Sampled authenticated activity, including rapid same-browser account changes.
+model AccountActivitySample {
+  id          String   @id @db.Uuid
+  userId      String?  @db.Uuid
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  browserId   String   @db.Uuid
+  fingerprint String   @db.VarChar(128)
+  ip          String?  @db.VarChar(45)
+  observedAt  DateTime @db.Timestamp(3)
+
+  @@index([observedAt])
+  @@index([browserId, observedAt])
+  @@index([userId])
+}
+
+// One row per validated identifier tuple per UTC day.
 model AccountObservation {
   id            String   @id @db.Char(64)
   userId        String   @db.Uuid

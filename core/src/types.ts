@@ -910,11 +910,13 @@ export type MultipleAccountScore = {
   version: number;
   percentage: number;
   factors: {
-    key: 'shared-browser' | 'fingerprint-ip' | 'repeated-days' | 'shared-visitor' | 'multiple-networks';
+    key: 'shared-browser' | 'fingerprint-ip' | 'repeated-days' | 'shared-visitor' | 'multiple-networks'
+      | 'account-switching' | 'similar-user-names' | 'similar-brute-names';
     points: number;
     maxPoints: number;
     matchedAccounts: number;
     totalAccounts: number;
+    examples?: string[];
   }[];
 };
 export type MultipleAccountCaseSummary = Omit<MultipleAccountCase, 'userIds' | 'exemptions' | 'scoreEvidence'> & {

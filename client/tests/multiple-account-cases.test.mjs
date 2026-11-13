@@ -48,6 +48,18 @@ test('case evidence escapes stored identifiers, names, exemptions and review rea
       fingerprint: attack,
       ip: attack,
       excludedCount: 1,
+      scoreEvidence: {
+        version: 2,
+        percentage: 65,
+        factors: [{
+          key: 'similar-brute-names',
+          points: 5,
+          maxPoints: 5,
+          matchedAccounts: 4,
+          totalAccounts: 4,
+          examples: [attack],
+        }],
+      },
     },
     users: [{
       id: attack,
@@ -78,6 +90,8 @@ test('case evidence escapes stored identifiers, names, exemptions and review rea
   assert.ok(html.includes('does not ban accounts'));
   assert.ok(html.includes('Uncalibrated signal'));
   assert.ok(html.includes('Latest 25 review decisions'));
+  assert.ok(html.includes('Suspicion score: 65%'));
+  assert.ok(html.includes('Accounts with similar brute names across different owners'));
 });
 
 test('deleted accounts remain identifiable and truncated exemption context is labelled', () => {

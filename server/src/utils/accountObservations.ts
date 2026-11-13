@@ -1,6 +1,6 @@
 import { isUuid } from '@labrute/core';
 import { Prisma, PrismaClient } from '@labrute/prisma';
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import type { Request } from 'express';
 import { getBrowserId } from './browserId.js';
 import { getTlsFingerprints, parseFingerprint } from './fingerprintIdentity.js';
@@ -8,6 +8,7 @@ import { traced } from './trace.js';
 import { getClientIp } from './clientIp.js';
 import { createMultipleAccountCases } from './multipleAccountCases.js';
 import type { MultipleAccountMetrics } from './multipleAccountScore.js';
+import { enrichMultipleAccountGroups } from './multipleAccountSignals.js';
 
 const sha256 = (value: string) => createHash('sha256').update(value).digest('hex');
 
@@ -19,13 +20,18 @@ const MAX_OBSERVATION_CACHE_ENTRIES = 10000;
 // Scope by database client so separate tenants/tests cannot suppress each other's observations.
 const observationWrites = new WeakMap<PrismaClient, Map<string, ObservationWrite>>();
 
+const browserActivity = new WeakMap<PrismaClient, Map<string, {
+  userId: string;
+  recordedAt: number;
+}>>();
+
 /** Only call after authentication and fingerprint-event validation have succeeded. */
 export const recordAccountObservation = async (
   prisma: PrismaClient,
   userId: string,
   request: Pick<Request, 'headers' | 'socket' | 'security' | 'signedCookies'>,
   now = new Date(),
-) => {
+): Promise<void> => {
   const browserId = getBrowserId(request);
   const fingerprint = request.security?.fingerprint;
   const identity = parseFingerprint(fingerprint);
@@ -40,6 +46,15 @@ export const recordAccountObservation = async (
   const observedDay = now.toISOString().slice(0, 10);
   const normalizedUserId = userId.toLowerCase();
   const normalizedBrowserId = browserId.toLowerCase();
+  let activity = browserActivity.get(prisma);
+
+  if (!activity) {
+    activity = new Map();
+    browserActivity.set(prisma, activity);
+  }
+
+  const previousAccount = activity.get(normalizedBrowserId);
+  const accountChanged = previousAccount?.userId !== normalizedUserId;
 
   const id = sha256(JSON.stringify([
     identity.version, normalizedUserId, normalizedBrowserId, fingerprint,
@@ -58,12 +73,13 @@ export const recordAccountObservation = async (
   if (previous?.pending) {
     await previous.pending;
 
-    return;
+    // A different account may have been observed while this tuple's write was in flight.
+    return recordAccountObservation(prisma, userId, request, now);
   }
 
   const elapsed = now.getTime() - (previous?.recordedAt ?? -Infinity);
 
-  if (elapsed >= 0 && elapsed < OBSERVATION_INTERVAL_MS) {
+  if (!accountChanged && elapsed >= 0 && elapsed < OBSERVATION_INTERVAL_MS) {
     return;
   }
 
@@ -82,25 +98,46 @@ export const recordAccountObservation = async (
     }
   }
 
-  // One writer per tuple/process/interval. Database conflicts still coordinate separate processes.
+  // Sample ordinary activity once per tuple/interval; account changes bypass that throttle.
   // Advance on each successful sampled write so independent worker caches cannot compound time lag.
   entry.pending = traced('accountObservations.record', () => prisma.$executeRaw`
-    INSERT INTO "AccountObservation" (
-      "id", "userId", "browserId", "fingerprint", "visitorId", "ja3Hash", "ja4Hash", "ip",
-      "formatVersion", "observedDay", "firstSeen", "lastSeen"
-    ) VALUES (
-      ${id}, ${normalizedUserId}::uuid, ${normalizedBrowserId}::uuid,
-      ${fingerprint}, ${identity.visitorId}, ${ja3Hash}, ${ja4Hash}, ${ip}, ${identity.version},
-      ${observedDay}::date,
-      (${now}::timestamptz AT TIME ZONE 'UTC'), (${now}::timestamptz AT TIME ZONE 'UTC')
+    WITH observation AS (
+      INSERT INTO "AccountObservation" (
+        "id", "userId", "browserId", "fingerprint", "visitorId", "ja3Hash", "ja4Hash", "ip",
+        "formatVersion", "observedDay", "firstSeen", "lastSeen"
+      ) VALUES (
+        ${id}, ${normalizedUserId}::uuid, ${normalizedBrowserId}::uuid,
+        ${fingerprint}, ${identity.visitorId}, ${ja3Hash}, ${ja4Hash}, ${ip}, ${identity.version},
+        ${observedDay}::date,
+        (${now}::timestamptz AT TIME ZONE 'UTC'), (${now}::timestamptz AT TIME ZONE 'UTC')
+      )
+      ON CONFLICT ("id") DO UPDATE SET "lastSeen" = EXCLUDED."lastSeen"
+      WHERE "AccountObservation"."lastSeen" < EXCLUDED."lastSeen"
     )
-    ON CONFLICT ("id") DO UPDATE SET "lastSeen" = EXCLUDED."lastSeen"
-    WHERE "AccountObservation"."lastSeen" < EXCLUDED."lastSeen"
+    INSERT INTO "AccountActivitySample" (id, "userId", "browserId", fingerprint, ip, "observedAt")
+    VALUES (${randomUUID()}::uuid, ${normalizedUserId}::uuid, ${normalizedBrowserId}::uuid,
+      ${fingerprint}, ${ip}, (${now}::timestamptz AT TIME ZONE 'UTC'))
   `);
 
   try {
     await entry.pending;
     entry.pending = undefined;
+
+    if (now.getTime() >= (activity.get(normalizedBrowserId)?.recordedAt ?? -Infinity)) {
+      activity.delete(normalizedBrowserId);
+      activity.set(normalizedBrowserId, {
+        userId: normalizedUserId,
+        recordedAt: now.getTime(),
+      });
+    }
+
+    if (activity.size > MAX_OBSERVATION_CACHE_ENTRIES) {
+      const oldest = activity.keys().next().value;
+
+      if (oldest !== undefined) {
+        activity.delete(oldest);
+      }
+    }
   } catch (error) {
     // Failed writes are never cached as observations; a subsequent request retries normally.
     if (writes.get(id) === entry) {
@@ -217,6 +254,8 @@ export const reportMultipleAccountObservations = async (
     try {
       const { groups, created } = await prisma.$transaction(async (tx) => {
         const candidates = await findMultipleAccountObservationGroups(tx, now);
+
+        await enrichMultipleAccountGroups(tx, candidates, now);
         const count = await createMultipleAccountCases(tx, candidates, now);
 
         return {
@@ -264,5 +303,17 @@ export const cleanupAccountObservations = async (prisma: PrismaClient, now = new
     total += deleted;
   } while (deleted === batchSize);
 
+  do {
+    deleted = await prisma.$executeRaw`
+      DELETE FROM "AccountActivitySample"
+      WHERE id IN (
+        SELECT id FROM "AccountActivitySample"
+        WHERE "observedAt" < (${cutoff}::timestamptz AT TIME ZONE 'UTC')
+        ORDER BY "observedAt", id LIMIT ${batchSize} FOR UPDATE SKIP LOCKED
+      )
+    `;
+  } while (deleted === batchSize);
+
+  // Preserve the existing return value: number of expired daily observation rows.
   return total;
 };

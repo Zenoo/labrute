@@ -11,15 +11,18 @@ const metrics = (overrides = {}) => ({
 });
 
 test('browser evidence grows with recurrence and corroboration, and never claims certainty', () => {
-  assert.equal(scoreMultipleAccountGroup('browser', 4, metrics()).percentage, 45);
+  assert.equal(scoreMultipleAccountGroup('browser', 4, metrics()).percentage, 40);
   assert.equal(scoreMultipleAccountGroup('browser', 4, metrics({
     repeatedAccounts: 4,
     sharedVisitorAccounts: 4,
-  })).percentage, 80);
+  })).percentage, 65);
   assert.equal(scoreMultipleAccountGroup('browser', 4, metrics({
     repeatedAccounts: 4,
     sharedVisitorAccounts: 4,
     crossNetworkAccounts: 4,
+    switchingAccounts: 4,
+    similarUserNames: 4,
+    similarBruteNames: 4,
   })).percentage, 95);
 });
 
@@ -29,15 +32,32 @@ test('a small linked subgroup cannot give a large network group a high score', (
     sharedVisitorAccounts: 31,
   }));
 
-  assert.equal(score.percentage, 40);
+  assert.equal(score.percentage, 35);
   assert.ok(!score.factors.some((factor) => factor.key === 'shared-visitor'));
-  assert.equal(score.factors.find((factor) => factor.key === 'shared-browser').points, 5);
+  assert.equal(score.factors.find((factor) => factor.key === 'shared-browser').points, 4);
 });
 
 test('correlated device anchors are not added together', () => {
   assert.equal(scoreMultipleAccountGroup('fingerprint-ip', 31, metrics({
     sharedBrowserAccounts: 31,
-  })).percentage, 45);
+  })).percentage, 40);
+});
+
+test('name evidence remains weak and a matching subgroup receives only proportional credit', () => {
+  const score = scoreMultipleAccountGroup('browser', 4, metrics({
+    sharedBrowserAccounts: 0,
+    similarUserNames: 4,
+    similarBruteNames: 4,
+  }));
+
+  assert.equal(score.version, 2);
+  assert.equal(score.percentage, 10);
+  assert.equal(scoreMultipleAccountGroup('browser', 31, metrics({
+    sharedBrowserAccounts: 0,
+    switchingAccounts: 2,
+    similarUserNames: 2,
+    similarBruteNames: 2,
+  })).percentage, 1);
 });
 
 test('isolated, missing, nonfinite and out-of-range support stays bounded', () => {
@@ -48,5 +68,5 @@ test('isolated, missing, nonfinite and out-of-range support stays bounded', () =
     crossNetworkAccounts: Infinity,
   })).percentage, 0);
   assert.equal(scoreMultipleAccountGroup('browser', 1, metrics()).percentage, 0);
-  assert.equal(scoreMultipleAccountGroup('browser', 4, metrics({ sharedBrowserAccounts: 999 })).percentage, 45);
+  assert.equal(scoreMultipleAccountGroup('browser', 4, metrics({ sharedBrowserAccounts: 999 })).percentage, 40);
 });

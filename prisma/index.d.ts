@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model AccountActivitySample
+ *
+ */
+export type AccountActivitySample = $Result.DefaultSelection<Prisma.$AccountActivitySamplePayload>
+/**
  * Model AccountObservation
  * 
  */
@@ -919,6 +924,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.accountActivitySample`: Exposes CRUD operations for the **AccountActivitySample** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AccountActivitySamples
+    * const accountActivitySamples = await prisma.accountActivitySample.findMany()
+    * ```
+    */
+  get accountActivitySample(): Prisma.AccountActivitySampleDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.accountObservation`: Exposes CRUD operations for the **AccountObservation** model.
     * Example usage:
     * ```ts
@@ -1789,6 +1804,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    AccountActivitySample: 'AccountActivitySample',
     AccountObservation: 'AccountObservation',
     UserLog: 'UserLog',
     Brute: 'Brute',
@@ -1850,7 +1866,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "sharedBrowserExemption" | "securityAction" | "bannedBrowser" | "multipleAccountCase" | "multipleAccountCaseAction" | "multipleAccountCaseReview" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
+      modelProps: "user" | "accountActivitySample" | "accountObservation" | "userLog" | "brute" | "bruteStartingStats" | "unlockedColors" | "fight" | "log" | "destinyChoice" | "tournament" | "tournamentAchievement" | "tournamentGold" | "tournamentXp" | "bruteRanking" | "achievement" | "bruteReport" | "serverState" | "bannedWord" | "bannedIp" | "bannedFingerprint" | "knownFingerprint" | "sharedBrowser" | "sharedBrowserExemption" | "securityAction" | "bannedBrowser" | "multipleAccountCase" | "multipleAccountCaseAction" | "multipleAccountCaseReview" | "clan" | "clanThread" | "clanPost" | "bossDamage" | "clanWar" | "clanWarFighters" | "inventoryItem" | "release" | "event" | "notification" | "config" | "clanRole" | "userStats" | "bruteStats" | "userLevelUpStat" | "bruteLevelUpStat"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1925,6 +1941,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      AccountActivitySample: {
+        payload: Prisma.$AccountActivitySamplePayload<ExtArgs>
+        fields: Prisma.AccountActivitySampleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AccountActivitySampleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AccountActivitySampleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload>
+          }
+          findFirst: {
+            args: Prisma.AccountActivitySampleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AccountActivitySampleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload>
+          }
+          findMany: {
+            args: Prisma.AccountActivitySampleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload>[]
+          }
+          create: {
+            args: Prisma.AccountActivitySampleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload>
+          }
+          createMany: {
+            args: Prisma.AccountActivitySampleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AccountActivitySampleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload>[]
+          }
+          delete: {
+            args: Prisma.AccountActivitySampleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload>
+          }
+          update: {
+            args: Prisma.AccountActivitySampleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload>
+          }
+          deleteMany: {
+            args: Prisma.AccountActivitySampleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AccountActivitySampleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AccountActivitySampleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload>[]
+          }
+          upsert: {
+            args: Prisma.AccountActivitySampleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountActivitySamplePayload>
+          }
+          aggregate: {
+            args: Prisma.AccountActivitySampleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAccountActivitySample>
+          }
+          groupBy: {
+            args: Prisma.AccountActivitySampleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AccountActivitySampleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AccountActivitySampleCountArgs<ExtArgs>
+            result: $Utils.Optional<AccountActivitySampleCountAggregateOutputType> | number
           }
         }
       }
@@ -5207,6 +5297,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    accountActivitySample?: AccountActivitySampleOmit
     accountObservation?: AccountObservationOmit
     userLog?: UserLogOmit
     brute?: BruteOmit
@@ -5331,6 +5422,7 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     accountObservations: number
+    accountActivitySamples: number
     sharedBrowserExemptions: number
     brutes: number
     achievements: number
@@ -5348,6 +5440,7 @@ export namespace Prisma {
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accountObservations?: boolean | UserCountOutputTypeCountAccountObservationsArgs
+    accountActivitySamples?: boolean | UserCountOutputTypeCountAccountActivitySamplesArgs
     sharedBrowserExemptions?: boolean | UserCountOutputTypeCountSharedBrowserExemptionsArgs
     brutes?: boolean | UserCountOutputTypeCountBrutesArgs
     achievements?: boolean | UserCountOutputTypeCountAchievementsArgs
@@ -5379,6 +5472,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAccountObservationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AccountObservationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAccountActivitySamplesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountActivitySampleWhereInput
   }
 
   /**
@@ -6563,6 +6663,7 @@ export namespace Prisma {
     lastSeen?: boolean
     sharedBrowserId?: boolean
     accountObservations?: boolean | User$accountObservationsArgs<ExtArgs>
+    accountActivitySamples?: boolean | User$accountActivitySamplesArgs<ExtArgs>
     sharedBrowserExemptions?: boolean | User$sharedBrowserExemptionsArgs<ExtArgs>
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -6669,6 +6770,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "banAppealCode" | "displayVersusPage" | "alwaysDisplayScrubber" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accountObservations?: boolean | User$accountObservationsArgs<ExtArgs>
+    accountActivitySamples?: boolean | User$accountActivitySamplesArgs<ExtArgs>
     sharedBrowserExemptions?: boolean | User$sharedBrowserExemptionsArgs<ExtArgs>
     brutes?: boolean | User$brutesArgs<ExtArgs>
     achievements?: boolean | User$achievementsArgs<ExtArgs>
@@ -6696,6 +6798,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       accountObservations: Prisma.$AccountObservationPayload<ExtArgs>[]
+      accountActivitySamples: Prisma.$AccountActivitySamplePayload<ExtArgs>[]
       sharedBrowserExemptions: Prisma.$SharedBrowserExemptionPayload<ExtArgs>[]
       brutes: Prisma.$BrutePayload<ExtArgs>[]
       achievements: Prisma.$AchievementPayload<ExtArgs>[]
@@ -7132,6 +7235,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     accountObservations<T extends User$accountObservationsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountObservationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    accountActivitySamples<T extends User$accountActivitySamplesArgs<ExtArgs> = {}>(args?: Subset<T, User$accountActivitySamplesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sharedBrowserExemptions<T extends User$sharedBrowserExemptionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sharedBrowserExemptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SharedBrowserExemptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     brutes<T extends User$brutesArgs<ExtArgs> = {}>(args?: Subset<T, User$brutesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BrutePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     achievements<T extends User$achievementsArgs<ExtArgs> = {}>(args?: Subset<T, User$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7629,6 +7733,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.accountActivitySamples
+   */
+  export type User$accountActivitySamplesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    where?: AccountActivitySampleWhereInput
+    orderBy?: AccountActivitySampleOrderByWithRelationInput | AccountActivitySampleOrderByWithRelationInput[]
+    cursor?: AccountActivitySampleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccountActivitySampleScalarFieldEnum | AccountActivitySampleScalarFieldEnum[]
+  }
+
+  /**
    * User.sharedBrowserExemptions
    */
   export type User$sharedBrowserExemptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7979,6 +8107,1105 @@ export namespace Prisma {
 
 
   /**
+   * Model AccountActivitySample
+   */
+
+  export type AggregateAccountActivitySample = {
+    _count: AccountActivitySampleCountAggregateOutputType | null
+    _min: AccountActivitySampleMinAggregateOutputType | null
+    _max: AccountActivitySampleMaxAggregateOutputType | null
+  }
+
+  export type AccountActivitySampleMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    browserId: string | null
+    fingerprint: string | null
+    ip: string | null
+    observedAt: Date | null
+  }
+
+  export type AccountActivitySampleMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    browserId: string | null
+    fingerprint: string | null
+    ip: string | null
+    observedAt: Date | null
+  }
+
+  export type AccountActivitySampleCountAggregateOutputType = {
+    id: number
+    userId: number
+    browserId: number
+    fingerprint: number
+    ip: number
+    observedAt: number
+    _all: number
+  }
+
+
+  export type AccountActivitySampleMinAggregateInputType = {
+    id?: true
+    userId?: true
+    browserId?: true
+    fingerprint?: true
+    ip?: true
+    observedAt?: true
+  }
+
+  export type AccountActivitySampleMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    browserId?: true
+    fingerprint?: true
+    ip?: true
+    observedAt?: true
+  }
+
+  export type AccountActivitySampleCountAggregateInputType = {
+    id?: true
+    userId?: true
+    browserId?: true
+    fingerprint?: true
+    ip?: true
+    observedAt?: true
+    _all?: true
+  }
+
+  export type AccountActivitySampleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountActivitySample to aggregate.
+     */
+    where?: AccountActivitySampleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountActivitySamples to fetch.
+     */
+    orderBy?: AccountActivitySampleOrderByWithRelationInput | AccountActivitySampleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AccountActivitySampleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountActivitySamples from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountActivitySamples.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AccountActivitySamples
+    **/
+    _count?: true | AccountActivitySampleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AccountActivitySampleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AccountActivitySampleMaxAggregateInputType
+  }
+
+  export type GetAccountActivitySampleAggregateType<T extends AccountActivitySampleAggregateArgs> = {
+        [P in keyof T & keyof AggregateAccountActivitySample]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAccountActivitySample[P]>
+      : GetScalarType<T[P], AggregateAccountActivitySample[P]>
+  }
+
+
+
+
+  export type AccountActivitySampleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountActivitySampleWhereInput
+    orderBy?: AccountActivitySampleOrderByWithAggregationInput | AccountActivitySampleOrderByWithAggregationInput[]
+    by: AccountActivitySampleScalarFieldEnum[] | AccountActivitySampleScalarFieldEnum
+    having?: AccountActivitySampleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AccountActivitySampleCountAggregateInputType | true
+    _min?: AccountActivitySampleMinAggregateInputType
+    _max?: AccountActivitySampleMaxAggregateInputType
+  }
+
+  export type AccountActivitySampleGroupByOutputType = {
+    id: string
+    userId: string | null
+    browserId: string
+    fingerprint: string
+    ip: string | null
+    observedAt: Date
+    _count: AccountActivitySampleCountAggregateOutputType | null
+    _min: AccountActivitySampleMinAggregateOutputType | null
+    _max: AccountActivitySampleMaxAggregateOutputType | null
+  }
+
+  type GetAccountActivitySampleGroupByPayload<T extends AccountActivitySampleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AccountActivitySampleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AccountActivitySampleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AccountActivitySampleGroupByOutputType[P]>
+            : GetScalarType<T[P], AccountActivitySampleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AccountActivitySampleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    ip?: boolean
+    observedAt?: boolean
+    user?: boolean | AccountActivitySample$userArgs<ExtArgs>
+  }, ExtArgs["result"]["accountActivitySample"]>
+
+  export type AccountActivitySampleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    ip?: boolean
+    observedAt?: boolean
+    user?: boolean | AccountActivitySample$userArgs<ExtArgs>
+  }, ExtArgs["result"]["accountActivitySample"]>
+
+  export type AccountActivitySampleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    ip?: boolean
+    observedAt?: boolean
+    user?: boolean | AccountActivitySample$userArgs<ExtArgs>
+  }, ExtArgs["result"]["accountActivitySample"]>
+
+  export type AccountActivitySampleSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    browserId?: boolean
+    fingerprint?: boolean
+    ip?: boolean
+    observedAt?: boolean
+  }
+
+  export type AccountActivitySampleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "browserId" | "fingerprint" | "ip" | "observedAt", ExtArgs["result"]["accountActivitySample"]>
+  export type AccountActivitySampleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | AccountActivitySample$userArgs<ExtArgs>
+  }
+  export type AccountActivitySampleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | AccountActivitySample$userArgs<ExtArgs>
+  }
+  export type AccountActivitySampleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | AccountActivitySample$userArgs<ExtArgs>
+  }
+
+  export type $AccountActivitySamplePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AccountActivitySample"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string | null
+      browserId: string
+      fingerprint: string
+      ip: string | null
+      observedAt: Date
+    }, ExtArgs["result"]["accountActivitySample"]>
+    composites: {}
+  }
+
+  type AccountActivitySampleGetPayload<S extends boolean | null | undefined | AccountActivitySampleDefaultArgs> = $Result.GetResult<Prisma.$AccountActivitySamplePayload, S>
+
+  type AccountActivitySampleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AccountActivitySampleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+      select?: AccountActivitySampleCountAggregateInputType | true
+    }
+
+  export interface AccountActivitySampleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AccountActivitySample'], meta: { name: 'AccountActivitySample' } }
+    /**
+     * Find zero or one AccountActivitySample that matches the filter.
+     * @param {AccountActivitySampleFindUniqueArgs} args - Arguments to find a AccountActivitySample
+     * @example
+     * // Get one AccountActivitySample
+     * const accountActivitySample = await prisma.accountActivitySample.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AccountActivitySampleFindUniqueArgs>(args: SelectSubset<T, AccountActivitySampleFindUniqueArgs<ExtArgs>>): Prisma__AccountActivitySampleClient<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AccountActivitySample that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AccountActivitySampleFindUniqueOrThrowArgs} args - Arguments to find a AccountActivitySample
+     * @example
+     * // Get one AccountActivitySample
+     * const accountActivitySample = await prisma.accountActivitySample.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AccountActivitySampleFindUniqueOrThrowArgs>(args: SelectSubset<T, AccountActivitySampleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccountActivitySampleClient<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AccountActivitySample that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountActivitySampleFindFirstArgs} args - Arguments to find a AccountActivitySample
+     * @example
+     * // Get one AccountActivitySample
+     * const accountActivitySample = await prisma.accountActivitySample.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AccountActivitySampleFindFirstArgs>(args?: SelectSubset<T, AccountActivitySampleFindFirstArgs<ExtArgs>>): Prisma__AccountActivitySampleClient<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AccountActivitySample that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountActivitySampleFindFirstOrThrowArgs} args - Arguments to find a AccountActivitySample
+     * @example
+     * // Get one AccountActivitySample
+     * const accountActivitySample = await prisma.accountActivitySample.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AccountActivitySampleFindFirstOrThrowArgs>(args?: SelectSubset<T, AccountActivitySampleFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccountActivitySampleClient<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AccountActivitySamples that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountActivitySampleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AccountActivitySamples
+     * const accountActivitySamples = await prisma.accountActivitySample.findMany()
+     * 
+     * // Get first 10 AccountActivitySamples
+     * const accountActivitySamples = await prisma.accountActivitySample.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const accountActivitySampleWithIdOnly = await prisma.accountActivitySample.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AccountActivitySampleFindManyArgs>(args?: SelectSubset<T, AccountActivitySampleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AccountActivitySample.
+     * @param {AccountActivitySampleCreateArgs} args - Arguments to create a AccountActivitySample.
+     * @example
+     * // Create one AccountActivitySample
+     * const AccountActivitySample = await prisma.accountActivitySample.create({
+     *   data: {
+     *     // ... data to create a AccountActivitySample
+     *   }
+     * })
+     * 
+     */
+    create<T extends AccountActivitySampleCreateArgs>(args: SelectSubset<T, AccountActivitySampleCreateArgs<ExtArgs>>): Prisma__AccountActivitySampleClient<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AccountActivitySamples.
+     * @param {AccountActivitySampleCreateManyArgs} args - Arguments to create many AccountActivitySamples.
+     * @example
+     * // Create many AccountActivitySamples
+     * const accountActivitySample = await prisma.accountActivitySample.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AccountActivitySampleCreateManyArgs>(args?: SelectSubset<T, AccountActivitySampleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AccountActivitySamples and returns the data saved in the database.
+     * @param {AccountActivitySampleCreateManyAndReturnArgs} args - Arguments to create many AccountActivitySamples.
+     * @example
+     * // Create many AccountActivitySamples
+     * const accountActivitySample = await prisma.accountActivitySample.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AccountActivitySamples and only return the `id`
+     * const accountActivitySampleWithIdOnly = await prisma.accountActivitySample.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AccountActivitySampleCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountActivitySampleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AccountActivitySample.
+     * @param {AccountActivitySampleDeleteArgs} args - Arguments to delete one AccountActivitySample.
+     * @example
+     * // Delete one AccountActivitySample
+     * const AccountActivitySample = await prisma.accountActivitySample.delete({
+     *   where: {
+     *     // ... filter to delete one AccountActivitySample
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AccountActivitySampleDeleteArgs>(args: SelectSubset<T, AccountActivitySampleDeleteArgs<ExtArgs>>): Prisma__AccountActivitySampleClient<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AccountActivitySample.
+     * @param {AccountActivitySampleUpdateArgs} args - Arguments to update one AccountActivitySample.
+     * @example
+     * // Update one AccountActivitySample
+     * const accountActivitySample = await prisma.accountActivitySample.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AccountActivitySampleUpdateArgs>(args: SelectSubset<T, AccountActivitySampleUpdateArgs<ExtArgs>>): Prisma__AccountActivitySampleClient<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AccountActivitySamples.
+     * @param {AccountActivitySampleDeleteManyArgs} args - Arguments to filter AccountActivitySamples to delete.
+     * @example
+     * // Delete a few AccountActivitySamples
+     * const { count } = await prisma.accountActivitySample.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AccountActivitySampleDeleteManyArgs>(args?: SelectSubset<T, AccountActivitySampleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountActivitySamples.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountActivitySampleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AccountActivitySamples
+     * const accountActivitySample = await prisma.accountActivitySample.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AccountActivitySampleUpdateManyArgs>(args: SelectSubset<T, AccountActivitySampleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountActivitySamples and returns the data updated in the database.
+     * @param {AccountActivitySampleUpdateManyAndReturnArgs} args - Arguments to update many AccountActivitySamples.
+     * @example
+     * // Update many AccountActivitySamples
+     * const accountActivitySample = await prisma.accountActivitySample.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AccountActivitySamples and only return the `id`
+     * const accountActivitySampleWithIdOnly = await prisma.accountActivitySample.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AccountActivitySampleUpdateManyAndReturnArgs>(args: SelectSubset<T, AccountActivitySampleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AccountActivitySample.
+     * @param {AccountActivitySampleUpsertArgs} args - Arguments to update or create a AccountActivitySample.
+     * @example
+     * // Update or create a AccountActivitySample
+     * const accountActivitySample = await prisma.accountActivitySample.upsert({
+     *   create: {
+     *     // ... data to create a AccountActivitySample
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AccountActivitySample we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AccountActivitySampleUpsertArgs>(args: SelectSubset<T, AccountActivitySampleUpsertArgs<ExtArgs>>): Prisma__AccountActivitySampleClient<$Result.GetResult<Prisma.$AccountActivitySamplePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AccountActivitySamples.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountActivitySampleCountArgs} args - Arguments to filter AccountActivitySamples to count.
+     * @example
+     * // Count the number of AccountActivitySamples
+     * const count = await prisma.accountActivitySample.count({
+     *   where: {
+     *     // ... the filter for the AccountActivitySamples we want to count
+     *   }
+     * })
+    **/
+    count<T extends AccountActivitySampleCountArgs>(
+      args?: Subset<T, AccountActivitySampleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AccountActivitySampleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AccountActivitySample.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountActivitySampleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AccountActivitySampleAggregateArgs>(args: Subset<T, AccountActivitySampleAggregateArgs>): Prisma.PrismaPromise<GetAccountActivitySampleAggregateType<T>>
+
+    /**
+     * Group by AccountActivitySample.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountActivitySampleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AccountActivitySampleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AccountActivitySampleGroupByArgs['orderBy'] }
+        : { orderBy?: AccountActivitySampleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AccountActivitySampleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountActivitySampleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AccountActivitySample model
+   */
+  readonly fields: AccountActivitySampleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AccountActivitySample.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AccountActivitySampleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends AccountActivitySample$userArgs<ExtArgs> = {}>(args?: Subset<T, AccountActivitySample$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AccountActivitySample model
+   */
+  interface AccountActivitySampleFieldRefs {
+    readonly id: FieldRef<"AccountActivitySample", 'String'>
+    readonly userId: FieldRef<"AccountActivitySample", 'String'>
+    readonly browserId: FieldRef<"AccountActivitySample", 'String'>
+    readonly fingerprint: FieldRef<"AccountActivitySample", 'String'>
+    readonly ip: FieldRef<"AccountActivitySample", 'String'>
+    readonly observedAt: FieldRef<"AccountActivitySample", 'DateTime'>
+  }
+
+
+  // Custom InputTypes
+  /**
+   * AccountActivitySample findUnique
+   */
+  export type AccountActivitySampleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountActivitySample to fetch.
+     */
+    where: AccountActivitySampleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountActivitySample findUniqueOrThrow
+   */
+  export type AccountActivitySampleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountActivitySample to fetch.
+     */
+    where: AccountActivitySampleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountActivitySample findFirst
+   */
+  export type AccountActivitySampleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountActivitySample to fetch.
+     */
+    where?: AccountActivitySampleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of AccountActivitySamples to fetch.
+     */
+    orderBy?: AccountActivitySampleOrderByWithRelationInput | AccountActivitySampleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for AccountActivitySamples.
+     */
+    cursor?: AccountActivitySampleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` AccountActivitySamples from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` AccountActivitySamples.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of AccountActivitySamples.
+     */
+    distinct?: AccountActivitySampleScalarFieldEnum | AccountActivitySampleScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountActivitySample findFirstOrThrow
+   */
+  export type AccountActivitySampleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountActivitySample to fetch.
+     */
+    where?: AccountActivitySampleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of AccountActivitySamples to fetch.
+     */
+    orderBy?: AccountActivitySampleOrderByWithRelationInput | AccountActivitySampleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for AccountActivitySamples.
+     */
+    cursor?: AccountActivitySampleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` AccountActivitySamples from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` AccountActivitySamples.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of AccountActivitySamples.
+     */
+    distinct?: AccountActivitySampleScalarFieldEnum | AccountActivitySampleScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountActivitySample findMany
+   */
+  export type AccountActivitySampleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountActivitySamples to fetch.
+     */
+    where?: AccountActivitySampleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of AccountActivitySamples to fetch.
+     */
+    orderBy?: AccountActivitySampleOrderByWithRelationInput | AccountActivitySampleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing AccountActivitySamples.
+     */
+    cursor?: AccountActivitySampleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` AccountActivitySamples from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` AccountActivitySamples.
+     */
+    skip?: number
+    distinct?: AccountActivitySampleScalarFieldEnum | AccountActivitySampleScalarFieldEnum[]
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountActivitySample create
+   */
+  export type AccountActivitySampleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AccountActivitySample.
+     */
+    data: XOR<AccountActivitySampleCreateInput, AccountActivitySampleUncheckedCreateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountActivitySample createMany
+   */
+  export type AccountActivitySampleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AccountActivitySamples.
+     */
+    data: AccountActivitySampleCreateManyInput | AccountActivitySampleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AccountActivitySample createManyAndReturn
+   */
+  export type AccountActivitySampleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * The data used to create many AccountActivitySamples.
+     */
+    data: AccountActivitySampleCreateManyInput | AccountActivitySampleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AccountActivitySample update
+   */
+  export type AccountActivitySampleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AccountActivitySample.
+     */
+    data: XOR<AccountActivitySampleUpdateInput, AccountActivitySampleUncheckedUpdateInput>
+    /**
+     * Choose, which AccountActivitySample to update.
+     */
+    where: AccountActivitySampleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountActivitySample updateMany
+   */
+  export type AccountActivitySampleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AccountActivitySamples.
+     */
+    data: XOR<AccountActivitySampleUpdateManyMutationInput, AccountActivitySampleUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountActivitySamples to update
+     */
+    where?: AccountActivitySampleWhereInput
+    /**
+     * Limit how many AccountActivitySamples to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AccountActivitySample updateManyAndReturn
+   */
+  export type AccountActivitySampleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * The data used to update AccountActivitySamples.
+     */
+    data: XOR<AccountActivitySampleUpdateManyMutationInput, AccountActivitySampleUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountActivitySamples to update
+     */
+    where?: AccountActivitySampleWhereInput
+    /**
+     * Limit how many AccountActivitySamples to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AccountActivitySample upsert
+   */
+  export type AccountActivitySampleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AccountActivitySample to update in case it exists.
+     */
+    where: AccountActivitySampleWhereUniqueInput
+    /**
+     * In case the AccountActivitySample found by the `where` argument doesn't exist, create a new AccountActivitySample with this data.
+     */
+    create: XOR<AccountActivitySampleCreateInput, AccountActivitySampleUncheckedCreateInput>
+    /**
+     * In case the AccountActivitySample was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AccountActivitySampleUpdateInput, AccountActivitySampleUncheckedUpdateInput>
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountActivitySample delete
+   */
+  export type AccountActivitySampleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+    /**
+     * Filter which AccountActivitySample to delete.
+     */
+    where: AccountActivitySampleWhereUniqueInput
+    relationLoadStrategy?: RelationLoadStrategy
+  }
+
+  /**
+   * AccountActivitySample deleteMany
+   */
+  export type AccountActivitySampleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountActivitySamples to delete
+     */
+    where?: AccountActivitySampleWhereInput
+    /**
+     * Limit how many AccountActivitySamples to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AccountActivitySample.user
+   */
+  export type AccountActivitySample$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * AccountActivitySample without action
+   */
+  export type AccountActivitySampleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountActivitySample
+     */
+    select?: AccountActivitySampleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountActivitySample
+     */
+    omit?: AccountActivitySampleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountActivitySampleInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model AccountObservation
    */
 
@@ -8106,55 +9333,55 @@ export namespace Prisma {
     where?: AccountObservationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of AccountObservations to fetch.
      */
     orderBy?: AccountObservationOrderByWithRelationInput | AccountObservationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: AccountObservationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` AccountObservations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` AccountObservations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned AccountObservations
     **/
     _count?: true | AccountObservationCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to average
     **/
     _avg?: AccountObservationAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to sum
     **/
     _sum?: AccountObservationSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: AccountObservationMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: AccountObservationMaxAggregateInputType
@@ -8390,13 +9617,13 @@ export namespace Prisma {
      * @example
      * // Get all AccountObservations
      * const accountObservations = await prisma.accountObservation.findMany()
-     * 
+     *
      * // Get first 10 AccountObservations
      * const accountObservations = await prisma.accountObservation.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const accountObservationWithIdOnly = await prisma.accountObservation.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends AccountObservationFindManyArgs>(args?: SelectSubset<T, AccountObservationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -8410,7 +9637,7 @@ export namespace Prisma {
      *     // ... data to create a AccountObservation
      *   }
      * })
-     * 
+     *
      */
     create<T extends AccountObservationCreateArgs>(args: SelectSubset<T, AccountObservationCreateArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -8424,7 +9651,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AccountObservationCreateManyArgs>(args?: SelectSubset<T, AccountObservationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8438,7 +9665,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many AccountObservations and only return the `id`
      * const accountObservationWithIdOnly = await prisma.accountObservation.createManyAndReturn({
      *   select: { id: true },
@@ -8448,7 +9675,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends AccountObservationCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountObservationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -8462,7 +9689,7 @@ export namespace Prisma {
      *     // ... filter to delete one AccountObservation
      *   }
      * })
-     * 
+     *
      */
     delete<T extends AccountObservationDeleteArgs>(args: SelectSubset<T, AccountObservationDeleteArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -8479,7 +9706,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends AccountObservationUpdateArgs>(args: SelectSubset<T, AccountObservationUpdateArgs<ExtArgs>>): Prisma__AccountObservationClient<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -8493,7 +9720,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends AccountObservationDeleteManyArgs>(args?: SelectSubset<T, AccountObservationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8512,7 +9739,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends AccountObservationUpdateManyArgs>(args: SelectSubset<T, AccountObservationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8529,7 +9756,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more AccountObservations and only return the `id`
      * const accountObservationWithIdOnly = await prisma.accountObservation.updateManyAndReturn({
      *   select: { id: true },
@@ -8542,7 +9769,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends AccountObservationUpdateManyAndReturnArgs>(args: SelectSubset<T, AccountObservationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountObservationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -8631,7 +9858,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends AccountObservationGroupByArgs,
@@ -58480,6 +59707,18 @@ export namespace Prisma {
   export type RelationLoadStrategy = (typeof RelationLoadStrategy)[keyof typeof RelationLoadStrategy]
 
 
+  export const AccountActivitySampleScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    browserId: 'browserId',
+    fingerprint: 'fingerprint',
+    ip: 'ip',
+    observedAt: 'observedAt'
+  };
+
+  export type AccountActivitySampleScalarFieldEnum = (typeof AccountActivitySampleScalarFieldEnum)[keyof typeof AccountActivitySampleScalarFieldEnum]
+
+
   export const AccountObservationScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -59593,6 +60832,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableFilter<"User"> | string | null
     accountObservations?: AccountObservationListRelationFilter
+    accountActivitySamples?: AccountActivitySampleListRelationFilter
     sharedBrowserExemptions?: SharedBrowserExemptionListRelationFilter
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
@@ -59636,6 +60876,7 @@ export namespace Prisma {
     lastSeen?: SortOrder
     sharedBrowserId?: SortOrderInput | SortOrder
     accountObservations?: AccountObservationOrderByRelationAggregateInput
+    accountActivitySamples?: AccountActivitySampleOrderByRelationAggregateInput
     sharedBrowserExemptions?: SharedBrowserExemptionOrderByRelationAggregateInput
     brutes?: BruteOrderByRelationAggregateInput
     achievements?: AchievementOrderByRelationAggregateInput
@@ -59682,6 +60923,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableFilter<"User"> | string | null
     accountObservations?: AccountObservationListRelationFilter
+    accountActivitySamples?: AccountActivitySampleListRelationFilter
     sharedBrowserExemptions?: SharedBrowserExemptionListRelationFilter
     brutes?: BruteListRelationFilter
     achievements?: AchievementListRelationFilter
@@ -59760,6 +61002,66 @@ export namespace Prisma {
     termsAccepted?: BoolWithAggregatesFilter<"User"> | boolean
     lastSeen?: DateTimeWithAggregatesFilter<"User"> | Date | string
     sharedBrowserId?: StringNullableWithAggregatesFilter<"User"> | string | null
+  }
+
+  export type AccountActivitySampleWhereInput = {
+    AND?: AccountActivitySampleWhereInput | AccountActivitySampleWhereInput[]
+    OR?: AccountActivitySampleWhereInput[]
+    NOT?: AccountActivitySampleWhereInput | AccountActivitySampleWhereInput[]
+    id?: UuidFilter<"AccountActivitySample"> | string
+    userId?: UuidNullableFilter<"AccountActivitySample"> | string | null
+    browserId?: UuidFilter<"AccountActivitySample"> | string
+    fingerprint?: StringFilter<"AccountActivitySample"> | string
+    ip?: StringNullableFilter<"AccountActivitySample"> | string | null
+    observedAt?: DateTimeFilter<"AccountActivitySample"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type AccountActivitySampleOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    ip?: SortOrderInput | SortOrder
+    observedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AccountActivitySampleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AccountActivitySampleWhereInput | AccountActivitySampleWhereInput[]
+    OR?: AccountActivitySampleWhereInput[]
+    NOT?: AccountActivitySampleWhereInput | AccountActivitySampleWhereInput[]
+    userId?: UuidNullableFilter<"AccountActivitySample"> | string | null
+    browserId?: UuidFilter<"AccountActivitySample"> | string
+    fingerprint?: StringFilter<"AccountActivitySample"> | string
+    ip?: StringNullableFilter<"AccountActivitySample"> | string | null
+    observedAt?: DateTimeFilter<"AccountActivitySample"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type AccountActivitySampleOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    ip?: SortOrderInput | SortOrder
+    observedAt?: SortOrder
+    _count?: AccountActivitySampleCountOrderByAggregateInput
+    _max?: AccountActivitySampleMaxOrderByAggregateInput
+    _min?: AccountActivitySampleMinOrderByAggregateInput
+  }
+
+  export type AccountActivitySampleScalarWhereWithAggregatesInput = {
+    AND?: AccountActivitySampleScalarWhereWithAggregatesInput | AccountActivitySampleScalarWhereWithAggregatesInput[]
+    OR?: AccountActivitySampleScalarWhereWithAggregatesInput[]
+    NOT?: AccountActivitySampleScalarWhereWithAggregatesInput | AccountActivitySampleScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"AccountActivitySample"> | string
+    userId?: UuidNullableWithAggregatesFilter<"AccountActivitySample"> | string | null
+    browserId?: UuidWithAggregatesFilter<"AccountActivitySample"> | string
+    fingerprint?: StringWithAggregatesFilter<"AccountActivitySample"> | string
+    ip?: StringNullableWithAggregatesFilter<"AccountActivitySample"> | string | null
+    observedAt?: DateTimeWithAggregatesFilter<"AccountActivitySample"> | Date | string
   }
 
   export type AccountObservationWhereInput = {
@@ -63115,6 +64417,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -63158,6 +64461,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -63199,6 +64503,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -63242,6 +64547,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -63338,6 +64644,68 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AccountActivitySampleCreateInput = {
+    id: string
+    browserId: string
+    fingerprint: string
+    ip?: string | null
+    observedAt: Date | string
+    user?: UserCreateNestedOneWithoutAccountActivitySamplesInput
+  }
+
+  export type AccountActivitySampleUncheckedCreateInput = {
+    id: string
+    userId?: string | null
+    browserId: string
+    fingerprint: string
+    ip?: string | null
+    observedAt: Date | string
+  }
+
+  export type AccountActivitySampleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    observedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutAccountActivitySamplesNestedInput
+  }
+
+  export type AccountActivitySampleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    observedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountActivitySampleCreateManyInput = {
+    id: string
+    userId?: string | null
+    browserId: string
+    fingerprint: string
+    ip?: string | null
+    observedAt: Date | string
+  }
+
+  export type AccountActivitySampleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    observedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountActivitySampleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    observedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountObservationCreateInput = {
@@ -67008,6 +68376,12 @@ export namespace Prisma {
     none?: AccountObservationWhereInput
   }
 
+  export type AccountActivitySampleListRelationFilter = {
+    every?: AccountActivitySampleWhereInput
+    some?: AccountActivitySampleWhereInput
+    none?: AccountActivitySampleWhereInput
+  }
+
   export type SharedBrowserExemptionListRelationFilter = {
     every?: SharedBrowserExemptionWhereInput
     some?: SharedBrowserExemptionWhereInput
@@ -67085,6 +68459,10 @@ export namespace Prisma {
   }
 
   export type AccountObservationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AccountActivitySampleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -67352,6 +68730,38 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type AccountActivitySampleCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    ip?: SortOrder
+    observedAt?: SortOrder
+  }
+
+  export type AccountActivitySampleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    ip?: SortOrder
+    observedAt?: SortOrder
+  }
+
+  export type AccountActivitySampleMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    browserId?: SortOrder
+    fingerprint?: SortOrder
+    ip?: SortOrder
+    observedAt?: SortOrder
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -67548,11 +68958,6 @@ export namespace Prisma {
     hasEvery?: $Enums.PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel>
     hasSome?: $Enums.PetName[] | ListEnumPetNameFieldRefInput<$PrismaModel>
     isEmpty?: boolean
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
   }
 
   export type ClanNullableScalarRelationFilter = {
@@ -70045,6 +71450,13 @@ export namespace Prisma {
     connect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
   }
 
+  export type AccountActivitySampleCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccountActivitySampleCreateWithoutUserInput, AccountActivitySampleUncheckedCreateWithoutUserInput> | AccountActivitySampleCreateWithoutUserInput[] | AccountActivitySampleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountActivitySampleCreateOrConnectWithoutUserInput | AccountActivitySampleCreateOrConnectWithoutUserInput[]
+    createMany?: AccountActivitySampleCreateManyUserInputEnvelope
+    connect?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
+  }
+
   export type SharedBrowserExemptionCreateNestedManyWithoutUserInput = {
     create?: XOR<SharedBrowserExemptionCreateWithoutUserInput, SharedBrowserExemptionUncheckedCreateWithoutUserInput> | SharedBrowserExemptionCreateWithoutUserInput[] | SharedBrowserExemptionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutUserInput | SharedBrowserExemptionCreateOrConnectWithoutUserInput[]
@@ -70144,6 +71556,13 @@ export namespace Prisma {
     connectOrCreate?: AccountObservationCreateOrConnectWithoutUserInput | AccountObservationCreateOrConnectWithoutUserInput[]
     createMany?: AccountObservationCreateManyUserInputEnvelope
     connect?: AccountObservationWhereUniqueInput | AccountObservationWhereUniqueInput[]
+  }
+
+  export type AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AccountActivitySampleCreateWithoutUserInput, AccountActivitySampleUncheckedCreateWithoutUserInput> | AccountActivitySampleCreateWithoutUserInput[] | AccountActivitySampleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountActivitySampleCreateOrConnectWithoutUserInput | AccountActivitySampleCreateOrConnectWithoutUserInput[]
+    createMany?: AccountActivitySampleCreateManyUserInputEnvelope
+    connect?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
   }
 
   export type SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput = {
@@ -70293,6 +71712,20 @@ export namespace Prisma {
     update?: AccountObservationUpdateWithWhereUniqueWithoutUserInput | AccountObservationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AccountObservationUpdateManyWithWhereWithoutUserInput | AccountObservationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AccountObservationScalarWhereInput | AccountObservationScalarWhereInput[]
+  }
+
+  export type AccountActivitySampleUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccountActivitySampleCreateWithoutUserInput, AccountActivitySampleUncheckedCreateWithoutUserInput> | AccountActivitySampleCreateWithoutUserInput[] | AccountActivitySampleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountActivitySampleCreateOrConnectWithoutUserInput | AccountActivitySampleCreateOrConnectWithoutUserInput[]
+    upsert?: AccountActivitySampleUpsertWithWhereUniqueWithoutUserInput | AccountActivitySampleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccountActivitySampleCreateManyUserInputEnvelope
+    set?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
+    disconnect?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
+    delete?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
+    connect?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
+    update?: AccountActivitySampleUpdateWithWhereUniqueWithoutUserInput | AccountActivitySampleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccountActivitySampleUpdateManyWithWhereWithoutUserInput | AccountActivitySampleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccountActivitySampleScalarWhereInput | AccountActivitySampleScalarWhereInput[]
   }
 
   export type SharedBrowserExemptionUpdateManyWithoutUserNestedInput = {
@@ -70498,6 +71931,20 @@ export namespace Prisma {
     deleteMany?: AccountObservationScalarWhereInput | AccountObservationScalarWhereInput[]
   }
 
+  export type AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AccountActivitySampleCreateWithoutUserInput, AccountActivitySampleUncheckedCreateWithoutUserInput> | AccountActivitySampleCreateWithoutUserInput[] | AccountActivitySampleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AccountActivitySampleCreateOrConnectWithoutUserInput | AccountActivitySampleCreateOrConnectWithoutUserInput[]
+    upsert?: AccountActivitySampleUpsertWithWhereUniqueWithoutUserInput | AccountActivitySampleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AccountActivitySampleCreateManyUserInputEnvelope
+    set?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
+    disconnect?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
+    delete?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
+    connect?: AccountActivitySampleWhereUniqueInput | AccountActivitySampleWhereUniqueInput[]
+    update?: AccountActivitySampleUpdateWithWhereUniqueWithoutUserInput | AccountActivitySampleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AccountActivitySampleUpdateManyWithWhereWithoutUserInput | AccountActivitySampleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AccountActivitySampleScalarWhereInput | AccountActivitySampleScalarWhereInput[]
+  }
+
   export type SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SharedBrowserExemptionCreateWithoutUserInput, SharedBrowserExemptionUncheckedCreateWithoutUserInput> | SharedBrowserExemptionCreateWithoutUserInput[] | SharedBrowserExemptionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SharedBrowserExemptionCreateOrConnectWithoutUserInput | SharedBrowserExemptionCreateOrConnectWithoutUserInput[]
@@ -70675,6 +72122,22 @@ export namespace Prisma {
     update?: UserLevelUpStatUpdateWithWhereUniqueWithoutUserInput | UserLevelUpStatUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserLevelUpStatUpdateManyWithWhereWithoutUserInput | UserLevelUpStatUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserLevelUpStatScalarWhereInput | UserLevelUpStatScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAccountActivitySamplesInput = {
+    create?: XOR<UserCreateWithoutAccountActivitySamplesInput, UserUncheckedCreateWithoutAccountActivitySamplesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccountActivitySamplesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutAccountActivitySamplesNestedInput = {
+    create?: XOR<UserCreateWithoutAccountActivitySamplesInput, UserUncheckedCreateWithoutAccountActivitySamplesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAccountActivitySamplesInput
+    upsert?: UserUpsertWithoutAccountActivitySamplesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountActivitySamplesInput, UserUpdateWithoutAccountActivitySamplesInput>, UserUncheckedUpdateWithoutAccountActivitySamplesInput>
   }
 
   export type UserCreateNestedOneWithoutAccountObservationsInput = {
@@ -74551,6 +76014,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AccountActivitySampleCreateWithoutUserInput = {
+    id: string
+    browserId: string
+    fingerprint: string
+    ip?: string | null
+    observedAt: Date | string
+  }
+
+  export type AccountActivitySampleUncheckedCreateWithoutUserInput = {
+    id: string
+    browserId: string
+    fingerprint: string
+    ip?: string | null
+    observedAt: Date | string
+  }
+
+  export type AccountActivitySampleCreateOrConnectWithoutUserInput = {
+    where: AccountActivitySampleWhereUniqueInput
+    create: XOR<AccountActivitySampleCreateWithoutUserInput, AccountActivitySampleUncheckedCreateWithoutUserInput>
+  }
+
+  export type AccountActivitySampleCreateManyUserInputEnvelope = {
+    data: AccountActivitySampleCreateManyUserInput | AccountActivitySampleCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SharedBrowserExemptionCreateWithoutUserInput = {
     reason: string
     createdAt?: Date | string
@@ -75307,6 +76796,34 @@ export namespace Prisma {
     lastSeen?: DateTimeFilter<"AccountObservation"> | Date | string
   }
 
+  export type AccountActivitySampleUpsertWithWhereUniqueWithoutUserInput = {
+    where: AccountActivitySampleWhereUniqueInput
+    update: XOR<AccountActivitySampleUpdateWithoutUserInput, AccountActivitySampleUncheckedUpdateWithoutUserInput>
+    create: XOR<AccountActivitySampleCreateWithoutUserInput, AccountActivitySampleUncheckedCreateWithoutUserInput>
+  }
+
+  export type AccountActivitySampleUpdateWithWhereUniqueWithoutUserInput = {
+    where: AccountActivitySampleWhereUniqueInput
+    data: XOR<AccountActivitySampleUpdateWithoutUserInput, AccountActivitySampleUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AccountActivitySampleUpdateManyWithWhereWithoutUserInput = {
+    where: AccountActivitySampleScalarWhereInput
+    data: XOR<AccountActivitySampleUpdateManyMutationInput, AccountActivitySampleUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AccountActivitySampleScalarWhereInput = {
+    AND?: AccountActivitySampleScalarWhereInput | AccountActivitySampleScalarWhereInput[]
+    OR?: AccountActivitySampleScalarWhereInput[]
+    NOT?: AccountActivitySampleScalarWhereInput | AccountActivitySampleScalarWhereInput[]
+    id?: UuidFilter<"AccountActivitySample"> | string
+    userId?: UuidNullableFilter<"AccountActivitySample"> | string | null
+    browserId?: UuidFilter<"AccountActivitySample"> | string
+    fingerprint?: StringFilter<"AccountActivitySample"> | string
+    ip?: StringNullableFilter<"AccountActivitySample"> | string | null
+    observedAt?: DateTimeFilter<"AccountActivitySample"> | Date | string
+  }
+
   export type SharedBrowserExemptionUpsertWithWhereUniqueWithoutUserInput = {
     where: SharedBrowserExemptionWhereUniqueInput
     update: XOR<SharedBrowserExemptionUpdateWithoutUserInput, SharedBrowserExemptionUncheckedUpdateWithoutUserInput>
@@ -75750,6 +77267,190 @@ export namespace Prisma {
     exemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutBrowserNestedInput
   }
 
+  export type UserCreateWithoutAccountActivitySamplesInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    banAppealCode?: string | null
+    displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
+    brutes?: BruteCreateNestedManyWithoutUserInput
+    achievements?: AchievementCreateNestedManyWithoutUserInput
+    reports?: BruteReportCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemCreateNestedManyWithoutUserInput
+    favoriteFights?: FightCreateNestedManyWithoutFavoritedByInput
+    following?: BruteCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportCreateNestedManyWithoutHandlerInput
+    logs?: UserLogCreateNestedManyWithoutUserInput
+    stats?: UserStatsCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatCreateNestedManyWithoutUserInput
+    sharedBrowser?: SharedBrowserCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutAccountActivitySamplesInput = {
+    id: string
+    lang?: $Enums.Lang
+    name: string
+    admin?: boolean
+    moderator?: boolean
+    connexionToken: string
+    bruteLimit?: number
+    gold?: number
+    fightSpeed?: number
+    backgroundMusic?: boolean
+    dinorpgDone?: Date | string | null
+    ips?: UserCreateipsInput | string[]
+    fingerprints?: UserCreatefingerprintsInput | string[]
+    browserIds?: UserCreatebrowserIdsInput | string[]
+    createdAt?: Date | string
+    bannedAt?: Date | string | null
+    banReason?: string | null
+    banAppealCode?: string | null
+    displayVersusPage?: boolean
+    alwaysDisplayScrubber?: boolean
+    displayOpponentDetails?: boolean
+    transferedBrutesCount?: number
+    termsAccepted?: boolean
+    lastSeen?: Date | string
+    sharedBrowserId?: string | null
+    accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
+    brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
+    achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
+    reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
+    tournamentGolds?: TournamentGoldUncheckedCreateNestedManyWithoutUserInput
+    inventory?: InventoryItemUncheckedCreateNestedManyWithoutUserInput
+    favoriteFights?: FightUncheckedCreateNestedManyWithoutFavoritedByInput
+    following?: BruteUncheckedCreateNestedManyWithoutFollowersInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    reportsHandled?: BruteReportUncheckedCreateNestedManyWithoutHandlerInput
+    logs?: UserLogUncheckedCreateNestedManyWithoutUserInput
+    stats?: UserStatsUncheckedCreateNestedManyWithoutUserInput
+    levelUpStats?: UserLevelUpStatUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAccountActivitySamplesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAccountActivitySamplesInput, UserUncheckedCreateWithoutAccountActivitySamplesInput>
+  }
+
+  export type UserUpsertWithoutAccountActivitySamplesInput = {
+    update: XOR<UserUpdateWithoutAccountActivitySamplesInput, UserUncheckedUpdateWithoutAccountActivitySamplesInput>
+    create: XOR<UserCreateWithoutAccountActivitySamplesInput, UserUncheckedCreateWithoutAccountActivitySamplesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAccountActivitySamplesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAccountActivitySamplesInput, UserUncheckedUpdateWithoutAccountActivitySamplesInput>
+  }
+
+  export type UserUpdateWithoutAccountActivitySamplesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
+    brutes?: BruteUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUpdateManyWithoutUserNestedInput
+    sharedBrowser?: SharedBrowserUpdateOneWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAccountActivitySamplesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
+    name?: StringFieldUpdateOperationsInput | string
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    moderator?: BoolFieldUpdateOperationsInput | boolean
+    connexionToken?: StringFieldUpdateOperationsInput | string
+    bruteLimit?: IntFieldUpdateOperationsInput | number
+    gold?: IntFieldUpdateOperationsInput | number
+    fightSpeed?: IntFieldUpdateOperationsInput | number
+    backgroundMusic?: BoolFieldUpdateOperationsInput | boolean
+    dinorpgDone?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ips?: UserUpdateipsInput | string[]
+    fingerprints?: UserUpdatefingerprintsInput | string[]
+    browserIds?: UserUpdatebrowserIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bannedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    banReason?: NullableStringFieldUpdateOperationsInput | string | null
+    banAppealCode?: NullableStringFieldUpdateOperationsInput | string | null
+    displayVersusPage?: BoolFieldUpdateOperationsInput | boolean
+    alwaysDisplayScrubber?: BoolFieldUpdateOperationsInput | boolean
+    displayOpponentDetails?: BoolFieldUpdateOperationsInput | boolean
+    transferedBrutesCount?: IntFieldUpdateOperationsInput | number
+    termsAccepted?: BoolFieldUpdateOperationsInput | boolean
+    lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
+    brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
+    achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
+    reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
+    tournamentGolds?: TournamentGoldUncheckedUpdateManyWithoutUserNestedInput
+    inventory?: InventoryItemUncheckedUpdateManyWithoutUserNestedInput
+    favoriteFights?: FightUncheckedUpdateManyWithoutFavoritedByNestedInput
+    following?: BruteUncheckedUpdateManyWithoutFollowersNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    reportsHandled?: BruteReportUncheckedUpdateManyWithoutHandlerNestedInput
+    logs?: UserLogUncheckedUpdateManyWithoutUserNestedInput
+    stats?: UserStatsUncheckedUpdateManyWithoutUserNestedInput
+    levelUpStats?: UserLevelUpStatUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutAccountObservationsInput = {
     id: string
     lang?: $Enums.Lang
@@ -75775,6 +77476,7 @@ export namespace Prisma {
     transferedBrutesCount?: number
     termsAccepted?: boolean
     lastSeen?: Date | string
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -75817,6 +77519,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     sharedBrowserId?: string | null
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -75873,6 +77576,7 @@ export namespace Prisma {
     transferedBrutesCount?: IntFieldUpdateOperationsInput | number
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -75915,6 +77619,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -75956,6 +77661,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -75998,6 +77704,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -76231,6 +77938,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -76273,6 +77981,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -76496,6 +78205,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -76538,6 +78248,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -77863,6 +79574,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -77905,6 +79617,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -78228,6 +79941,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -78270,6 +79984,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -80480,6 +82195,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -80522,6 +82238,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -82713,6 +84430,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -82755,6 +84473,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -82811,6 +84530,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -82853,6 +84573,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -83790,6 +85511,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -83832,6 +85554,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -84071,6 +85794,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -84113,6 +85837,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -84330,6 +86055,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -84372,6 +86098,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -84417,6 +86144,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -84459,6 +86187,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -84714,6 +86443,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -84756,6 +86486,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -84796,6 +86527,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -84837,6 +86569,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -84963,6 +86696,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
     reports?: BruteReportCreateNestedManyWithoutUsersInput
@@ -85005,6 +86739,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
     reports?: BruteReportUncheckedCreateNestedManyWithoutUsersInput
@@ -85086,6 +86821,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
     reports?: BruteReportUpdateManyWithoutUsersNestedInput
@@ -85128,6 +86864,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
     reports?: BruteReportUncheckedUpdateManyWithoutUsersNestedInput
@@ -89035,6 +90772,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -89077,6 +90815,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -89316,6 +91055,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -89358,6 +91098,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -90008,6 +91749,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -90050,6 +91792,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -90106,6 +91849,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -90148,6 +91892,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -90482,6 +92227,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -90524,6 +92270,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -90580,6 +92327,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -90622,6 +92370,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -91022,6 +92771,7 @@ export namespace Prisma {
     termsAccepted?: boolean
     lastSeen?: Date | string
     accountObservations?: AccountObservationCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionCreateNestedManyWithoutUserInput
     brutes?: BruteCreateNestedManyWithoutUserInput
     achievements?: AchievementCreateNestedManyWithoutUserInput
@@ -91064,6 +92814,7 @@ export namespace Prisma {
     lastSeen?: Date | string
     sharedBrowserId?: string | null
     accountObservations?: AccountObservationUncheckedCreateNestedManyWithoutUserInput
+    accountActivitySamples?: AccountActivitySampleUncheckedCreateNestedManyWithoutUserInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedCreateNestedManyWithoutUserInput
     brutes?: BruteUncheckedCreateNestedManyWithoutUserInput
     achievements?: AchievementUncheckedCreateNestedManyWithoutUserInput
@@ -91120,6 +92871,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -91162,6 +92914,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -91550,6 +93303,14 @@ export namespace Prisma {
     lastSeen: Date | string
   }
 
+  export type AccountActivitySampleCreateManyUserInput = {
+    id: string
+    browserId: string
+    fingerprint: string
+    ip?: string | null
+    observedAt: Date | string
+  }
+
   export type SharedBrowserExemptionCreateManyUserInput = {
     browserId: string
     reason: string
@@ -91738,6 +93499,30 @@ export namespace Prisma {
     observedDay?: DateTimeFieldUpdateOperationsInput | Date | string
     firstSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountActivitySampleUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    observedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountActivitySampleUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    observedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountActivitySampleUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    browserId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    observedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SharedBrowserExemptionUpdateWithoutUserInput = {
@@ -93949,6 +95734,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -93991,6 +95777,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -94317,6 +96104,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -94359,6 +96147,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -94787,6 +96576,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -94829,6 +96619,7 @@ export namespace Prisma {
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     sharedBrowserId?: NullableStringFieldUpdateOperationsInput | string | null
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput
@@ -94931,6 +96722,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUpdateManyWithoutUserNestedInput
     brutes?: BruteUpdateManyWithoutUserNestedInput
     achievements?: AchievementUpdateManyWithoutUserNestedInput
@@ -94972,6 +96764,7 @@ export namespace Prisma {
     termsAccepted?: BoolFieldUpdateOperationsInput | boolean
     lastSeen?: DateTimeFieldUpdateOperationsInput | Date | string
     accountObservations?: AccountObservationUncheckedUpdateManyWithoutUserNestedInput
+    accountActivitySamples?: AccountActivitySampleUncheckedUpdateManyWithoutUserNestedInput
     sharedBrowserExemptions?: SharedBrowserExemptionUncheckedUpdateManyWithoutUserNestedInput
     brutes?: BruteUncheckedUpdateManyWithoutUserNestedInput
     achievements?: AchievementUncheckedUpdateManyWithoutUserNestedInput

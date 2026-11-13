@@ -13,6 +13,9 @@ const factorLabels: Record<MultipleAccountScore['factors'][number]['key'], strin
   'repeated-days': 'Accounts observed on at least 3 distinct days',
   'shared-visitor': 'Accounts sharing one visitor fingerprint in this browser',
   'multiple-networks': 'Accounts using this browser on at least 2 distinct IPs each',
+  'account-switching': 'Accounts involved in at least 3 rapid browser account changes',
+  'similar-user-names': 'Accounts with similar user names',
+  'similar-brute-names': 'Accounts with similar brute names across different owners',
 };
 
 export const MultipleAccountCaseEvidence = ({ detail }: {
@@ -43,6 +46,14 @@ export const MultipleAccountCaseEvidence = ({ detail }: {
         <Typography key={factor.key} variant="body2">
           {factorLabels[factor.key]}: {factor.matchedAccounts}/{factor.totalAccounts} accounts,
           {' '}+{factor.points} points (maximum {factor.maxPoints}).
+          {factor.examples?.map((example) => (
+            <Box component="span" key={example} sx={{
+              display: 'block',
+              overflowWrap: 'anywhere',
+            }}>
+              {example}
+            </Box>
+          ))}
         </Typography>
       ))}
     </>}

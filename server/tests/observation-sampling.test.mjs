@@ -92,6 +92,32 @@ test('failed writes reject all waiting callers and retry rather than recording a
   assert.equal(calls, 2);
 });
 
+test('rapid A-B-A account changes bypass the daily tuple throttle without extra database round trips', async () => {
+  const writes = [];
+
+  const prisma = {
+    $executeRaw: async (strings, ...values) => {
+      writes.push({
+        sql: strings.join('?'),
+        values,
+      });
+
+      return 1;
+    },
+  };
+
+  const otherUser = randomUUID();
+
+  for (const [index, id] of [userId, otherUser, userId, otherUser].entries()) {
+    await recordAccountObservation(prisma, id, request(), new Date(now.getTime() + index * 1000));
+  }
+
+  assert.equal(writes.length, 4);
+  assert.ok(writes.every((write) => write.sql.includes('INSERT INTO "AccountActivitySample"')));
+  await recordAccountObservation(prisma, otherUser, request(), new Date(now.getTime() + 4000));
+  assert.equal(writes.length, 4, 'ordinary requests remain cached after a switch');
+});
+
 test('tuple changes, UTC day changes and separate database clients are never merged', async () => {
   let calls = 0;
 
