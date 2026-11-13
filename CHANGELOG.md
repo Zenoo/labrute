@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.101.1](https://github.com/Zenoo/labrute/compare/labrute-v2.101.0...labrute-v2.101.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* Load telemetry config before prisma init ([ffb658b](https://github.com/Zenoo/labrute/commit/ffb658b45552ce901663cb9f88ea8f0f82d9f660))
+
 ## [2.101.0](https://github.com/Zenoo/labrute/compare/labrute-v2.100.4...labrute-v2.101.0) (2026-11-13)
 
 
