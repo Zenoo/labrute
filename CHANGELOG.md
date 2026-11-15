@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.101.2](https://github.com/Zenoo/labrute/compare/labrute-v2.101.1...labrute-v2.101.2) (2026-11-15)
+
+
+### Bug Fixes
+
+* Show related accounts in user admin ([8673cad](https://github.com/Zenoo/labrute/commit/8673cad10ccdf725d35d360828475832f80cef3c))
+
 ## [2.101.1](https://github.com/Zenoo/labrute/compare/labrute-v2.101.0...labrute-v2.101.1) (2026-11-13)
 
 
