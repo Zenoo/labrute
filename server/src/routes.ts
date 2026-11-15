@@ -58,6 +58,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.post('/api/user/authenticate', Users.authenticate(prisma));
   app.patch('/api/user/get-dinorpg-reward', Users.getDinoRpgRewards(prisma));
   app.get('/api/user/:identifier/admin', Users.get(prisma));
+  app.get('/api/user/:userId/related-accounts', Users.relatedAccounts(prisma));
   app.put('/api/user/change-language', Users.changeLanguage(prisma));
   app.put('/api/user/change-fight-speed', Users.changeFightSpeed(prisma));
   app.put('/api/user/toggle-background-music', Users.toggleBackgroundMusic(prisma));

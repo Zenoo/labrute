@@ -11,6 +11,7 @@ import type { MultipleAccountObservationGroup } from './accountObservations.js';
 import {
   MULTIPLE_ACCOUNT_SCORE_VERSION, scoreMultipleAccountGroup,
 } from './multipleAccountScore.js';
+import { traced } from './trace.js';
 
 const RULE_VERSION = 1;
 const PAGE_SIZE = 25;
@@ -64,7 +65,7 @@ export const createMultipleAccountCases = async (
       ])).digest('hex'),
     }));
 
-    const exclusions = await prisma.$queryRaw<{
+    const exclusions = await traced('multipleAccountCases.exclusions', () => prisma.$queryRaw<{
       id: string; count: number; exemptions: MultipleAccountCaseExemption[];
     }[]>`
       WITH candidates AS (
@@ -94,11 +95,11 @@ export const createMultipleAccountCases = async (
         jsonb_agg(jsonb_build_object('userId', "userId", 'browserId', "browserId",
           'reason', reason, 'createdAt', "createdAt") ORDER BY n) FILTER (WHERE n <= 100) AS exemptions
       FROM numbered GROUP BY id
-    `;
+    `);
 
     const byId = new Map(exclusions.map((row) => [row.id, row]));
 
-    const result = await prisma.multipleAccountCase.createMany({
+    const result = await traced('multipleAccountCases.create', () => prisma.multipleAccountCase.createMany({
       data: batch.map((row) => ({
         id: row.id,
         ruleVersion: RULE_VERSION,
@@ -124,7 +125,7 @@ export const createMultipleAccountCases = async (
         excludedCount: byId.get(row.id)?.count ?? 0,
       })),
       skipDuplicates: true,
-    });
+    }));
 
     created += result.count;
   }
@@ -141,7 +142,7 @@ export const listMultipleAccountCases = async (
     throw new ExpectedError('Invalid case filter or cursor');
   }
 
-  const rows = await prisma.multipleAccountCase.findMany({
+  const rows = await traced('multipleAccountCases.list', () => prisma.multipleAccountCase.findMany({
     where: {
       ...(status !== 'all' ? { status: String(status) } : {}),
       ...(typeof userId === 'string' ? { userIds: { has: userId.toLowerCase() } } : {}),
@@ -153,17 +154,17 @@ export const listMultipleAccountCases = async (
       cursor: { id: cursor },
       skip: 1,
     } : {}),
-  });
+  }));
 
   const page = rows.slice(0, PAGE_SIZE);
 
   const actions = typeof userId === 'string' && page.length
-    ? await prisma.multipleAccountCaseAction.findMany({
+    ? await traced('multipleAccountCases.listActions', () => prisma.multipleAccountCaseAction.findMany({
       where: {
         userId: userId.toLowerCase(),
         caseId: { in: page.map((row) => row.id) },
       },
-    }) : [];
+    })) : [];
 
   const byCase = new Map(actions.map((action) => [action.caseId, action]));
 
@@ -190,13 +191,13 @@ export const getMultipleAccountCase = async (
 
   const index = Number(offset);
 
-  const row = await prisma.multipleAccountCase.findUnique({
+  const row = await traced('multipleAccountCases.get', () => prisma.multipleAccountCase.findUnique({
     where: validId(id) ? { id } : { appealCode: code },
     select: {
       ...summary,
       exemptions: true,
     },
-  });
+  }));
 
   if (!row) {
     throw new NotFoundError('Case not found');
@@ -205,34 +206,37 @@ export const getMultipleAccountCase = async (
   const caseId = row.id;
 
   const [members, reviews] = await Promise.all([
-    prisma.$queryRaw<{ id: string }[]>`
+    traced('multipleAccountCases.members', () => prisma.$queryRaw<{ id: string }[]>`
       SELECT member.id::text AS id FROM "MultipleAccountCase" c
       CROSS JOIN LATERAL unnest(c."userIds"[${index + 1}::int : ${index + PAGE_SIZE + 1}::int])
         WITH ORDINALITY AS member(id, position)
       WHERE c.id = ${caseId} ORDER BY member.position
-    `,
-    prisma.multipleAccountCaseReview.findMany({
+    `),
+    traced('multipleAccountCases.reviews', () => prisma.multipleAccountCaseReview.findMany({
       where: { caseId },
       orderBy: { revision: 'desc' },
       take: 25,
-    }),
+    })),
   ]);
 
   const selected = members.slice(0, PAGE_SIZE);
 
-  const [accounts, actions] = await Promise.all([prisma.user.findMany({
-    where: { id: { in: selected.map((user) => user.id) } },
-    select: {
-      id: true,
-      name: true,
-      bannedAt: true,
-    },
-  }), prisma.multipleAccountCaseAction.findMany({
-    where: {
-      caseId,
-      userId: { in: selected.map((user) => user.id) },
-    },
-  })]);
+  const [accounts, actions] = await Promise.all([
+    traced('multipleAccountCases.accounts', () => prisma.user.findMany({
+      where: { id: { in: selected.map((user) => user.id) } },
+      select: {
+        id: true,
+        name: true,
+        bannedAt: true,
+      },
+    })),
+    traced('multipleAccountCases.actions', () => prisma.multipleAccountCaseAction.findMany({
+      where: {
+        caseId,
+        userId: { in: selected.map((user) => user.id) },
+      },
+    })),
+  ]);
 
   const byId = new Map(accounts.map((user) => [user.id, user]));
   const byUser = new Map(actions.map((action) => [action.userId, action]));
@@ -270,7 +274,7 @@ export const reviewMultipleAccountCase = async (
   }
 
   return prisma.$transaction(async (tx) => {
-    const updated = await tx.multipleAccountCase.updateMany({
+    const updated = await traced('multipleAccountCases.review.update', () => tx.multipleAccountCase.updateMany({
       where: {
         id,
         revision: input.revision,
@@ -279,20 +283,20 @@ export const reviewMultipleAccountCase = async (
         status: input.decision,
         revision: { increment: 1 },
       },
-    });
+    }));
 
     if (!updated.count) {
-      const current = await tx.multipleAccountCase.findUnique({
+      const current = await traced('multipleAccountCases.review.current', () => tx.multipleAccountCase.findUnique({
         where: { id },
         select: { revision: true },
-      });
+      }));
 
       if (!current) {
         throw new NotFoundError('Case not found');
       }
 
       const retry = current.revision === input.revision + 1
-        ? await tx.multipleAccountCaseReview.findFirst({
+        ? await traced('multipleAccountCases.review.retry', () => tx.multipleAccountCaseReview.findFirst({
           where: {
             caseId: id,
             revision: current.revision,
@@ -300,7 +304,7 @@ export const reviewMultipleAccountCase = async (
             decision: input.decision,
             reason,
           },
-        }) : null;
+        })) : null;
 
       if (retry) {
         return { revision: current.revision };
@@ -309,7 +313,7 @@ export const reviewMultipleAccountCase = async (
       throw new LimitError('Case changed. Reload before reviewing.');
     }
 
-    await tx.multipleAccountCaseReview.create({
+    await traced('multipleAccountCases.review.create', () => tx.multipleAccountCaseReview.create({
       data: {
         id: randomUUID(),
         caseId: id,
@@ -318,9 +322,9 @@ export const reviewMultipleAccountCase = async (
         decision: input.decision,
         reason,
       },
-    });
+    }));
 
-    await tx.multipleAccountCaseAction.updateMany({
+    await traced('multipleAccountCases.review.stopActions', () => tx.multipleAccountCaseAction.updateMany({
       where: {
         caseId: id,
         status: { in: ['pending', 'failed'] },
@@ -330,7 +334,7 @@ export const reviewMultipleAccountCase = async (
         reason: 'Stopped by manual case review',
         updatedAt: new Date(),
       },
-    });
+    }));
 
     return { revision: input.revision + 1 };
   });

@@ -124,6 +124,8 @@ multi-write invariant needs atomicity; request locks alone do not provide that g
 Prisma tagged SQL over interpolating user values into SQL strings. Follow existing UTC date conventions.
 Consider logging, achievements, statistics, inventory and cache invalidation alongside the main write.
 Use the context logger/tracing rather than ad hoc console output (console is generally lint-warned).
+Wrap each database query in `traced` with a stable, descriptive operation name, including queries
+inside transactions and concurrent batches. Keep identifiers and other user data out of span names.
 
 ## Recipes
 

@@ -26,8 +26,11 @@ const cases = [makeCase('a', 'fingerprint-ip', 31), makeCase('b', 'browser', 4),
 const fixture = window.__fixture = { requests: [], errors: [], reviews: [], User: {
   async getForAdmin({identifier}) {
     fixture.requests.push(['profile',identifier]);
-    return {duplicates:[],securityHistory:[{id:'audit',action:'ban',actorId:null,createdAt:time,
-      reason:'Case-linked automatic ban'}],user:{id:identifier,name:'Profile case account',lang:'en',
+    const id = identifier.replace(/^USER-/i, '').toLowerCase();
+    const legacy = id === '38e05f4c-a7fb-410c-9501-1cae88f8489e';
+    return {duplicates:[],banHistory:legacy ? [{id:'legacy-ban',date:'2025-01-01T12:00:00Z'}] : [],
+      securityHistory:legacy ? [] : [{id:'audit',action:'ban',actorId:null,createdAt:time,
+      reason:'Case-linked automatic ban'}],user:{id,name:'Profile case account',lang:'en',
       admin:false,moderator:false,connexionToken:'test',bruteLimit:3,gold:0,fightSpeed:1,
       backgroundMusic:true,dinorpgDone:null,createdAt:time,lastSeen:time,bannedAt:time,
       banReason:'multipleAccounts',brutes:[],achievements:[],displayVersusPage:false,
@@ -35,10 +38,20 @@ const fixture = window.__fixture = { requests: [], errors: [], reviews: [], User
   },
   async multipleAccounts(status, cursor, userId) {
     fixture.requests.push(['list', status, cursor]);
+    if(userId === '38e05f4c-a7fb-410c-9501-1cae88f8489e') return {cases:[],nextCursor:null};
     if(userId) return {cases:[{...cases[0], accountAction:{caseId:cases[0].id, userId,
       policyVersion:1,status:'banned',reason:'Case-linked automatic ban',attempts:1,updatedAt:time}}],nextCursor:null};
     const rows = cases.filter(c => status === 'all' || c.status === status);
     return {cases: cursor ? rows.slice(2) : rows.slice(0, 2), nextCursor: !cursor && rows.length > 2 ? 'page2' : null};
+  },
+  async relatedAccounts(userId, cursor) {
+    fixture.requests.push(['related',userId,cursor]);
+    return {accounts:[{id:cursor ? '44444444-4444-4444-8444-444444444444' : '33333333-3333-4333-8333-333333333333',
+      name:cursor ? 'Related active account' : 'Related banned <img src=x>',
+      bannedAt:cursor ? null : time,banReason:'multipleAccounts',
+      sharedBrowserIds:['legacy-browser'],browserCount:1,sharedFingerprints:[],fingerprintCount:0,
+      sharedIps:['192.0.2.1'],ipCount:1}],nextCursor:cursor ? null : '33333333-3333-4333-8333-333333333333',
+      identifierCounts:{browsers:1,fingerprints:0,ips:1}};
   },
   async multipleAccountCase(id, offset = 0) {
     fixture.requests.push(['detail', id, offset]);
@@ -129,6 +142,26 @@ const assert = (condition, message) => {if(!condition) throw new Error(message);
   assert(!document.body.textContent.includes('Users sharing browser IDs'), 'legacy browser table still mounted');
   assert([...document.querySelectorAll('a')].some(a => a.getAttribute('href')?.includes('/admin-panel/multiple-accounts?case=')), 'profile missing case deep link');
   assert(document.body.textContent.includes('Latest 25 account sanction decisions'), 'profile missing audit trail');
+  assert(!fixture.requests.some(r => r[0] === 'related'), 'profile automatically scanned historical identifiers');
+  root.render(React.createElement(MemoryRouter, {key:'legacy-profile',
+    initialEntries:['/admin-panel/user/USER-38e05f4c-a7fb-410c-9501-1cae88f8489e']},
+    React.createElement(Routes,{},React.createElement(Route,{path:'/admin-panel/user/:id',element:React.createElement(UserAdminView)}))));
+  await wait(() => document.body.textContent.includes('No recorded cases for this account.'));
+  assert(document.body.textContent.includes('Ban reason: multipleAccounts'), 'legacy ban reason hidden');
+  assert(document.body.textContent.includes('USER-38e05f4c-a7fb-410c-9501-1cae88f8489e'), 'legacy appeal code missing');
+  assert(document.body.textContent.includes('2025-01-01 12:00:00 UTC'), 'legacy ban logs missing');
+  assert(document.body.textContent.includes('no structured audit entry'), 'missing audit context unexplained');
+  assert(!fixture.requests.some(r => r[0] === 'related'), 'legacy lookup must be explicit');
+  button('Check related accounts').click();
+  await wait(() => document.body.textContent.includes('Related banned <img src=x>'));
+  assert(!document.querySelector('img[src="x"]'), 'historical evidence interpreted as HTML');
+  assert(document.body.textContent.includes('legacy-browser'), 'historical overlap not displayed');
+  assert(document.body.textContent.includes('does not prove common ownership'), 'historical evidence caveat missing');
+  button('Next related accounts').click();
+  await wait(() => document.body.textContent.includes('Related active account'));
+  assert(!document.body.textContent.includes('Related banned <img src=x>'), 'historical pagination retained old accounts');
+  button('Previous related accounts').click();
+  await wait(() => document.body.textContent.includes('Related banned <img src=x>'));
   document.body.dataset.caseResult = 'passed';
   document.getElementById('result').textContent = JSON.stringify({result:'passed', requests:fixture.requests.length,
     checks:['case pagination','account pagination','stale response discarded','reason escaped','review saved once','appeal code lookup','user profile uses cases and action audit']});
@@ -153,7 +186,7 @@ const server = await createServer({
         return '\0' + source;
       }
 
-      if (importer && /\/(?:views\/admin\/(?:MultipleAccountsView|UserAdminView)|components\/admin\/UserCasePanel)\.tsx$/.test(importer.replaceAll('\\', '/'))) {
+      if (importer && /\/(?:views\/admin\/(?:MultipleAccountsView|UserAdminView)|components\/admin\/(?:UserCasePanel|UserRelatedAccountsPanel))\.tsx$/.test(importer.replaceAll('\\', '/'))) {
         if (source.endsWith('/hooks/useAuth')) {
           return '\0case-auth';
         }

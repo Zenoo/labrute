@@ -36,6 +36,7 @@ import {
   UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
+  UserRelatedAccountsResponse,
   UserStatsGetResponse,
   UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse,
   MultipleAccountCaseDetailResponse, MultipleAccountCaseStatus, ReviewMultipleAccountCaseRequest,
@@ -64,6 +65,9 @@ export const Server = {
   User: {
     authenticate: (params: UsersAuthenticateRequest) => Fetch<UsersAuthenticateResponse>('/api/user/authenticate', params, 'POST'),
     getForAdmin: (params: UserGetAdminRequest) => Fetch<UserGetAdminResponse>(`/api/user/${params.identifier}/admin`),
+    relatedAccounts: (userId: string, cursor?: string) => Fetch<UserRelatedAccountsResponse>(
+      `/api/user/${encodeURIComponent(userId)}/related-accounts`, cursor ? { cursor } : undefined,
+    ),
     runDailyJob: () => Fetch<never>('/api/run-daily-job', {}, 'PATCH'),
     changeLanguage: (lang: Lang) => Fetch<never>('/api/user/change-language', { lang }, 'PUT'),
     changeFightSpeed: (fightSpeed: number) => Fetch<never>('/api/user/change-fight-speed', { fightSpeed }, 'PUT'),

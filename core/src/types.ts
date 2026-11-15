@@ -863,10 +863,23 @@ export type UserGetAdminRequest = {
 export type UserGetAdminResponse = {
   duplicates: Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[],
   securityHistory: SecurityAction[],
+  banHistory: Pick<UserLog, 'id' | 'date'>[],
   user: Omit<User, 'fingerprints' | 'browserIds' | 'ips' | 'sharedBrowserId'> & {
     achievements: Pick<Achievement, 'name' | 'count'>[],
     brutes: Pick<Brute, 'id' | 'name' | 'deletedAt' | 'deletionReason'>[],
   },
+};
+export type UserRelatedAccountsResponse = {
+  accounts: (Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'> & {
+    sharedBrowserIds: string[];
+    sharedFingerprints: string[];
+    sharedIps: string[];
+    browserCount: number;
+    fingerprintCount: number;
+    ipCount: number;
+  })[];
+  nextCursor: string | null;
+  identifierCounts: { browsers: number; fingerprints: number; ips: number };
 };
 export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' | 'lastSeen'> & {
   brutes: Pick<

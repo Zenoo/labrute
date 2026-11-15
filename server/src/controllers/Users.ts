@@ -18,6 +18,7 @@ import {
   UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
+  UserRelatedAccountsResponse,
   UserGiveItemRequest,
   UserStatsGetRequest,
   UserStatsGetResponse,
@@ -57,6 +58,7 @@ import { banUser } from '../utils/user/banUser.js';
 import { lockMultipleAccountPolicy } from '../utils/multipleAccountPolicyLock.js';
 import { unbanUser } from '../utils/user/unbanUser.js';
 import { deleteBrutes } from '../utils/user/deleteUserBrutes.js';
+import { findRelatedAccounts } from '../utils/relatedAccounts.js';
 
 export const Users = {
   get: (prisma: PrismaClient) => async (
@@ -70,7 +72,8 @@ export const Users = {
         throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
-      const isId = isUuid(req.params.identifier);
+      const identifier = req.params.identifier.trim().replace(/^USER-(?=[a-f0-9-]{36}$)/i, '');
+      const isId = isUuid(identifier);
 
       const user = await traced('users.get.getUser', () => prisma.user.findFirst({
         omit: {
@@ -80,8 +83,8 @@ export const Users = {
           sharedBrowserId: true,
         },
         where: {
-          id: isId ? req.params.identifier : undefined,
-          name: !isId ? ilike(req.params.identifier) : undefined,
+          id: isId ? identifier.toLowerCase() : undefined,
+          name: !isId ? ilike(identifier) : undefined,
         },
         include: {
           achievements: {
@@ -129,7 +132,7 @@ export const Users = {
       // List other users with the same identifier (name)
       const duplicates = isId ? [] : await traced('users.get.findDuplicates', () => prisma.user.findMany({
         where: {
-          name: ilike(req.params.identifier),
+          name: ilike(identifier),
           id: { not: user.id },
         },
         select: {
@@ -140,23 +143,49 @@ export const Users = {
         },
       }));
 
-      const securityHistory = await prisma.securityAction.findMany({
+      const securityHistory = await traced('users.get.securityHistory', () => prisma.securityAction.findMany({
         where: {
           subjectType: 'account',
           subjectId: user.id,
         },
         orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
         take: 25,
-      });
+      }));
+
+      // BANNED logs predate the structured sanction audit. They preserve dates, not actors/reasons.
+      const banHistory = await traced('users.get.banHistory', () => prisma.userLog.findMany({
+        where: {
+          userId: user.id,
+          type: UserLogType.BANNED,
+        },
+        select: {
+          id: true,
+          date: true,
+        },
+        orderBy: [{ date: 'desc' }, { id: 'desc' }],
+        take: 25,
+      }));
 
       res.send({
         securityHistory,
+        banHistory,
         duplicates,
         user: {
           ...user,
           achievements: mergedAchievements,
         },
       });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  relatedAccounts: (prisma: PrismaClient) => async (
+    req: Request<{ userId: string }>, res: Response<UserRelatedAccountsResponse>,
+  ) => {
+    try {
+      await auth(prisma, req, { admin: true });
+
+      res.send(await findRelatedAccounts(prisma, req.params.userId, req.query.cursor));
     } catch (error) {
       sendError(res, error);
     }

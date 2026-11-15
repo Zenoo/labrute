@@ -28,6 +28,7 @@ import { useConfirm } from '../../hooks/useConfirm';
 import { useParams } from 'react-router';
 import { Link } from '../../components/Link';
 import { UserCasePanel } from '../../components/admin/UserCasePanel';
+import { UserRelatedAccountsPanel } from '../../components/admin/UserRelatedAccountsPanel';
 
 export const UserAdminView = () => {
   const { t } = useTranslation('admin');
@@ -45,6 +46,7 @@ export const UserAdminView = () => {
   const [banReason, setBanReason] = useState('');
   const requestId = useRef(0);
   const [securityHistory, setSecurityHistory] = useState<UserGetAdminResponse['securityHistory']>([]);
+  const [banHistory, setBanHistory] = useState<UserGetAdminResponse['banHistory']>([]);
   const [brutesOpen, setBrutesOpen] = useState(false);
   const [item, setItem] = useState<InventoryItemType | ''>('');
 
@@ -57,6 +59,7 @@ export const UserAdminView = () => {
     invalidateRequests();
     setUser(null);
     setSecurityHistory([]);
+    setBanHistory([]);
     setDuplicates([]);
     setUserIdOrName(e.target.value.trim());
   }, [invalidateRequests]);
@@ -75,6 +78,7 @@ export const UserAdminView = () => {
       setDuplicates(result.duplicates);
       setUser(profile);
       setSecurityHistory(result.securityHistory);
+      setBanHistory(result.banHistory ?? []);
       setAchievements(currentAchievements);
       setInitialAchievements(currentAchievements.map((entry) => ({ ...entry })));
     }).catch(catchError(Alert));
@@ -102,6 +106,7 @@ export const UserAdminView = () => {
       invalidateRequests();
       setUser(null);
       setSecurityHistory([]);
+      setBanHistory([]);
       setDuplicates([]);
       setUserIdOrName(urlUserId);
     }
@@ -273,6 +278,29 @@ export const UserAdminView = () => {
                     </Tooltip>
                   )}
                 </Text>
+                <Paper sx={{ p: 2 }}>
+                  <Text h3>Account ban information</Text>
+                  {user.bannedAt ? <>
+                    <Text>Banned at {dayjs(user.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss')} UTC</Text>
+                    <Text>Ban reason: {user.banReason || 'Not recorded'}</Text>
+                    <Text>
+                      Appeal code: {user.banAppealCode
+                      ? <Link to={`/admin-panel/multiple-accounts?case=MC-${user.banAppealCode}`}>
+                        MC-{user.banAppealCode}
+                      </Link>
+                      : `USER-${user.id}`}
+                    </Text>
+                  </> : <Text>Not currently banned.</Text>}
+                  {banHistory.length > 0 && <>
+                    <Text bold>Latest 25 recorded ban dates (legacy account logs)</Text>
+                    {banHistory.map((entry) => <Text key={entry.id}>
+                      {dayjs(entry.date).utc().format('YYYY-MM-DD HH:mm:ss')} UTC
+                    </Text>)}
+                    <Text>
+                      These logs do not record the original reason, actor or linked accounts.
+                    </Text>
+                  </>}
+                </Paper>
                 <FantasyButton color="warning" onClick={deleteAccount} disabled={!!user.bannedAt}>Delete Account</FantasyButton>
                 <FantasyButton color="warning" onClick={unban} disabled={!user.bannedAt}>Unban</FantasyButton>
                 {!user.bannedAt && (
@@ -337,13 +365,18 @@ export const UserAdminView = () => {
                   </Collapse>
                 </TableContainer>
                 <UserCasePanel key={user.id} userId={user.id} />
+                <UserRelatedAccountsPanel key={`related-${user.id}`} userId={user.id} />
                 <Paper sx={{ p: 2 }}>
                   <Text h3>Latest 25 account sanction decisions</Text>
                   {securityHistory.length === 0 && <Text>No recorded account decisions.</Text>}
+                  {securityHistory.length === 0 && user.bannedAt && <Text>
+                    This ban has no structured audit entry. It may predate case history;
+                    the ban details above and historical account links remain available for review.
+                  </Text>}
                   {securityHistory.map((entry) => (
                     <Text key={entry.id} sx={{ overflowWrap: 'anywhere' }}>
                       {dayjs(entry.createdAt).utc().format('YYYY-MM-DD HH:mm:ss')}: {entry.action}
-                      {' '}by {entry.actorId ?? 'automatic policy'}. {entry.reason}
+                      {' '}by {entry.actorId ?? 'automatic or unrecorded actor'}. {entry.reason}
                     </Text>
                   ))}
                 </Paper>

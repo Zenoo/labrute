@@ -1,5 +1,6 @@
 import type { PrismaClient } from '@labrute/prisma';
 import type { MultipleAccountObservationGroup } from './accountObservations.js';
+import { traced } from './trace.js';
 
 type Name = { userId: string; name: string; kind: 'user' | 'brute' };
 
@@ -72,7 +73,7 @@ export const enrichMultipleAccountGroups = async (
       continue;
     }
 
-    const names = await prisma.$queryRaw<Name[]>`
+    const names = await traced('multipleAccountSignals.names', () => prisma.$queryRaw<Name[]>`
       WITH members AS (
         SELECT id FROM "User" WHERE id = ANY(${group.userIds}::uuid[])
       )
@@ -85,12 +86,12 @@ export const enrichMultipleAccountGroups = async (
         ORDER BY "createdAt", id LIMIT 10
       ) b
       ORDER BY "userId", kind, name
-    `;
+    `);
 
     const userNames = findSharedNameFamily(names, 'user');
     const bruteNames = findSharedNameFamily(names, 'brute');
 
-    const [switches] = await prisma.$queryRaw<{ accounts: number }[]>`
+    const [switches] = await traced('multipleAccountSignals.switches', () => prisma.$queryRaw<{ accounts: number }[]>`
       WITH browsers AS (
         SELECT DISTINCT "browserId" FROM "AccountObservation"
         WHERE "userId" = ANY(${group.userIds}::uuid[]) AND "formatVersion" = 2
@@ -133,7 +134,7 @@ export const enrichMultipleAccountGroups = async (
         SELECT "userId" FROM involvement GROUP BY "userId" HAVING COUNT(*) >= 3
       )
       SELECT COUNT(*)::int AS accounts FROM supported
-    `;
+    `);
 
     Object.assign(group.metrics, {
       switchingAccounts: switches?.accounts ?? 0,

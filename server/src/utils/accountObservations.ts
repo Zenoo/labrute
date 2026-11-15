@@ -165,7 +165,7 @@ export const findMultipleAccountObservationGroups = async (
 ) => {
   const since = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
 
-  return prisma.$queryRaw<MultipleAccountObservationGroup[]>`
+  return traced('accountObservations.groups', () => prisma.$queryRaw<MultipleAccountObservationGroup[]>`
     WITH recent AS (
       SELECT o."userId", o."browserId", o.fingerprint, o.ip, o."visitorId", o."observedDay",
         o."firstSeen", o."lastSeen"
@@ -241,7 +241,7 @@ export const findMultipleAccountObservationGroups = async (
     LEFT JOIN fingerprint_metrics f ON f.fingerprint = c.fingerprint AND f.ip = c.ip
     LEFT JOIN fingerprint_browser_metrics fb ON fb.fingerprint = c.fingerprint AND fb.ip = c.ip
     ORDER BY c.signal, c."browserId", c.fingerprint, c.ip
-  `;
+  `);
 };
 
 /** Capture immutable detection evidence; the separate daily worker applies the sanction policy. */
@@ -290,7 +290,7 @@ export const cleanupAccountObservations = async (prisma: PrismaClient, now = new
 
   // Bound each transaction's locks and WAL work while ordinary requests remain available.
   do {
-    deleted = await prisma.$executeRaw`
+    deleted = await traced('accountObservations.cleanupObservations', () => prisma.$executeRaw`
       DELETE FROM "AccountObservation"
       WHERE id IN (
         SELECT id FROM "AccountObservation"
@@ -299,19 +299,19 @@ export const cleanupAccountObservations = async (prisma: PrismaClient, now = new
         LIMIT ${batchSize}
         FOR UPDATE SKIP LOCKED
       )
-    `;
+    `);
     total += deleted;
   } while (deleted === batchSize);
 
   do {
-    deleted = await prisma.$executeRaw`
+    deleted = await traced('accountObservations.cleanupActivitySamples', () => prisma.$executeRaw`
       DELETE FROM "AccountActivitySample"
       WHERE id IN (
         SELECT id FROM "AccountActivitySample"
         WHERE "observedAt" < (${cutoff}::timestamptz AT TIME ZONE 'UTC')
         ORDER BY "observedAt", id LIMIT ${batchSize} FOR UPDATE SKIP LOCKED
       )
-    `;
+    `);
   } while (deleted === batchSize);
 
   // Preserve the existing return value: number of expired daily observation rows.
