@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.101.3](https://github.com/Zenoo/labrute/compare/labrute-v2.101.2...labrute-v2.101.3) (2026-11-16)
+
+
+### Bug Fixes
+
+* Rewind/Reload fight crash ([0a48fc1](https://github.com/Zenoo/labrute/commit/0a48fc1cbd252b6addc105c8463120bb416c93ad))
+
 ## [2.101.2](https://github.com/Zenoo/labrute/compare/labrute-v2.101.1...labrute-v2.101.2) (2026-11-15)
 
 
