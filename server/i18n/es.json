@@ -86,8 +86,8 @@
   "modifier.chaos": "Caos controlado",
   "modifier.chaos.desc": "Todo está un poco raro hoy. Todas las estadísticas han cambiado aleatoriamente.",
   "bannedAccount": "Tu cuenta ha sido baneada por el siguiente motivo: {{reason}}",
-  "banAppealCode": "Appeal code: {{code}}. Include this code when appealing on Discord.",
-  "deletedAccount": "Your account has been deleted",
+  "banAppealCode": "Código de apelación: {{code}}. Incluye este código cuando vayas a apelar en Discord.",
+  "deletedAccount": "Tu cuenta ha sido eliminada",
   "banReason.innapropriateName": "Nombre inapropiado",
   "banReason.innapropriateBruteName": "Nombre de bruto inapropiado",
   "banReason.multipleAccounts": "Múltiples cuentas",
@@ -118,5 +118,5 @@
   "userCreatedAfterTransferImplementation": "Esta función no está disponible para cuentas creadas después del 20 de abril de 2026. Solo se implementó para los usuarios anteriores con múltiples cuentas para poder transferir su bruto a una única cuenta.",
   "rankingsNotReady": "Los rankings no están listos todavía. Por favor, inténtalo de nuevo más tarde.",
   "colorAlreadyUnlocked": "Este color ya ha sido desbloqueado para esta parte del cuerpo",
-  "sharedBrowserNotFound": "Shared browser not found"
+  "sharedBrowserNotFound": "Navegador compartido no encontrado"
 }
