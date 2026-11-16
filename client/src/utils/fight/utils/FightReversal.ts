@@ -3,6 +3,7 @@ import {
 } from 'pixi.js';
 import type { RefObject } from 'react';
 import { AdjustmentFilter } from 'pixi-filters/adjustment';
+import { MotionBlurFilter } from 'pixi-filters/motion-blur';
 import type { AnimationFighter } from './findFighter';
 import type { FighterSnapshot, FightSnapshot } from './fightSnapshot';
 
@@ -91,6 +92,8 @@ type ReversalFilter = {
   readonly filter: Filter;
   readonly adjustment?: Pick<AdjustmentFilter,
     'red' | 'green' | 'blue' | 'alpha' | 'gamma' | 'saturation' | 'contrast' | 'brightness'>;
+  readonly motionBlur?: Pick<MotionBlurFilter,
+    'velocityX' | 'velocityY' | 'kernelSize' | 'offset' | 'padding'>;
 };
 
 export interface ReversalSpriteFrame {
@@ -157,7 +160,7 @@ export class FightReversal {
   private sampleInterval = SAMPLE_INTERVAL;
   private disposed = false;
   private clones = new Map<Sprite | Text, Sprite | Text>();
-  private cloneFilters = new Map<Filter, AdjustmentFilter>();
+  private cloneFilters = new Map<Filter, AdjustmentFilter | MotionBlurFilter>();
   private retainedTextures = new Set<Texture>();
   private hidden = new Map<Sprite | Text, boolean>();
   private pending?: {
@@ -281,6 +284,17 @@ export class FightReversal {
         } : { texture: child.texture }),
         filters: (child.filters ?? []).map((filter) => ({
           filter,
+          // Reload destroys its blur when the forward message finishes. Keep
+          // primitive samples so reversal never renders that disposed shader.
+          ...(filter instanceof MotionBlurFilter ? {
+            motionBlur: {
+              velocityX: filter.velocityX,
+              velocityY: filter.velocityY,
+              kernelSize: filter.kernelSize,
+              offset: filter.offset,
+              padding: filter.padding,
+            },
+          } : {}),
           ...(filter instanceof AdjustmentFilter ? {
             adjustment: {
               red: filter.red,
@@ -415,18 +429,20 @@ export class FightReversal {
       }
 
       clone.filters = saved.filters.map((savedFilter) => {
-        if (!savedFilter.adjustment) {
+        const properties = savedFilter.adjustment ?? savedFilter.motionBlur;
+
+        if (!properties) {
           return savedFilter.filter;
         }
 
         let filter = this.cloneFilters.get(savedFilter.filter);
 
         if (!filter) {
-          filter = new AdjustmentFilter();
+          filter = savedFilter.motionBlur ? new MotionBlurFilter() : new AdjustmentFilter();
           this.cloneFilters.set(savedFilter.filter, filter);
         }
 
-        Object.assign(filter, savedFilter.adjustment);
+        Object.assign(filter, properties);
 
         return filter;
       });

@@ -4,6 +4,10 @@ import {
   Application, Container, DOMAdapter, Sprite, Text, Texture, TextureSource, Ticker,
 } from 'pixi.js';
 import { AdjustmentFilter } from 'pixi-filters/adjustment';
+import { MotionBlurFilter } from 'pixi-filters/motion-blur';
+import { OutlineFilter } from 'pixi-filters/outline';
+import { readFileSync } from 'node:fs';
+import { StepType } from '@labrute/core';
 import {
   FightReversal, REVERSAL_MAX_FRAMES, ownFightTexture, releaseFightTexture,
 } from '../src/utils/fight/utils/FightReversal.ts';
@@ -513,6 +517,64 @@ test('the lethal-hit text moves backwards and disappears before its creation', a
   await playing;
   assert.equal(clone.destroyed, true);
   assert.equal(f.app.stage.children.length, 0);
+});
+
+test('Reload filters survive destruction and restore their recorded blur during Rewind', async (t) => {
+  t.mock.method(DOMAdapter.get(), 'createCanvas', () => ({ getContext: () => null }));
+  const fight = JSON.parse(readFileSync(new URL('./fixtures/rewind-reload.json', import.meta.url)));
+  const steps = JSON.parse(fight.steps);
+
+  // Preserve the reported trigger: Reload is inside a later Rewind's history.
+  assert.ok(steps.some((step, index) => step.a === StepType.Rewind
+    && steps.slice(index - step.n, index).some((saved) => saved.a === StepType.Reload)));
+
+  const f = fixture(t);
+  const text = new Text({ text: 'RELOAD' });
+  const outline = new OutlineFilter();
+
+  const blur = new MotionBlurFilter({
+    velocity: [50, 0],
+    kernelSize: 9,
+    offset: -0.5,
+  });
+
+  blur.padding = 60;
+  text.filters = [outline, blur];
+  f.app.stage.addChild(text);
+  f.reversal.startStep();
+  f.tick(40);
+  blur.velocityX = 0;
+  blur.padding = 60;
+  f.tick(40);
+  const recording = f.reversal.finishStep();
+
+  text.destroy();
+  blur.destroy();
+  assert.equal(blur.groups, null);
+
+  // The same completed recording may be visited by more than one Rewind.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const playing = f.reversal.play(recording);
+    const clone = f.app.stage.children.find((child) => child instanceof Text);
+    const replayBlur = clone.filters[1];
+
+    assert.equal(clone.filters[0], outline);
+    assert.notEqual(replayBlur, blur);
+    assert.ok(replayBlur.groups);
+    assert.equal(replayBlur.velocityX, 0);
+    f.tick(40);
+    assert.equal(replayBlur.velocityX, 50);
+    assert.equal(replayBlur.velocityY, 0);
+    assert.equal(replayBlur.kernelSize, 9);
+    assert.equal(replayBlur.offset, -0.5);
+    assert.equal(replayBlur.padding, 60);
+    f.tick(40);
+    await playing;
+    assert.equal(clone.destroyed, true);
+    assert.equal(replayBlur.groups, null);
+  }
+
+  outline.destroy();
 });
 
 test('ghost history retains generated textures and copies mutable color filters', async (t) => {
