@@ -24,10 +24,10 @@
   "clanContribution": "Clan Contribution",
   "clanWarFights": "Clan war fights",
   "clanBossFights": "Clan boss fights",
-  "clanBossDamage": "Clan boss damage",
-  "pets": "Pets",
-  "weapons": "Weapons",
-  "skills": "Skills",
-  "stats": "Stats",
+  "clanBossDamage": "Daño al jefe del clan",
+  "pets": "Mascotas",
+  "weapons": "Armas",
+  "skills": "Habilidades",
+  "stats": "Estadísticas",
   "levelUp.pickRate": "Picked <picked>{{percent}}</picked> of the time"
 }
