@@ -85,17 +85,26 @@ const root = createRoot(document.getElementById('root'));
 root.render(React.createElement(MemoryRouter, {}, React.createElement(MultipleAccountsView)));
 const wait = async (fn) => { for(let i=0;i<300;i++){if(fn()) return; await new Promise(r=>setTimeout(r,20));} throw new Error('Timed out: '+fn); };
 const button = (label) => [...document.querySelectorAll('button')].find(b => b.textContent.includes(label));
+const caseGrid = () => document.querySelector('[role="grid"][aria-label="Multiple-account cases"]');
+const casePageButton = (direction) => caseGrid().closest('.MuiDataGrid-root')
+  .querySelector('button[aria-label="Go to '+direction+' page"]');
+const caseRow = (signal, count) => [...caseGrid()?.querySelectorAll('[role="row"][data-id]') ?? []]
+  .find(row => {
+    const cells = row.querySelectorAll('[role="gridcell"]');
+    return cells[0]?.textContent === signal && (count === undefined || cells[1]?.textContent === String(count));
+  });
 const assert = (condition, message) => {if(!condition) throw new Error(message);};
 (async () => {
-  await wait(() => button('fingerprint-ip'));
-  assert(button('fingerprint-ip').textContent.includes('65% suspicion'), 'case list missing score');
-  button('Next cases').click();
-  await wait(() => button('browser - 5'));
-  button('Previous cases').click();
-  await wait(() => button('fingerprint-ip'));
-  button('fingerprint-ip').click();
+  await wait(() => caseRow('fingerprint-ip'));
+  assert(caseRow('fingerprint-ip').textContent.includes('65% suspicion'), 'case table missing score');
+  casePageButton('next').click();
+  await wait(() => caseRow('browser', 5));
+  assert(!caseRow('fingerprint-ip'), 'case pagination kept the previous page');
+  casePageButton('previous').click();
+  await wait(() => caseRow('fingerprint-ip'));
+  caseRow('fingerprint-ip').querySelector('button').click();
   await wait(() => fixture.requests.some(r => r[0] === 'detail' && r[1][0] === 'a'));
-  button('browser - 4').click();
+  caseRow('browser', 4).querySelector('button').click();
   await wait(() => document.body.textContent.includes('b-browser'));
   assert(document.body.textContent.includes('Suspicion score: 65%'), 'evidence missing score');
   assert(document.body.textContent.includes('at least 3 rapid browser account changes'), 'switching evidence missing');
@@ -104,7 +113,7 @@ const assert = (condition, message) => {if(!condition) throw new Error(message);
   assert(document.body.textContent.includes('Accounts sharing one browser: 4/4'), 'evidence missing score explanation');
   await new Promise(r=>setTimeout(r,230));
   assert(!document.body.textContent.includes('a-browser'), 'stale response replaced current evidence');
-  button('fingerprint-ip').click();
+  caseRow('fingerprint-ip').querySelector('button').click();
   await wait(() => document.body.textContent.includes('a-browser'));
   button('Next accounts').click();
   await wait(() => document.body.textContent.includes('Account25'));

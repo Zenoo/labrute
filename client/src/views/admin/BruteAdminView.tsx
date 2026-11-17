@@ -1,30 +1,30 @@
 import {
-  BruteGetForAdminResponse, entries, getTieredPets, getTieredSkills, getTieredWeapons,
+  BruteGetForAdminResponse, getXPForTargetLevel, entries,
+  getTieredPets, getTieredSkills, getTieredWeapons, isUuid,
 } from '@labrute/core';
 import {
   DestinyChoiceSide, Gender, InventoryItemType, PetName, SkillName, WeaponName,
 } from '@labrute/prisma';
 import {
-  Box, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem,
-  Paper, Select, TextField,
+  Alert as MuiAlert, Stack, Box, Checkbox, FormControl,
+  FormControlLabel, Grid, InputLabel, MenuItem, Paper,
+  Select, TextField, Button,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import React, {
-  useCallback, useEffect, useState,
+  useCallback, useEffect, useRef, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { BruteRender } from '../../components/Brute/Body/BruteRender';
-import { FantasyButton } from '../../components/FantasyButton';
 import { Link } from '../../components/Link';
 import { Loader } from '../../components/Loader';
-import { Page } from '../../components/Page';
+import { AdminPage } from '../../components/admin/AdminPage';
 import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
-import { StyledInput } from '../../components/StyledInput';
 
 export const BruteAdminView = () => {
   const { t } = useTranslation('admin');
@@ -32,38 +32,64 @@ export const BruteAdminView = () => {
   const Alert = useAlert();
   const Server = useServer();
 
+  const lookup = useRef(0);
+  const [loadingBrute, setLoadingBrute] = useState(false);
+  const [lookupFailed, setLookupFailed] = useState(false);
   const [bruteIdentifier, setBruteIdentifier] = useState(urlBruteName ?? '');
-  const [includeDeleted, setIncludeDeleted] = useState(false);
+  const [includeDeleted, setIncludeDeleted] = useState(() => isUuid(urlBruteName));
   const [duplicates, setDuplicates] = useState<BruteGetForAdminResponse['duplicates']>([]);
   const [brute, setBrute] = useState<BruteGetForAdminResponse['brute'] | null>(null);
   const [bruteSkills, setBruteSkills] = useState<string[]>([]);
   const [bruteWeapons, setBruteWeapons] = useState<string[]>([]);
   const [brutePets, setBrutePets] = useState<string[]>([]);
+  const [targetLevel, setTargetLevel] = useState('');
+  const [grantingXP, setGrantingXP] = useState(false);
   const [item, setItem] = useState<InventoryItemType | ''>('');
 
   // Update brute identifier when url changes
   useEffect(() => {
     setBruteIdentifier(urlBruteName ?? '');
+    setIncludeDeleted(isUuid(urlBruteName));
   }, [urlBruteName]);
 
   const updateBrute = useCallback(() => {
+    const request = ++lookup.current;
+
+    setLoadingBrute(true);
+    setLookupFailed(false);
     Server.Brute.getForAdmin({
       identifier: bruteIdentifier,
       includeDeleted: includeDeleted ? 'true' : 'false',
     }).then(({ duplicates: dups, brute: b }) => {
+      if (request !== lookup.current) {
+        return;
+      }
+
       setDuplicates(dups);
       setBrute(b);
       setBruteSkills(entries(getTieredSkills(b, {})).map(([skillName, tier]) => `${skillName}:${tier}`));
       setBruteWeapons(entries(getTieredWeapons(b, {})).map(([weaponName, tier]) => `${weaponName}:${tier}`));
       setBrutePets(entries(getTieredPets(b)).map(([petName, tier]) => `${petName}:${tier}`));
     }).catch((error) => {
-      setBrute(null);
-      catchError(Alert, error);
+      if (request === lookup.current) {
+        setBrute(null);
+        setLookupFailed(true);
+        catchError(Alert, error);
+      }
+    }).finally(() => {
+      if (request === lookup.current) {
+        setLoadingBrute(false);
+      }
     });
   }, [Alert, Server.Brute, bruteIdentifier, includeDeleted]);
 
   // Fetch brute on brute identifier change or includeDeleted change
   useEffect(() => {
+    setBrute(null);
+    setDuplicates([]);
+    setLookupFailed(false);
+    setLoadingBrute(!!bruteIdentifier);
+
     if (!bruteIdentifier) {
       return undefined;
     }
@@ -72,7 +98,10 @@ export const BruteAdminView = () => {
       updateBrute();
     }, 1000);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      lookup.current += 1;
+    };
   }, [Alert, Server.Brute, bruteIdentifier, includeDeleted, updateBrute]);
 
   const changeBruteName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,6 +147,40 @@ export const BruteAdminView = () => {
     }).catch(catchError(Alert));
   }, [Alert, Server.Brute, brute, item]);
 
+  let targetXP: number | null = null;
+
+  if (brute && targetLevel) {
+    try {
+      targetXP = getXPForTargetLevel(brute, Number(targetLevel));
+    } catch {
+      // Keep invalid input visible and disable the grant until it is corrected.
+    }
+  }
+
+  const grantXP = async () => {
+    if (!brute || targetXP === null || grantingXP) {
+      return;
+    }
+
+    const bruteId = brute.id;
+
+    setGrantingXP(true);
+
+    try {
+      const result = await Server.Brute.grantXP(bruteId, Number(targetLevel));
+
+      setBrute((previous) => previous?.id === bruteId ? {
+        ...previous,
+        xp: result.xp,
+      } : previous);
+      Alert.open('success', `${result.addedXP} XP granted`);
+    } catch (error) {
+      catchError(Alert, error);
+    } finally {
+      setGrantingXP(false);
+    }
+  };
+
   // Delete brute
   const deleteBrute = useCallback(() => {
     if (!brute) {
@@ -144,17 +207,15 @@ export const BruteAdminView = () => {
   }, [Alert, Server.Brute, brute, updateBrute]);
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
-        <Text bold h3 smallCaps color="secondary">Brute</Text>
-        <StyledInput
+        <Text bold h6 color="secondary">Brute</Text>
+        <TextField
           onChange={changeBruteName}
+          label="Brute name or ID"
           value={bruteIdentifier}
         />
         <FormControlLabel
@@ -196,16 +257,47 @@ export const BruteAdminView = () => {
         )}
         {brute ? (
           <>
-            <Text h2 smallCaps>
+            <Text h5>
               <Link to={`/${brute.name}/cell`}>{brute.name}</Link> ({brute.id})
               {' '}
-              ({brute.user?.name} <Link to={`/admin-panel/user/${brute.user?.id}`}>{brute.user?.id}</Link>)
+              {brute.user && <>({brute.user.name} <Link to={`/admin-panel/user/${brute.user.id}`}>{brute.user.id}</Link>)</>}
             </Text>
             <Box width={100}>
               <BruteRender brute={brute} />
             </Box>
+            <Stack spacing={2} sx={{ my: 3 }}>
+              <Text h6>Grant XP for a target level</Text>
+              <MuiAlert severity="info">Grants are saved immediately. The brute keeps its current level and makes its usual level-up choices.</MuiAlert>
+              <Stack direction={{
+                xs: 'column',
+                sm: 'row',
+              }} spacing={2} alignItems="flex-start">
+                <TextField
+                  label="Target level"
+                  type="number"
+                  value={targetLevel}
+                  onChange={(event) => setTargetLevel(event.target.value)}
+                  inputProps={{
+                    min: brute.level + 1,
+                    max: 10000,
+                    step: 1,
+                  }}
+                  error={!!targetLevel && targetXP === null}
+                  helperText={targetXP === null ? `Enter a whole level from ${brute.level + 1} to 10000` : `${targetXP - brute.xp} XP to add (${targetXP} banked XP)`}
+                />
+                <Button variant="contained" sx={{
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap',
+                }} onClick={() => {
+                  void grantXP();
+                }} disabled={targetXP === null || grantingXP || !!brute.deletedAt}>
+                  {grantingXP ? 'Granting XP...' : 'Grant XP'}
+                </Button>
+              </Stack>
+            </Stack>
             <Grid container spacing={1}>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12}><Text h6 sx={{ mt: 2 }}>Progression</Text></Grid>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Destiny path"
                   value={brute.destinyPath}
@@ -218,7 +310,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Level"
                   value={brute.level}
@@ -231,7 +323,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="XP"
                   value={brute.xp}
@@ -244,7 +336,8 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12}><Text h6 sx={{ mt: 2 }}>Combat attributes</Text></Grid>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="HP stat"
                   value={brute.hpStat}
@@ -257,7 +350,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="HP modifier"
                   value={brute.hpModifier}
@@ -270,7 +363,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="HP value"
                   value={brute.hpValue}
@@ -283,7 +376,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Strength stat"
                   value={brute.strengthStat}
@@ -296,7 +389,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Strength modifier"
                   value={brute.strengthModifier}
@@ -309,7 +402,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Strength value"
                   value={brute.strengthValue}
@@ -322,7 +415,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Agility stat"
                   value={brute.agilityStat}
@@ -335,7 +428,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Agility modifier"
                   value={brute.agilityModifier}
@@ -348,7 +441,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Agility value"
                   value={brute.agilityValue}
@@ -361,7 +454,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Speed stat"
                   value={brute.speedStat}
@@ -374,7 +467,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Speed modifier"
                   value={brute.speedModifier}
@@ -387,7 +480,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Speed value"
                   value={brute.speedValue}
@@ -400,7 +493,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Ranking"
                   value={brute.ranking}
@@ -413,7 +506,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControl fullWidth>
                   <InputLabel>Gender</InputLabel>
                   <Select
@@ -431,7 +524,7 @@ export const BruteAdminView = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="User ID"
                   value={brute.userId || ''}
@@ -444,7 +537,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControl fullWidth>
                   <InputLabel>Weapons</InputLabel>
                   <Select
@@ -470,7 +563,7 @@ export const BruteAdminView = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControl fullWidth>
                   <InputLabel>Skills</InputLabel>
                   <Select
@@ -496,7 +589,7 @@ export const BruteAdminView = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControl fullWidth>
                   <InputLabel>Pets</InputLabel>
                   <Select
@@ -522,7 +615,8 @@ export const BruteAdminView = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12}><Text h6 sx={{ mt: 2 }}>Ownership and activity</Text></Grid>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Master ID"
                   value={brute.masterId || ''}
@@ -535,7 +629,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Pupils counts"
                   value={brute.pupilsCount}
@@ -548,7 +642,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Clan ID"
                   value={brute.clanId || ''}
@@ -561,7 +655,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControlLabel
                   control={(
                     <Checkbox
@@ -577,7 +671,7 @@ export const BruteAdminView = () => {
                   label="Registered for tournament"
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <DatePicker
                   label="Next tournament date"
                   value={brute.nextTournamentDate
@@ -591,7 +685,7 @@ export const BruteAdminView = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <DatePicker
                   label="Current tournament date"
                   value={brute.currentTournamentDate
@@ -605,7 +699,7 @@ export const BruteAdminView = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Current tournament step watched"
                   value={brute.currentTournamentStepWatched}
@@ -618,7 +712,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <DatePicker
                   label="Last fight"
                   value={brute.lastFight
@@ -632,7 +726,7 @@ export const BruteAdminView = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Fights left"
                   value={brute.fightsLeft}
@@ -645,7 +739,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Victories"
                   value={brute.victories}
@@ -658,7 +752,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <DatePicker
                   label="Opponents generated at"
                   value={brute.opponentsGeneratedAt
@@ -672,7 +766,7 @@ export const BruteAdminView = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <DatePicker
                   label="Can rank up since"
                   value={brute.canRankUpSince
@@ -686,7 +780,7 @@ export const BruteAdminView = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Tournament wins"
                   value={brute.tournamentWins}
@@ -699,7 +793,8 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12}><Text h6 sx={{ mt: 2 }}>Appearance and ascension</Text></Grid>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Body"
                   value={brute.body}
@@ -712,7 +807,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Colors"
                   value={brute.colors}
@@ -725,7 +820,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Event ID"
                   value={brute.eventId || ''}
@@ -738,7 +833,7 @@ export const BruteAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControl fullWidth>
                   <InputLabel>Ascended Weapons</InputLabel>
                   <Select
@@ -760,7 +855,7 @@ export const BruteAdminView = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControl fullWidth>
                   <InputLabel>Ascended Skills</InputLabel>
                   <Select
@@ -782,7 +877,7 @@ export const BruteAdminView = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControl fullWidth>
                   <InputLabel>Ascended Pets</InputLabel>
                   <Select
@@ -805,28 +900,45 @@ export const BruteAdminView = () => {
                 </FormControl>
               </Grid>
             </Grid>
-            <FantasyButton color="success" onClick={saveBrute}>Save</FantasyButton>
-            {!brute.deletedAt ? (
-              <FantasyButton color="error" onClick={deleteBrute}>Delete</FantasyButton>
-            ) : (
-              <FantasyButton color="warning" onClick={restoreBrute}>Restore</FantasyButton>
-            )}
-            <Select
-              variant="filled"
-              value={item}
-              onChange={({ target: { value } }) => setItem(value as InventoryItemType)}
-              sx={{ m: 1 }}
-            >
-              {Object.values(InventoryItemType).map((it) => (
-                <MenuItem key={it} value={it}>{t(`inventory:item.${it}`)}</MenuItem>
-              ))}
-            </Select>
-            <FantasyButton color="success" onClick={giveItem}>Add item</FantasyButton>
+            <Stack direction={{
+              xs: 'column',
+              sm: 'row',
+            }} spacing={2} sx={{ my: 3 }}>
+              <Button variant="contained" color="success" disabled={grantingXP} onClick={saveBrute}>Save changes</Button>
+              {!brute.deletedAt ? (
+                <Button color="error" onClick={deleteBrute}>Delete</Button>
+              ) : (
+                <Button color="warning" onClick={restoreBrute}>Restore</Button>
+              )}
+            </Stack>
+            <Stack direction={{
+              xs: 'column',
+              sm: 'row',
+            }} spacing={2}>
+              <FormControl sx={{ minWidth: 240 }}>
+                <InputLabel id="brute-inventory-item-label">Inventory item</InputLabel>
+                <Select
+                  labelId="brute-inventory-item-label"
+                  label="Inventory item"
+                  value={item}
+                  onChange={({ target: { value } }) => setItem(value as InventoryItemType)}
+                >
+                  {Object.values(InventoryItemType).map((it) => (
+                    <MenuItem key={it} value={it}>{t(`inventory:item.${it}`)}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Button color="success" disabled={!item} onClick={giveItem}>Add item</Button>
+            </Stack>
           </>
         ) : (
-          <Loader />
+          <>
+            {loadingBrute && <Loader />}
+            {lookupFailed && <MuiAlert severity="error">Could not load the brute. Check the name or ID, or <Button onClick={updateBrute}>retry</Button>.</MuiAlert>}
+            {!bruteIdentifier && <MuiAlert severity="info">Search by brute name or ID to manage a brute.</MuiAlert>}
+          </>
         )}
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

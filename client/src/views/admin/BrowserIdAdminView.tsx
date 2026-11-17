@@ -1,18 +1,14 @@
 import {
-  Paper, Stack, TextField,
+  Paper, Stack, TextField, Button,
 } from '@mui/material';
 import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { FantasyButton } from '../../components/FantasyButton';
-import { Page } from '../../components/Page';
-import { Text } from '../../components/Text';
+import { AdminPage } from '../../components/admin/AdminPage';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const BrowserIdAdminView = () => {
-  const { t } = useTranslation('admin');
   const Alert = useAlert();
   const { user } = useAuth();
   const Server = useServer();
@@ -51,13 +47,10 @@ export const BrowserIdAdminView = () => {
   }, [Alert, Server.User, browserId, reason]);
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         {user && (
           <Stack spacing={2}>
@@ -73,19 +66,19 @@ export const BrowserIdAdminView = () => {
               required
               inputProps={{ maxLength: 500 }}
             />
-            <FantasyButton
+            <Button
               color="success" onClick={unbanBrowser} disabled={!reason.trim() || !browserId}
             >
               Unban browser
-            </FantasyButton>
-            <FantasyButton
+            </Button>
+            <Button
               color="error" onClick={banBrowser} disabled={!reason.trim() || !browserId}
             >
               Ban browser
-            </FantasyButton>
+            </Button>
           </Stack>
         )}
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

@@ -11,6 +11,7 @@ export interface LinkProps extends LinkBaseProps {
   href?: string;
   target?: string;
   title?: string;
+  tabIndex?: number;
 }
 
 const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<LinkProps>>(({

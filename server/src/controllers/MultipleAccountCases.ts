@@ -18,7 +18,7 @@ export const MultipleAccountCases = {
       await auth(prisma, req, { admin: true });
 
       res.send(await listMultipleAccountCases(
-        prisma, req.query.status, req.query.cursor, req.query.userId,
+        prisma, req.query.status, req.query.cursor, req.query.userId, req.query.grid,
       ));
     } catch (error) {
       sendError(res, error);

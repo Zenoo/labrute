@@ -18,7 +18,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Outlet, Link as RouterLink, useNavigate,
+  Outlet, Link as RouterLink, useLocation, useNavigate,
 } from 'react-router';
 import { ActionButton } from '../components/ActionButton';
 import { BruteRender } from '../components/Brute/Body/BruteRender';
@@ -38,6 +38,7 @@ import { LanguageSwitch } from '../components/LanguageSwitch';
 
 export const Main = () => {
   const theme = useTheme();
+  const { pathname } = useLocation();
 
   const {
     authing, user, signout, updateData, currentEvent,
@@ -213,6 +214,11 @@ export const Main = () => {
       </Button>
     );
   };
+
+  // Dashboard routes own their navigation and presentation.
+  if (pathname.startsWith('/admin-panel') || pathname.startsWith('/moderator-panel')) {
+    return <Outlet />;
+  }
 
   return (
     <>

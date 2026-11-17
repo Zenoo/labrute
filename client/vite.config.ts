@@ -30,6 +30,10 @@ export default defineConfig(() => {
                 return 'vendor-pixi';
               }
 
+              if (id.includes('@mui/x-data-grid') || id.includes('@mui/x-virtualizer')) {
+                return 'vendor-mui-data-grid';
+              }
+
               if (id.includes('@mui') || id.includes('@material-ui')) {
                 return 'vendor-mui';
               }

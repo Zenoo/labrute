@@ -1,6 +1,7 @@
 // localStorage keys
 export const LS_KEY_CSRF_TOKEN = 'csrfToken';
 export const LS_KEY_THEME = 'mode';
+export const LS_KEY_ADMIN_THEME = 'adminMode';
 export const LS_KEY_MARQUEE_PAUSED = 'marqueePaused';
 export const LS_KEY_LANGUAGE = 'language';
 export const LS_KEY_FINGERPRINT_LOG = 'x-fp-l';

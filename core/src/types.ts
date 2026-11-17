@@ -6,7 +6,7 @@ import {
   InventoryItem, InventoryItemType, KnownFingerprint, Log, MultipleAccountCase,
   MultipleAccountCaseReview, MultipleAccountCaseAction, Notification,
   PetName, Prisma, SecurityAction, SharedBrowser, SharedBrowserExemption, SkillName, Tournament,
-  User, UserLog, UserStats, WeaponName,
+  User, UserLog, UserLogType, UserStats, WeaponName,
 } from '@labrute/prisma';
 import { SkillId } from './brute/skills.js';
 import {
@@ -746,9 +746,11 @@ export type UsersUnbanRequest = {
 
 export type BruteReportsListRequest = {
   status: BruteReportStatus,
-  page: string,
 };
-export type BruteReportsListResponse = BruteReportWithNames[];
+export type BruteReportsListResponse = {
+  reports: BruteReportWithNames[];
+  nextCursor: string | null;
+};
 
 export type BruteReportsSendRequest = {
   name: string,
@@ -917,6 +919,24 @@ export type UserGetProfileResponse = Pick<User, 'id' | 'name' | 'gold' | 'lang' 
   })[],
 };
 export type UserBannedListResponse = Pick<User, 'id' | 'name' | 'bannedAt' | 'banReason'>[];
+
+export type AdminListRows = {
+  users: Pick<User, 'id' | 'name' | 'bannedAt' | 'lastSeen'>;
+  'banned-users': UserBannedListResponse[number];
+  brutes: Pick<Brute, 'id' | 'name' | 'level' | 'deletedAt'>;
+  clans: Pick<Clan, 'id' | 'name' | 'points' | 'deletedAt'>;
+  'banned-words': BrutesListBannedWordsResponse[number];
+};
+
+export type AdminListPage<Row> = {
+  rows: Row[];
+  hasNext: boolean;
+};
+
+export type AdminGridQuery = {
+  sort?: { field: string; direction: 'asc' | 'desc' };
+  filter?: { field: string; operator: string; value?: string | string[] };
+};
 export type MultipleAccountReviewDecision = 'open' | 'dismissed' | 'needs-action';
 export type MultipleAccountCaseStatus = MultipleAccountReviewDecision | 'processed' | 'all';
 export type MultipleAccountScore = {
@@ -1083,11 +1103,16 @@ export type ConfigsDecryptResponse = {
 export type UserLogsListRequest = {
   userIds: string[],
   page: number,
+  type?: UserLogType,
+  grid?: AdminGridQuery,
 };
-export type UserLogsListResponse = (UserLog & {
-  user: Pick<User, 'name'>,
-  brute: Pick<Brute, 'name'> | null,
-})[];
+export type UserLogsListResponse = {
+  logs: (UserLog & {
+    user: Pick<User, 'name'>,
+    brute: Pick<Brute, 'name'> | null,
+  })[],
+  hasNext: boolean,
+};
 export type UserGiveItemRequest = {
   id: string,
   item: InventoryItemType,

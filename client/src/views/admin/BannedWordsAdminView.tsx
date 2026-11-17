@@ -1,65 +1,31 @@
 import {
-  Paper, Stack, TextField,
-  Tooltip,
+  IconButton, Paper, Stack, TextField, Tooltip, Button,
 } from '@mui/material';
-import { Page } from '../../components/Page';
-import { Text } from '../../components/Text';
-import React, {
-  useCallback, useEffect, useState,
-} from 'react';
+import { AdminPage } from '../../components/admin/AdminPage';
+import { ServerAdminGrid } from '../../components/admin/AdminGrid';
+import React, { useState } from 'react';
 import { catchError } from '../../utils/catchError';
-import { BrutesListBannedWordsResponse } from '@labrute/core';
 import { useAlert } from '../../hooks/useAlert';
-import { useTranslation } from 'react-i18next';
 import { useServer } from '../../hooks/useServer';
-import { FantasyButton } from '../../components/FantasyButton';
 import { Delete } from '@mui/icons-material';
 
 export const BannedWordsAdminView = () => {
-  const { t } = useTranslation('admin');
   const Alert = useAlert();
   const Server = useServer();
 
-  const [bannedWords, setBannedWords] = useState<BrutesListBannedWordsResponse>([]);
-  const [filteredBannedWords, setFilteredBannedWords] = useState<BrutesListBannedWordsResponse>([]);
-  const [search, setSearch] = useState('');
-
-  const fetchBannedWords = useCallback(() => {
-    Server.Brute.listBannedWords()
-      .then((words) => {
-        words.sort((a, b) => a.word.localeCompare(b.word));
-        setBannedWords(words);
-        setFilteredBannedWords(words);
-      })
-      .catch(catchError(Alert));
-  }, [Alert, Server.Brute]);
-
-  useEffect(() => {
-    fetchBannedWords();
-  }, [fetchBannedWords]);
-
-  useEffect(() => {
-    if (!search) {
-      setFilteredBannedWords(bannedWords);
-
-      return;
-    }
-
-    const filtered = bannedWords
-      .filter((word) => word.word.toLowerCase().includes(search.toLowerCase()));
-
-    setFilteredBannedWords(filtered);
-  }, [search, bannedWords]);
+  const [refresh, setRefresh] = useState(0);
+  const [newWord, setNewWord] = useState('');
 
   const banWord = () => {
-    if (!search) {
+    if (!newWord.trim()) {
       return;
     }
 
-    Server.Brute.addBannedWord({ word: search })
+    Server.Brute.addBannedWord({ word: newWord.trim() })
       .then(() => {
         Alert.open('success', 'Word banned successfully');
-        fetchBannedWords();
+        setNewWord('');
+        setRefresh((current) => current + 1);
       })
       .catch(catchError(Alert));
   };
@@ -68,43 +34,70 @@ export const BannedWordsAdminView = () => {
     Server.Brute.removeBannedWord({ id })
       .then(() => {
         Alert.open('success', 'Word unbanned successfully');
-        fetchBannedWords();
+        setRefresh((current) => current + 1);
       })
       .catch(catchError(Alert));
   };
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         <Stack spacing={2} sx={{ p: 2 }}>
-          <Text bold h3 smallCaps color="secondary">Banned words</Text>
-          <TextField
-            label="Search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <FantasyButton color="error" onClick={banWord}>
-            Ban word
-          </FantasyButton>
-          <Text bold h4 smallCaps color="secondary">Filtered banned words</Text>
-          <Stack spacing={1}>
-            {filteredBannedWords.map((word) => (
-              <Stack key={word.id} direction="row" spacing={1} alignItems="center">
-                <Text>{word.word}</Text>
-                <Tooltip title="Unban word">
-                  <Delete onClick={() => unbanWord(word.id)} sx={{ cursor: 'pointer' }} />
-                </Tooltip>
-              </Stack>
-            ))}
+          <Stack
+            component="form"
+            direction={{
+              xs: 'column',
+              sm: 'row',
+            }}
+            spacing={1}
+            onSubmit={(event) => {
+              event.preventDefault();
+              banWord();
+            }}
+          >
+            <TextField
+              label="Word to ban"
+              value={newWord}
+              onChange={(event) => setNewWord(event.target.value)}
+              fullWidth
+            />
+            <Button type="submit" color="error" disabled={!newWord.trim()} sx={{ flexShrink: 0 }}>
+              Ban word
+            </Button>
           </Stack>
+          <ServerAdminGrid
+            label="Banned words"
+            load={Server.Admin.bannedWords}
+            refresh={refresh}
+            rowKey={(entry) => entry.id}
+            emptyMessage="No matching banned words."
+            columns={[
+              {
+                field: 'word',
+                heading: 'Word',
+                render: (entry) => entry.word,
+              },
+              {
+                field: 'actions',
+                heading: 'Actions',
+                sortable: false,
+                filterable: false,
+                align: 'right',
+                render: (entry) => (
+                  <Tooltip title="Unban word">
+                    <IconButton aria-label={`Unban ${entry.word}`} onClick={() => unbanWord(entry.id)}>
+                      <Delete />
+                    </IconButton>
+                  </Tooltip>
+                ),
+              },
+            ]}
+          />
         </Stack>
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

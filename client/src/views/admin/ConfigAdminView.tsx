@@ -3,12 +3,12 @@ import {
   Close, Edit, Visibility,
 } from '@mui/icons-material';
 import {
-  Grid, IconButton, List, ListItem, ListItemText, Paper, TextField, Tooltip,
+  Grid, IconButton, Box, Stack,
+  Paper, TextField, Tooltip, Button,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { FantasyButton } from '../../components/FantasyButton';
-import { Page } from '../../components/Page';
-import { Text } from '../../components/Text';
+import { AdminPage } from '../../components/admin/AdminPage';
+import { AdminGrid } from '../../components/admin/AdminGrid';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
@@ -27,7 +27,7 @@ export const ConfigAdminView = () => {
   const [editingConfigValue, setEditingConfigValue] = useState('');
   const { user } = useAuth();
 
-  // Trigger reports fetch on page load
+  // Load configuration on mount
   useEffect(() => {
     if (!user?.admin && !user?.moderator) {
       return;
@@ -98,13 +98,10 @@ export const ConfigAdminView = () => {
   };
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">Config</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         {editing ? (
           <Grid container spacing={2} mr={1}>
@@ -129,51 +126,58 @@ export const ConfigAdminView = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <FantasyButton color="success" onClick={save} sx={{ width: 1 }}>Save</FantasyButton>
+              <Button color="success" onClick={save} sx={{ width: 1 }}>Save</Button>
             </Grid>
           </Grid>
         ) : (
-          <FantasyButton color="success" onClick={() => setEditing(true)}>Add</FantasyButton>
+          <Button color="success" onClick={() => setEditing(true)} sx={{ mb: 1 }}>Add</Button>
         )}
-        {/* Config list */}
-        <List dense>
-          {configs.map((config) => (
-            <ListItem
-              key={config.key}
-              secondaryAction={(
-                <>
+        <AdminGrid
+          label="Configuration"
+          rows={configs}
+          rowKey={(config) => config.key}
+          emptyMessage="No matching configuration entries."
+          columns={[
+            {
+              field: 'key',
+              heading: 'Key',
+              render: (config) => config.key,
+            },
+            {
+              field: 'value',
+              heading: 'Value',
+              value: (config) => config.decrypted ?? config.value,
+              render: (config) => <Box sx={{ wordBreak: 'break-all' }}>{config.decrypted ?? config.value}</Box>,
+            },
+            {
+              field: 'actions',
+              heading: 'Actions',
+              sortable: false,
+              filterable: false,
+              align: 'right',
+              render: (config) => (
+                <Stack direction="row" justifyContent="flex-end">
                   <Tooltip title="Reveal">
-                    <IconButton onClick={reveal(config)}>
+                    <IconButton aria-label={`Reveal ${config.key}`} onClick={reveal(config)}>
                       <Visibility />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Edit">
-                    <IconButton onClick={edit(config)}>
+                    <IconButton aria-label={`Edit ${config.key}`} onClick={edit(config)}>
                       <Edit />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Delete">
-                    <IconButton edge="end" onClick={deleteConfig(config.key)}>
+                    <IconButton aria-label={`Delete ${config.key}`} onClick={deleteConfig(config.key)}>
                       <Close />
                     </IconButton>
                   </Tooltip>
-                </>
-              )}
-            >
-              <ListItemText
-                primary={config.key}
-                secondary={config.decrypted ?? config.value}
-                secondaryTypographyProps={{
-                  sx: {
-                    wordBreak: 'break-all',
-                    mr: 8,
-                  },
-                }}
-              />
-            </ListItem>
-          ))}
-        </List>
+                </Stack>
+              ),
+            },
+          ]}
+        />
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

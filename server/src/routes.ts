@@ -21,6 +21,7 @@ import { Configs } from './controllers/Configs.js';
 import { UserLogs } from './controllers/UserLogs.js';
 import { getFingerprintEvent } from './utils/fingerprint.js';
 import { MultipleAccountCases } from './controllers/MultipleAccountCases.js';
+import { listAdminRows } from './controllers/AdminLists.js';
 
 export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) => {
   app.get('/api', (_req: Request, res: Response) => res.status(200).send({
@@ -48,6 +49,8 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
 
   // Daily job
   app.patch('/api/run-daily-job', Users.runDailyJob(prisma));
+
+  app.get('/api/admin/list/:collection', listAdminRows(prisma));
 
   // User
   app.post('/api/user/stats', Users.getStats(prisma));
@@ -108,6 +111,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.patch('/api/brute/:name/rank-up', Brutes.rankUp(prisma));
   app.patch('/api/brute/:name/ascend', Brutes.ascend(prisma));
   app.get('/api/brute/:name/destiny', Brutes.getDestiny(prisma));
+  app.post('/api/brute/:id/grant-xp', Brutes.grantXP(prisma));
   app.put('/api/brute/:name/admin-update', Brutes.adminUpdate(prisma));
   app.put('/api/brute/:id/restore', Brutes.restore(prisma));
   app.patch('/api/brute/:name/favorite', Brutes.toggleFavorite(prisma));
@@ -151,7 +155,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.get('/api/achievements/rankings/all', Achievements.getRankings);
 
   // BruteReport
-  app.get('/api/report/list/:status/:page', BruteReports.list(prisma));
+  app.get('/api/report/list/:status', BruteReports.list(prisma));
   app.put('/api/report/send/:name/:reason', BruteReports.send(prisma));
   app.patch('/api/report/:id/accept', BruteReports.accept(prisma));
   app.patch('/api/report/:id/reject', BruteReports.reject(prisma));

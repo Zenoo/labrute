@@ -1,12 +1,12 @@
-import { UserBannedListResponse } from '@labrute/core';
 import { Close } from '@mui/icons-material';
 import {
-  IconButton, List, ListItem, ListItemText, Paper, Stack,
+  IconButton, Paper,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Page } from '../components/Page';
+import { AdminPage } from '../components/admin/AdminPage';
+import { ServerAdminGrid } from '../components/admin/AdminGrid';
 import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
@@ -22,66 +22,72 @@ export const BannedUsersView = () => {
   const Confirm = useConfirm();
   const Server = useServer();
 
-  const [users, setUsers] = React.useState<UserBannedListResponse>([]);
-
-  // Trigger reports fetch when status changes
-  useEffect(() => {
-    if (!admin?.admin) {
-      return;
-    }
-
-    Server.User.banlist().then((data) => {
-      setUsers(data);
-    }).catch(catchError(Alert));
-  }, [admin, Alert, Server.User]);
+  const [refresh, setRefresh] = useState(0);
 
   // Unban user
   const unbanUser = useCallback((id: string) => () => {
     Confirm.open(t('unban'), t('unbanConfirm'), () => {
       Server.User.unban({ userId: id }).then(() => {
         Alert.open('success', t('unbanSuccess'));
+        setRefresh((current) => current + 1);
       }).catch(catchError(Alert));
     });
   }, [Alert, Confirm, Server.User, t]);
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">Banned users</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         {admin?.admin ? (
-          <Stack spacing={2}>
-            {/* Report list */}
-            <List dense>
-              {users.map((bannedUser) => (
-                <ListItem
-                  key={bannedUser.id}
-                  secondaryAction={(
-                    <IconButton edge="end" onClick={unbanUser(bannedUser.id)}>
-                      <Close />
-                    </IconButton>
-                  )}
-                >
-                  <ListItemText
-                    primary={(
-                      <Link to={`/admin-panel/user/${bannedUser.id}`}>
-                        {`${bannedUser.name} (${bannedUser.id})`}
-                      </Link>
-                    )}
-                    secondary={`${dayjs.utc(bannedUser.bannedAt).format('DD/MM/YYYY')}, reason: ${bannedUser.banReason}`}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </Stack>
+          <ServerAdminGrid
+            label="Banned users"
+            load={Server.Admin.bannedUsers}
+            refresh={refresh}
+            rowKey={(entry) => entry.id}
+            emptyMessage="No matching banned users."
+            columns={[
+              {
+                field: 'name',
+                heading: 'User',
+                render: (entry) => <Link to={`/admin-panel/user/${entry.id}`}>{entry.name}</Link>,
+              },
+              {
+                field: 'id',
+                heading: 'User ID',
+                kind: 'id' as const,
+                render: (entry) => entry.id,
+              },
+              {
+                field: 'bannedAt',
+                heading: 'Banned on',
+                kind: 'date' as const,
+                render: (entry) => entry.bannedAt ? dayjs.utc(entry.bannedAt).format('DD/MM/YYYY') : 'Unknown',
+              },
+              {
+                field: 'banReason',
+                heading: 'Reason',
+                render: (entry) => entry.banReason ?? 'Unknown',
+              },
+              {
+                field: 'actions',
+                heading: 'Actions',
+                sortable: false,
+                filterable: false,
+                align: 'right',
+                render: (entry) => (
+                  <IconButton aria-label={`Unban ${entry.name}`} onClick={unbanUser(entry.id)}>
+                    <Close />
+                  </IconButton>
+                ),
+              },
+            ]}
+          />
         ) : (
           <Text>Nice try buddy.</Text>
         )}
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

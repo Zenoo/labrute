@@ -33,6 +33,7 @@ import {
   getTieredSkills,
   getTieredWeapons,
   getXPNeeded,
+  getXPForTargetLevel,
   isNameValid,
   isUuid,
   pets,
@@ -1755,6 +1756,54 @@ export const Brutes = {
 
       res.send({
         fightsLeft,
+      });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+  grantXP: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }, unknown, { targetLevel: number }>,
+    res: Response<{ xp: number; addedXP: number }>,
+  ) => {
+    try {
+      await auth(prisma, req, { admin: true });
+
+      const brute = await traced('brutes.grantXP.findBrute', () => prisma.brute.findFirst({
+        where: {
+          id: req.params.id,
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          level: true,
+          xp: true,
+        },
+      }));
+
+      if (!brute) {
+        throw new Error('Brute not found');
+      }
+
+      const xp = getXPForTargetLevel(brute, req.body.targetLevel);
+
+      // Do not overwrite a concurrent fight reward, level-up, or admin edit.
+      const result = await traced('brutes.grantXP.updateBrute', () => prisma.brute.updateMany({
+        where: {
+          id: brute.id,
+          level: brute.level,
+          xp: brute.xp,
+          deletedAt: null,
+        },
+        data: { xp },
+      }));
+
+      if (!result.count) {
+        throw new Error('Brute changed. Reload the brute and retry.');
+      }
+
+      res.send({
+        xp,
+        addedXP: xp - brute.xp,
       });
     } catch (error) {
       sendError(res, error);

@@ -6,18 +6,16 @@ import {
   Block, ExpandLess, ExpandMore,
 } from '@mui/icons-material';
 import {
-  Box,
-  Checkbox, Collapse, FormControl, FormControlLabel, Grid,
-  InputLabel, MenuItem, Paper, Select, Stack, Table,
-  TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip,
+  Box, Checkbox, Collapse, FormControl, FormControlLabel,
+  Grid, InputLabel, MenuItem, Paper, Select,
+  Stack, Tooltip, Button, TextField,
 } from '@mui/material';
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FantasyButton } from '../../components/FantasyButton';
-import { Page } from '../../components/Page';
-import { StyledInput } from '../../components/StyledInput';
+import { AdminPage } from '../../components/admin/AdminPage';
+import { AdminGrid } from '../../components/admin/AdminGrid';
 import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
@@ -225,18 +223,16 @@ export const UserAdminView = () => {
   );
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         {admin?.admin ? (
           <Stack spacing={2}>
-            <Text bold h3 smallCaps color="secondary">User</Text>
-            <StyledInput
+            <Text bold h6 color="secondary">User</Text>
+            <TextField
+              label="User name, ID or appeal code"
               onChange={changeUserIdOrName}
               value={userIdOrName}
             />
@@ -270,7 +266,7 @@ export const UserAdminView = () => {
             )}
             {user && (
               <>
-                <Text h2 smallCaps>
+                <Text h5>
                   {user.name} ({user.id})
                   {user.bannedAt && (
                     <Tooltip title={user.banReason || ''}>
@@ -279,7 +275,7 @@ export const UserAdminView = () => {
                   )}
                 </Text>
                 <Paper sx={{ p: 2 }}>
-                  <Text h3>Account ban information</Text>
+                  <Text h6>Account ban information</Text>
                   {user.bannedAt ? <>
                     <Text>Banned at {dayjs(user.bannedAt).utc().format('YYYY-MM-DD HH:mm:ss')} UTC</Text>
                     <Text>Ban reason: {user.banReason || 'Not recorded'}</Text>
@@ -301,8 +297,8 @@ export const UserAdminView = () => {
                     </Text>
                   </>}
                 </Paper>
-                <FantasyButton color="warning" onClick={deleteAccount} disabled={!!user.bannedAt}>Delete Account</FantasyButton>
-                <FantasyButton color="warning" onClick={unban} disabled={!user.bannedAt}>Unban</FantasyButton>
+                <Button color="warning" onClick={deleteAccount} disabled={!!user.bannedAt}>Delete Account</Button>
+                <Button color="warning" onClick={unban} disabled={!user.bannedAt}>Unban</Button>
                 {!user.bannedAt && (
                   <Box sx={{
                     display: 'flex',
@@ -318,56 +314,74 @@ export const UserAdminView = () => {
                         <MenuItem key={reason} value={reason}>{t(`user:banReason.${reason}`)}</MenuItem>
                       ))}
                     </Select>
-                    <FantasyButton
+                    <Button
                       onClick={banUser}
                       color="error"
                       sx={{ m: 1 }}
                     >
                       {t('user:ban')}
-                    </FantasyButton>
+                    </Button>
                   </Box>
                 )}
-                <TableContainer component={Paper}>
+                <Paper sx={{ minWidth: 0 }}>
                   <Box sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
                   }}>
-                    <Text h3 bold upperCase typo="handwritten" sx={{ p: 2 }}>Brutes ({user.brutes.filter(brute => !brute.deletedAt).length}/{user.brutes.length})</Text>
+                    <Text h6 bold sx={{ p: 2 }}>
+                      Brutes ({user.brutes.filter((brute) => !brute.deletedAt).length}
+                      /{user.brutes.length})
+                    </Text>
                     {renderExpandButton(brutesOpen, setBrutesOpen)}
                   </Box>
-                  <Collapse in={brutesOpen}>
-                    <Table sx={{ minWidth: 650 }} size="small">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Name</TableCell>
-                          <TableCell align="right">ID</TableCell>
-                          <TableCell align="right">Deleted At</TableCell>
-                          <TableCell align="right">Deletion Reason</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {user.brutes.map((brute) => (
-                          <TableRow
-                            key={brute.id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                          >
-                            <TableCell component="th" scope="row">
+                  <Collapse in={brutesOpen} mountOnEnter>
+                    <AdminGrid
+                      key={user.id}
+                      label="Owned brutes"
+                      rows={user.brutes}
+                      columns={[
+                        {
+                          field: 'name',
+                          heading: 'Name',
+                          render: (brute, { tabIndex }) => (
+                            <Link to={`/admin-panel/brute/${brute.id}`} tabIndex={tabIndex}>
                               {brute.name}
-                            </TableCell>
-                            <TableCell align="right"><Link to={`/admin-panel/brute/${brute.id}`}>{brute.id}</Link></TableCell>
-                            <TableCell align="right">{brute.deletedAt ? dayjs(brute.deletedAt).utc().format('YYYY-MM-DD HH:mm:ss') : ''}</TableCell>
-                            <TableCell align="right">{brute.deletionReason ? t(`deletionReason.${brute.deletionReason}`) : ''}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
+                            </Link>
+                          ),
+                        },
+                        {
+                          field: 'id',
+                          heading: 'ID',
+                          minWidth: 280,
+                          render: (brute) => brute.id,
+                        },
+                        {
+                          field: 'deletedAt',
+                          heading: 'Deleted at (UTC)',
+                          kind: 'date' as const,
+                          render: (brute) => (
+                            brute.deletedAt
+                              ? dayjs.utc(brute.deletedAt).format('YYYY-MM-DD HH:mm:ss')
+                              : ''
+                          ),
+                        },
+                        {
+                          field: 'deletionReason',
+                          heading: 'Deletion reason',
+                          value: (brute) => brute.deletionReason ? t(`deletionReason.${brute.deletionReason}`) : null,
+                          render: (brute) => (
+                            brute.deletionReason ? t(`deletionReason.${brute.deletionReason}`) : ''
+                          ),
+                        },
+                      ]}
+                    />
                   </Collapse>
-                </TableContainer>
+                </Paper>
                 <UserCasePanel key={user.id} userId={user.id} />
                 <UserRelatedAccountsPanel key={`related-${user.id}`} userId={user.id} />
                 <Paper sx={{ p: 2 }}>
-                  <Text h3>Latest 25 account sanction decisions</Text>
+                  <Text h6>Latest 25 account sanction decisions</Text>
                   {securityHistory.length === 0 && <Text>No recorded account decisions.</Text>}
                   {securityHistory.length === 0 && user.bannedAt && <Text>
                     This ban has no structured audit entry. It may predate case history;
@@ -381,7 +395,7 @@ export const UserAdminView = () => {
                   ))}
                 </Paper>
                 <Grid container spacing={1}>
-                  <Grid item xs={6} sm={3}>
+                  <Grid item xs={12} sm={6} lg={3}>
                     <FormControl fullWidth>
                       <InputLabel>Language</InputLabel>
                       <Select
@@ -402,7 +416,7 @@ export const UserAdminView = () => {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={6} sm={3}>
+                  <Grid item xs={12} sm={6} lg={3}>
                     <FormControlLabel
                       control={(
                         <Checkbox
@@ -418,7 +432,7 @@ export const UserAdminView = () => {
                       label="Admin"
                     />
                   </Grid>
-                  <Grid item xs={6} sm={3}>
+                  <Grid item xs={12} sm={6} lg={3}>
                     <FormControlLabel
                       control={(
                         <Checkbox
@@ -434,7 +448,7 @@ export const UserAdminView = () => {
                       label="Moderator"
                     />
                   </Grid>
-                  <Grid item xs={6} sm={3}>
+                  <Grid item xs={12} sm={6} lg={3}>
                     <FormControlLabel
                       control={(
                         <Checkbox
@@ -450,8 +464,8 @@ export const UserAdminView = () => {
                       label="Background Music"
                     />
                   </Grid>
-                  <Grid item xs={6} sm={3}>
-                    <StyledInput
+                  <Grid item xs={12} sm={6} lg={3}>
+                    <TextField
                       label="Brute limit"
                       value={user.bruteLimit}
                       onChange={(event) => {
@@ -463,8 +477,8 @@ export const UserAdminView = () => {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={6} sm={3}>
-                    <StyledInput
+                  <Grid item xs={12} sm={6} lg={3}>
+                    <TextField
                       label="Gold"
                       value={user.gold}
                       onChange={(event) => {
@@ -476,8 +490,8 @@ export const UserAdminView = () => {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={6} sm={3}>
-                    <StyledInput
+                  <Grid item xs={12} sm={6} lg={3}>
+                    <TextField
                       label="Fight Speed"
                       value={user.fightSpeed}
                       onChange={(event) => {
@@ -489,8 +503,8 @@ export const UserAdminView = () => {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={6} sm={3}>
-                    <StyledInput
+                  <Grid item xs={12} sm={6} lg={3}>
+                    <TextField
                       label="Transfered Brutes Count"
                       value={user.transferedBrutesCount}
                       onChange={(event) => {
@@ -503,11 +517,11 @@ export const UserAdminView = () => {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <Text h3 bold upperCase typo="handwritten">{t('achievements')}</Text>
+                    <Text h6 bold>{t('achievements')}</Text>
                   </Grid>
                   {Object.keys(AchievementName).map((key) => (
-                    <Grid item xs={6} sm={3} key={key}>
-                      <StyledInput
+                    <Grid item xs={12} sm={6} lg={3} key={key}>
+                      <TextField
                         label={key}
                         value={achievements
                           .find((a) => a.name === key as AchievementName)?.count || 0}
@@ -534,7 +548,7 @@ export const UserAdminView = () => {
                     </Grid>
                   ))}
                 </Grid>
-                <FantasyButton color="success" onClick={saveUser}>Save</FantasyButton>
+                <Button color="success" onClick={saveUser}>Save</Button>
                 <Select
                   variant="filled"
                   value={item}
@@ -545,7 +559,7 @@ export const UserAdminView = () => {
                     <MenuItem key={it} value={it}>{t(`inventory:item.${it}`)}</MenuItem>
                   ))}
                 </Select>
-                <FantasyButton color="success" onClick={giveItem}>Add item</FantasyButton>
+                <Button color="success" onClick={giveItem}>Add item</Button>
               </>
             )}
           </Stack>
@@ -553,6 +567,6 @@ export const UserAdminView = () => {
           <Text>Nice try buddy.</Text>
         )}
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

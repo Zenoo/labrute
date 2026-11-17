@@ -12,6 +12,7 @@ import {
   MULTIPLE_ACCOUNT_SCORE_VERSION, scoreMultipleAccountGroup,
 } from './multipleAccountScore.js';
 import { traced } from './trace.js';
+import { adminGridQuery } from './adminGridQuery.js';
 
 const RULE_VERSION = 1;
 const PAGE_SIZE = 25;
@@ -134,7 +135,7 @@ export const createMultipleAccountCases = async (
 };
 
 export const listMultipleAccountCases = async (
-  prisma: PrismaClient, status: unknown = 'open', cursor?: unknown, userId?: unknown,
+  prisma: PrismaClient, status: unknown = 'open', cursor?: unknown, userId?: unknown, rawGrid?: unknown,
 ): Promise<UserMultipleAccountsListResponse> => {
   if ((!validStatus(status) && status !== 'processed' && status !== 'all')
     || (cursor !== undefined && !validId(cursor))
@@ -142,13 +143,20 @@ export const listMultipleAccountCases = async (
     throw new ExpectedError('Invalid case filter or cursor');
   }
 
+  const grid = adminGridQuery(rawGrid, {
+    signal: 'text',
+    accountCount: 'number',
+    detectedAt: 'date',
+  });
+
   const rows = await traced('multipleAccountCases.list', () => prisma.multipleAccountCase.findMany({
     where: {
       ...(status !== 'all' ? { status: String(status) } : {}),
       ...(typeof userId === 'string' ? { userIds: { has: userId.toLowerCase() } } : {}),
+      ...grid.where,
     },
     select: summary,
-    orderBy: [{ detectedAt: 'desc' }, { id: 'desc' }],
+    orderBy: grid.orderBy ?? [{ detectedAt: 'desc' }, { id: 'desc' }],
     take: PAGE_SIZE + 1,
     ...(typeof cursor === 'string' ? {
       cursor: { id: cursor },

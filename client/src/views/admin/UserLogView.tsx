@@ -1,24 +1,22 @@
 import { UserLogsListResponse } from '@labrute/core';
 import { UserLogType } from '@labrute/prisma';
 import {
-  Autocomplete, Chip, Paper, Stack, TextField,
+  Autocomplete, Button, Chip, Paper, Stack, TextField,
 } from '@mui/material';
-import { Box } from '@mui/system';
 import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
-import { FantasyButton } from '../../components/FantasyButton';
 import { Link } from '../../components/Link';
 import { Loader } from '../../components/Loader';
-import { Page } from '../../components/Page';
+import { AdminPage } from '../../components/admin/AdminPage';
+import { AdminGrid, useAdminGridModels } from '../../components/admin/AdminGrid';
 import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
-const renderLog = (log: UserLogsListResponse[number]) => {
+const renderLog = (log: UserLogsListResponse['logs'][number]) => {
   switch (log.type) {
     case UserLogType.CONNECT: {
       return (
@@ -109,7 +107,6 @@ const renderLog = (log: UserLogsListResponse[number]) => {
 };
 
 export const UserLogView = () => {
-  const { t } = useTranslation('admin');
   const Alert = useAlert();
   const { user } = useAuth();
   const { userId } = useParams();
@@ -117,52 +114,67 @@ export const UserLogView = () => {
 
   const [userIds, setUserIds] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(1);
-  const [logs, setLogs] = React.useState<UserLogsListResponse>([]);
+  const models = useAdminGridModels(() => setPage(1));
+  const { query } = models;
+  const [result, setResult] = React.useState<UserLogsListResponse | null>(null);
   const [loading, setLoading] = React.useState(false);
+  const [failed, setFailed] = React.useState(false);
+  const [retry, setRetry] = React.useState(0);
 
-  // Add userId from URL
   useEffect(() => {
-    if (userId) {
-      setUserIds([userId]);
-    }
+    setUserIds(userId ? [userId] : []);
+    setPage(1);
   }, [userId]);
 
-  // Trigger logs fetch when userIds changes (debounced for 1s)
   useEffect(() => {
-    if (!userIds.length) {
-      setLogs([]);
-      setPage(1);
+    setResult(null);
+    setFailed(false);
 
-      return () => { };
+    if (!user?.admin || !userIds.length) {
+      setLoading(false);
+
+      return undefined;
     }
 
-    const timeout = setTimeout(() => {
-      setLoading(true);
-      Server.UserLog.list({
-        userIds,
-        page,
-      }).then((l) => {
-        setLogs((prev) => [...prev, ...l]);
-      }).catch(catchError(Alert)).finally(() => {
-        setLoading(false);
-      });
-    }, 1000);
+    let active = true;
 
-    return () => clearTimeout(timeout);
-  }, [Alert, userIds, page, Server.UserLog]);
+    setLoading(true);
+    Server.UserLog.list({
+      userIds,
+      page,
+      grid: query,
+    }).then((data) => {
+      if (active) {
+        setResult(data);
+      }
+    }).catch((error) => {
+      if (active) {
+        setFailed(true);
+        catchError(Alert, error);
+      }
+    })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [Alert, user?.admin, userIds, page, query, retry, Server.UserLog]);
+
+  const emptyMessage = result ? 'No matching log entries.' : undefined;
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
-        {user && (
+        {user?.admin && (
           <Stack spacing={2}>
-            <Text bold h3 smallCaps color="secondary">User logs</Text>
+            <Text bold h6 color="secondary">User logs</Text>
             <Autocomplete
               multiple
               options={[]}
@@ -189,33 +201,47 @@ export const UserLogView = () => {
                 />
               )}
             />
-            {loading ? <Loader /> : (
-              <Stack>
-                {logs.map((log) => (
-                  <Text key={log.id} body2>
-                    <Text component="span" bold body2 key={log.id}>[{dayjs.utc(log.date).format('YYYY-MM-DD HH:mm:ss')}]</Text>
-                    {' '}
-                    {renderLog(log)}
-                  </Text>
-                ))}
-                {/* Load more */}
-                <Box sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}>
-                  <FantasyButton
-                    color="success"
-                    onClick={() => setPage((p) => p + 1)}
-                    disabled={loading}
-                  >
-                    Load more
-                  </FantasyButton>
-                </Box>
-              </Stack>
+            {loading && <Loader />}
+            {failed && (
+              <Button onClick={() => setRetry((value) => value + 1)}>
+                Unable to load user logs. Retry
+              </Button>
             )}
+            <AdminGrid
+              label="User logs"
+              models={models}
+              rows={result?.logs ?? []}
+              rowKey={(log) => log.id}
+              busy={loading}
+              paging={{
+                page: page - 1,
+                hasNext: result?.hasNext ?? false,
+                onPageChange: (nextPage) => {
+                  if (!loading) {
+                    setPage(nextPage + 1);
+                  }
+                },
+              }}
+              emptyMessage={userIds.length === 0 ? 'Enter a user ID to view logs.' : emptyMessage}
+              columns={[
+                {
+                  field: 'date',
+                  heading: 'Date (UTC)',
+                  kind: 'date' as const,
+                  render: (log) => dayjs.utc(log.date).format('YYYY-MM-DD HH:mm:ss'),
+                },
+                {
+                  field: 'type',
+                  heading: 'Event',
+                  kind: 'select',
+                  valueOptions: Object.values(UserLogType),
+                  render: renderLog,
+                },
+              ]}
+            />
           </Stack>
         )}
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

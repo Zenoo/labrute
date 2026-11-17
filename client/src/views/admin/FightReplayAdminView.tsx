@@ -1,13 +1,13 @@
 import { Fighter, FightGetResponse } from '@labrute/core';
 import {
   Alert as MuiAlert, Box, Paper, Stack, TextField,
+  Button,
 } from '@mui/material';
 import React, {
   useCallback, useMemo, useState,
 } from 'react';
 import { FightComponent } from '../../components/Arena/FightComponent';
-import { FantasyButton } from '../../components/FantasyButton';
-import { Page } from '../../components/Page';
+import { AdminPage } from '../../components/admin/AdminPage';
 import { Text } from '../../components/Text';
 
 const getReplayFighterIds = (fighters: Fighter[]): [string | null, string | null] => {
@@ -102,13 +102,10 @@ export const FightReplayAdminView = () => {
   }, []);
 
   return (
-    <Page headerUrl="/admin-panel">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">Fight Replay</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         <Stack spacing={2}>
           <Text bold>
@@ -131,8 +128,8 @@ export const FightReplayAdminView = () => {
             justifyContent: 'center',
             flexWrap: 'wrap',
           }}>
-            <FantasyButton color="success" onClick={onReplay} disabled={!canReplay}>Replay</FantasyButton>
-            <FantasyButton color="warning" onClick={onClear}>Clear</FantasyButton>
+            <Button color="success" onClick={onReplay} disabled={!canReplay}>Replay</Button>
+            <Button color="warning" onClick={onClear}>Clear</Button>
           </Box>
 
           {error && (
@@ -148,6 +145,6 @@ export const FightReplayAdminView = () => {
           )}
         </Stack>
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

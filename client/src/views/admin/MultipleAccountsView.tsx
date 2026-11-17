@@ -3,11 +3,13 @@ import type {
   UserMultipleAccountsListResponse,
 } from '@labrute/core';
 import {
-  Button, MenuItem, Paper, Stack, TextField, Typography,
+  Button, MenuItem, Paper, Stack, TextField,
+  Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { MultipleAccountCaseEvidence } from '../../components/admin/MultipleAccountCaseEvidence';
-import { Page } from '../../components/Page';
+import { AdminPage } from '../../components/admin/AdminPage';
+import { AdminGrid, useAdminGridModels } from '../../components/admin/AdminGrid';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
 import { useServer } from '../../hooks/useServer';
@@ -66,6 +68,8 @@ export const MultipleAccountsView = () => {
   const [saving, setSaving] = useState(false);
   const [refresh, setRefresh] = useState(0);
 
+  const models = useAdminGridModels(() => setCursors([undefined]));
+  const { query } = models;
   const cursor = cursors[cursors.length - 1];
   const offset = offsets[offsets.length - 1] ?? 0;
 
@@ -98,7 +102,7 @@ export const MultipleAccountsView = () => {
       nextCursor: null,
     });
 
-    Server.User.multipleAccounts(status, cursor).then((data) => {
+    Server.User.multipleAccounts(status, cursor, undefined, query).then((data) => {
       if (active) {
         setList(data);
       }
@@ -117,7 +121,7 @@ export const MultipleAccountsView = () => {
     return () => {
       active = false;
     };
-  }, [admin?.admin, Server.User, Alert, status, cursor, refresh]);
+  }, [admin?.admin, Server.User, Alert, status, cursor, query, refresh]);
 
   useEffect(() => {
     setDetail(null);
@@ -175,9 +179,9 @@ export const MultipleAccountsView = () => {
   };
 
   return (
-    <Page headerUrl="/">
+    <AdminPage>
       <Paper sx={{
-        mx: 4,
+        mx: 0,
         p: 2,
       }}>
         <Stack spacing={2}>
@@ -203,6 +207,7 @@ export const MultipleAccountsView = () => {
             setOffsets([0]);
             setReason('');
             setStatus('all');
+            setCursors([undefined]);
             setSearchParams({ case: code });
             setRefresh((value) => value + 1);
           }}>
@@ -228,31 +233,78 @@ export const MultipleAccountsView = () => {
           {listFailed && <Button onClick={() => setRefresh((value) => value + 1)}>
             Unable to load cases. Retry
           </Button>}
-          {!loading && !listFailed && !list.cases.length && (
-            <Typography>No cases in this status.</Typography>
-          )}
-          {list.cases.map((item) => (
-            <Button key={item.id} variant={selected === item.id ? 'contained' : 'outlined'}
-              disabled={saving}
-              onClick={() => {
-                setSelected(item.id);
-                setOffsets([0]);
-                setReason('');
-              }}>
-              {item.signal} - {item.accountCount} accounts
-              {' - '}{item.scoreEvidence ? `${item.scoreEvidence.percentage}% suspicion` : 'Score unavailable'}
-              {' - '}{new Date(item.detectedAt).toLocaleString()}
-            </Button>
-          ))}
-          <Stack direction="row" spacing={1}>
-            <Button disabled={loading || saving || cursors.length === 1}
-              onClick={() => setCursors((values) => values.slice(0, -1))}>Previous cases</Button>
-            <Button disabled={loading || saving || !list.nextCursor} onClick={() => {
-              if (list.nextCursor) {
-                setCursors((values) => [...values, list.nextCursor ?? undefined]);
-              }
-            }}>Next cases</Button>
-          </Stack>
+          <AdminGrid
+            label="Multiple-account cases"
+            models={models}
+            rows={list.cases}
+            rowKey={(item) => item.id}
+            busy={loading}
+            paging={{
+              page: cursors.length - 1,
+              pageSize: 25,
+              hasNext: list.nextCursor !== null,
+              onPageChange: (page) => {
+                if (loading || saving) {
+                  return;
+                }
+
+                if (page === cursors.length - 2) {
+                  setCursors((values) => values.slice(0, -1));
+                } else if (page === cursors.length && list.nextCursor) {
+                  const { nextCursor } = list;
+
+                  setCursors((values) => [...values, nextCursor]);
+                }
+              },
+            }}
+            emptyMessage={loading || listFailed ? undefined : 'No cases in this status.'}
+            columns={[
+              {
+                field: 'signal',
+                heading: 'Signal',
+                render: (item) => item.signal,
+              },
+              {
+                field: 'accountCount',
+                heading: 'Accounts',
+                kind: 'number' as const,
+                align: 'right',
+                render: (item) => item.accountCount,
+              },
+              {
+                field: 'scoreEvidence',
+                heading: 'Suspicion',
+                sortable: false,
+                filterable: false,
+                render: (item) => item.scoreEvidence ? `${item.scoreEvidence.percentage}% suspicion` : 'Score unavailable',
+              },
+              {
+                field: 'detectedAt',
+                heading: 'Detected on',
+                kind: 'date' as const,
+                render: (item) => new Date(item.detectedAt).toLocaleString(),
+              },
+              {
+                field: 'actions',
+                heading: 'Actions',
+                sortable: false,
+                filterable: false,
+                align: 'right',
+                render: (item) => (
+                  <Button variant={selected === item.id ? 'contained' : 'outlined'}
+                    aria-pressed={selected === item.id}
+                    disabled={saving}
+                    onClick={() => {
+                      setSelected(item.id);
+                      setOffsets([0]);
+                      setReason('');
+                    }}>
+                    Review case
+                  </Button>
+                ),
+              },
+            ]}
+          />
           {selected && !detail && (detailLoading
             ? <Typography>Loading evidence...</Typography>
             : <Button onClick={() => setRefresh((value) => value + 1)}>Retry evidence</Button>)}
@@ -284,6 +336,6 @@ export const MultipleAccountsView = () => {
           </>}
         </Stack>
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

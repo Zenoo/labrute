@@ -1,5 +1,6 @@
 import {
   AchievementGetRankingsResponse, AchievementsGetResponse,
+  AdminGridQuery, AdminListPage, AdminListRows,
   BanBrowserRequest,
   BanFingerprintRequest,
   BruteDeleteRequest,
@@ -11,7 +12,6 @@ import {
   BrutesGetForRankResponse, BrutesGetForVersusResponse, BrutesGetLevelUpChoicesResponse,
   BrutesGetNeighborsForRankRequest, BrutesGetNeighborsForRankResponse,
   BrutesGetOpponentsResponse, BrutesGetPupilsResponse, BrutesGetRankingResponse,
-  BrutesListBannedWordsResponse,
   BrutesRemoveBannedWordRequest,
   BruteUnlockColorRequest,
   BruteUnlockColorResponse, BruteUpdateEventRoundWatchedResponse,
@@ -32,7 +32,7 @@ import {
   OAuthTokenRequest, ServerHookBrute, ServerReadyResponse, TournamentHistoryResponse,
   TournamentsGetDailyResponse, TournamentsGetGlobalResponse, TournamentsUpdateStepWatchedResponse,
   TournementsUpdateGlobalRoundWatchedResponse, UnbanBrowserRequest,
-  UnbanFingerprintRequest, UserBannedListResponse,
+  UnbanFingerprintRequest,
   UserDeleteAccountRequest,
   UserGetAdminRequest,
   UserGetAdminResponse, UserGetNextModifiersResponse, UserGetProfileResponse,
@@ -55,12 +55,27 @@ import { Fetch } from './Fetch';
 import { GetResult } from '@fingerprintjs/fingerprintjs';
 import { formatFP } from './fingerprint';
 
+const adminList = <Collection extends keyof AdminListRows>(collection: Collection) => (
+  page: number,
+  grid: AdminGridQuery,
+) => Fetch<AdminListPage<AdminListRows[Collection]>>(`/api/admin/list/${collection}`, {
+  page,
+  grid: JSON.stringify(grid),
+});
+
 export const Server = {
   isReady: () => Fetch<ServerReadyResponse>('/api/is-ready'),
   csrf: () => Fetch<{ csrfToken: string }>('/api/csrf'),
   fpe: (data: GetResult) => Fetch<GetFingerprintResponse>('/api/fpe', { data: formatFP(data) }, 'POST'),
   OAuth: {
     token: (body: OAuthTokenRequest) => Fetch<UsersAuthenticateResponse>('/api/oauth/token', body, 'POST'),
+  },
+  Admin: {
+    users: adminList('users'),
+    bannedUsers: adminList('banned-users'),
+    brutes: adminList('brutes'),
+    clans: adminList('clans'),
+    bannedWords: adminList('banned-words'),
   },
   User: {
     authenticate: (params: UsersAuthenticateRequest) => Fetch<UsersAuthenticateResponse>('/api/user/authenticate', params, 'POST'),
@@ -78,9 +93,8 @@ export const Server = {
     getDinoRpgRewards: () => Fetch<never>('/api/user/get-dinorpg-reward', {}, 'PATCH'),
     ban: (data: UsersBanRequest) => Fetch<never>('/api/user/ban', data, 'PATCH'),
     unban: (data: UsersUnbanRequest) => Fetch<never>('/api/user/unban', data, 'PATCH'),
-    banlist: () => Fetch<UserBannedListResponse>('/api/user/banlist'),
     multipleAccounts: (
-      status: MultipleAccountCaseStatus, cursor?: string, userId?: string,
+      status: MultipleAccountCaseStatus, cursor?: string, userId?: string, grid?: AdminGridQuery,
     ) => Fetch<
       UserMultipleAccountsListResponse
     >(
@@ -88,6 +102,7 @@ export const Server = {
         status,
         ...(cursor ? { cursor } : {}),
         ...(userId ? { userId } : {}),
+        ...(grid ? { grid: JSON.stringify(grid) } : {}),
       },
     ),
     multipleAccountCase: (id: string, offset = 0) => Fetch<MultipleAccountCaseDetailResponse>(
@@ -155,6 +170,7 @@ export const Server = {
     ascend: (name: string, data: { weapon?: WeaponName, skill?: SkillName, pet?: PetName }) => Fetch<never>(`/api/brute/${name}/ascend`, { data }, 'PATCH'),
     getDestiny: (name: string) => Fetch<BrutesGetDestinyResponse>(`/api/brute/${name}/destiny`),
     getFightsLeft: (name: string) => Fetch<BrutesGetFightsLeftResponse>(`/api/brute/${name}/fights-left`),
+    grantXP: (id: string, targetLevel: number) => Fetch<{ xp: number; addedXP: number }>(`/api/brute/${id}/grant-xp`, { targetLevel }, 'POST'),
     adminUpdate: (name: string, data: Prisma.BruteUncheckedUpdateInput) => Fetch<never>(`/api/brute/${name}/admin-update`, data, 'PUT'),
     restore: (id: string) => Fetch<never>(`/api/brute/${id}/restore`, {}, 'PUT'),
     favorite: (name: string) => Fetch<never>(`/api/brute/${name}/favorite`, {}, 'PATCH'),
@@ -173,7 +189,6 @@ export const Server = {
     getClanIdAsMaster: (name: string) => Fetch<BrutesGetClanIdAsMasterResponse>(`/api/brute/${name}/master-clan-id`),
     updateEventRoundWatched: (name: string, fight: string) => Fetch<BruteUpdateEventRoundWatchedResponse>(`/api/brute/${name}/update-event-round-watched/${fight}`, {}, 'PUT'),
     delete: (data: BruteDeleteRequest) => Fetch<never>(`/api/brute/id/${data.id}`, {}, 'DELETE'),
-    listBannedWords: () => Fetch<BrutesListBannedWordsResponse>('/api/brute/banned-words'),
     removeBannedWord: (data: BrutesRemoveBannedWordRequest) => Fetch<never>('/api/brute/banned-words', data, 'DELETE'),
     addBannedWord: (data: BrutesAddBannedWordRequest) => Fetch<never>('/api/brute/banned-words', data, 'PUT'),
     getPupils: (name: string) => Fetch<BrutesGetPupilsResponse>(`/api/brute/${name}/pupils`),
@@ -215,7 +230,14 @@ export const Server = {
     getRankings: (byUser: boolean) => Fetch<AchievementGetRankingsResponse>('/api/achievements/rankings/all', { byUser }),
   },
   BruteReport: {
-    list: (status: BruteReportStatus, page: number) => Fetch<BruteReportsListResponse>(`/api/report/list/${status}/${page}`),
+    list: (
+      status: BruteReportStatus, cursor: string | null = null, grid?: AdminGridQuery,
+    ) => Fetch<BruteReportsListResponse>(
+      `/api/report/list/${status}`, {
+        ...(cursor ? { cursor } : {}),
+        ...(grid ? { grid: JSON.stringify(grid) } : {}),
+      },
+    ),
     send: (name: string, reason: BruteReportReason) => Fetch<never>(`/api/report/send/${name}/${reason}`, {}, 'PUT'),
     accept: (id: string) => Fetch<never>(`/api/report/${id}/accept`, {}, 'PATCH'),
     reject: (id: string) => Fetch<never>(`/api/report/${id}/reject`, {}, 'PATCH'),

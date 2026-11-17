@@ -1,12 +1,12 @@
 import {
   Autocomplete, Chip, Paper, Stack, TextField,
+  Button,
 } from '@mui/material';
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
-import { useTranslation } from 'react-i18next';
-import { FantasyButton } from '../../components/FantasyButton';
-import { Page } from '../../components/Page';
+import { AdminPage } from '../../components/admin/AdminPage';
+import { AdminGrid } from '../../components/admin/AdminGrid';
 import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useServer } from '../../hooks/useServer';
@@ -15,7 +15,6 @@ import { Loader } from '../../components/Loader';
 import { GetSharedBrowserResponse, isUuid } from '@labrute/core';
 
 export const SharedBrowserView = () => {
-  const { t } = useTranslation('admin');
   const Alert = useAlert();
   const Server = useServer();
 
@@ -119,16 +118,13 @@ export const SharedBrowserView = () => {
   }, [Alert, Server.User, browserId, updateData]);
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         <Stack spacing={2}>
-          <Text bold h3 smallCaps color="secondary">Shared Browser</Text>
+          <Text bold h6 color="secondary">Shared Browser</Text>
           <TextField
             label="Browser ID"
             value={browserId}
@@ -173,7 +169,7 @@ export const SharedBrowserView = () => {
                 fullWidth
               />
             </>)}
-          <FantasyButton
+          <Button
             color="success"
             onClick={saveSharedBrowser}
             disabled={
@@ -181,26 +177,55 @@ export const SharedBrowserView = () => {
             }
           >
             Save
-          </FantasyButton>
-          <FantasyButton
+          </Button>
+          <Button
             color="error"
             onClick={deleteSharedBrowser}
             disabled={loading || browserId.length !== 36 || !isUuid(browserId)}
           >
             Delete
-          </FantasyButton>
+          </Button>
           <Text bold>Review history (latest 100 decisions)</Text>
-          {history.map((action) => (
-            <Paper key={action.id} sx={{ p: 1 }}>
-              <Text>{`${action.action}: ${action.userId ?? action.subjectId}`}</Text>
-              <Text>{action.reason}</Text>
-              <Text>
-                {`${new Date(action.createdAt).toLocaleString()} — ${action.actorId ?? 'Legacy / unknown reviewer'}`}
-              </Text>
-            </Paper>
-          ))}
+          <AdminGrid
+            key={browserId}
+            label="Shared browser review history"
+            rows={history}
+            rowKey={(entry) => entry.id}
+            busy={loading}
+            emptyMessage={loading ? 'Loading review history...' : 'No matching review decisions.'}
+            columns={[
+              {
+                field: 'action',
+                heading: 'Action',
+                render: (entry) => entry.action,
+              },
+              {
+                field: 'subjectId',
+                heading: 'Account or subject',
+                value: (entry) => entry.userId ?? entry.subjectId,
+                render: (entry) => entry.userId ?? entry.subjectId,
+              },
+              {
+                field: 'reason',
+                heading: 'Reason',
+                render: (entry) => entry.reason,
+              },
+              {
+                field: 'actorId',
+                heading: 'Reviewer',
+                render: (entry) => entry.actorId ?? 'Legacy / unknown reviewer',
+              },
+              {
+                field: 'createdAt',
+                heading: 'Date',
+                kind: 'date',
+                value: (entry) => new Date(entry.createdAt),
+                render: (entry) => new Date(entry.createdAt).toLocaleString(),
+              },
+            ]}
+          />
         </Stack>
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

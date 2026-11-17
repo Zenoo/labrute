@@ -29,6 +29,7 @@
     "@mui/icons-material": "^5.14.19",
     "@mui/material": "^5.14.20",
     "@mui/system": "^5.14.20",
+    "@mui/x-data-grid": "8.28.0",
     "@mui/x-date-pickers": "^6.18.3",
     "@pixi/sound": "^6.0.1",
     "@visx/heatmap": "^4.0.0",

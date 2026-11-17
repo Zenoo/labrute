@@ -2,13 +2,14 @@ import { KnownFingerprintListResponse } from '@labrute/core';
 import { Add, Close } from '@mui/icons-material';
 import {
   Box, Button, Dialog, DialogActions, DialogContent, DialogTitle,
-  IconButton, List, ListItem, ListItemText, Paper, Stack, TextField,
+  IconButton, Paper, Stack, TextField,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, {
   useCallback, useEffect, useState,
 } from 'react';
-import { Page } from '../components/Page';
+import { AdminPage } from '../components/admin/AdminPage';
+import { AdminGrid } from '../components/admin/AdminGrid';
 import { Text } from '../components/Text';
 import { useAlert } from '../hooks/useAlert';
 import { useAuth } from '../hooks/useAuth';
@@ -76,13 +77,10 @@ export const KnownFingerprintsView = () => {
   }, [Alert, Server.User, newFingerprint, newDescription]);
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">Known Fingerprints</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         {admin?.admin ? (
           <Stack spacing={2}>
@@ -99,24 +97,42 @@ export const KnownFingerprintsView = () => {
                 Add Known Fingerprint
               </Button>
             </Box>
-            {/* Fingerprint list */}
-            <List dense>
-              {fingerprints.map((fp) => (
-                <ListItem
-                  key={fp.id}
-                  secondaryAction={(
-                    <IconButton edge="end" onClick={removeFingerprint(fp.id)}>
+            <AdminGrid
+              label="Known fingerprints"
+              rows={fingerprints}
+              rowKey={(entry) => entry.id}
+              emptyMessage="No matching known fingerprints."
+              columns={[
+                {
+                  field: 'id',
+                  heading: 'Fingerprint',
+                  render: (entry) => entry.id,
+                },
+                {
+                  field: 'description',
+                  heading: 'Description',
+                  render: (entry) => entry.description || 'No description',
+                },
+                {
+                  field: 'createdAt',
+                  heading: 'Added on',
+                  kind: 'date' as const,
+                  render: (entry) => dayjs.utc(entry.createdAt).format('DD/MM/YYYY'),
+                },
+                {
+                  field: 'actions',
+                  heading: 'Actions',
+                  sortable: false,
+                  filterable: false,
+                  align: 'right',
+                  render: (entry) => (
+                    <IconButton aria-label="Remove known fingerprint" onClick={removeFingerprint(entry.id)}>
                       <Close />
                     </IconButton>
-                  )}
-                >
-                  <ListItemText
-                    primary={`${fp.id.slice(0, 40)}${fp.id.length > 40 ? '...' : ''}`}
-                    secondary={`${fp.description || 'No description'} - Added: ${dayjs.utc(fp.createdAt).format('DD/MM/YYYY')}`}
-                  />
-                </ListItem>
-              ))}
-            </List>
+                  ),
+                },
+              ]}
+            />
           </Stack>
         ) : (
           <Text>Nice try buddy.</Text>
@@ -151,6 +167,6 @@ export const KnownFingerprintsView = () => {
           <Button onClick={handleAddFingerprint} variant="contained">Add</Button>
         </DialogActions>
       </Dialog>
-    </Page>
+    </AdminPage>
   );
 };

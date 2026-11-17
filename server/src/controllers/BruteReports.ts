@@ -14,6 +14,8 @@ import { ilike } from '../utils/ilike.js';
 import { sendError } from '../utils/sendError.js';
 import { translate } from '../utils/translate.js';
 import { traced } from '../utils/trace.js';
+import { encodeReportCursor, reportContinuation } from '../utils/reportPagination.js';
+import { adminGridQuery } from '../utils/adminGridQuery.js';
 
 export const BruteReports = {
   list: (prisma: PrismaClient) => async (
@@ -23,13 +25,38 @@ export const BruteReports = {
     try {
       await auth(prisma, req, { moderator: true });
 
-      // Get reports
+      if (!Object.values(BruteReportStatus).includes(req.params.status)) {
+        throw new Error('Invalid report status');
+      }
+
+      const grid = adminGridQuery(req.query.grid, {
+        bruteName: 'text',
+        count: 'number',
+        date: 'date',
+        handledAt: 'nullableDate',
+      });
+
+      const continuation = reportContinuation(req.query.cursor, req.params.status, grid.sort);
+
+      const handledOrder = [{
+        handledAt: {
+          sort: grid.sort?.direction ?? 'desc' as const,
+          nulls: 'last' as const,
+        },
+      }, { id: 'desc' as const }];
+
+      const orderBy = grid.orderBy ?? (req.params.status === BruteReportStatus.pending
+        ? [{ count: 'desc' }, { date: 'desc' }, { id: 'desc' }] as const
+        : handledOrder);
+
+      // Fetch one extra row to distinguish a full final page from more results.
       const reports = await traced('bruteReports.list.getReports', () => prisma.bruteReport.findMany({
         where: {
           status: req.params.status,
+          ...continuation,
+          ...(grid.filter ? { AND: grid.where } : {}),
         },
-        take: 20,
-        skip: +req.params.page * 20,
+        take: 21,
         include: {
           brute: {
             select: {
@@ -50,18 +77,18 @@ export const BruteReports = {
             },
           },
         },
-        // Order by count for pending, by handledAt for others
-        orderBy: req.params.status === BruteReportStatus.pending
-          ? [{ count: 'desc' }, { date: 'desc' }]
-          : {
-            handledAt: {
-              sort: 'desc',
-              nulls: 'last',
-            },
-          },
+        orderBy: grid.sort?.field === 'handledAt' ? handledOrder : [...orderBy],
       }));
 
-      res.status(200).send(reports);
+      const page = reports.slice(0, 20);
+      const last = page[page.length - 1];
+
+      res.status(200).send({
+        reports: page,
+        nextCursor: reports.length > 20 && last
+          ? encodeReportCursor(last, req.params.status, grid.sort)
+          : null,
+      });
     } catch (error) {
       sendError(res, error);
     }

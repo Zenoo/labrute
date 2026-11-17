@@ -2,17 +2,19 @@ import { BruteReportWithNames } from '@labrute/core';
 import { BruteReportStatus } from '@labrute/prisma';
 import { Check, Close } from '@mui/icons-material';
 import {
-  Box, FormControl, FormControlLabel, FormLabel,
-  IconButton, List, ListItem, ListItemText, Paper, Radio, RadioGroup, Stack, TextField, Tooltip,
+  Alert as MuiAlert, CircularProgress, Box, FormControl, FormControlLabel,
+  FormLabel, IconButton,
+  Paper, Radio, RadioGroup, Stack, TextField,
+  Tooltip, Button,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import React, {
-  Fragment, useCallback, useEffect,
+  Fragment, useCallback, useEffect, useRef,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FantasyButton } from '../../components/FantasyButton';
 import { Link } from '../../components/Link';
-import { Page } from '../../components/Page';
+import { AdminPage } from '../../components/admin/AdminPage';
+import { AdminGrid, useAdminGridModels } from '../../components/admin/AdminGrid';
 import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
@@ -24,67 +26,150 @@ export const ReportAdminView = () => {
   const Alert = useAlert();
   const Server = useServer();
 
-  const [newBanndedWord, setNewBannedWord] = React.useState('');
+  const [newBannedWord, setNewBannedWord] = React.useState('');
   const [reports, setReports] = React.useState<BruteReportWithNames[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [lastPage, setLastPage] = React.useState(false);
+  const [refresh, setRefresh] = React.useState(0);
+  const [pageCursors, setPageCursors] = React.useState<(string | null)[]>([null]);
+  const [nextCursor, setNextCursor] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState(false);
+  const [failedPage, setFailedPage] = React.useState<(string | null)[] | null>(null);
+  const [busyReports, setBusyReports] = React.useState<string[]>([]);
+  const generation = useRef(0);
+  const inFlight = useRef(false);
+  const actions = useRef(new Set<string>());
   const [status, setStatus] = React.useState<BruteReportStatus>(BruteReportStatus.pending);
   const { user } = useAuth();
 
-  // Trigger reports fetch when status or page changes (debounced)
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      if (!user?.admin && !user?.moderator) {
+  const models = useAdminGridModels(() => setPageCursors([null]));
+  const { query } = models;
+
+  const loadReports = useCallback(async (targetPage: (string | null)[]) => {
+    if (inFlight.current || (!user?.admin && !user?.moderator)) {
+      return;
+    }
+
+    const requestGeneration = generation.current;
+
+    inFlight.current = true;
+    setLoading(true);
+    setFailedPage(null);
+
+    try {
+      const cursor = targetPage[targetPage.length - 1] ?? null;
+      const data = await Server.BruteReport.list(status, cursor, query);
+
+      if (requestGeneration !== generation.current) {
         return;
       }
 
-      Server.BruteReport.list(status, page).then((data) => {
-        setReports((prev) => prev.concat(
-          // Filter out reports already in the list (solves possible desync if report created between requests)
-          data.filter((report) => !prev.find((prevReport) => prevReport.id === report.id)),
-        ));
+      setReports(data.reports);
+      setPageCursors(targetPage);
+      setNextCursor(data.nextCursor);
+    } catch (error) {
+      if (requestGeneration === generation.current) {
+        setFailedPage(targetPage);
+        catchError(Alert, error);
+      }
+    } finally {
+      if (requestGeneration === generation.current) {
+        inFlight.current = false;
+        setLoading(false);
+      }
+    }
+  }, [Alert, Server.BruteReport, status, query, user?.admin, user?.moderator]);
 
-        // Set last page
-        setLastPage(data.length < 20);
-      }).catch(catchError(Alert));
-    }, 200);
-
-    return () => clearTimeout(handler);
-  }, [user, status, Alert, page, Server.BruteReport]);
-
-  // Change status
-  const changeStatus = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setPage(0);
+  useEffect(() => {
     setReports([]);
-    setStatus(e.target.value as BruteReportStatus);
-  }, []);
+    setPageCursors([null]);
+    setNextCursor(null);
+    void loadReports([null]);
 
-  // Accept report
-  const acceptReport = useCallback((reportId: string) => () => {
-    Server.BruteReport.accept(reportId).then(() => {
-      setReports((r) => r.filter((report) => report.id !== reportId));
+    return () => {
+      // Ignore responses from the previous filter, including its loading state.
+      generation.current += 1;
+      inFlight.current = false;
+    };
+  }, [loadReports, refresh]);
 
-      Alert.open('success', t('reportAccepted'));
-    }).catch(catchError(Alert));
-  }, [Alert, Server.BruteReport, t]);
+  const changeStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const next = event.target.value as BruteReportStatus;
 
-  // Reject report
-  const rejectReport = useCallback((reportId: string) => () => {
-    Server.BruteReport.reject(reportId).then(() => {
-      setReports((r) => r.filter((report) => report.id !== reportId));
+    if (next === BruteReportStatus.pending) {
+      if (models.filterModel.items.some(({ field }) => field === 'handledAt')) {
+        models.onFilterModelChange({
+          items: models.filterModel.items.filter(({ field }) => field !== 'handledAt'),
+        });
+      }
 
-      Alert.open('success', t('reportRejected'));
-    }).catch(catchError(Alert));
-  }, [Alert, Server.BruteReport, t]);
+      if (models.sortModel.some(({ field }) => field === 'handledAt')) {
+        models.onSortModelChange(models.sortModel.filter(({ field }) => field !== 'handledAt'));
+      }
+    }
 
-  // Cancel report
-  const cancelReport = useCallback((reportId: string) => () => {
-    Server.BruteReport.cancel(reportId).then(() => {
-      setReports((r) => r.filter((report) => report.id !== reportId));
+    setStatus(next);
+  };
 
-      Alert.open('success', t('reportCancelled'));
-    }).catch(catchError(Alert));
-  }, [Alert, Server.BruteReport, t]);
+  const handleReport = (reportId: string, action: 'accept' | 'reject' | 'cancel') => async () => {
+    if (inFlight.current || actions.current.has(reportId)) {
+      return;
+    }
+
+    actions.current.add(reportId);
+    setBusyReports((previous) => [...previous, reportId]);
+    const actionGeneration = generation.current;
+
+    try {
+      await Server.BruteReport[action](reportId);
+
+      if (actionGeneration === generation.current) {
+        setReports((previous) => previous.filter((report) => report.id !== reportId));
+      }
+
+      const messages = {
+        accept: 'reportAccepted',
+        reject: 'reportRejected',
+        cancel: 'reportCancelled',
+      };
+
+      Alert.open('success', t(messages[action]));
+    } catch (error) {
+      catchError(Alert, error);
+    } finally {
+      actions.current.delete(reportId);
+      setBusyReports((previous) => previous.filter((id) => id !== reportId));
+    }
+  };
+
+  const renderReportActions = (report: BruteReportWithNames) => {
+    if (status === BruteReportStatus.pending) {
+      return (
+        <>
+          <Tooltip title={t('accept')}>
+            <IconButton aria-label={t('accept')} color="success" disabled={loading || busyReports.includes(report.id)} onClick={handleReport(report.id, 'accept')}>
+              <Check />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t('reject')}>
+            <IconButton edge="end" aria-label={t('reject')} color="error" disabled={loading || busyReports.includes(report.id)} onClick={handleReport(report.id, 'reject')}>
+              <Close />
+            </IconButton>
+          </Tooltip>
+        </>
+      );
+    }
+
+    if (status === BruteReportStatus.accepted) {
+      return (
+        <Tooltip title={t('cancel')}>
+          <IconButton aria-label={t('cancel')} disabled={loading || busyReports.includes(report.id)} onClick={handleReport(report.id, 'cancel')}>
+            <Close />
+          </IconButton>
+        </Tooltip>
+      );
+    }
+
+    return null;
+  };
 
   // Add banned word
   const addBannedWord = useCallback(() => {
@@ -92,23 +177,21 @@ export const ReportAdminView = () => {
       return;
     }
 
-    if (!newBanndedWord) {
+    if (!newBannedWord) {
       return;
     }
 
-    Server.BruteReport.addBannedWord(newBanndedWord).then(() => {
+    Server.BruteReport.addBannedWord(newBannedWord).then(() => {
       Alert.open('success', 'Banned word added');
+      setNewBannedWord('');
     }).catch(catchError(Alert));
-  }, [Alert, newBanndedWord, user, Server.BruteReport]);
+  }, [Alert, newBannedWord, user, Server.BruteReport]);
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">Reports</Text>
-      </Paper>
+    <AdminPage>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         {(user?.admin || user?.moderator) ? (
           <Stack spacing={2}>
@@ -119,17 +202,18 @@ export const ReportAdminView = () => {
               }}>
                 <TextField
                   label="Add a banned word"
-                  value={newBanndedWord}
+                  value={newBannedWord}
                   onChange={(e) => setNewBannedWord(e.target.value)}
                   variant="standard"
                   fullWidth
                   size="small"
                   sx={{ mx: 2 }}
                 />
-                <FantasyButton color="success" onClick={addBannedWord}>Add</FantasyButton>
+                <Button color="success" disabled={!newBannedWord.trim()} onClick={addBannedWord}>Add</Button>
               </Box>
             )}
-            <FormControl>
+            <Button sx={{ alignSelf: 'flex-start' }} disabled={loading || busyReports.length > 0} onClick={() => setRefresh((previous) => previous + 1)}>Refresh reports</Button>
+            <FormControl disabled={busyReports.length > 0}>
               <FormLabel>{t('status')}</FormLabel>
               <RadioGroup
                 row
@@ -141,90 +225,107 @@ export const ReportAdminView = () => {
                 ))}
               </RadioGroup>
             </FormControl>
-            {/* Report list */}
-            <List dense>
-              {reports.map((report) => {
-                const renderReportActions = () => {
-                  if (status === BruteReportStatus.pending) {
-                    return (
-                      <>
-                        <Tooltip title={t('accept')}>
-                          <IconButton onClick={acceptReport(report.id)}>
-                            <Check />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title={t('reject')}>
-                          <IconButton edge="end" onClick={rejectReport(report.id)}>
-                            <Close />
-                          </IconButton>
-                        </Tooltip>
-                      </>
-                    );
+            <AdminGrid
+              label="Reports"
+              models={models}
+              rows={reports}
+              rowKey={(report) => report.id}
+              busy={loading}
+              paging={{
+                page: pageCursors.length - 1,
+                hasNext: nextCursor !== null,
+                onPageChange: (page) => {
+                  if (busyReports.length || loading) {
+                    return;
                   }
 
-                  if (status === BruteReportStatus.accepted) {
-                    return (
-                      <Tooltip title={t('cancel')}>
-                        <IconButton onClick={cancelReport(report.id)}>
-                          <Close />
-                        </IconButton>
-                      </Tooltip>
-                    );
+                  if (page === pageCursors.length && nextCursor !== null) {
+                    void loadReports([...pageCursors, nextCursor]);
+                  } else if (page === pageCursors.length - 2) {
+                    void loadReports(pageCursors.slice(0, -1));
                   }
+                },
+              }}
+              emptyMessage={loading || failedPage ? undefined : `No ${t(status).toLowerCase()} reports.`}
+              columns={[
+                {
+                  field: 'bruteName',
+                  heading: 'Reported brute',
+                  render: (report) => {
+                    const name = report.brute?.name ?? report.bruteName;
 
-                  return null;
-                };
-
-                return (
-                  <ListItem
-                    key={report.id}
-                    secondaryAction={renderReportActions()}
-                  >
-                    <ListItemText
-                      primary={(
-                        <Text body2>({report.count}) <Link to={`/${report.brute?.name ?? report.bruteName}`} target="_blank">{report.brute?.name ?? report.bruteName}</Link></Text>
-                      )}
-                      secondary={(
-                        <>
-                          <Text body2 component="span" display="block">
-                            [{dayjs.utc(report.date).format('DD/MM/YYYY')}] {t('reportedBy')} {report.users.map((u, index) => (
-                              <Fragment key={u.id}>
-                                {index > 0 && ', '}
-                                <Link to={`/user/${u.id}`} target="_blank">{u.name}</Link>
-                              </Fragment>
-                          ))}
-                          </Text>
-                          {status !== BruteReportStatus.pending && (
-                          <Text body2 component="span" display="block">
-                            [{dayjs.utc(report.handledAt ?? '1970-01-01').format('DD/MM/YYYY HH:mm')}] {t('handledBy')} <Link to={`/user/${report.handler?.id}`} target="_blank">{report.handler?.name ?? t('unknown')}</Link>
-                          </Text>
-                          )}
-                        </>
-                      )}
-                    />
-                  </ListItem>
-                );
-              })}
-            </List>
-            {!lastPage && (
-              <Box>
-                <FantasyButton
-                  color="success"
-                  onClick={() => setPage((prev) => prev + 1)}
-                  sx={{
-                    mx: 'auto',
-                    mt: 3,
-                  }}
-                >
-                  {t('showMore')}
-                </FantasyButton>
-              </Box>
+                    return <Link to={`/${name}`} target="_blank">{report.bruteName || name}</Link>;
+                  },
+                },
+                {
+                  field: 'count',
+                  heading: 'Count',
+                  kind: 'number' as const,
+                  align: 'right',
+                  render: (report) => report.count,
+                },
+                {
+                  field: 'date',
+                  heading: 'Reported on',
+                  kind: 'date' as const,
+                  render: (report) => dayjs.utc(report.date).format('DD/MM/YYYY'),
+                },
+                {
+                  field: 'reportedBy',
+                  heading: t('reportedBy'),
+                  sortable: false,
+                  filterable: false,
+                  render: (report) => report.users.map((reporter, index) => (
+                    <Fragment key={reporter.id}>
+                      {index > 0 && ', '}
+                      <Link to={`/user/${reporter.id}`} target="_blank">{reporter.name}</Link>
+                    </Fragment>
+                  )),
+                },
+                ...(status !== BruteReportStatus.pending ? [
+                  {
+                    field: 'handledAt',
+                    heading: 'Handled on',
+                    kind: 'date' as const,
+                    render: (report: BruteReportWithNames) => (
+                      report.handledAt ? dayjs.utc(report.handledAt).format('DD/MM/YYYY HH:mm') : t('unknown')
+                    ),
+                  },
+                  {
+                    field: 'handledBy',
+                    heading: t('handledBy'),
+                    sortable: false,
+                    filterable: false,
+                    render: (report: BruteReportWithNames) => (
+                      report.handler
+                        ? <Link to={`/user/${report.handler.id}`} target="_blank">{report.handler.name}</Link>
+                        : t('unknown')
+                    ),
+                  },
+                ] : []),
+                ...(status !== BruteReportStatus.rejected ? [{
+                  field: 'actions',
+                  heading: 'Actions',
+                  sortable: false,
+                  filterable: false,
+                  align: 'right' as const,
+                  render: renderReportActions,
+                }] : []),
+              ]}
+            />
+            {loading && <CircularProgress size={24} aria-label="Loading reports" />}
+            {failedPage && (
+              <MuiAlert severity="error" action={(
+                <Button color="inherit" disabled={busyReports.length > 0} onClick={() => void loadReports(failedPage)}>Retry</Button>
+              )}>
+                Reports could not be loaded.
+              </MuiAlert>
             )}
           </Stack>
         ) : (
           <Text>Nice try buddy.</Text>
         )}
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

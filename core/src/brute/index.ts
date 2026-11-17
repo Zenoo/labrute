@@ -27,3 +27,5 @@ export * from './pets.js';
 export * from './scaledStat.js';
 export * from './skills.js';
 export * from './weapons.js';
+
+export * from './getXPForTargetLevel.js';

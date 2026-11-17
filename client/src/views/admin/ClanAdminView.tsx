@@ -1,19 +1,18 @@
 import { ClanGetForAdminResponse } from '@labrute/core';
 import { BossName, Clan } from '@labrute/prisma';
 import {
-  Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, TextField,
+  Stack, Alert as MuiAlert, Checkbox, FormControl, FormControlLabel, Grid, InputLabel,
+  MenuItem, Paper, Select, TextField, Button,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import React, {
   useCallback, useEffect, useState,
 } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
-import { FantasyButton } from '../../components/FantasyButton';
+import { useNavigate, useParams } from 'react-router';
 import { Link } from '../../components/Link';
 import { Loader } from '../../components/Loader';
-import { Page } from '../../components/Page';
+import { AdminPage } from '../../components/admin/AdminPage';
 import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
@@ -22,8 +21,9 @@ import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
 export const ClanAdminView = () => {
-  const { t } = useTranslation('admin');
   const { clanId } = useParams();
+  const navigate = useNavigate();
+  const [searchId, setSearchId] = useState(clanId ?? '');
   const Alert = useAlert();
   const Confirm = useConfirm();
   const { user } = useAuth();
@@ -99,24 +99,36 @@ export const ClanAdminView = () => {
   }, [Alert, Confirm, Server.Clan, clan, clanId, deleting]);
 
   return (
-    <Page headerUrl="/">
-      <Paper sx={{ mx: 4 }}>
-        <Text h3 bold upperCase typo="handwritten">{t('adminPanel')}</Text>
+    <AdminPage>
+      <Paper>
+        <Stack component="form" direction={{
+          xs: 'column',
+          sm: 'row',
+        }} spacing={2} onSubmit={(event) => {
+          event.preventDefault();
+
+          if (searchId.trim()) {
+            navigate(`/admin-panel/clan/${encodeURIComponent(searchId.trim())}`);
+          }
+        }}>
+          <TextField label="Clan ID" value={searchId} onChange={(event) => setSearchId(event.target.value)} fullWidth />
+          <Button type="submit" disabled={!searchId.trim()}>Find clan</Button>
+        </Stack>
       </Paper>
       <Paper sx={{
-        bgcolor: 'background.paperLight',
-        mt: -2,
+        bgcolor: 'background.paper',
+        mt: 0,
       }}>
         {clan ? (
           <>
-            <Text h2 smallCaps>
+            <Text h5>
               <Link to={`/${user?.brutes[0]?.name}/clan/${clan.id}`}>
                 {clan.name}
               </Link>
               {' '}({clan.id})
             </Text>
             <Grid container spacing={1} sx={{ mt: 2 }}>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Name"
                   value={clan.name}
@@ -129,7 +141,7 @@ export const ClanAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <DatePicker
                   label="Deleted at"
                   value={clan.deletedAt
@@ -143,7 +155,7 @@ export const ClanAdminView = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Limit"
                   value={clan.limit}
@@ -156,7 +168,7 @@ export const ClanAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Points"
                   value={clan.points}
@@ -169,7 +181,7 @@ export const ClanAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Elo"
                   value={clan.elo}
@@ -182,7 +194,7 @@ export const ClanAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControl fullWidth>
                   <InputLabel>Boss</InputLabel>
                   <Select
@@ -203,7 +215,7 @@ export const ClanAdminView = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="Damage on boss"
                   value={clan.damageOnBoss}
@@ -216,7 +228,7 @@ export const ClanAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControl fullWidth>
                   <InputLabel>Master</InputLabel>
                   <Select
@@ -238,7 +250,7 @@ export const ClanAdminView = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <FormControlLabel
                   control={(
                     <Checkbox
@@ -255,21 +267,21 @@ export const ClanAdminView = () => {
                 />
               </Grid>
             </Grid>
-            <FantasyButton color="success" onClick={saveClan} disabled={deleting}>Save</FantasyButton>
-            <FantasyButton
+            <Button color="success" onClick={saveClan} disabled={deleting}>Save</Button>
+            <Button
               color="error"
               onClick={deleteClan}
               disabled={deleting || !!clan.deletedAt}
               sx={{ ml: 2 }}
             >
               Delete clan
-            </FantasyButton>
-            <Text h3 smallCaps sx={{ mt: 4 }}>Transfer ownership</Text>
+            </Button>
+            <Text h6 sx={{ mt: 4 }}>Transfer ownership</Text>
             <Grid container spacing={1} sx={{
               mt: 2,
               mb: 4,
             }}>
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={12} sm={6} lg={3}>
                 <TextField
                   label="New master"
                   value={newMasterId}
@@ -277,15 +289,18 @@ export const ClanAdminView = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={6} sm={3}>
-                <FantasyButton color="success" onClick={transferOwnership}>Transfer</FantasyButton>
+              <Grid item xs={12} sm={6} lg={3}>
+                <Button color="success" onClick={transferOwnership}>Transfer</Button>
               </Grid>
             </Grid>
           </>
         ) : (
-          <Loader />
+          <>
+            {clanId && <Loader />}
+            {!clanId && <MuiAlert severity="info">Enter a clan ID to manage a clan.</MuiAlert>}
+          </>
         )}
       </Paper>
-    </Page>
+    </AdminPage>
   );
 };

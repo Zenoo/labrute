@@ -5,6 +5,7 @@ import { Main } from './layouts/Main';
 import { AchievementRankingView } from './views/AchievementRankingView';
 import { AchievementsView } from './views/AchievementsView';
 import { AdminView } from './views/admin/AdminView';
+import { AdminDirectoryView } from './views/admin/AdminDirectoryView';
 import { ArenaView } from './views/ArenaView';
 import { AscendView } from './views/AscendView';
 import { BannedUsersView } from './views/BannedUsersView';
@@ -349,7 +350,15 @@ export const routes: RouteObject[] = [
             },
           },
           {
-            path: 'user/:id?',
+            path: 'user',
+            element: <AdminDirectoryView directory="user" />,
+            handle: {
+              shouldIndex: false,
+              title: 'Users',
+            },
+          },
+          {
+            path: 'user/:id',
             element: <UserAdminView />,
             handle: {
               shouldIndex: false,
@@ -397,11 +406,27 @@ export const routes: RouteObject[] = [
             },
           },
           {
-            path: 'brute/:bruteName?',
+            path: 'brute',
+            element: <AdminDirectoryView directory="brute" />,
+            handle: {
+              shouldIndex: false,
+              title: 'Brutes',
+            },
+          },
+          {
+            path: 'brute/:bruteName',
             element: <BruteAdminView />,
             handle: {
               shouldIndex: false,
               title: 'Brute Admin',
+            },
+          },
+          {
+            path: 'clan',
+            element: <AdminDirectoryView directory="clan" />,
+            handle: {
+              shouldIndex: false,
+              title: 'Clans',
             },
           },
           {
