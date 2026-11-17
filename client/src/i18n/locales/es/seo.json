@@ -1,47 +1,47 @@
 {
   "home": {
     "title": "{{brand}}",
-    "description": "Create your Brute, customize its appearance, and fight other Brutes in the arena."
+    "description": "Crea tu Bruto, personaliza su aspecto y combate contra otros Brutos en la arena."
   },
   "achievements/rankings": {
-    "title": "Achievements Ranking | {{brand}}",
-    "description": "Compare top players and their achievements."
+    "title": "Clasificación de logros | {{brand}}",
+    "description": "Compara a los mejores jugadores y sus logros."
   },
   "patch-notes": {
-    "title": "Patch Notes | {{brand}}",
-    "description": "Read the latest updates and balance changes."
+    "title": "Notas del parche | {{brand}}",
+    "description": "Lee las últimas actualizaciones y los cambios de balance."
   },
   "wiki": {
     "title": "Wiki | {{brand}}",
-    "description": "Learn mechanics, skills, and strategies."
+    "description": "Aprende mecánicas, habilidades y estrategias."
   },
   "terms": {
-    "title": "Terms of Service | {{brand}}",
-    "description": "Review terms and conditions for the game."
+    "title": "Términos de servicio | {{brand}}",
+    "description": "Revisa los términos y condiciones del juego."
   },
   "fight": {
-    "title": "Fight | {{brand}}",
-    "description": "Watch and analyze a fight."
+    "title": "Combate | {{brand}}",
+    "description": "Observa y analiza un combate."
   },
   "user": {
-    "title": "User Profile | {{brand}}",
-    "description": "View profile, brutes, and achievements."
+    "title": "Perfil del usuario | {{brand}}",
+    "description": "Ver el perfil, los brutos y los logros."
   },
   "user-stats": {
-    "title": "User Stats | {{brand}}",
-    "description": "Detailed user statistics and performance trends."
+    "title": "Estadísticas del usuario | {{brand}}",
+    "description": "Estadísticas detalladas del usuario y tendencias de rendimiento."
   },
   "cell": {
-    "title": "{{name}}'s Cell | {{brand}}",
-    "description": "View {{name}}'s cell and manage progression."
+    "title": "Celda de {{name}}| {{brand}}",
+    "description": "Ver la celda de {{name}} y gestionar su progreso."
   },
   "tournament": {
-    "title": "{{name}}'s Tournament | {{brand}}",
+    "title": "Torneo de {{name}} | {{brand}}",
     "description": "Track tournament participation and results for {{name}}."
   },
   "ranking/rank": {
     "title": "{{rank}} Ranking | {{brand}}",
-    "description": "Browse rankings and compare competitors."
+    "description": "Explorar clasificaciones y comparar competidores."
   },
   "destiny": {
     "title": "{{name}}'s Destiny | {{brand}}",
@@ -57,50 +57,50 @@
   },
   "dojo": {
     "title": "{{name}} Dojo | {{brand}}",
-    "description": "See {{name}}'s pupils."
+    "description": "Ver a los alumnos de {{name}}."
   },
   "clan-ranking": {
-    "title": "Clan Ranking | {{brand}}",
+    "title": "Clasificación de Clanes | {{brand}}",
     "description": "Browse top clans and compare their progress."
   },
   "clan": {
     "title": "Clan | {{brand}}",
-    "description": "View clan information, members, and activity."
+    "description": "Ver la información del clan, sus miembros y la actividad."
   },
   "forum": {
-    "title": "Clan Forum | {{brand}}",
-    "description": "Read and discuss in the clan forum."
+    "title": "Foro del Clan | {{brand}}",
+    "description": "Lee y discute en el foro del clan."
   },
   "clan-war-history": {
-    "title": "Clan War History | {{brand}}",
-    "description": "Browse past clan wars."
+    "title": "Historial de Guerras del clan | {{brand}}",
+    "description": "Explorar las anteriores guerras del clan."
   },
   "clan-war": {
-    "title": "Clan War | {{brand}}",
-    "description": "Track a clan war and its results."
+    "title": "Guerra del Clan | {{brand}}",
+    "description": "Sigue una guerra del clan y sus resultados."
   },
   "clan-war-fight": {
-    "title": "Clan War Fight | {{brand}}",
-    "description": "View a fight from a clan war."
+    "title": "Combate de la guerra del clan | {{brand}}",
+    "description": "Mira un combate de una guerra del clan."
   },
   "current-events": {
-    "title": "Current Events | {{brand}}",
-    "description": "Discover currently active events."
+    "title": "Eventos Actuales | {{brand}}",
+    "description": "Descubre eventos activos actualmente."
   },
   "history": {
-    "title": "Event History | {{brand}}",
-    "description": "Browse previous game events."
+    "title": "Historial de eventos | {{brand}}",
+    "description": "Ver eventos previos."
   },
   "event": {
-    "title": "Event | {{brand}}",
-    "description": "Explore event details and rankings."
+    "title": "Evento | {{brand}}",
+    "description": "Explora los detalles y clasificaciones del evento."
   },
   "event-round": {
-    "title": "Event Round | {{brand}}",
-    "description": "View details for a specific event round."
+    "title": "Ronda del Evento | {{brand}}",
+    "description": "Ver detalles para una ronda de eventos específica."
   },
   "fallback": {
-    "title": "Page Not Found | {{brand}}",
-    "description": "The requested page does not exist."
+    "title": "Página no encontrada | {{brand}}",
+    "description": "La página solicitada no existe."
   }
 }
