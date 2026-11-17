@@ -1,106 +1,106 @@
 {
   "home": {
     "title": "{{brand}}",
-    "description": "Create your Brute, customize its appearance, and fight other Brutes in the arena."
+    "description": "Crear tu Bruto, personalizar su aspecto y combatir contra otros Brutos en la arena."
   },
   "achievements/rankings": {
-    "title": "Achievements Ranking | {{brand}}",
-    "description": "Compare top players and their achievements."
+    "title": "Clasificación de logros | {{brand}}",
+    "description": "Comparar a los mejores jugadores y sus logros."
   },
   "patch-notes": {
-    "title": "Patch Notes | {{brand}}",
-    "description": "Read the latest updates and balance changes."
+    "title": "Notas del parche | {{brand}}",
+    "description": "Leer las últimas actualizaciones y los cambios de balance."
   },
   "wiki": {
     "title": "Wiki | {{brand}}",
-    "description": "Learn mechanics, skills, and strategies."
+    "description": "Aprender mecánicas, habilidades y estrategias."
   },
   "terms": {
-    "title": "Terms of Service | {{brand}}",
-    "description": "Review terms and conditions for the game."
+    "title": "Términos de servicio | {{brand}}",
+    "description": "Revisar los términos y condiciones del juego."
   },
   "fight": {
-    "title": "Fight | {{brand}}",
-    "description": "Watch and analyze a fight."
+    "title": "Combate | {{brand}}",
+    "description": "Observar y analizar un combate."
   },
   "user": {
-    "title": "User Profile | {{brand}}",
-    "description": "View profile, brutes, and achievements."
+    "title": "Perfil del usuario | {{brand}}",
+    "description": "Ver el perfil, los brutos y los logros."
   },
   "user-stats": {
-    "title": "User Stats | {{brand}}",
-    "description": "Detailed user statistics and performance trends."
+    "title": "Estadísticas del usuario | {{brand}}",
+    "description": "Estadísticas detalladas del usuario y tendencias de rendimiento."
   },
   "cell": {
-    "title": "{{name}}'s Cell | {{brand}}",
-    "description": "View {{name}}'s cell and manage progression."
+    "title": "Celda de {{name}}| {{brand}}",
+    "description": "Ver la celda de {{name}} y gestionar su progreso."
   },
   "tournament": {
-    "title": "{{name}}'s Tournament | {{brand}}",
-    "description": "Track tournament participation and results for {{name}}."
+    "title": "Torneo de {{name}} | {{brand}}",
+    "description": "Seguir la participación y los resultados del torneo de {{name}}."
   },
   "ranking/rank": {
-    "title": "{{rank}} Ranking | {{brand}}",
-    "description": "Browse rankings and compare competitors."
+    "title": "Clasificación {{rank}} | {{brand}}",
+    "description": "Buscar las clasificaciones y comparar a los competidores."
   },
   "destiny": {
-    "title": "{{name}}'s Destiny | {{brand}}",
-    "description": "See destiny choices and progression options for {{name}}."
+    "title": "Destino de {{name}} | {{brand}}",
+    "description": "Ver las elecciones de destino y opciones de progreso de {{name}}."
   },
   "tournaments": {
-    "title": "{{name}}'s Tournament History | {{brand}}",
-    "description": "Review past tournaments for {{name}}."
+    "title": "Historial de torneos de {{name}} | {{brand}}",
+    "description": "Revisar los torneos anteriores de {{name}}."
   },
   "achievements": {
-    "title": "{{name}} Achievements | {{brand}}",
-    "description": "Explore achievements unlocked by {{name}}."
+    "title": "Logros de {{name}} | {{brand}}",
+    "description": "Explorar los logros desbloqueados por {{name}}."
   },
   "dojo": {
-    "title": "{{name}} Dojo | {{brand}}",
-    "description": "See {{name}}'s pupils."
+    "title": "Dojo de {{name}} | {{brand}}",
+    "description": "Ver a los alumnos de {{name}}."
   },
   "clan-ranking": {
-    "title": "Clan Ranking | {{brand}}",
-    "description": "Browse top clans and compare their progress."
+    "title": "Clasificación de Clanes | {{brand}}",
+    "description": "Buscar los mejores clanes y comparar su progreso."
   },
   "clan": {
     "title": "Clan | {{brand}}",
-    "description": "View clan information, members, and activity."
+    "description": "Ver la información del clan, sus miembros y la actividad."
   },
   "forum": {
-    "title": "Clan Forum | {{brand}}",
-    "description": "Read and discuss in the clan forum."
+    "title": "Foro del Clan | {{brand}}",
+    "description": "Leer y discutir en el foro del clan."
   },
   "clan-war-history": {
-    "title": "Clan War History | {{brand}}",
-    "description": "Browse past clan wars."
+    "title": "Historial de Guerras del clan | {{brand}}",
+    "description": "Buscar las anteriores guerras del clan."
   },
   "clan-war": {
-    "title": "Clan War | {{brand}}",
-    "description": "Track a clan war and its results."
+    "title": "Guerra del Clan | {{brand}}",
+    "description": "Seguir una guerra del clan y sus resultados."
   },
   "clan-war-fight": {
-    "title": "Clan War Fight | {{brand}}",
-    "description": "View a fight from a clan war."
+    "title": "Combate de la guerra del clan | {{brand}}",
+    "description": "Mirar un combate de una guerra del clan."
   },
   "current-events": {
-    "title": "Current Events | {{brand}}",
-    "description": "Discover currently active events."
+    "title": "Eventos Actuales | {{brand}}",
+    "description": "Descubrir eventos activos actualmente."
   },
   "history": {
-    "title": "Event History | {{brand}}",
-    "description": "Browse previous game events."
+    "title": "Historial de eventos | {{brand}}",
+    "description": "Buscar eventos previos del juego."
   },
   "event": {
-    "title": "Event | {{brand}}",
-    "description": "Explore event details and rankings."
+    "title": "Evento | {{brand}}",
+    "description": "Explorar los detalles y clasificaciones del evento."
   },
   "event-round": {
-    "title": "Event Round | {{brand}}",
-    "description": "View details for a specific event round."
+    "title": "Ronda del Evento | {{brand}}",
+    "description": "Ver detalles de una ronda específica del evento."
   },
   "fallback": {
-    "title": "Page Not Found | {{brand}}",
-    "description": "The requested page does not exist."
+    "title": "Página no encontrada | {{brand}}",
+    "description": "La página solicitada no existe."
   }
 }
