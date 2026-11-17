@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.101.4](https://github.com/Zenoo/labrute/compare/labrute-v2.101.3...labrute-v2.101.4) (2026-11-17)
+
+
+### Bug Fixes
+
+* Clear clan ghosts ([7b80faa](https://github.com/Zenoo/labrute/commit/7b80faaa9f1a3fc53f9a3518982a21a64f0609a9))
+
 ## [2.101.3](https://github.com/Zenoo/labrute/compare/labrute-v2.101.2...labrute-v2.101.3) (2026-11-16)
 
 
