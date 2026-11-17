@@ -2097,6 +2097,57 @@ export const Clans = {
       sendError(res, error);
     }
   },
+  adminDelete: (prisma: PrismaClient) => async (
+    req: Request<{ id: string }>,
+    res: Response,
+  ) => {
+    try {
+      const user = await auth(prisma, req, { admin: true });
+
+      if (!isUuid(req.params.id)) {
+        throw new InvalidAPIUseError(user, translate('missingClanId', user));
+      }
+
+      const { id } = req.params;
+
+      // Disband atomically, preserving clan history and the members themselves.
+      await prisma.$transaction(async (tx) => {
+        await traced('clans.adminDelete.updateClan', () => tx.clan.update({
+          where: {
+            id,
+            deletedAt: null,
+          },
+          data: {
+            deletedAt: new Date(),
+            masterId: null,
+            participateInClanWar: false,
+          },
+          select: { id: true },
+        }));
+
+        await traced('clans.adminDelete.removeMembers', () => tx.brute.updateMany({
+          where: { clanId: id },
+          data: {
+            clanId: null,
+            clanRoleId: null,
+          },
+        }));
+
+        await traced('clans.adminDelete.removeJoinRequests', () => tx.brute.updateMany({
+          where: { wantToJoinClanId: id },
+          data: { wantToJoinClanId: null },
+        }));
+
+        await traced('clans.adminDelete.deleteRoles', () => tx.clanRole.deleteMany({
+          where: { clanId: id },
+        }));
+      });
+
+      res.status(200).send({ message: 'ok' });
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
   getRoles: (prisma: PrismaClient) => async (
     req: Request<{ id: string }>,
     res: Response<ClanGetRolesResponse>,

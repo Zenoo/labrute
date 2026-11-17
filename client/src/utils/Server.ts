@@ -275,6 +275,7 @@ export const Server = {
     toggleWar: (id: string) => Fetch<never>(`/api/clan/${id}/toggle-war`, {}, 'PUT'),
     getForAdmin: (id: string) => Fetch<ClanGetForAdminResponse>(`/api/clan/${id}/admin`),
     adminUpdate: (id: string, data: Clan) => Fetch<never>(`/api/clan/${id}/update`, data, 'PATCH'),
+    adminDelete: (id: string) => Fetch<never>(`/api/clan/${id}`, {}, 'DELETE'),
     getRoles: (id: string) => Fetch<ClanGetRolesResponse>(`/api/clan/${id}/roles`),
     createRole: (id: string, data: { name: string;[key: string]: unknown }) => Fetch<ClanCreateRoleResponse>(`/api/clan/${id}/roles`, data, 'POST'),
     updateRole: (id: string, roleId: string, data: { name?: string;[key: string]: unknown }) => Fetch<ClanUpdateRoleResponse>(`/api/clan/${id}/roles/${roleId}`, data, 'PUT'),

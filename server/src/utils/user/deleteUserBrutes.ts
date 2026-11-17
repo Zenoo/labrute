@@ -49,36 +49,56 @@ export const deleteBrutes = async (
         wantToJoinClanId: null,
       },
     }));
+  }
 
-    // Handle clan ownership transfer if the brute is a clan master
-    const bruteClanId = brute.masterOfClan?.id;
+  // Resolve ownership after the entire batch is removed so a future deletion cannot
+  // inherit the clan. Include memberships to clean up clans with a stale master too.
+  const clanIds = new Set(brutes.flatMap((brute) => [
+    ...(brute.clanId ? [brute.clanId] : []),
+    ...(brute.masterOfClan ? [brute.masterOfClan.id] : []),
+  ]));
 
-    if (bruteClanId) {
-      // Try to transfer ownership to another brute in the clan
-      const newMaster = await traced('deleteUserBrutes.findNewMaster', () => prisma.brute.findFirst({
-        where: {
-          clanId: bruteClanId,
-          deletedAt: null,
-          id: { not: brute.id },
+  for (const clanId of clanIds) {
+    const clan = await traced('deleteUserBrutes.getClanOwnership', () => prisma.clan.findUnique({
+      where: { id: clanId },
+      select: {
+        deletedAt: true,
+        master: {
+          select: {
+            clanId: true,
+            deletedAt: true,
+          },
+        },
+        brutes: {
+          where: { deletedAt: null },
+          orderBy: { id: 'asc' },
+          take: 1,
+          select: { id: true },
+        },
+      },
+    }));
+
+    if (!clan || clan.deletedAt) {
+      continue;
+    }
+
+    const newMaster = clan.brutes[0];
+
+    if (!newMaster) {
+      await traced('deleteUserBrutes.deleteClan', () => prisma.clan.update({
+        where: { id: clanId },
+        data: {
+          deletedAt: new Date(),
+          masterId: null,
         },
       }));
-
-      if (newMaster) {
-        await traced('deleteUserBrutes.updateClanMaster', () => prisma.clan.update({
-          where: { id: bruteClanId },
-          data: {
-            masterId: newMaster.id,
-          },
-        }));
-      } else {
-        // If no other brute is available, delete the clan
-        await traced('deleteUserBrutes.deleteClan', () => prisma.clan.update({
-          where: { id: bruteClanId },
-          data: {
-            deletedAt: new Date(),
-          },
-        }));
-      }
+    } else if (!clan.master || clan.master.deletedAt || clan.master.clanId !== clanId) {
+      await traced('deleteUserBrutes.updateClanMaster', () => prisma.clan.update({
+        where: { id: clanId },
+        data: {
+          masterId: newMaster.id,
+        },
+      }));
     }
   }
 };

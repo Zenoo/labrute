@@ -17,6 +17,7 @@ import { Page } from '../../components/Page';
 import { Text } from '../../components/Text';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../hooks/useAuth';
+import { useConfirm } from '../../hooks/useConfirm';
 import { useServer } from '../../hooks/useServer';
 import { catchError } from '../../utils/catchError';
 
@@ -24,11 +25,13 @@ export const ClanAdminView = () => {
   const { t } = useTranslation('admin');
   const { clanId } = useParams();
   const Alert = useAlert();
+  const Confirm = useConfirm();
   const { user } = useAuth();
   const Server = useServer();
 
   const [clan, setClan] = useState<ClanGetForAdminResponse | null>(null);
   const [newMasterId, setNewMasterId] = useState<string>('');
+  const [deleting, setDeleting] = useState(false);
 
   // Fetch clan on page load
   useEffect(() => {
@@ -71,6 +74,29 @@ export const ClanAdminView = () => {
       setNewMasterId('');
     }).catch(catchError(Alert));
   }, [Alert, Server.Clan, clanId, newMasterId]);
+
+  const deleteClan = useCallback(() => {
+    if (!clan || !clanId || clan.deletedAt || deleting) {
+      return;
+    }
+
+    Confirm.open('Delete clan', `Delete ${clan.name}? All members will leave the clan and pending join requests will be cleared. The brutes themselves will be kept.`, () => {
+      setDeleting(true);
+
+      return Server.Clan.adminDelete(clanId).then(() => {
+        setClan((current) => (current ? {
+          ...current,
+          deletedAt: new Date(),
+          masterId: null,
+          participateInClanWar: false,
+          brutes: [],
+        } : null));
+        Alert.open('success', 'Clan deleted');
+      }).catch(catchError(Alert)).finally(() => {
+        setDeleting(false);
+      });
+    });
+  }, [Alert, Confirm, Server.Clan, clan, clanId, deleting]);
 
   return (
     <Page headerUrl="/">
@@ -194,7 +220,8 @@ export const ClanAdminView = () => {
                 <FormControl fullWidth>
                   <InputLabel>Master</InputLabel>
                   <Select
-                    value={clan.masterId}
+                    value={clan.masterId && clan.brutes.some((brute) => brute.id === clan.masterId)
+                      ? clan.masterId : ''}
                     label="Master"
                     onChange={(event) => {
                       setClan((b) => (b ? ({
@@ -228,7 +255,15 @@ export const ClanAdminView = () => {
                 />
               </Grid>
             </Grid>
-            <FantasyButton color="success" onClick={saveClan}>Save</FantasyButton>
+            <FantasyButton color="success" onClick={saveClan} disabled={deleting}>Save</FantasyButton>
+            <FantasyButton
+              color="error"
+              onClick={deleteClan}
+              disabled={deleting || !!clan.deletedAt}
+              sx={{ ml: 2 }}
+            >
+              Delete clan
+            </FantasyButton>
             <Text h3 smallCaps sx={{ mt: 4 }}>Transfer ownership</Text>
             <Grid container spacing={1} sx={{
               mt: 2,

@@ -182,6 +182,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.put('/api/clan/:id/toggle-war', Clans.toggleClanWarParticipation(prisma));
   app.get('/api/clan/:id/admin', Clans.getForAdmin(prisma));
   app.patch('/api/clan/:id/update', Clans.adminUpdate(prisma));
+  app.delete('/api/clan/:id', Clans.adminDelete(prisma));
   app.patch('/api/clan/:id/transfer-ownership/:brute', Clans.transferOwnership(prisma));
 
   // Clan Roles
