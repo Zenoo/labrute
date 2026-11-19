@@ -32,7 +32,7 @@
     "description": "Estadísticas detalladas del usuario y tendencias de rendimiento."
   },
   "cell": {
-    "title": "Celda de {{name}}| {{brand}}",
+    "title": "Celda de {{name}} | {{brand}}",
     "description": "Ver la celda de {{name}} y gestionar su progreso."
   },
   "tournament": {
