@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.101.6](https://github.com/Zenoo/labrute/compare/labrute-v2.101.5...labrute-v2.101.6) (2026-11-19)
+
+
+### Bug Fixes
+
+* Unique appeal codes per user ([3403098](https://github.com/Zenoo/labrute/commit/34030980f04f1beda01d922970b5e6873b5dce79))
+
 ## [2.101.5](https://github.com/Zenoo/labrute/compare/labrute-v2.101.4...labrute-v2.101.5) (2026-11-17)
 
 
