@@ -133,16 +133,21 @@ test('user admin loads account details and bounded sanction history without lega
 });
 
 test('a complete USER appeal code resolves the UUID instead of searching by name', async () => {
-  const appealId = '38e05f4c-a7fb-410c-9501-1cae88f8489e';
+  const appealReference = '38e05f4c-a7fb-410c-9501-1cae88f8489e';
 
   const db = {
     user: {
       findFirst: async (args) => {
-        assert.equal(args.where.id, appealId);
+        if (args.where.appealReference !== undefined) {
+          assert.equal(args.where.appealReference, '0123456789ABCDEF');
+        } else {
+          assert.equal(args.where.id, appealReference);
+        }
+
         assert.equal(args.where.name, undefined);
 
         return {
-          id: appealId,
+          id: appealReference,
           achievements: [],
           bannedAt: new Date('2025-01-01'),
           banReason: 'multipleAccounts',
@@ -162,9 +167,13 @@ test('a complete USER appeal code resolves the UUID instead of searching by name
     },
   };
 
-  await Users.get(db)({ params: { identifier: ` user-${appealId.toUpperCase()} ` } }, res);
-  assert.equal(res.body.user.id, appealId);
+  await Users.get(db)({ params: { identifier: ` user-${appealReference.toUpperCase()} ` } }, res);
+  assert.equal(res.body.user.id, appealReference);
   assert.equal(res.body.user.banReason, 'multipleAccounts');
+  await Users.get(db)({ params: { identifier: `MC-${id}/USER-${appealReference}` } }, res);
+  assert.equal(res.body.user.id, appealReference);
+  await Users.get(db)({ params: { identifier: 'ap-0123456789abcdef' } }, res);
+  assert.equal(res.body.user.id, appealReference);
 });
 
 test('related-account investigation rejects non-admins before reading identifiers', async () => {

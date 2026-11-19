@@ -2,6 +2,7 @@ import type {
   MultipleAccountCaseDetailResponse, MultipleAccountCaseStatus, MultipleAccountReviewDecision,
   UserMultipleAccountsListResponse,
 } from '@labrute/core';
+import { parseAppealCode } from '@labrute/core';
 import {
   Button, MenuItem, Paper, Stack, TextField,
   Typography,
@@ -48,7 +49,9 @@ export const MultipleAccountsView = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const linkedCase = searchParams.get('case');
+  const appealingAccount = searchParams.get('account') ?? undefined;
   const [appealCode, setAppealCode] = useState('');
+  const [resolvingAppeal, setResolvingAppeal] = useState(false);
   const [status, setStatus] = useState<MultipleAccountCaseStatus>(linkedCase ? 'all' : 'open');
   const [cursors, setCursors] = useState<(string | undefined)[]>([undefined]);
 
@@ -134,7 +137,7 @@ export const MultipleAccountsView = () => {
 
     setDetailLoading(true);
 
-    Server.User.multipleAccountCase(selected, offset).then((data) => {
+    Server.User.multipleAccountCase(selected, offset, appealingAccount).then((data) => {
       if (active) {
         setDetail(data);
         setDecision(decisions.some((item) => item.value === data.case.status)
@@ -154,7 +157,7 @@ export const MultipleAccountsView = () => {
     return () => {
       active = false;
     };
-  }, [admin?.admin, selected, offset, refresh, Server.User, Alert]);
+  }, [admin?.admin, selected, offset, appealingAccount, refresh, Server.User, Alert]);
 
   const review = async () => {
     if (!admin?.admin || !selected || !detail || saving || !reason.trim()) {
@@ -186,20 +189,37 @@ export const MultipleAccountsView = () => {
       }}>
         <Stack spacing={2}>
           <Typography variant="h4">Multiple-account review cases</Typography>
-          <Stack component="form" direction="row" spacing={1} onSubmit={(event) => {
+          <Stack component="form" direction="row" spacing={1} onSubmit={async (event) => {
             event.preventDefault();
 
-            const code = appealCode.trim();
-            const account = /^USER-([a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12})$/i.exec(code);
+            let parsed = parseAppealCode(appealCode);
 
-            if (account) {
-              navigate(`/admin-panel/user/${account[1]?.toLowerCase()}`);
+            if (resolvingAppeal || saving) {
+              return;
+            }
+
+            if (parsed?.reference !== undefined) {
+              setResolvingAppeal(true);
+
+              try {
+                parsed = await Server.User.resolveAppealCode(appealCode.trim());
+              } catch (error) {
+                catchError(Alert)(error);
+
+                return;
+              } finally {
+                setResolvingAppeal(false);
+              }
+            }
+
+            if (parsed?.userId && !parsed.caseCode) {
+              navigate(`/admin-panel/user/${parsed.userId}`);
 
               return;
             }
 
-            if (!/^MC-[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(code)) {
-              Alert.open('error', 'Enter the complete MC- or USER- appeal code.');
+            if (!parsed?.caseCode) {
+              Alert.open('error', 'Enter an AP-, MC- or USER- appeal code.');
 
               return;
             }
@@ -208,18 +228,23 @@ export const MultipleAccountsView = () => {
             setReason('');
             setStatus('all');
             setCursors([undefined]);
-            setSearchParams({ case: code });
+            setSearchParams({
+              case: parsed.caseCode,
+              ...(parsed.userId ? { account: parsed.userId } : {}),
+            });
             setRefresh((value) => value + 1);
           }}>
-            <TextField label="Ban appeal code" value={appealCode} disabled={saving}
+            <TextField label="Ban appeal code" value={appealCode} disabled={saving || resolvingAppeal}
               inputProps={{ maxLength: 100 }}
               onChange={(event) => setAppealCode(event.target.value)} />
-            <Button type="submit" disabled={saving || !appealCode.trim()}>Find appeal</Button>
+            <Button type="submit" disabled={saving || resolvingAppeal || !appealCode.trim()}>
+              Find appeal
+            </Button>
           </Stack>
           <Typography>
             Daily observation snapshots.
           </Typography>
-          <TextField select label="Case status" value={status} disabled={saving} onChange={(event) => {
+          <TextField select label="Case status" value={status} disabled={saving || resolvingAppeal} onChange={(event) => {
             setStatus(event.target.value as MultipleAccountCaseStatus);
             setCursors([undefined]);
             setSelected(null);
@@ -293,8 +318,9 @@ export const MultipleAccountsView = () => {
                 render: (item) => (
                   <Button variant={selected === item.id ? 'contained' : 'outlined'}
                     aria-pressed={selected === item.id}
-                    disabled={saving}
+                    disabled={saving || resolvingAppeal}
                     onClick={() => {
+                      setSearchParams({ case: item.id });
                       setSelected(item.id);
                       setOffsets([0]);
                       setReason('');

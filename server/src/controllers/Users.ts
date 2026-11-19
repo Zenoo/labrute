@@ -33,6 +33,7 @@ import {
   getFightsLeft,
   getTieredSkills,
   isUuid,
+  parseAppealCode,
 } from '@labrute/core';
 import {
   Achievement,
@@ -72,7 +73,11 @@ export const Users = {
         throw new InvalidAPIUseError(authed, translate('missingParameters', authed));
       }
 
-      const identifier = req.params.identifier.trim().replace(/^USER-(?=[a-f0-9-]{36}$)/i, '');
+      const parsedAppeal = parseAppealCode(req.params.identifier);
+
+      const identifier = parsedAppeal?.userId
+        ?? req.params.identifier.trim();
+
       const isId = isUuid(identifier);
 
       const user = await traced('users.get.getUser', () => prisma.user.findFirst({
@@ -82,10 +87,11 @@ export const Users = {
           ips: true,
           sharedBrowserId: true,
         },
-        where: {
-          id: isId ? identifier.toLowerCase() : undefined,
-          name: !isId ? ilike(identifier) : undefined,
-        },
+        where: parsedAppeal?.reference !== undefined
+          ? { appealReference: parsedAppeal.reference } : {
+            id: isId ? identifier.toLowerCase() : undefined,
+            name: !isId ? ilike(identifier) : undefined,
+          },
         include: {
           achievements: {
             select: {
@@ -130,18 +136,19 @@ export const Users = {
       }, [] as Pick<Achievement, 'count' | 'name'>[]);
 
       // List other users with the same identifier (name)
-      const duplicates = isId ? [] : await traced('users.get.findDuplicates', () => prisma.user.findMany({
-        where: {
-          name: ilike(identifier),
-          id: { not: user.id },
-        },
-        select: {
-          id: true,
-          name: true,
-          bannedAt: true,
-          banReason: true,
-        },
-      }));
+      const duplicates = isId || parsedAppeal?.reference !== undefined
+        ? [] : await traced('users.get.findDuplicates', () => prisma.user.findMany({
+          where: {
+            name: ilike(identifier),
+            id: { not: user.id },
+          },
+          select: {
+            id: true,
+            name: true,
+            bannedAt: true,
+            banReason: true,
+          },
+        }));
 
       const securityHistory = await traced('users.get.securityHistory', () => prisma.securityAction.findMany({
         where: {

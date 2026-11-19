@@ -72,6 +72,7 @@ export const initRoutes = (app: Express, config: Config, prisma: PrismaClient) =
   app.patch('/api/user/unban', Users.unban(prisma));
   app.get('/api/user/banlist', Users.bannedList(prisma));
   app.get('/api/user/multiple-accounts', MultipleAccountCases.list(prisma));
+  app.get('/api/user/appeals/:code', MultipleAccountCases.resolveAppeal(prisma));
   app.get('/api/user/multiple-accounts/:id', MultipleAccountCases.get(prisma));
   app.patch('/api/user/multiple-accounts/:id/review', MultipleAccountCases.review(prisma));
   app.get('/api/user/known-fingerprints', Users.knownFingerprintsList(prisma));

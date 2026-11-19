@@ -1,4 +1,5 @@
 import type { MultipleAccountCaseDetailResponse, MultipleAccountScore } from '@labrute/core';
+import { formatAppealCode } from '@labrute/core';
 import {
   Alert, Box, List, ListItem, Stack, Typography,
 } from '@mui/material';
@@ -22,6 +23,36 @@ export const MultipleAccountCaseEvidence = ({ detail }: {
   detail: MultipleAccountCaseDetailResponse
 }) => (
   <Stack spacing={2}>
+    {detail.appealingAccount ? <Alert severity="info">
+      <Typography variant="h6">Appealing account</Typography>
+      <Typography sx={{ overflowWrap: 'anywhere' }}>
+        {detail.appealingAccount.name ?? 'Deleted account'} ({detail.appealingAccount.id})
+      </Typography>
+      <Typography sx={{ overflowWrap: 'anywhere' }}>
+        Appeal code: {formatAppealCode(
+        detail.appealingAccount.id, detail.case.appealCode, detail.appealingAccount.appealReference,
+      )}
+      </Typography>
+      {detail.appealingAccount.deleted ? <Typography>
+        This account has been deleted and cannot be unbanned.
+      </Typography> : <>
+        <Typography>
+          {detail.appealingAccount.bannedAt
+            ? `Currently banned: ${detail.appealingAccount.banReason ?? 'Reason not recorded'}`
+            : 'This account is not currently banned.'}
+        </Typography>
+        {detail.appealingAccount.bannedAt
+          && detail.appealingAccount.banAppealCode !== detail.case.appealCode && <Typography>
+            The current ban does not reference this case. Review its current ban before unbanning.
+          </Typography>}
+        <Link to={`/admin-panel/user/${detail.appealingAccount.id}`}>
+          Open this account to review / unban
+        </Link>
+      </>}
+    </Alert> : <Alert severity="info">
+      This code identifies a case shared by several accounts, not the account making the appeal.
+      Ask for the user&apos;s AP- code or account ID before choosing who to unban.
+    </Alert>}
     <Alert severity="info">
       Uncalibrated signal: shared devices and networks can belong to different people.
       The daily automatic policy uses the stated thresholds and excludes staff and approved pairs.
@@ -82,7 +113,7 @@ export const MultipleAccountCaseEvidence = ({ detail }: {
       {detail.case.fingerprint && <Typography>Fingerprint: {detail.case.fingerprint}</Typography>}
       {detail.case.ip && <Typography>IP: {detail.case.ip}</Typography>}
     </Box>
-    <Typography sx={{ overflowWrap: 'anywhere' }}>Appeal code: MC-{detail.case.appealCode}</Typography>
+    <Typography sx={{ overflowWrap: 'anywhere' }}>Case reference: MC-{detail.case.appealCode}</Typography>
     <Typography variant="h6">Accounts in this snapshot</Typography>
     <List dense>
       {detail.users.map((user) => (

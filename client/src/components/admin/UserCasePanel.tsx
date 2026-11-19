@@ -54,12 +54,12 @@ export const UserCasePanel = ({ userId }: { userId: string }) => {
 
         {data?.cases.map((row) => (
           <Stack key={row.id} spacing={1}>
-            <Link to={`/admin-panel/multiple-accounts?case=${row.id}`}>
+            <Link to={`/admin-panel/multiple-accounts?case=${row.id}&account=${userId}`}>
               {row.signal} - {row.accountCount} accounts - {row.status}
               {' - '}{row.scoreEvidence ? `${row.scoreEvidence.percentage}% suspicion` : 'Score unavailable'}
             </Link>
             <Typography variant="body2">
-              Appeal code: MC-{row.appealCode}
+              Case reference: MC-{row.appealCode}
             </Typography>
             <Typography variant="body2">
               Evidence: {new Date(row.firstSeen).toLocaleString()}

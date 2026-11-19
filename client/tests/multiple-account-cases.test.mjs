@@ -13,7 +13,7 @@ let Evidence;
 before(async () => {
   server = await createServer({
     configFile: false,
-    ssr: { external: ['react', 'react-dom', 'react-router'] },
+    ssr: { external: ['react', 'react-dom', 'react-router', '@labrute/core', '@labrute/prisma'] },
     optimizeDeps: {
       noDiscovery: true,
       entries: [],
@@ -128,4 +128,52 @@ test('deleted accounts remain identifiable and truncated exemption context is la
   assert.ok(html.includes('first 100 excluded pairs'));
   assert.ok(html.includes('No review decisions yet'));
   assert.ok(html.includes('Unavailable for this snapshot'));
+  assert.ok(html.includes('AP- code or account ID'));
+});
+
+test('the appellant has a separate account link and current ban status without using the visible member page', () => {
+  const now = new Date();
+
+  const account = {
+    id: '11111111-1111-4111-8111-111111111111',
+    name: '<img src=x onerror=alert(1)>',
+    bannedAt: now,
+    banReason: 'multipleAccounts',
+    banAppealCode: '22222222-2222-4222-8222-222222222222',
+    deleted: false,
+  };
+
+  const detail = {
+    case: {
+      signal: 'browser',
+      appealCode: account.banAppealCode,
+      firstSeen: now,
+      lastSeen: now,
+      windowStart: now,
+      windowEnd: now,
+    },
+    appealingAccount: account,
+    users: [],
+    exemptions: [],
+    reviews: [],
+  };
+
+  const render = () => renderToStaticMarkup(
+    React.createElement(MemoryRouter, {}, React.createElement(Evidence, { detail })),
+  );
+
+  const html = render();
+
+  assert.ok(html.includes('Appealing account'));
+  assert.ok(html.includes(`/admin-panel/user/${account.id}`));
+  assert.ok(html.includes('review / unban'));
+  assert.ok(!html.includes('<img'));
+  assert.ok(!html.includes('does not reference this case'));
+  account.banAppealCode = '33333333-3333-4333-8333-333333333333';
+  assert.ok(render().includes('does not reference this case'));
+  account.bannedAt = null;
+  assert.ok(render().includes('not currently banned'));
+  account.deleted = true;
+  assert.ok(render().includes('cannot be unbanned'));
+  assert.ok(!render().includes('review / unban'));
 });

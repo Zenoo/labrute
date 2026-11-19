@@ -8,7 +8,9 @@ import { fileURLToPath } from 'node:url';
 import i18next from 'i18next';
 import { Prisma, PrismaClient } from '@labrute/prisma';
 import { AuthType } from '@eternaltwin/core/auth/auth-type';
-import { CSRF_HEADER, getPredictableHeaders } from '@labrute/core';
+import {
+  CSRF_HEADER, formatAppealCode, getPredictableHeaders,
+} from '@labrute/core';
 
 const id = '11111111-1111-4111-8111-111111111111';
 const browserId = '22222222-2222-4222-8222-222222222222';
@@ -461,7 +463,7 @@ integration('real OAuth rejects banned accounts without changing their token, na
     'the ban explanation is fetched only after the conditional write rejects');
 });
 
-integration('OAuth rejected writes return the recorded case code for Discord appeals', async () => {
+integration('OAuth rejected writes return the short account reference for Discord appeals', async () => {
   await reset();
   await i18next.init({
     lng: 'en',
@@ -489,7 +491,11 @@ integration('OAuth rejected writes return the recorded case code for Discord app
   const result = await run({ database: trackDatabase().client });
 
   assert.equal(result.res.statusCode, 403);
-  assert.match(JSON.stringify(result.res.body), new RegExp(`MC-${code}`));
+  const banned = await database.user.findUnique({ where: { id } });
+
+  const appealCode = formatAppealCode(id, code, banned.appealReference);
+
+  assert.ok(JSON.stringify(result.res.body).includes(appealCode));
   assert.equal(await database.accountObservation.count(), 0);
 });
 

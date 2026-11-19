@@ -968,12 +968,22 @@ export type MultipleAccountCaseExemption = {
 };
 export type MultipleAccountCaseDetailResponse = {
   case: MultipleAccountCaseSummary;
+  appealingAccount?: {
+    appealReference: string | null;
+    id: string;
+    name: string | null;
+    bannedAt: Date | null;
+    banReason: string | null;
+    banAppealCode: string | null;
+    deleted: boolean;
+  };
   users: { id: string; name: string | null; bannedAt: Date | null;
     automaticAction?: MultipleAccountCaseAction }[];
   nextAccountOffset: number | null;
   exemptions: MultipleAccountCaseExemption[];
   reviews: MultipleAccountCaseReview[];
 };
+export type ResolveAppealCodeResponse = { userId: string; caseCode: string | null };
 export type ReviewMultipleAccountCaseRequest = {
   revision: number;
   decision: MultipleAccountReviewDecision;

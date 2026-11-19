@@ -1,4 +1,5 @@
 export * from './adjustColor.js';
+export * from './appealCode.js';
 export * from './date.js';
 export * from './fingerprint.js';
 export * from './formatLargeNumber.js';

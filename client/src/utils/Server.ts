@@ -40,6 +40,7 @@ import {
   UserStatsGetResponse,
   UserLogsListRequest, UserLogsListResponse, UserMultipleAccountsListResponse,
   MultipleAccountCaseDetailResponse, MultipleAccountCaseStatus, ReviewMultipleAccountCaseRequest,
+  ResolveAppealCodeResponse,
   UsersAdminUpdateRequest, UsersAuthenticateRequest, UsersAuthenticateResponse,
   UsersBanRequest,
   UsersUnbanRequest,
@@ -78,8 +79,11 @@ export const Server = {
     bannedWords: adminList('banned-words'),
   },
   User: {
+    resolveAppealCode: (code: string) => Fetch<ResolveAppealCodeResponse>(
+      `/api/user/appeals/${encodeURIComponent(code)}`,
+    ),
     authenticate: (params: UsersAuthenticateRequest) => Fetch<UsersAuthenticateResponse>('/api/user/authenticate', params, 'POST'),
-    getForAdmin: (params: UserGetAdminRequest) => Fetch<UserGetAdminResponse>(`/api/user/${params.identifier}/admin`),
+    getForAdmin: (params: UserGetAdminRequest) => Fetch<UserGetAdminResponse>(`/api/user/${encodeURIComponent(params.identifier ?? '')}/admin`),
     relatedAccounts: (userId: string, cursor?: string) => Fetch<UserRelatedAccountsResponse>(
       `/api/user/${encodeURIComponent(userId)}/related-accounts`, cursor ? { cursor } : undefined,
     ),
@@ -105,8 +109,13 @@ export const Server = {
         ...(grid ? { grid: JSON.stringify(grid) } : {}),
       },
     ),
-    multipleAccountCase: (id: string, offset = 0) => Fetch<MultipleAccountCaseDetailResponse>(
-      `/api/user/multiple-accounts/${id}`, { offset: String(offset) },
+    multipleAccountCase: (
+      id: string, offset = 0, account?: string,
+    ) => Fetch<MultipleAccountCaseDetailResponse>(
+      `/api/user/multiple-accounts/${id}`, {
+        offset: String(offset),
+        ...(account ? { account } : {}),
+      },
     ),
     reviewMultipleAccountCase: (id: string, data: ReviewMultipleAccountCaseRequest) => Fetch<{
       revision: number

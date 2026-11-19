@@ -189,11 +189,12 @@ export const listMultipleAccountCases = async (
 };
 
 export const getMultipleAccountCase = async (
-  prisma: PrismaClient, id: unknown, offset: unknown = '0',
+  prisma: PrismaClient, id: unknown, offset: unknown = '0', accountId?: unknown,
 ): Promise<MultipleAccountCaseDetailResponse> => {
   const code = typeof id === 'string' ? id.trim().replace(/^MC-/i, '').toLowerCase() : '';
 
-  if ((!validId(id) && !isUuid(code)) || typeof offset !== 'string' || !/^\d{1,8}$/.test(offset)) {
+  if ((!validId(id) && !isUuid(code)) || typeof offset !== 'string' || !/^\d{1,8}$/.test(offset)
+    || (accountId !== undefined && (typeof accountId !== 'string' || !isUuid(accountId)))) {
     throw new ExpectedError('Invalid case ID or account offset');
   }
 
@@ -212,6 +213,26 @@ export const getMultipleAccountCase = async (
   }
 
   const caseId = row.id;
+  let appealingAccount: MultipleAccountCaseDetailResponse['appealingAccount'];
+
+  if (typeof accountId === 'string') {
+    // Validate snapshot membership independently of pagination; never guess from the visible page.
+    const [account] = await traced('multipleAccountCases.appealingAccount', () => prisma.$queryRaw<
+      NonNullable<MultipleAccountCaseDetailResponse['appealingAccount']>[]
+    >`
+      SELECT ${accountId.toLowerCase()}::text AS id, u.name, u."bannedAt", u."banReason",
+        u."banAppealCode", u."appealReference", (u.id IS NULL) AS deleted
+      FROM "MultipleAccountCase" c
+      LEFT JOIN "User" u ON u.id = ${accountId.toLowerCase()}::uuid
+      WHERE c.id = ${caseId} AND ${accountId.toLowerCase()}::uuid = ANY(c."userIds")
+    `);
+
+    if (!account) {
+      throw new ExpectedError('The appealing account is not a member of this case');
+    }
+
+    appealingAccount = account;
+  }
 
   const [members, reviews] = await Promise.all([
     traced('multipleAccountCases.members', () => prisma.$queryRaw<{ id: string }[]>`
@@ -252,6 +273,7 @@ export const getMultipleAccountCase = async (
   const { exemptions, ...caseSummary } = row;
 
   return {
+    ...(appealingAccount ? { appealingAccount } : {}),
     case: {
       ...caseSummary,
       scoreEvidence: caseSummary.scoreEvidence as MultipleAccountScore | null,

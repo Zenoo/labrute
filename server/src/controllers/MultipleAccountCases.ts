@@ -1,6 +1,6 @@
 import type {
   MultipleAccountCaseDetailResponse, ReviewMultipleAccountCaseRequest,
-  UserMultipleAccountsListResponse,
+  UserMultipleAccountsListResponse, ResolveAppealCodeResponse,
 } from '@labrute/core';
 import type { PrismaClient } from '@labrute/prisma';
 import type { Request, Response } from 'express';
@@ -9,8 +9,20 @@ import {
   getMultipleAccountCase, listMultipleAccountCases, reviewMultipleAccountCase,
 } from '../utils/multipleAccountCases.js';
 import { sendError } from '../utils/sendError.js';
+import { resolveAppealCode } from '../utils/resolveAppealCode.js';
 
 export const MultipleAccountCases = {
+  resolveAppeal: (prisma: PrismaClient) => async (
+    req: Request<{ code: string }>, res: Response<ResolveAppealCodeResponse>,
+  ) => {
+    try {
+      await auth(prisma, req, { admin: true });
+
+      res.send(await resolveAppealCode(prisma, req.params.code));
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
   list: (prisma: PrismaClient) => async (
     req: Request, res: Response<UserMultipleAccountsListResponse>,
   ) => {
@@ -30,7 +42,9 @@ export const MultipleAccountCases = {
     try {
       await auth(prisma, req, { admin: true });
 
-      res.send(await getMultipleAccountCase(prisma, req.params.id, req.query.offset));
+      res.send(await getMultipleAccountCase(
+        prisma, req.params.id, req.query.offset, req.query.account,
+      ));
     } catch (error) {
       sendError(res, error);
     }

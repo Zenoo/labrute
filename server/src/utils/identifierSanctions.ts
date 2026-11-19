@@ -3,6 +3,7 @@ import {
   Prisma, PrismaClient, User,
 } from '@labrute/prisma';
 import { isFingerprintFormatValid } from './fingerprintIdentity.js';
+import { traced } from './trace.js';
 import { lockMultipleAccountPolicy } from './multipleAccountPolicyLock.js';
 
 const reviewReason = (reason: unknown) => {
@@ -61,7 +62,7 @@ export const getIdentifierRestrictions = async (
 };
 
 type AuthenticationUser = Pick<User,
-  'id' | 'lang' | 'admin' | 'moderator' | 'bannedAt' | 'banReason' | 'banAppealCode'
+  'id' | 'lang' | 'admin' | 'moderator' | 'bannedAt' | 'banReason' | 'banAppealCode' | 'appealReference'
   | 'ips' | 'fingerprints' | 'browserIds' | 'lastSeen'
 > & IdentifierRestrictions;
 
@@ -73,9 +74,9 @@ export const findUserForAuthentication = async (
   fingerprint: string,
 ) => {
   // Preserve fresh moderation checks without adding a round trip to every authenticated request.
-  const [user] = await prisma.$queryRaw<AuthenticationUser[]>`
+  const [user] = await traced('identifierSanctions.authentication', () => prisma.$queryRaw<AuthenticationUser[]>`
     SELECT u.id, u.lang::text AS lang, u.admin, u.moderator, u."bannedAt", u."banReason",
-      u.ips, u.fingerprints, u."browserIds", u."lastSeen", u."banAppealCode",
+      u.ips, u.fingerprints, u."browserIds", u."lastSeen", u."banAppealCode", u."appealReference",
       restrictions."browserRestricted", restrictions."fingerprintRestricted"
     FROM "User" u
     CROSS JOIN LATERAL (
@@ -83,7 +84,7 @@ export const findUserForAuthentication = async (
     ) restrictions
     WHERE u.id = ${id}::uuid AND u."connexionToken" = ${token}::uuid
     LIMIT 1
-  `;
+  `);
 
   return user ?? null;
 };

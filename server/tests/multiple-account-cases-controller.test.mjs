@@ -63,7 +63,7 @@ const response = () => ({
 test('case listing, evidence and review endpoints reject non-admins before reading or writing cases', async () => {
   const before = calls.length;
 
-  for (const route of ['list', 'get', 'review']) {
+  for (const route of ['list', 'get', 'review', 'resolveAppeal']) {
     const res = response();
 
     await MultipleAccountCases[route]({})({
@@ -89,6 +89,7 @@ test('review uses the authenticated reviewer ID and delegates bounded filters an
       status: 'open',
       cursor: 'b'.repeat(64),
       offset: '25',
+      account: actorId,
     },
     params: { id },
     body: {
@@ -100,9 +101,9 @@ test('review uses the authenticated reviewer ID and delegates bounded filters an
   };
 
   await MultipleAccountCases.list(db)(req, response());
-  assert.deepEqual(calls.at(-1), ['list', db, 'open', 'b'.repeat(64), undefined]);
+  assert.deepEqual(calls.at(-1), ['list', db, 'open', 'b'.repeat(64), undefined, undefined]);
   await MultipleAccountCases.get(db)(req, response());
-  assert.deepEqual(calls.at(-1), ['get', db, id, '25']);
+  assert.deepEqual(calls.at(-1), ['get', db, id, '25', actorId]);
   await MultipleAccountCases.review(db)(req, response());
   assert.equal(calls.at(-1)[3], actorId);
 });

@@ -31,7 +31,7 @@ const fixture = window.__fixture = { requests: [], errors: [], reviews: [], User
     return {duplicates:[],banHistory:legacy ? [{id:'legacy-ban',date:'2025-01-01T12:00:00Z'}] : [],
       securityHistory:legacy ? [] : [{id:'audit',action:'ban',actorId:null,createdAt:time,
       reason:'Case-linked automatic ban'}],user:{id,name:'Profile case account',lang:'en',
-      admin:false,moderator:false,connexionToken:'test',bruteLimit:3,gold:0,fightSpeed:1,
+      appealReference:'0123456789ABCDEF',admin:false,moderator:false,connexionToken:'test',bruteLimit:3,gold:0,fightSpeed:1,
       backgroundMusic:true,dinorpgDone:null,createdAt:time,lastSeen:time,bannedAt:time,
       banReason:'multipleAccounts',brutes:[],achievements:[],displayVersusPage:false,
       alwaysDisplayScrubber:false,displayOpponentDetails:false,transferedBrutesCount:0,termsAccepted:true}};
@@ -44,6 +44,10 @@ const fixture = window.__fixture = { requests: [], errors: [], reviews: [], User
     const rows = cases.filter(c => status === 'all' || c.status === status);
     return {cases: cursor ? rows.slice(2) : rows.slice(0, 2), nextCursor: !cursor && rows.length > 2 ? 'page2' : null};
   },
+  async resolveAppealCode(code) {
+    fixture.requests.push(['resolve',code]);
+    return {userId:'11111111-1111-4111-8111-111111111111',caseCode:'MC-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'};
+  },
   async relatedAccounts(userId, cursor) {
     fixture.requests.push(['related',userId,cursor]);
     return {accounts:[{id:cursor ? '44444444-4444-4444-8444-444444444444' : '33333333-3333-4333-8333-333333333333',
@@ -53,11 +57,13 @@ const fixture = window.__fixture = { requests: [], errors: [], reviews: [], User
       sharedIps:['192.0.2.1'],ipCount:1}],nextCursor:cursor ? null : '33333333-3333-4333-8333-333333333333',
       identifierCounts:{browsers:1,fingerprints:0,ips:1}};
   },
-  async multipleAccountCase(id, offset = 0) {
-    fixture.requests.push(['detail', id, offset]);
+  async multipleAccountCase(id, offset = 0, account) {
+    fixture.requests.push(['detail', id, offset, account]);
     const row = cases.find(c => c.id === id || ('MC-'+c.appealCode).toLowerCase() === id.trim().toLowerCase());
     if (id[0] === 'a') await new Promise(resolve => setTimeout(resolve, 180));
-    return {case: {...row}, users: Array.from({length: Math.min(25, row.accountCount - offset)}, (_, i) =>
+    return {case: {...row}, appealingAccount: account ? {id:account,appealReference:'0123456789ABCDEF',name:'Specific appealing account',
+      bannedAt:time,banReason:'multipleAccounts',banAppealCode:row.appealCode,deleted:false} : undefined,
+      users: Array.from({length: Math.min(25, row.accountCount - offset)}, (_, i) =>
       ({id: id[0] + '-user-' + (offset+i), name: 'Account' + (offset+i), bannedAt: null})),
       nextAccountOffset: offset+25 < row.accountCount ? offset+25 : null, exemptions: [],
       reviews: fixture.reviews.filter(r => r.caseId === id)};
@@ -141,6 +147,28 @@ const assert = (condition, message) => {if(!condition) throw new Error(message);
   button('Find appeal').click();
   await wait(() => document.body.textContent.includes('b-browser'));
   assert(document.body.textContent.includes(appealCode), 'appeal did not resolve the requested case');
+  assert(document.body.textContent.includes('AP- code or account ID'), 'case-only ambiguity not explained');
+  const appealingUser = '11111111-1111-4111-8111-111111111111';
+  const specificCode = 'MC-aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa/USER-' + appealingUser;
+  Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(appealInput, specificCode);
+  appealInput.dispatchEvent(new Event('input', {bubbles:true}));
+  button('Find appeal').click();
+  await wait(() => document.body.textContent.includes('Specific appealing account'));
+  assert(fixture.requests.some(r => r[0] === 'detail' && r[3] === appealingUser), 'account identity not sent to server');
+  assert([...document.querySelectorAll('a')].some(a => a.textContent.includes('review / unban')
+    && a.getAttribute('href') === '/admin-panel/user/' + appealingUser), 'appeal points to wrong account');
+  button('Next accounts').click();
+  await wait(() => document.body.textContent.includes('Account25'));
+  assert(document.body.textContent.includes('Specific appealing account'), 'pagination lost appealing account');
+  Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(appealInput, 'AP-0123456789ABCDEF');
+  appealInput.dispatchEvent(new Event('input', {bubbles:true}));
+  button('Find appeal').click();
+  await wait(() => fixture.requests.some(r => r[0] === 'resolve' && r[1] === 'AP-0123456789ABCDEF'));
+  await wait(() => document.body.textContent.includes('Account0 ('));
+  assert(document.body.textContent.includes('Appeal code: AP-0123456789ABCDEF'), 'short reference missing');
+  caseRow('browser',4).querySelector('button').click();
+  await wait(() => document.body.textContent.includes('b-browser'));
+  assert(!document.body.textContent.includes('Specific appealing account'), 'case selection retained a different appellant');
   assert(fixture.errors.length === 0, JSON.stringify(fixture.errors));
   root.render(React.createElement(MemoryRouter, {key:'profile', initialEntries:['/admin-panel/user/11111111-1111-4111-8111-111111111111']},
     React.createElement(Routes,{},React.createElement(Route,{path:'/admin-panel/user/:id', element:React.createElement(UserAdminView)}))));
@@ -157,7 +185,7 @@ const assert = (condition, message) => {if(!condition) throw new Error(message);
     React.createElement(Routes,{},React.createElement(Route,{path:'/admin-panel/user/:id',element:React.createElement(UserAdminView)}))));
   await wait(() => document.body.textContent.includes('No recorded cases for this account.'));
   assert(document.body.textContent.includes('Ban reason: multipleAccounts'), 'legacy ban reason hidden');
-  assert(document.body.textContent.includes('USER-38e05f4c-a7fb-410c-9501-1cae88f8489e'), 'legacy appeal code missing');
+  assert(document.body.textContent.includes('Appeal code: AP-0123456789ABCDEF'), 'short account appeal code missing');
   assert(document.body.textContent.includes('2025-01-01 12:00:00 UTC'), 'legacy ban logs missing');
   assert(document.body.textContent.includes('no structured audit entry'), 'missing audit context unexplained');
   assert(!fixture.requests.some(r => r[0] === 'related'), 'legacy lookup must be explicit');

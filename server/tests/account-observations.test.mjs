@@ -227,6 +227,18 @@ before(async () => {
     await prisma.$executeRawUnsafe(statement);
   }
 
+  const shortCodeMigration = readFileSync(new URL(
+    '../prisma/migrations/20261118150000_short_account_appeal_codes/migration.sql', import.meta.url,
+  ), 'utf8');
+
+  const [shortCodeDdl, shortCodeBackfill] = shortCodeMigration.split('DO $$');
+
+  for (const statement of shortCodeDdl.split(';').filter((sql) => sql.trim())) {
+    await prisma.$executeRawUnsafe(statement);
+  }
+
+  await prisma.$executeRawUnsafe(`DO $$${shortCodeBackfill}`);
+
   await prisma.$executeRawUnsafe(`CREATE TABLE "Brute" (
     id UUID PRIMARY KEY, "userId" UUID REFERENCES "User"(id) ON DELETE CASCADE,
     name TEXT NOT NULL, "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "deletedAt" TIMESTAMP
@@ -546,6 +558,35 @@ integration('case detail paginates snapshot accounts and retains IDs after accou
   assert.equal(page.users.find((entry) => entry.id === live).name, null);
   assert.equal((await prisma.multipleAccountCase.findFirst()).accountCount, 31);
   await assert.rejects(getMultipleAccountCase(prisma, row.id, '-1'));
+});
+
+integration('account-specific appeals verify membership and identify accounts beyond the current page', async () => {
+  const live = await user();
+  const ids = [live, ...Array.from({ length: 60 }, () => randomUUID())].sort();
+
+  await createMultipleAccountCases(prisma, [caseGroup({ userIds: ids })], now);
+  const row = await prisma.multipleAccountCase.findFirst();
+
+  await prisma.$executeRaw`UPDATE "User" SET "bannedAt" = ${now}, "banReason" = 'multipleAccounts',
+    "banAppealCode" = ${row.appealCode}::uuid WHERE id = ${live}::uuid`;
+  const offset = ids.indexOf(live) >= 25 ? '0' : '25';
+  const detail = await getMultipleAccountCase(prisma, `MC-${row.appealCode}`, offset, live);
+
+  assert.ok(!detail.users.some((entry) => entry.id === live));
+  assert.equal(detail.appealingAccount.id, live);
+  assert.equal(detail.appealingAccount.name, 'Fixture account');
+  assert.equal(detail.appealingAccount.banAppealCode, row.appealCode);
+  assert.equal(detail.appealingAccount.deleted, false);
+  assert.ok(detail.appealingAccount.bannedAt);
+  await assert.rejects(getMultipleAccountCase(prisma, row.id, '0', randomUUID()), /not a member/);
+  await assert.rejects(getMultipleAccountCase(prisma, row.id, '0', ['invalid']), /Invalid case/);
+  const legacy = await getMultipleAccountCase(prisma, row.id);
+
+  assert.equal(legacy.appealingAccount, undefined);
+  await prisma.$executeRaw`UPDATE "User" SET "bannedAt" = NULL WHERE id = ${live}::uuid`;
+  assert.equal((await getMultipleAccountCase(prisma, row.id, '0', live)).appealingAccount.bannedAt, null);
+  await prisma.$executeRaw`DELETE FROM "User" WHERE id = ${live}::uuid`;
+  assert.equal((await getMultipleAccountCase(prisma, row.id, '0', live)).appealingAccount.deleted, true);
 });
 
 integration('large cases keep list and detail responses bounded without expanding all members in a page query', async () => {

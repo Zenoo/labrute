@@ -26,6 +26,9 @@ import { verifyFingerprintEvent, registerFingerprintIdentity } from '../utils/fi
 import { getIdentifierRestrictions } from '../utils/identifierSanctions.js';
 import { getBrowserId } from '../utils/browserId.js';
 import { traced } from '../utils/trace.js';
+import {
+  isAppealReferenceCollision, retryAppealReferenceCollision,
+} from '../utils/retryAppealReferenceCollision.js';
 import { recordAccountObservation } from '../utils/accountObservations.js';
 import { getClientIp } from '../utils/clientIp.js';
 import { bannedAccountMessage } from '../utils/user/bannedAccountMessage.js';
@@ -132,7 +135,7 @@ export class OAuth {
       let user: UserWithBrutesBodyColor | null = null;
 
       try {
-        user = await traced('oauth.token.upsertUser', () => this.#prisma.user.upsert({
+        user = await retryAppealReferenceCollision(() => traced('oauth.token.upsertUser', () => this.#prisma.user.upsert({
           where: {
             id: etwinUser.id,
             bannedAt: null,
@@ -169,11 +172,15 @@ export class OAuth {
               where: { read: false },
             },
           },
-        }));
+        })));
       } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
           switch (error.code) {
             case 'P2002': {
+              if (isAppealReferenceCollision(error)) {
+                throw error;
+              }
+
               // Upsert race condition, update the user
               user = await traced('oauth.token.updateUser', () => this.#prisma.user.update({
                 where: {
@@ -244,7 +251,7 @@ export class OAuth {
       // A conditional write can reject a banned account or a ban committed during login.
       // Fetch the explanation only on this failure path, never before a successful upsert.
       if (oauthUserId && error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-        const rejected = await this.#prisma.user.findUnique({
+        const rejected = await traced('oauth.token.rejectedAccount', () => this.#prisma.user.findUnique({
           where: { id: oauthUserId },
           select: {
             id: true,
@@ -252,8 +259,9 @@ export class OAuth {
             banReason: true,
             lang: true,
             banAppealCode: true,
+            appealReference: true,
           },
-        });
+        }));
 
         if (rejected?.bannedAt) {
           const message = rejected.banReason === 'account_deleted'

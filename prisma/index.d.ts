@@ -6332,6 +6332,7 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: string | null
+    appealReference: string | null
     lang: $Enums.Lang | null
     name: string | null
     admin: boolean | null
@@ -6357,6 +6358,7 @@ export namespace Prisma {
 
   export type UserMaxAggregateOutputType = {
     id: string | null
+    appealReference: string | null
     lang: $Enums.Lang | null
     name: string | null
     admin: boolean | null
@@ -6382,6 +6384,7 @@ export namespace Prisma {
 
   export type UserCountAggregateOutputType = {
     id: number
+    appealReference: number
     lang: number
     name: number
     admin: number
@@ -6426,6 +6429,7 @@ export namespace Prisma {
 
   export type UserMinAggregateInputType = {
     id?: true
+    appealReference?: true
     lang?: true
     name?: true
     admin?: true
@@ -6451,6 +6455,7 @@ export namespace Prisma {
 
   export type UserMaxAggregateInputType = {
     id?: true
+    appealReference?: true
     lang?: true
     name?: true
     admin?: true
@@ -6476,6 +6481,7 @@ export namespace Prisma {
 
   export type UserCountAggregateInputType = {
     id?: true
+    appealReference?: true
     lang?: true
     name?: true
     admin?: true
@@ -6591,6 +6597,7 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
+    appealReference: string
     lang: $Enums.Lang
     name: string
     admin: boolean
@@ -6638,6 +6645,7 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    appealReference?: boolean
     lang?: boolean
     name?: boolean
     admin?: boolean
@@ -6683,6 +6691,7 @@ export namespace Prisma {
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    appealReference?: boolean
     lang?: boolean
     name?: boolean
     admin?: boolean
@@ -6712,6 +6721,7 @@ export namespace Prisma {
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    appealReference?: boolean
     lang?: boolean
     name?: boolean
     admin?: boolean
@@ -6741,6 +6751,7 @@ export namespace Prisma {
 
   export type UserSelectScalar = {
     id?: boolean
+    appealReference?: boolean
     lang?: boolean
     name?: boolean
     admin?: boolean
@@ -6767,7 +6778,7 @@ export namespace Prisma {
     sharedBrowserId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "banAppealCode" | "displayVersusPage" | "alwaysDisplayScrubber" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appealReference" | "lang" | "name" | "admin" | "moderator" | "connexionToken" | "bruteLimit" | "gold" | "fightSpeed" | "backgroundMusic" | "dinorpgDone" | "ips" | "fingerprints" | "browserIds" | "createdAt" | "bannedAt" | "banReason" | "banAppealCode" | "displayVersusPage" | "alwaysDisplayScrubber" | "displayOpponentDetails" | "transferedBrutesCount" | "termsAccepted" | "lastSeen" | "sharedBrowserId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accountObservations?: boolean | User$accountObservationsArgs<ExtArgs>
     accountActivitySamples?: boolean | User$accountActivitySamplesArgs<ExtArgs>
@@ -6816,6 +6827,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      appealReference: string
       lang: $Enums.Lang
       name: string
       admin: boolean
@@ -7280,6 +7292,7 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
+    readonly appealReference: FieldRef<"User", 'String'>
     readonly lang: FieldRef<"User", 'Lang'>
     readonly name: FieldRef<"User", 'String'>
     readonly admin: FieldRef<"User", 'Boolean'>
@@ -59670,6 +59683,7 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
+    appealReference: 'appealReference',
     lang: 'lang',
     name: 'name',
     admin: 'admin',
@@ -60807,6 +60821,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: UuidFilter<"User"> | string
+    appealReference?: StringFilter<"User"> | string
     lang?: EnumLangFilter<"User"> | $Enums.Lang
     name?: StringFilter<"User"> | string
     admin?: BoolFilter<"User"> | boolean
@@ -60851,6 +60866,7 @@ export namespace Prisma {
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
+    appealReference?: SortOrder
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
@@ -60895,6 +60911,7 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    appealReference?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -60938,10 +60955,11 @@ export namespace Prisma {
     stats?: UserStatsListRelationFilter
     levelUpStats?: UserLevelUpStatListRelationFilter
     sharedBrowser?: XOR<SharedBrowserNullableScalarRelationFilter, SharedBrowserWhereInput> | null
-  }, "id" | "id">
+  }, "id" | "id" | "appealReference">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
+    appealReference?: SortOrder
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
@@ -60978,6 +60996,7 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"User"> | string
+    appealReference?: StringWithAggregatesFilter<"User"> | string
     lang?: EnumLangWithAggregatesFilter<"User"> | $Enums.Lang
     name?: StringWithAggregatesFilter<"User"> | string
     admin?: BoolWithAggregatesFilter<"User"> | boolean
@@ -64393,6 +64412,7 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -64436,6 +64456,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -64479,6 +64500,7 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -64522,6 +64544,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -64565,6 +64588,7 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -64593,6 +64617,7 @@ export namespace Prisma {
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -64620,6 +64645,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -68275,13 +68301,6 @@ export namespace Prisma {
     not?: NestedUuidFilter<$PrismaModel> | string
   }
 
-  export type EnumLangFilter<$PrismaModel = never> = {
-    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
-    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    not?: NestedEnumLangFilter<$PrismaModel> | $Enums.Lang
-  }
-
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -68295,6 +68314,13 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type EnumLangFilter<$PrismaModel = never> = {
+    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangFilter<$PrismaModel> | $Enums.Lang
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -68512,6 +68538,7 @@ export namespace Prisma {
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
+    appealReference?: SortOrder
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
@@ -68547,6 +68574,7 @@ export namespace Prisma {
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
+    appealReference?: SortOrder
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
@@ -68572,6 +68600,7 @@ export namespace Prisma {
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
+    appealReference?: SortOrder
     lang?: SortOrder
     name?: SortOrder
     admin?: SortOrder
@@ -68617,16 +68646,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type EnumLangWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
-    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | $Enums.Lang
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumLangFilter<$PrismaModel>
-    _max?: NestedEnumLangFilter<$PrismaModel>
-  }
-
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -68643,6 +68662,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type EnumLangWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | $Enums.Lang
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLangFilter<$PrismaModel>
+    _max?: NestedEnumLangFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -75317,13 +75346,6 @@ export namespace Prisma {
     not?: NestedUuidFilter<$PrismaModel> | string
   }
 
-  export type NestedEnumLangFilter<$PrismaModel = never> = {
-    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
-    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    not?: NestedEnumLangFilter<$PrismaModel> | $Enums.Lang
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -75336,6 +75358,13 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedEnumLangFilter<$PrismaModel = never> = {
+    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangFilter<$PrismaModel> | $Enums.Lang
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -75415,16 +75444,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedEnumLangWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
-    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
-    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | $Enums.Lang
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumLangFilter<$PrismaModel>
-    _max?: NestedEnumLangFilter<$PrismaModel>
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -75440,6 +75459,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedEnumLangWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Lang | EnumLangFieldRefInput<$PrismaModel>
+    in?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Lang[] | ListEnumLangFieldRefInput<$PrismaModel>
+    not?: NestedEnumLangWithAggregatesFilter<$PrismaModel> | $Enums.Lang
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLangFilter<$PrismaModel>
+    _max?: NestedEnumLangFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -77269,6 +77298,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutAccountActivitySamplesInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -77311,6 +77341,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutAccountActivitySamplesInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -77369,6 +77400,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutAccountActivitySamplesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -77411,6 +77443,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutAccountActivitySamplesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -77453,6 +77486,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutAccountObservationsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -77495,6 +77529,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutAccountObservationsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -77553,6 +77588,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutAccountObservationsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -77595,6 +77631,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutAccountObservationsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -77637,6 +77674,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutLogsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -77679,6 +77717,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutLogsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -77914,6 +77953,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -77956,6 +77996,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -78181,6 +78222,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutBrutesInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -78223,6 +78265,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutBrutesInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -79550,6 +79593,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutFollowingInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -79592,6 +79636,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutFollowingInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -79917,6 +79962,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutBrutesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -79959,6 +80005,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutBrutesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -80744,6 +80791,7 @@ export namespace Prisma {
     OR?: UserScalarWhereInput[]
     NOT?: UserScalarWhereInput | UserScalarWhereInput[]
     id?: UuidFilter<"User"> | string
+    appealReference?: StringFilter<"User"> | string
     lang?: EnumLangFilter<"User"> | $Enums.Lang
     name?: StringFilter<"User"> | string
     admin?: BoolFilter<"User"> | boolean
@@ -82171,6 +82219,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutFavoriteFightsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -82213,6 +82262,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutFavoriteFightsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -84406,6 +84456,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutTournamentGoldsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -84448,6 +84499,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutTournamentGoldsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -84506,6 +84558,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutTournamentGoldsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -84548,6 +84601,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutTournamentGoldsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -85487,6 +85541,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutAchievementsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -85529,6 +85584,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutAchievementsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -85770,6 +85826,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutAchievementsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -85812,6 +85869,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutAchievementsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -86031,6 +86089,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutReportsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -86073,6 +86132,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutReportsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -86120,6 +86180,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutReportsHandledInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -86162,6 +86223,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutReportsHandledInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -86419,6 +86481,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutReportsHandledInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -86461,6 +86524,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutReportsHandledInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -86503,6 +86567,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutSharedBrowserInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -86545,6 +86610,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutSharedBrowserInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -86672,6 +86738,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutSharedBrowserExemptionsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -86714,6 +86781,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutSharedBrowserExemptionsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -86797,6 +86865,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutSharedBrowserExemptionsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -86839,6 +86908,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutSharedBrowserExemptionsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -90748,6 +90818,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutInventoryInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -90790,6 +90861,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutInventoryInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -91031,6 +91103,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutInventoryInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -91073,6 +91146,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutInventoryInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -91725,6 +91799,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutNotificationsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -91767,6 +91842,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -91825,6 +91901,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutNotificationsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -91867,6 +91944,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -92203,6 +92281,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutStatsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -92245,6 +92324,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutStatsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -92303,6 +92383,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutStatsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -92345,6 +92426,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutStatsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -92747,6 +92829,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutLevelUpStatsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -92789,6 +92872,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutLevelUpStatsInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -92847,6 +92931,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutLevelUpStatsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -92889,6 +92974,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutLevelUpStatsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -95710,6 +95796,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFollowingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -95752,6 +95839,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -95794,6 +95882,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyWithoutFollowingInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -96080,6 +96169,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFavoriteFightsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -96122,6 +96212,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutFavoriteFightsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -96164,6 +96255,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyWithoutFavoriteFightsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -96552,6 +96644,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutReportsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -96594,6 +96687,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutReportsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -96636,6 +96730,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyWithoutReportsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -96664,6 +96759,7 @@ export namespace Prisma {
 
   export type UserCreateManySharedBrowserInput = {
     id: string
+    appealReference?: string
     lang?: $Enums.Lang
     name: string
     admin?: boolean
@@ -96698,6 +96794,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutSharedBrowserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -96740,6 +96837,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutSharedBrowserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean
@@ -96782,6 +96880,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyWithoutSharedBrowserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    appealReference?: StringFieldUpdateOperationsInput | string
     lang?: EnumLangFieldUpdateOperationsInput | $Enums.Lang
     name?: StringFieldUpdateOperationsInput | string
     admin?: BoolFieldUpdateOperationsInput | boolean

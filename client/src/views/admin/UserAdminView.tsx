@@ -1,4 +1,6 @@
-import { BanReason, UserGetAdminResponse } from '@labrute/core';
+import {
+  BanReason, formatAppealCode, UserGetAdminResponse,
+} from '@labrute/core';
 import {
   AchievementName, InventoryItemType, Lang,
 } from '@labrute/prisma';
@@ -281,10 +283,10 @@ export const UserAdminView = () => {
                     <Text>Ban reason: {user.banReason || 'Not recorded'}</Text>
                     <Text>
                       Appeal code: {user.banAppealCode
-                      ? <Link to={`/admin-panel/multiple-accounts?case=MC-${user.banAppealCode}`}>
-                        MC-{user.banAppealCode}
+                      ? <Link to={`/admin-panel/multiple-accounts?case=MC-${user.banAppealCode}&account=${user.id}`}>
+                        {formatAppealCode(user.id, user.banAppealCode, user.appealReference)}
                       </Link>
-                      : `USER-${user.id}`}
+                      : formatAppealCode(user.id, null, user.appealReference)}
                     </Text>
                   </> : <Text>Not currently banned.</Text>}
                   {banHistory.length > 0 && <>
