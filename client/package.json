@@ -16,7 +16,7 @@
     "@ckeditor/ckeditor5-build-classic": "^42.0.2",
     "@ckeditor/ckeditor5-core": "^42.0.2",
     "@ckeditor/ckeditor5-editor-multi-root": "^42.0.2",
-    "@ckeditor/ckeditor5-engine": "^42.0.2",
+    "@ckeditor/ckeditor5-engine": "^47.7.4",
     "@ckeditor/ckeditor5-react": "^8.0.0",
     "@ckeditor/ckeditor5-utils": "^42.0.2",
     "@ckeditor/ckeditor5-watchdog": "^42.0.2",
